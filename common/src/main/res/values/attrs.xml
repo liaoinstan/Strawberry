@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DotView">
+        <attr name="myselected_color" format="color|reference" />
+        <attr name="myunselected_color" format="color|reference" />
+
+        <attr name="myselected_drawable" format="reference" />
+        <attr name="myunselected_drawable" format="reference" />
+
+        <attr name="mydoy_size" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="BannerView">
+        <attr name="banner_selected_color" format="color|reference" />
+        <attr name="banner_unselected_color" format="color|reference" />
+
+        <attr name="banner_selected_drawable" format="reference" />
+        <attr name="banner_unselected_drawable" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="MovieRecorderView">
+        <!-- 开始是否打开摄像头 -->
+        <attr name="is_open_camera" format="boolean" />
+        <!-- 一次拍摄最长时间 -->
+        <attr name="record_max_time" format="integer" />
+        <!-- 视频分辨率宽度 -->
+        <attr name="video_width" format="integer" />
+        <!-- 视频分辨率高度 -->
+        <attr name="video_height" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="RectBackTextView">
+        <attr name="bk_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="DotTextView">
+        <attr name="color_dot" format="color" />
+        <attr name="color_select" format="color" />
+        <attr name="color_unselect" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="LoadingLayout">
+        <attr name="layout_loading" format="reference" />
+        <attr name="layout_lack" format="reference" />
+        <attr name="layout_fail" format="reference" />
+    </declare-styleable>
+</resources>

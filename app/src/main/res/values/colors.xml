@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/st_bk</color>
+    <color name="colorPrimaryDark">@color/white</color>
+    <color name="colorAccent">@color/st_purple</color>
+
+    <color name="st_bk">#f7f8fa</color>
+    <color name="st_purple">#652d90</color>
+</resources>

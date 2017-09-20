@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context=".ui.activity.DomainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.ins.domain.ui.view.FullyListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null" />
+
+            <TextView
+                android:id="@+id/btn_add"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="+ 添加ip或域名"
+                android:textColor="#03948d" />
+
+            <EditText
+                android:id="@+id/edit_domain"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:digits="0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM.:_-"
+                android:hint="输入或选择API服务器域名或IP地址"
+                android:inputType="text"
+                android:lines="1"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textSize="14sp" />
+
+            <CheckBox
+                android:id="@+id/check_domain_vali"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="20dp"
+                android:checked="true"
+                android:text="是否显示验证码"
+                android:textColor="#666" />
+
+            <CheckBox
+                android:id="@+id/check_domain_toast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="20dp"
+                android:checked="true"
+                android:text="是否打印测试信息到窗口"
+                android:textColor="#666" />
+
+            <TextView
+                android:id="@+id/btn_advance"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="高级设置"
+                android:textColor="#03948d" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_go"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="#03948d"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="启动App"
+        android:textColor="#fff" />
+</LinearLayout>

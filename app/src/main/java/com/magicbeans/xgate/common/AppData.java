@@ -1,0 +1,87 @@
+package com.magicbeans.xgate.common;
+
+import com.ins.common.utils.SharedPrefUtilV2;
+import com.magicbeans.xgate.bean.User;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Administrator on 2017/7/17.
+ */
+
+public class AppData {
+
+
+    public static class App {
+
+        private static final String SHARENAME = "app_config";
+        private static final String KEY_TOKEN = "token";
+        private static final String KEY_USER = "user";
+        private static final String KEY_TEXTSIZE_EXAM = "textsize_exam";
+        private static final String KEY_TEXTSIZE_VIDEO = "textsize_video";
+
+        public static void saveToken(String token) {
+            SharedPrefUtilV2.open(SHARENAME).putString(KEY_TOKEN, token);
+        }
+
+        public static String getToken() {
+            return SharedPrefUtilV2.open(SHARENAME).getString(KEY_TOKEN);
+        }
+
+        public static void removeToken() {
+            SharedPrefUtilV2.open(SHARENAME).remove(KEY_TOKEN);
+        }
+
+        public static void saveUser(User user) {
+            SharedPrefUtilV2.open(SHARENAME).put(KEY_USER, user);
+        }
+
+        public static User getUser() {
+            return (User) SharedPrefUtilV2.open(SHARENAME).get(KEY_USER);
+        }
+
+        public static void removeUser() {
+            SharedPrefUtilV2.open(SHARENAME).remove(KEY_USER);
+        }
+
+    }
+
+    /**
+     * 记录了app中所有全局控制常量
+     */
+    public static class Config {
+        public static boolean showVali = false;                 //显示验证码（仅测试）
+        public static boolean showTestToast = false;            //打印测试信息到窗口（仅测试）
+    }
+
+    public static class Constant {
+    }
+
+    /**
+     * 记录了app中所有的请求连接地址
+     */
+    public static class Url {
+
+        /**
+         * 资源服务器地址
+         */
+        public static String domainRes;
+
+        /**
+         * 接口请求地址
+         */
+        public static String version = "api/updateAPK/version.json";                                   //客户端检查更新
+        public static String upload = "images/res/upload";                                                 //上传文件
+
+        public static String bannerInfo = "api/page/app/bannerInfo";                                            //banner详情?bannerId=1
+        public static String newsInfo = "api/page/app/newsInfo";                                                //资讯详情?newsId=2
+
+        public static String quelity = "api/page/aptitude";                     //资质
+        public static String about = "api/page/aboutUs";                        //关于我们
+        public static String netpoint = "api/page/branch";                      //网点
+        public static String safe = "api/page/polling";                         //安全巡检
+        public static String clause = "api/page/app/agreement";                //使用条款
+
+    }
+}

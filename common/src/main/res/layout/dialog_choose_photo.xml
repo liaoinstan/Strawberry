@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/text_pop_identy_camera"
+        android:textSize="@dimen/text_big"
+        android:textColor="@color/com_text_blank"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/hot_lay_item_dark"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="拍照" />
+
+    <View style="@style/Line_H"/>
+
+    <TextView
+        android:id="@+id/text_pop_identy_photo"
+        android:textSize="@dimen/text_big"
+        android:textColor="@color/com_text_blank"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/hot_lay_item_dark"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="照片图库" />
+
+    <!--@color/wj_orange-->
+
+    <View style="@style/Line_H"/>
+
+    <TextView
+        android:id="@+id/text_pop_identy_cancel"
+        android:textSize="@dimen/text_big"
+        android:textColor="@color/com_text_blank"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/hot_lay_item_dark"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="取消" />
+
+</LinearLayout>

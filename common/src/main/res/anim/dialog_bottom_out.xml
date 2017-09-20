@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 底部出场动画：用于底部弹出dialog-->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/accelerate_interpolator">
+
+    <translate
+        android:duration="200"
+        android:fromYDelta="0%p"
+        android:toYDelta="100%p" />
+
+</set>

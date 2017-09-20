@@ -1,0 +1,77 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        applicationId "com.magicbeans.xgate"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0.0.1"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //使用矢量图兼容库
+        vectorDrawables.useSupportLibrary = true
+    }
+    //##########################
+    //配置keystore签名 start
+    //签名秘钥应避免暴露在受版本控制的文件中
+    signingConfigs {
+        myConfig {
+            try {
+                storeFile file("liaoinstan.jks")
+                storePassword KEYSTORE_PASSWORD
+                keyAlias KEY_ALIAS
+                keyPassword KEY_PASSWORD
+            } catch (ex) {
+                throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_ALIAS and KEY_PASSWORD in gradle.properties.")
+            }
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.myConfig
+            buildConfigField "String", "BASE_URL", '"http://app.aimaiap.com/"'
+            buildConfigField "String", "BASE_URL_RES", '"http://multimedia.aimaiap.com/"'
+            minifyEnabled true      //开启代码混淆
+            zipAlignEnabled true    //是否zip对齐优化
+            shrinkResources true    //移除无用的资源文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.myConfig
+            buildConfigField "String", "BASE_URL", '"http://192.168.31.166/"'
+            buildConfigField "String", "BASE_URL_RES", '"http://192.168.31.205:8080/"'
+        }
+    }
+    //配置keystore签名 end
+    //##########################
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(
+                    output.outputFile.parent,
+                    "strawberry-" + defaultConfig.versionCode + "-" + defaultConfig.versionName + "-" + variant.buildType.name + ".apk");
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile project(':common')
+    //SpringView
+    compile 'com.liaoinstan.springview:library:1.3.0'
+    //加载自定义字体
+    compile 'uk.co.chrisjenx:calligraphy:2.3.0'
+    compile project(':lib_domain')
+    compile project(':lib_version')
+}

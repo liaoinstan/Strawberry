@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.AdvanceActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="高级设置"
+            android:textColor="#03948d" />
+
+        <CheckBox
+            android:id="@+id/check_domain_vali"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:checked="false"
+            android:enabled="false"
+            android:text="启用严格模式"
+            android:textColor="#aaa" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="快捷入口"
+            android:textColor="#03948d" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/btn_advance_permission"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="清除数据/权限管理" />
+
+            <TextView
+                android:id="@+id/btn_advance_wifi"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="wifi设置" />
+
+            <TextView
+                android:id="@+id/btn_advance_deve"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="开发人员选项" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="资源服务器（不填则默认使用API服务器）"
+            android:textColor="#03948d" />
+
+        <EditText
+            android:id="@+id/edit_domain_res"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="17dp"
+            android:digits="0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM.:_"
+            android:hint="输入资源服务器域名或IP地址"
+            android:inputType="text"
+            android:lines="1"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--通用文字颜色-->
+    <!--所有APP都可以使用的不变的颜色，经过大量实践使用这些颜色往往可以让布局更加美观-->
+    <color name="com_text_light">#cccccc</color>
+    <color name="com_text_dark_light">#aaaaaa</color>
+    <color name="com_text_dark">#999999</color>
+    <color name="com_text_dark_blank">#808080</color>
+    <color name="com_text_blank">#666666</color>
+    <color name="com_text_blank_deep_light">#4d4d4d</color>
+    <color name="com_text_blank_deep">#333333</color>
+
+    <!--通用预设色-->
+    <!--APP中容易使用到的通用颜色，所有APP都可以使用这些颜色-->
+    <color name="none">#00000000</color>
+    <color name="white">#ffffff</color>
+    <color name="blank">#000000</color>
+    <color name="defaut">#cccccc</color>
+    <color name="com_dark">#999999</color>
+    <color name="com_light">#bbbbbb</color>
+    <color name="com_bk">#f1f1f1</color>
+    <color name="com_line">#55999999</color>
+
+    <!--通用基色-->
+    <!--基色由APP的设计最终决定，这里列出一些缺损的颜色，如果设计没有提供某种颜色可以暂时使用这些颜色作为替代-->
+    <color name="com_blue">#5793e6</color>
+    <color name="com_blue_trans">#665793e6</color>
+    <color name="com_yellow">#edb821</color>
+    <color name="com_red">#fd6e50</color>
+    <color name="com_green">#45d1ae</color>
+    <color name="com_orange">#f38001</color>
+
+    <!--保留基色-->
+    <!--这里保留了曾在其余项目中用曾过的代表性的基色，这些颜色在视觉效果上都进过精心设计，不应该被遗忘掉-->
+    <color name="sb_glod">#e5b72d</color>
+    <color name="sb_blue">#5793e6</color>
+    <color name="sb_green">#ff12b143</color>
+    <color name="sb_red">#fff03619</color>
+    <color name="sb_track">#8699aa</color>
+
+    <color name="wj_orange">#f38001</color>
+    <color name="wj_yellow">#fed154</color>
+    <color name="wj_blue">#4fc0e8</color>
+    <color name="wj_green">#45d1ae</color>
+    <color name="wj_red">#fd6e50</color>
+
+    <color name="kd_yellow">#edb821</color>
+
+    <color name="yz_gold">#d4bb9c</color>
+    <color name="yz_blue">#97cadf</color>
+    <color name="yz_green">#83c4bc</color>
+    <color name="yz_yellow">#ffbd5d</color>
+    <color name="yz_red">#ea958e</color>
+    <color name="yz_orange">#ffa37a</color>
+
+    <color name="am_bk">#f7f8fa</color>
+    <color name="am_blue">#2f76b8</color>
+    <color name="am_blue_light">#79cff0</color>
+    <color name="am_yellow">#f9bf37</color>
+    <color name="am_orage">#fe5e08</color>
+    <color name="am_red">#f22828</color>
+    <color name="am_red_dark">#b50f03</color>
+    <color name="am_yellow_light">#fbe59c</color>
+</resources>

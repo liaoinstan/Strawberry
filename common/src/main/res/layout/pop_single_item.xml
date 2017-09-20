@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lay_item_pop"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:foreground="?attr/selectableItemBackground"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/text_item_singpop_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_weight="1"
+        android:text="运动户外"
+        android:textColor="@color/com_text_dark_blank"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/check_item_singpop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/selector_check_none"
+        tools:ignore="ContentDescription" />
+
+</LinearLayout>
