@@ -32,10 +32,10 @@ public class ConerBkSpan extends ReplacementSpan {
         this.color_bk = color_bk;
         this.color_text = color_text;
         //初始化默认值
-        this.padding_h = DensityUtil.dp2px(App.getContext(), 12);
-        this.padding_v = DensityUtil.dp2px(App.getContext(), 3);
-        this.coner = DensityUtil.dp2px(App.getContext(), 3);
-        this.padding_draw = DensityUtil.dp2px(App.getContext(), 7);
+        this.padding_h = DensityUtil.dp2px(12);
+        this.padding_v = DensityUtil.dp2px(3);
+        this.coner = DensityUtil.dp2px(3);
+        this.padding_draw = DensityUtil.dp2px(7);
     }
 
     @Override

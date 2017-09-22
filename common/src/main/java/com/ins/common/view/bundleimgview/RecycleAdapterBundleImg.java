@@ -42,13 +42,13 @@ public class RecycleAdapterBundleImg extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        switch (viewType){
+        switch (viewType) {
             case TYPE_ADD:
                 return new HolderAdd(LayoutInflater.from(parent.getContext()).inflate(R.layout.bundle_item_recycle_add, parent, false));
             case TYPE_ITEM:
                 return new HolderItem(LayoutInflater.from(parent.getContext()).inflate(R.layout.bundle_item_recycle, parent, false));
             default:
-                Log.d("error","viewholder is null");
+                Log.d("error", "viewholder is null");
                 return null;
         }
     }
@@ -58,28 +58,28 @@ public class RecycleAdapterBundleImg extends RecyclerView.Adapter<RecyclerView.V
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listener != null) listener.onItemClick(holder);
+                if (listener != null) listener.onItemClick(holder, position);
             }
         });
 
-        if (holder instanceof HolderAdd){
+        if (holder instanceof HolderAdd) {
             bindTypeAdd((HolderAdd) holder, position);
-        }else if (holder instanceof HolderItem){
+        } else if (holder instanceof HolderItem) {
             bindTypeItem((HolderItem) holder, position);
         }
     }
 
     private void bindTypeAdd(HolderAdd holder, int position) {
 //        if (enable) {
-            holder.itemView.setVisibility(View.VISIBLE);
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (bundleClickListener != null) {
-                        bundleClickListener.onPhotoAddClick(v);
-                    }
+        holder.itemView.setVisibility(View.VISIBLE);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bundleClickListener != null) {
+                    bundleClickListener.onPhotoAddClick(v);
                 }
-            });
+            }
+        });
 //        }else {
 //            holder.itemView.setVisibility(View.GONE);
 //        }
@@ -122,7 +122,7 @@ public class RecycleAdapterBundleImg extends RecyclerView.Adapter<RecyclerView.V
     public int getItemCount() {
         if (enable) {
             return results.size() + 1;
-        }else {
+        } else {
             return results.size();
         }
     }

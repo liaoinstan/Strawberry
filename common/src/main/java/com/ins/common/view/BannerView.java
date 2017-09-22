@@ -19,7 +19,6 @@ import android.widget.TextView;
 import com.ins.common.R;
 import com.ins.common.entity.Image;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -174,17 +173,9 @@ public class BannerView extends FrameLayout implements Runnable {
     private class BannerAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener {
 
         private LayoutInflater mInflater;
-        private List<ImageView> views = new ArrayList<>();
 
         public BannerAdapter(Context context) {
             mInflater = LayoutInflater.from(context);
-            for (int i = 0; i < DEFAULT_BANNER_SIZE; i++) {
-                ImageView imageView = new ImageView(context);
-                ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                imageView.setLayoutParams(layoutParams);
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                views.add(imageView);
-            }
         }
 
         @Override
@@ -203,11 +194,16 @@ public class BannerView extends FrameLayout implements Runnable {
             position %= DEFAULT_BANNER_SIZE;
 
             //初始化imageView
-            ImageView imageView = views.get(position);
+            ImageView imageView = new ImageView(context);
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            imageView.setLayoutParams(layoutParams);
+
 
             if ("default".equals(images.get(position).getImg())) {
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 imageView.setImageResource(R.drawable.default_bk_img);
             } else {
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 //绑定网络图片
                 if (onLoadImgListener != null) {
                     onLoadImgListener.onloadImg(imageView, images.get(position).getImg(), R.drawable.default_bk_img);
@@ -227,9 +223,7 @@ public class BannerView extends FrameLayout implements Runnable {
             });
 
             //添加到容器
-            if (imageView.getParent() == null) {
-                container.addView(imageView);
-            }
+            container.addView(imageView);
             return imageView;
         }
 

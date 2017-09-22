@@ -38,13 +38,13 @@
                 android:id="@+id/tab_2"
                 style="@style/RadioHomeTab"
                 android:drawableTop="@drawable/selector_tab_home"
-                android:text="课程" />
+                android:text="分类" />
 
             <RadioButton
                 android:id="@+id/tab_3"
                 style="@style/RadioHomeTab"
                 android:drawableTop="@drawable/selector_tab_home"
-                android:text="学习" />
+                android:text="购物车" />
 
             <RadioButton
                 android:id="@+id/tab_4"

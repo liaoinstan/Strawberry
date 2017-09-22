@@ -42,7 +42,7 @@ public class DotTextView extends AppCompatTextView {
         bkdrawble.setShape(GradientDrawable.RECTANGLE);
         bkdrawble.setColor(color_dot);
         bkdrawble.setCornerRadius(0);//圆角 0
-        bkdrawble.setSize(DensityUtil.dp2px(getContext(), 3), DensityUtil.dp2px(getContext(), 12));
+        bkdrawble.setSize(DensityUtil.dp2px(3), DensityUtil.dp2px( 12));
     }
 
     @Override

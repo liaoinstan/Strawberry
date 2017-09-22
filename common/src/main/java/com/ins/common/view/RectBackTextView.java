@@ -33,7 +33,7 @@ public class RectBackTextView extends AppCompatTextView {
         bkdrawble = new GradientDrawable();
         bkdrawble.setShape(GradientDrawable.RECTANGLE);
         bkdrawble.setColor(color_bk);
-        bkdrawble.setCornerRadius(DensityUtil.dp2px(context, 2));
+        bkdrawble.setCornerRadius(DensityUtil.dp2px(2));
     }
 
     @Override

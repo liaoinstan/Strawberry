@@ -73,7 +73,7 @@ public class HomeActivity extends BaseAppCompatActivity {
 
     private void initCtrl() {
         pagerAdapter = new PagerAdapterHome(getSupportFragmentManager());
-        pager.setOffscreenPageLimit(4);
+        pager.setOffscreenPageLimit(1);
         pager.setAdapter(pagerAdapter);
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

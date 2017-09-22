@@ -118,9 +118,9 @@ public class ItemDecorationSortStickTop extends RecyclerView.ItemDecoration {
         //根据位置不断变换Paint的颜色
         mPaint.setColor(getColor(getPositionByArr(tag)));
         mPaint.setTextSize(40);
-        canvas.drawCircle(DensityUtil.dp2px(mContext, 42.5f), bottom - dividerHeight / 2, 35, mPaint);
+        canvas.drawCircle(DensityUtil.dp2px( 42.5f), bottom - dividerHeight / 2, 35, mPaint);
         mPaint.setColor(Color.WHITE);
-        canvas.drawText(tag, DensityUtil.dp2px(mContext, 42.5f), bottom - dividerHeight / 3, mPaint);
+        canvas.drawText(tag, DensityUtil.dp2px( 42.5f), bottom - dividerHeight / 3, mPaint);
     }
 
 //    @Override
@@ -168,9 +168,9 @@ public class ItemDecorationSortStickTop extends RecyclerView.ItemDecoration {
         canvas.drawRect(parent.getLeft(), top, parent.getRight() - parent.getPaddingRight(), top + dividerHeight, mPaint);
         mPaint.setColor(getColor(getPositionByArr(tags.get(position))));
         mPaint.setTextSize(40);
-        canvas.drawCircle(DensityUtil.dp2px(mContext, 42.5f), top + dividerHeight / 2, 35, mPaint);
+        canvas.drawCircle(DensityUtil.dp2px( 42.5f), top + dividerHeight / 2, 35, mPaint);
         mPaint.setColor(Color.WHITE);
-        canvas.drawText(tags.get(position), DensityUtil.dp2px(mContext, 42.5f), top + dividerHeight * 2 / 3, mPaint);
+        canvas.drawText(tags.get(position), DensityUtil.dp2px( 42.5f), top + dividerHeight * 2 / 3, mPaint);
     }
 
 

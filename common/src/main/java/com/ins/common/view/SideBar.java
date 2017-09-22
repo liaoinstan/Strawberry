@@ -75,11 +75,11 @@ public class SideBar extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         //根据总高度计算上下边距（越高边距越大，越挤边距越小）
         //经过大量测试，上下边距取总高度的10%是比较合理的，但是弹出输入法后挤压页面依然有细微的文件重叠，这个规则还有待优化
-        MARGIN_BOTTOM = (int) (DensityUtil.px2dp(context, h) / 10);
+        MARGIN_BOTTOM = (int) (DensityUtil.px2dp( h) / 10);
         MARGIN_TOP = MARGIN_BOTTOM;
         //导航栏居中显示，减去上下边距
         width = w;
-        height = h - DensityUtil.dp2px(context, MARGIN_BOTTOM + MARGIN_TOP);
+        height = h - DensityUtil.dp2px( MARGIN_BOTTOM + MARGIN_TOP);
         singleHeight = height / indexStr.length();
     }
 
@@ -93,7 +93,7 @@ public class SideBar extends View {
             }
             String textTag = indexStr.substring(i, i + 1);
             float xPos = (width - paint.measureText(textTag)) / 2;
-            canvas.drawText(textTag, xPos, singleHeight * (i + 1) + DensityUtil.dp2px(context, MARGIN_TOP), paint);
+            canvas.drawText(textTag, xPos, singleHeight * (i + 1) + DensityUtil.dp2px( MARGIN_TOP), paint);
         }
     }
 
@@ -106,7 +106,7 @@ public class SideBar extends View {
                 callOnActionDown();
             case MotionEvent.ACTION_MOVE:
                 //滑动 event.getY()得到在父View中的Y坐标，通过和总高度的比例再乘以字符个数总长度得到按下的位置
-                currentPosition = (int) ((event.getY() - getTop() - DensityUtil.dp2px(context, MARGIN_TOP)) / height * indexStr.toCharArray().length);
+                currentPosition = (int) ((event.getY() - getTop() - DensityUtil.dp2px( MARGIN_TOP)) / height * indexStr.toCharArray().length);
                 if (currentPosition >= 0 && currentPosition < indexStr.length()) {
                     invalidate();
                     String tag = String.valueOf(indexStr.toCharArray()[currentPosition]);

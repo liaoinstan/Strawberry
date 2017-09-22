@@ -73,7 +73,7 @@ public class IndexBar extends ViewGroup {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(DensityUtil.dp2px(context, 30), ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(DensityUtil.dp2px( 30), ViewGroup.LayoutParams.WRAP_CONTENT);
         sideBar = new SideBar(context);
         sideBar.setLayoutParams(layoutParams);
         sideBar.addOnIndexChangeListener(new SideBar.OnIndexChangeListenerEx() {
@@ -174,9 +174,9 @@ public class IndexBar extends ViewGroup {
             //根据位置来不断变换Paint的颜色
             mPaint.setColor(getColor(position));
             //绘制圆和文字
-            canvas.drawCircle((mWidth - childWidth) / 2, centerY, DensityUtil.dp2px(context, circleRadius), mPaint);
+            canvas.drawCircle((mWidth - childWidth) / 2, centerY, DensityUtil.dp2px( circleRadius), mPaint);
             mPaint.setColor(Color.WHITE);
-            mPaint.setTextSize(DensityUtil.dp2px(context, textSize));
+            mPaint.setTextSize(DensityUtil.dp2px( textSize));
             canvas.drawText(tag, (mWidth - childWidth - mPaint.measureText(tag)) / 2, centerY - (mPaint.ascent() + mPaint.descent()) / 2, mPaint);
         }
     }

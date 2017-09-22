@@ -69,7 +69,7 @@ public class MyMulPopupWindow extends PopupWindow {
         this.setWidth(w);
         // 设置SelectPicPopupWindow弹出窗体的高
 //        this.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-        this.setHeight(DensityUtil.dp2px(context, 200));
+        this.setHeight(DensityUtil.dp2px(200));
         // 设置SelectPicPopupWindow弹出窗体可点击
         this.setFocusable(true);
         this.setOutsideTouchable(true);
