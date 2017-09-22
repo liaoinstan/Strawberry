@@ -88,5 +88,6 @@ public class CateFragment extends BaseFragment {
         pager.setAdapter(adapterPager);
         tab.setupWithViewPager(pager);
         TabLayoutUtil.reflex(tab);
+        //
     }
 }
