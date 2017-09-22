@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
 import com.magicbeans.xgate.ui.fragment.BuildingFragment;
+import com.magicbeans.xgate.ui.fragment.CateFragment;
 import com.magicbeans.xgate.ui.fragment.HomeFragment;
 import com.magicbeans.xgate.ui.fragment.MeFragment;
 import com.magicbeans.xgate.ui.fragment.ShopBagFragment;
@@ -33,7 +34,7 @@ public class PagerAdapterHome extends FragmentPagerAdapter {
             case 0:
                 return HomeFragment.newInstance(position);
             case 1:
-                return BuildingFragment.newInstance(position);
+                return CateFragment.newInstance(position);
             case 2:
                 return ShopBagFragment.newInstance(position);
             case 3:
