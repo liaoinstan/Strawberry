@@ -20,11 +20,12 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/white"
-            app:tabIndicatorColor="@color/com_blue"
+            app:tabIndicatorColor="@color/st_purple"
             app:tabIndicatorHeight="2dp"
-            app:tabSelectedTextColor="@color/com_blue"
-            app:tabTextColor="@color/com_text_dark" />
-            <!--app:tabTextAppearance="@style/TabLayoutTextBig"-->
+            app:tabSelectedTextColor="@color/st_purple"
+            app:tabTextColor="@color/com_text_light" />
+
+        <View style="@style/Line_H"/>
 
     </android.support.design.widget.AppBarLayout>
 

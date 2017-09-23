@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.magicbeans.xgate.ui.fragment.BuildingFragment;
+import com.magicbeans.xgate.ui.fragment.CateInFragment;
 
 
 /**
@@ -35,7 +36,7 @@ public class PagerAdapterCate extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return BuildingFragment.newInstance(position);
+                return CateInFragment.newInstance(position);
             case 1:
                 return BuildingFragment.newInstance(position);
             default:

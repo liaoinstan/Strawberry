@@ -84,8 +84,8 @@ public class TabLayoutUtil {
                         //设置tab左右间距为10dp  注意这里不能使用Padding 因为源码中线的宽度是根据 tabView的宽度来设置的
                         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
                         params.width = width;
-                        params.leftMargin = DensityUtil.dp2px(50f);
-                        params.rightMargin = DensityUtil.dp2px(50f);
+                        params.leftMargin = DensityUtil.dp2px(70f);
+                        params.rightMargin = DensityUtil.dp2px(70f);
                         tabView.setLayoutParams(params);
 
                         tabView.invalidate();
