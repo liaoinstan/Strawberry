@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/st_bk"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.SettingActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <TextView
+                android:id="@+id/text_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="设置"
+                android:textColor="@color/com_text_dark_light"
+                android:textSize="@dimen/text_big" />
+
+        </android.support.v7.widget.Toolbar>
+
+        <View style="@style/Line_H" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/showingroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <View style="@style/Line_H" />
+
+            <TextView
+                android:id="@+id/text_setting_safe"
+                style="@style/TextMeItem"
+                android:text="账号与安全" />
+
+            <View
+                style="@style/Line_H"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:id="@+id/text_setting_msgsetting"
+                style="@style/TextMeItem"
+                android:text="消息提醒" />
+
+            <View style="@style/Line_H" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <View style="@style/Line_H" />
+
+            <TextView
+                android:id="@+id/text_setting_language"
+                style="@style/TextMeItem"
+                android:text="语言设置" />
+
+            <View style="@style/Line_H" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <View style="@style/Line_H" />
+
+            <TextView
+                android:id="@+id/text_setting_suggest"
+                style="@style/TextMeItem"
+                android:text="意见反馈" />
+
+            <View style="@style/Line_H" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/text_setting_clear"
+                    style="@style/TextMeItem"
+                    android:drawableRight="@null"
+                    android:text="清除缓存" />
+
+                <TextView
+                    android:id="@+id/text_setting_catchsize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center"
+                    android:text="0.0MB"
+                    android:textColor="@color/com_text_dark"
+                    android:textSize="@dimen/text_nomal_small" />
+                <!--android:drawableRight="@drawable/ic_me_next"-->
+
+            </FrameLayout>
+
+            <View
+                style="@style/Line_H"
+                android:layout_marginLeft="10dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/text_setting_version"
+                    style="@style/TextMeItem"
+                    android:drawableRight="@null"
+                    android:text="版本更新" />
+
+                <TextView
+                    android:id="@+id/text_setting_version_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center"
+                    android:text="version 1.1.0"
+                    android:textColor="@color/com_text_dark"
+                    android:textSize="@dimen/text_nomal_small" />
+                <!--android:drawableRight="@drawable/ic_me_next"-->
+
+            </FrameLayout>
+
+            <View
+                style="@style/Line_H"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:id="@+id/text_setting_about"
+                style="@style/TextMeItem"
+                android:text="关于草莓网" />
+
+            <LinearLayout
+                android:id="@+id/lay_setting_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    style="@style/Line_H"
+                    android:layout_marginLeft="10dp" />
+
+                <TextView
+                    android:id="@+id/text_setting_logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="退出登录"
+                    android:textColor="@color/am_blue" />
+
+            </LinearLayout>
+
+            <View style="@style/Line_H" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

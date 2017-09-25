@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/st_bk"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.SettingActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <TextView
+                android:id="@+id/text_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="账号与安全"
+                android:textColor="@color/com_text_dark_light"
+                android:textSize="@dimen/text_big" />
+
+        </android.support.v7.widget.Toolbar>
+
+        <View style="@style/Line_H" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/showingroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <View style="@style/Line_H" />
+
+            <TextView
+                android:id="@+id/text_safe_psw"
+                style="@style/TextMeItem"
+                android:text="修改密码" />
+
+            <View
+                style="@style/Line_H"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:id="@+id/text_safe_phone"
+                style="@style/TextMeItem"
+                android:text="绑定手机" />
+
+            <View
+                style="@style/Line_H"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:id="@+id/text_safe_email"
+                style="@style/TextMeItem"
+                android:text="绑定邮箱" />
+
+            <View
+                style="@style/Line_H"
+                android:layout_marginLeft="10dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="35dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_tab_home" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_tab_home" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_tab_home" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_safe_account"
+                    style="@style/TextMeItem"
+                    android:text="版本更新" />
+                <!--android:drawableRight="@drawable/ic_me_next"-->
+
+            </FrameLayout>
+
+            <View style="@style/Line_H" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

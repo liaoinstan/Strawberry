@@ -74,4 +74,11 @@ dependencies {
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
     compile project(':lib_domain')
     compile project(':lib_version')
+    //汉字拼音库TinyPinyin核心包，约80KB
+    compile 'com.github.promeg:tinypinyin:2.0.3'
+    //textdrawable
+    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //仿IOS swichbutton
+    compile 'com.kyleduo.switchbutton:library:1.4.6'
 }

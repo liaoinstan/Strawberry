@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp"
+    android:background="@color/white"
+    android:foreground="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥95.00"
+                android:textColor="@color/com_text_dark_light"
+                android:textSize="@dimen/text_big" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="编号：20170815174303216"
+                    android:textColor="@color/com_text_dark_light"
+                    android:textSize="@dimen/text_tiny" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="已取消"
+                    android:textColor="@color/st_purple"
+                    android:textSize="@dimen/text_tiny" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <Space style="@style/Space_H" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_me_next" />
+
+    </LinearLayout>
+
+    <com.ins.common.view.ListViewLinearLayout
+        android:id="@+id/list_order_goods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
+    <View
+        style="@style/Line_H"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingBottom="7dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingTop="7dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/shape_rect_none_line_dark"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="取消订单"
+            android:textColor="@color/com_text_dark_light"
+            android:textSize="@dimen/text_nomal_small" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_rect_none_line_purple"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="去付款"
+            android:textColor="@color/st_purple"
+            android:textSize="@dimen/text_nomal_small" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -92,11 +92,13 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/text_me_order_unpay"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:layout_weight="1"
                         android:checked="true"
-                        android:drawablePadding="2dp"
                         android:drawableTop="@drawable/ic_tab_home"
                         android:foreground="?attr/selectableItemBackground"
                         android:gravity="center"
@@ -104,12 +106,15 @@
                         android:textColor="@color/com_text_dark_light"
                         android:textSize="@dimen/text_small" />
 
+
                     <TextView
+                        android:id="@+id/text_me_order_unout"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:layout_weight="1"
                         android:checked="true"
-                        android:drawablePadding="2dp"
                         android:drawableTop="@drawable/ic_tab_home"
                         android:foreground="?attr/selectableItemBackground"
                         android:gravity="center"
@@ -117,12 +122,15 @@
                         android:textColor="@color/com_text_dark_light"
                         android:textSize="@dimen/text_small" />
 
+
                     <TextView
+                        android:id="@+id/text_me_order_unin"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:layout_weight="1"
                         android:checked="true"
-                        android:drawablePadding="2dp"
                         android:drawableTop="@drawable/ic_tab_home"
                         android:foreground="?attr/selectableItemBackground"
                         android:gravity="center"
@@ -130,19 +138,21 @@
                         android:textColor="@color/com_text_dark_light"
                         android:textSize="@dimen/text_small" />
 
+
                     <TextView
+                        android:id="@+id/text_me_order_uneva"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:layout_weight="1"
                         android:checked="true"
-                        android:drawablePadding="2dp"
                         android:drawableTop="@drawable/ic_tab_home"
                         android:foreground="?attr/selectableItemBackground"
                         android:gravity="center"
                         android:text="待评价"
                         android:textColor="@color/com_text_dark_light"
                         android:textSize="@dimen/text_small" />
-
 
                 </LinearLayout>
 
@@ -156,6 +166,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/text_me_address"
                     style="@style/TextMeItem"
                     android:text="地址管理" />
 
@@ -164,6 +175,7 @@
                     android:layout_marginLeft="10dp" />
 
                 <TextView
+                    android:id="@+id/text_me_sign"
                     style="@style/TextMeItem"
                     android:text="我的签到" />
 
@@ -172,6 +184,7 @@
                     android:layout_marginLeft="10dp" />
 
                 <TextView
+                    android:id="@+id/text_me_favo"
                     style="@style/TextMeItem"
                     android:text="我的收藏" />
 
@@ -180,6 +193,7 @@
                     android:layout_marginLeft="10dp" />
 
                 <TextView
+                    android:id="@+id/text_me_eva"
                     style="@style/TextMeItem"
                     android:text="我的评价" />
 
@@ -194,6 +208,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/text_me_email"
                     style="@style/TextMeItem"
                     android:text="电邮地址" />
 
@@ -202,6 +217,7 @@
                     android:layout_marginLeft="10dp" />
 
                 <TextView
+                    android:id="@+id/text_me_setting"
                     style="@style/TextMeItem"
                     android:text="设置" />
 

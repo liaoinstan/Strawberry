@@ -15,6 +15,7 @@ import com.ins.common.utils.StatusBarTextUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.common.AppData;
+import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.ui.adapter.PagerAdapterHome;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.shelwee.update.UpdateHelper;

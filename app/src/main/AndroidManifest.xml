@@ -2,6 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.magicbeans.xgate">
 
+    <!--bugly-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
+    <!--微信支付-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".app.StrawberryApp"
         android:allowBackup="true"
@@ -20,10 +32,22 @@
         </activity>
         <activity
             android:name=".ui.activity.HomeActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".ui.activity.LoadUpActivity"
             android:theme="@style/AppTheme.NoTitleFullscreen" />
+        <activity android:name=".ui.activity.SettingActivity" />
+        <activity android:name=".ui.activity.WebActivity" />
+        <activity android:name=".ui.activity.VersionActivity" />
+        <activity android:name=".ui.activity.SuggestActivity" />
+        <activity android:name=".ui.activity.LanguageActivity" />
+        <activity android:name=".ui.activity.MsgSettingActivity" />
+        <activity android:name=".ui.activity.SafeActivity" />
+        <activity android:name=".ui.activity.LoginActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoTitleFullscreen"/>
+        <activity android:name=".ui.activity.OrderActivity" />
+        <activity android:name=".ui.activity.AddressActivity" />
     </application>
 
 </manifest>

@@ -63,6 +63,18 @@
         <item name="android:foreground">?attr/selectableItemBackground</item>
     </style>
 
+    <style name="EditMeItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:textSize">@dimen/text_nomal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:textColor">@color/com_text_blank</item>
+        <item name="android:textColorHint">@color/com_text_dark_light</item>
+        <item name="android:background">@color/none</item>
+    </style>
+
     <!--tablayout字体大小只能通过style来设置-->
     <style name="TabLayoutTextBig">
         <item name="android:textSize">@dimen/text_big</item>
