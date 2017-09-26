@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/lay_count_edit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/btn_sub"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_check_shopbag" />
+
+        <TextView
+            android:id="@+id/text_count"
+            android:gravity="center"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:text="99"
+            android:textColor="@color/com_text_dark_light"
+            android:textSize="@dimen/text_nomal_small" />
+
+        <ImageView
+            android:id="@+id/btn_add"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_check_shopbag" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_count_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:text="x99"
+        android:textColor="@color/com_text_dark_light"
+        android:textSize="@dimen/text_small" />
+</FrameLayout>

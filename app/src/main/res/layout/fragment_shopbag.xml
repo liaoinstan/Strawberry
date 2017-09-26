@@ -28,6 +28,17 @@
                 android:textColor="@color/com_text_dark_light"
                 android:textSize="@dimen/text_big" />
 
+            <TextView
+                android:id="@+id/btn_right"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="编辑"
+                android:textColor="@color/com_text_dark_light"
+                android:textSize="@dimen/text_big_nomal" />
+
         </android.support.v7.widget.Toolbar>
 
         <View
@@ -43,11 +54,19 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycle"
+        <com.liaoinstan.springview.widget.SpringView
+            android:id="@+id/spring"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            app:type="follow">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.liaoinstan.springview.widget.SpringView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,18 +74,20 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/text_shopbag_checkall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/selector_check_shopbag"
                 android:drawablePadding="10dp"
                 android:text="全选"
-                android:drawableLeft="@drawable/selector_check_shopbag"
                 android:textColor="@color/com_text_dark_light"
                 android:textSize="@dimen/text_nomal_small" />
 
             <Space style="@style/Space_H" />
 
             <TextView
+                android:id="@+id/text_shopbag_priceall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -75,6 +96,7 @@
                 android:textSize="@dimen/text_nomal_small" />
 
             <TextView
+                android:id="@+id/btn_go"
                 android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:background="#cccccc"

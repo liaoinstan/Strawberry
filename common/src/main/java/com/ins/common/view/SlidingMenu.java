@@ -59,6 +59,8 @@ public class SlidingMenu extends HorizontalScrollView {
                 //向左滑并超过1/3滚动到最大 || 向右滑并且超过2/3滚动到最大
                 if ((dx < 0 && scrollX > mMenuWidth / 3) || (dx > 0 && scrollX > mMenuWidth * 2 / 3)) {
                     this.smoothScrollTo(mMenuWidth, 0);
+                } else if (dx == 0) {
+                    return false;
                 } else {
                     this.smoothScrollTo(0, 0);
                 }

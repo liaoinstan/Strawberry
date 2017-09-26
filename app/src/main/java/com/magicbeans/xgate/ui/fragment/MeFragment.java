@@ -11,9 +11,12 @@ import android.widget.TextView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Order;
 import com.magicbeans.xgate.ui.activity.AddressActivity;
+import com.magicbeans.xgate.ui.activity.EvaActivity;
+import com.magicbeans.xgate.ui.activity.FavoActivity;
 import com.magicbeans.xgate.ui.activity.LoginActivity;
 import com.magicbeans.xgate.ui.activity.OrderActivity;
 import com.magicbeans.xgate.ui.activity.SettingActivity;
+import com.magicbeans.xgate.ui.activity.SignActivity;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 
 
@@ -100,10 +103,13 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 AddressActivity.start(getActivity());
                 break;
             case R.id.text_me_sign:
+                SignActivity.start(getActivity());
                 break;
             case R.id.text_me_favo:
+                FavoActivity.start(getActivity());
                 break;
             case R.id.text_me_eva:
+                EvaActivity.start(getActivity());
                 break;
             case R.id.text_me_email:
                 break;

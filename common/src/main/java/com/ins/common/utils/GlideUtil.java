@@ -139,4 +139,9 @@ public class GlideUtil {
         if (imageView == null) return;
         loadImg(imageView, R.drawable.default_bk_img, urls.get(new Random(imageView.hashCode()).nextInt(urls.size() - 1)));
     }
+
+    public static void loadImgTestByPosition(ImageView imageView, int position) {
+        if (imageView == null) return;
+        loadImg(imageView, R.drawable.default_bk_img, urls.get(new Random(position).nextInt(urls.size() - 1)));
+    }
 }
