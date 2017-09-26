@@ -9,7 +9,10 @@ import android.widget.ImageView;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.GlideUtil;
+import com.ins.common.view.bundleimgview.BundleImgEntity;
+import com.ins.common.view.bundleimgview.BundleImgView;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.Eva;
 import com.magicbeans.xgate.bean.TestBean;
 
 import java.util.ArrayList;
@@ -18,9 +21,9 @@ import java.util.List;
 public class RecycleAdapterEva extends RecyclerView.Adapter<RecycleAdapterEva.Holder> {
 
     private Context context;
-    private List<TestBean> results = new ArrayList<>();
+    private List<Eva> results = new ArrayList<>();
 
-    public List<TestBean> getResults() {
+    public List<Eva> getResults() {
         return results;
     }
 
@@ -35,7 +38,7 @@ public class RecycleAdapterEva extends RecyclerView.Adapter<RecycleAdapterEva.Ho
 
     @Override
     public void onBindViewHolder(final RecycleAdapterEva.Holder holder, final int position) {
-        final TestBean bean = results.get(position);
+        final Eva eva = results.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +46,8 @@ public class RecycleAdapterEva extends RecyclerView.Adapter<RecycleAdapterEva.Ho
             }
         });
         GlideUtil.loadImgTest(holder.img_header);
+
+        holder.bundle.setPhotos(eva.getImgs());
     }
 
     @Override
@@ -53,10 +58,19 @@ public class RecycleAdapterEva extends RecyclerView.Adapter<RecycleAdapterEva.Ho
     public class Holder extends RecyclerView.ViewHolder {
 
         private ImageView img_header;
+        private BundleImgView bundle;
 
         public Holder(View itemView) {
             super(itemView);
             img_header = (ImageView) itemView.findViewById(R.id.img_header);
+            bundle = (BundleImgView) itemView.findViewById(R.id.bundle);
+            bundle.setDelEnable(false);
+            bundle.setOnBundleLoadImgListener(new BundleImgView.OnBundleLoadImgListener() {
+                @Override
+                public void onloadImg(ImageView imageView, String imgurl, int defaultSrc) {
+                    GlideUtil.loadImgTest(imageView);
+                }
+            });
         }
     }
 

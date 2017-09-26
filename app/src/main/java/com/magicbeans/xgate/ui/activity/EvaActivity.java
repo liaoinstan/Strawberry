@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
+import com.ins.common.utils.TabLayoutUtil;
+import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Order;
 import com.magicbeans.xgate.ui.adapter.PagerAdapterEva;
@@ -54,6 +56,7 @@ public class EvaActivity extends BaseAppCompatActivity {
         adapterPager = new PagerAdapterEva(getSupportFragmentManager(), titles);
         pager.setAdapter(adapterPager);
         tab.setupWithViewPager(pager);
+        TabLayoutUtil.reflex(tab);
     }
 
     private void initData() {

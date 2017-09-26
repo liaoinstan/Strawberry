@@ -33,6 +33,7 @@ public class BundleImgView extends FrameLayout {
     private Context context;
     private LayoutInflater inflater;
 
+    private int colcount = 4;
     private boolean needDrag = true;
 
     public void setNeedDrag(boolean needDrag) {
@@ -74,7 +75,7 @@ public class BundleImgView extends FrameLayout {
 
         adapter = new RecycleAdapterBundleImg(context, results);
         recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(context, colcount));
         recyclerView.setAdapter(adapter);
 
         final ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new DragItemTouchCallback(adapter).setOnDragListener(null));
@@ -110,8 +111,8 @@ public class BundleImgView extends FrameLayout {
         adapter.setDelEnable(enable);
     }
 
-    public void addPhoto(String path) {
-        adapter.getResults().add(new BundleImgEntity(path));
+    public void addPhoto(BundleImgEntity bundle) {
+        adapter.getResults().add(bundle);
         adapter.notifyItemInserted(adapter.getResults().size());
     }
 
@@ -119,10 +120,9 @@ public class BundleImgView extends FrameLayout {
         adapter.getResults().clear();
     }
 
-    public void addPhotos(String[] paths) {
-        for (String path : paths) {
-            adapter.getResults().add(new BundleImgEntity(path));
-        }
+    public void setPhotos(List<BundleImgEntity> results) {
+        adapter.getResults().clear();
+        adapter.getResults().addAll(results);
         adapter.notifyDataSetChanged();
     }
 

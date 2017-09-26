@@ -12,10 +12,13 @@ import android.view.ViewGroup;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.view.LoadingLayout;
+import com.ins.common.view.bundleimgview.BundleImgEntity;
+import com.ins.common.view.bundleimgview.BundleImgView;
 import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.Eva;
 import com.magicbeans.xgate.bean.Goods;
 import com.magicbeans.xgate.bean.Order;
 import com.magicbeans.xgate.bean.TestBean;
@@ -24,6 +27,7 @@ import com.magicbeans.xgate.ui.adapter.RecycleAdapterOrder;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by liaoinstan
@@ -107,8 +111,8 @@ public class EvaFragment extends BaseFragment implements OnRecycleItemClickListe
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        adapter.getResults().add(new TestBean());
-                        adapter.getResults().add(new TestBean());
+                        adapter.getResults().add(new Eva());
+                        adapter.getResults().add(new Eva());
                         springView.onFinishFreshAndLoad();
                     }
                 }, 1000);
@@ -118,13 +122,31 @@ public class EvaFragment extends BaseFragment implements OnRecycleItemClickListe
 
     private void initData() {
         adapter.getResults().clear();
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
+        adapter.getResults().add(new Eva(new ArrayList<BundleImgEntity>(){{
+            add(new BundleImgEntity());
+            add(new BundleImgEntity());
+            add(new BundleImgEntity());
+        }}));
+        adapter.getResults().add(new Eva(new ArrayList<BundleImgEntity>(){{
+            add(new BundleImgEntity());
+            add(new BundleImgEntity());
+        }}));
+        adapter.getResults().add(new Eva(new ArrayList<BundleImgEntity>(){{
+            add(new BundleImgEntity());
+        }}));
+        adapter.getResults().add(new Eva(new ArrayList<BundleImgEntity>(){{
+            add(new BundleImgEntity());
+            add(new BundleImgEntity());
+            add(new BundleImgEntity());
+            add(new BundleImgEntity());
+        }}));
+        adapter.getResults().add(new Eva(new ArrayList<BundleImgEntity>(){{
+            add(new BundleImgEntity());
+            add(new BundleImgEntity());
+            add(new BundleImgEntity());
+            add(new BundleImgEntity());
+            add(new BundleImgEntity());
+        }}));
         adapter.notifyDataSetChanged();
     }
 
