@@ -74,6 +74,7 @@ public class LoginActivity extends BaseAppCompatActivity implements View.OnClick
     private void initData() {
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
