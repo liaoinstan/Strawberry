@@ -14,6 +14,7 @@ import com.magicbeans.xgate.ui.activity.AddressActivity;
 import com.magicbeans.xgate.ui.activity.EvaActivity;
 import com.magicbeans.xgate.ui.activity.FavoActivity;
 import com.magicbeans.xgate.ui.activity.LoginActivity;
+import com.magicbeans.xgate.ui.activity.MeDetailActivity;
 import com.magicbeans.xgate.ui.activity.OrderActivity;
 import com.magicbeans.xgate.ui.activity.SettingActivity;
 import com.magicbeans.xgate.ui.activity.SignActivity;
@@ -97,7 +98,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 OrderActivity.start(getActivity(), Order.STATUS_UNEVA);
                 break;
             case R.id.lay_me_header:
-                LoginActivity.start(getActivity());
+                MeDetailActivity.start(getActivity());
                 break;
             case R.id.text_me_address:
                 AddressActivity.start(getActivity());

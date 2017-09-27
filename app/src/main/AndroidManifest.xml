@@ -46,14 +46,19 @@
         <activity android:name=".ui.activity.LanguageActivity" />
         <activity android:name=".ui.activity.MsgSettingActivity" />
         <activity android:name=".ui.activity.SafeActivity" />
-        <activity android:name=".ui.activity.LoginActivity"
+        <activity
+            android:name=".ui.activity.LoginActivity"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoTitleFullscreen"/>
+            android:theme="@style/AppTheme.NoTitleFullscreen" />
         <activity android:name=".ui.activity.OrderActivity" />
         <activity android:name=".ui.activity.AddressActivity" />
         <activity android:name=".ui.activity.FavoActivity" />
         <activity android:name=".ui.activity.SignActivity" />
         <activity android:name=".ui.activity.EvaActivity" />
+        <activity android:name=".ui.activity.MeDetailActivity" />
+        <activity
+            android:name=".ui.activity.ProductActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
     </application>
 
 </manifest>

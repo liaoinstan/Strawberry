@@ -46,8 +46,16 @@
     </declare-styleable>
 
     <declare-styleable name="AutoFitGridLayout">
-        <attr name="columnCount" format="integer"/>
-        <attr name="horizontalSpace" format="dimension"/>
-        <attr name="verticalSpace" format="dimension"/>
+        <attr name="columnCount" format="integer" />
+        <attr name="horizontalSpace" format="dimension" />
+        <attr name="verticalSpace" format="dimension" />
+    </declare-styleable>
+
+
+    <declare-styleable name="BundleImgView">
+        <!-- 是否可编辑状态 -->
+        <attr name="editble" format="boolean" />
+        <!-- 是否可拖拽手动排序 -->
+        <attr name="dragble" format="boolean" />
     </declare-styleable>
 </resources>

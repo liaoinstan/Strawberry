@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.activity.ProductActivity">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/btn_left"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_back" />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_rect_cornerfull_dark"
+                        android:gravity="center"
+                        android:hint="Search"
+                        android:textColor="@color/com_text_dark_light"
+                        android:textColorHint="@color/com_text_dark_light"
+                        android:textSize="@dimen/text_nomal" />
+
+                    <ImageView
+                        android:id="@+id/btn_right"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:onClick="onClick"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_tab_home" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/com_line" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_all"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="综合"
+                    android:textColor="@color/select_text_dark_purple_check"
+                    android:textSize="@dimen/text_nomal_small" />
+
+                <RadioButton
+                    android:id="@+id/radio_sale"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="销量"
+                    android:textColor="@color/select_text_dark_purple_check"
+                    android:textSize="@dimen/text_nomal_small" />
+
+                <RadioButton
+                    android:id="@+id/radio_price"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="价格"
+                    android:textColor="@color/select_text_dark_purple_check"
+                    android:textSize="@dimen/text_nomal_small" />
+
+                <RadioButton
+                    android:id="@+id/radio_new"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="最新"
+                    android:textColor="@color/select_text_dark_purple_check"
+                    android:textSize="@dimen/text_nomal_small" />
+
+            </RadioGroup>
+
+            <View style="@style/Line_H" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_brand"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="按品牌搜索"
+                    android:textColor="@color/select_text_dark_purple_check"
+                    android:textSize="@dimen/text_nomal_small" />
+
+                <RadioButton
+                    android:id="@+id/radio_cate"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="分类"
+                    android:textColor="@color/select_text_dark_purple_check"
+                    android:textSize="@dimen/text_nomal_small" />
+
+                <RadioButton
+                    android:id="@+id/radio_skin"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="适合肤质"
+                    android:textColor="@color/select_text_dark_purple_check"
+                    android:textSize="@dimen/text_nomal_small" />
+
+            </RadioGroup>
+
+            <com.ins.common.view.LoadingLayout
+                android:id="@+id/loadingview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_fail="@layout/layout_fail"
+                app:layout_lack="@layout/layout_lack"
+                app:layout_loading="@layout/layout_loading">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.liaoinstan.springview.widget.SpringView
+                        android:id="@+id/spring"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:type="follow">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:clipToPadding="false"
+                            android:paddingBottom="10dp" />
+                    </com.liaoinstan.springview.widget.SpringView>
+
+                    <View
+                        android:id="@+id/shadow"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/com_shadow"
+                        android:visibility="gone" />
+
+                </FrameLayout>
+            </com.ins.common.view.LoadingLayout>
+
+        </LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

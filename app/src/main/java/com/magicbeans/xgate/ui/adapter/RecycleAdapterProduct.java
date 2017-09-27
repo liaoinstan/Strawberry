@@ -9,34 +9,38 @@ import android.widget.ImageView;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.GlideUtil;
-import com.ins.common.view.bundleimgview.BundleImgView;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.Eva;
+import com.magicbeans.xgate.bean.TestBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecycleAdapterEva extends RecyclerView.Adapter<RecycleAdapterEva.Holder> {
+public class RecycleAdapterProduct extends RecyclerView.Adapter<RecycleAdapterProduct.Holder> {
 
     private Context context;
-    private List<Eva> results = new ArrayList<>();
+    private List<TestBean> results = new ArrayList<>();
+    private boolean gridMode = false;
 
-    public List<Eva> getResults() {
+    public List<TestBean> getResults() {
         return results;
     }
 
-    public RecycleAdapterEva(Context context) {
+    public RecycleAdapterProduct(Context context) {
         this.context = context;
     }
 
     @Override
-    public RecycleAdapterEva.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_eva, parent, false));
+    public RecycleAdapterProduct.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (gridMode){
+            return new Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_grid, parent, false));
+        }else {
+            return new Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_list, parent, false));
+        }
     }
 
     @Override
-    public void onBindViewHolder(final RecycleAdapterEva.Holder holder, final int position) {
-        final Eva eva = results.get(position);
+    public void onBindViewHolder(final RecycleAdapterProduct.Holder holder, final int position) {
+        final TestBean bean = results.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,8 +48,15 @@ public class RecycleAdapterEva extends RecyclerView.Adapter<RecycleAdapterEva.Ho
             }
         });
         GlideUtil.loadImgTest(holder.img_header);
+    }
 
-        holder.bundle.setPhotos(eva.getImgs());
+    @Override
+    public int getItemViewType(int position) {
+        if (gridMode){
+            return 0;
+        }else {
+            return 1;
+        }
     }
 
     @Override
@@ -56,18 +67,10 @@ public class RecycleAdapterEva extends RecyclerView.Adapter<RecycleAdapterEva.Ho
     public class Holder extends RecyclerView.ViewHolder {
 
         private ImageView img_header;
-        private BundleImgView bundle;
 
         public Holder(View itemView) {
             super(itemView);
             img_header = (ImageView) itemView.findViewById(R.id.img_header);
-            bundle = (BundleImgView) itemView.findViewById(R.id.bundle);
-            bundle.setOnBundleLoadImgListener(new BundleImgView.OnBundleLoadImgListener() {
-                @Override
-                public void onloadImg(ImageView imageView, String imgurl, int defaultSrc) {
-                    GlideUtil.loadImgTest(imageView);
-                }
-            });
         }
     }
 
@@ -75,5 +78,15 @@ public class RecycleAdapterEva extends RecyclerView.Adapter<RecycleAdapterEva.Ho
 
     public void setOnItemClickListener(OnRecycleItemClickListener listener) {
         this.listener = listener;
+    }
+
+    //############### get & set ################
+
+    public boolean isGridMode() {
+        return gridMode;
+    }
+
+    public void setGridMode(boolean gridMode) {
+        this.gridMode = gridMode;
     }
 }

@@ -27,7 +27,7 @@ public class RecycleAdapterBundleImg extends RecyclerView.Adapter<RecyclerView.V
     public static final int TYPE_ITEM = 0xff01;
     public static final int TYPE_ADD = 0xff02;
 
-    public void setDelEnable(boolean enable) {
+    public void setEditble(boolean enable) {
         this.enable = enable;
     }
 

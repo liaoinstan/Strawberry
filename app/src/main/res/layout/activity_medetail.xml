@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/st_bk"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.activity.SettingActivity">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <TextView
+                    android:id="@+id/text_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="个人资料"
+                    android:textColor="@color/com_text_dark_light"
+                    android:textSize="@dimen/text_big" />
+
+                <TextView
+                    android:id="@+id/btn_right"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="编辑"
+                    android:textColor="@color/com_text_dark_light"
+                    android:textSize="@dimen/text_big_nomal" />
+
+            </android.support.v7.widget.Toolbar>
+
+            <View style="@style/Line_H" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:id="@+id/showingroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <View style="@style/Line_H" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_medetail_header"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginRight="45dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/default_header" />
+
+                    <TextView
+                        android:id="@+id/lay_medetail_header"
+                        style="@style/TextMeItem"
+                        android:onClick="onClick"
+                        android:text="头像" />
+                    <!--android:drawableRight="@drawable/ic_me_next"-->
+
+                </FrameLayout>
+
+                <View
+                    style="@style/Line_H"
+                    android:layout_marginLeft="10dp" />
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/text_medetail_nick"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginRight="20dp"
+                        android:text="Marie"
+                        android:textColor="@color/com_text_dark_light"
+                        android:textSize="@dimen/text_nomal_small" />
+
+                    <TextView
+                        style="@style/TextMeItem"
+                        android:drawableRight="@null"
+                        android:text="昵称" />
+
+                </FrameLayout>
+
+                <View
+                    style="@style/Line_H"
+                    android:layout_marginLeft="10dp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/text_medetail_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginRight="45dp"
+                        android:hint="未填写"
+                        android:textColor="@color/com_text_dark_light"
+                        android:textColorHint="@color/com_text_dark_light"
+                        android:textSize="@dimen/text_nomal_small" />
+
+                    <TextView
+                        android:id="@+id/lay_medetail_name"
+                        style="@style/TextMeItem"
+                        android:onClick="onClick"
+                        android:text="真实姓名" />
+
+                </FrameLayout>
+
+
+                <View
+                    style="@style/Line_H"
+                    android:layout_marginLeft="10dp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/text_medetail_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginRight="45dp"
+                        android:hint="未填写"
+                        android:textColor="@color/com_text_dark_light"
+                        android:textColorHint="@color/com_text_dark_light"
+                        android:textSize="@dimen/text_nomal_small" />
+
+                    <TextView
+                        android:id="@+id/lay_medetail_gender"
+                        style="@style/TextMeItem"
+                        android:onClick="onClick"
+                        android:text="性别" />
+
+                </FrameLayout>
+
+
+                <View
+                    style="@style/Line_H"
+                    android:layout_marginLeft="10dp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/text_medetail_birthday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginRight="45dp"
+                        android:hint="未填写"
+                        android:textColor="@color/com_text_dark_light"
+                        android:textColorHint="@color/com_text_dark_light"
+                        android:textSize="@dimen/text_nomal_small" />
+
+                    <TextView
+                        android:id="@+id/lay_medetail_birthday"
+                        style="@style/TextMeItem"
+                        android:onClick="onClick"
+                        android:text="出生日期" />
+
+                </FrameLayout>
+
+
+                <View
+                    style="@style/Line_H"
+                    android:layout_marginLeft="10dp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/text_medetail_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginRight="45dp"
+                        android:hint="未填写"
+                        android:textColor="@color/com_text_dark_light"
+                        android:textColorHint="@color/com_text_dark_light"
+                        android:textSize="@dimen/text_nomal_small" />
+
+                    <TextView
+                        android:id="@+id/lay_medetail_address"
+                        style="@style/TextMeItem"
+                        android:onClick="onClick"
+                        android:text="常住地址" />
+
+                </FrameLayout>
+
+
+                <View style="@style/Line_H" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

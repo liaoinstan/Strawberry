@@ -12,9 +12,11 @@ import android.view.ViewGroup;
 
 import com.ins.common.common.GridSpacingItemDecoration;
 import com.ins.common.common.ItemDecorationDivider;
+import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.DensityUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.TestBean;
+import com.magicbeans.xgate.ui.activity.ProductActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterCateIn;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeShopbag;
 import com.magicbeans.xgate.ui.base.BaseFragment;
@@ -23,7 +25,7 @@ import com.magicbeans.xgate.ui.base.BaseFragment;
 /**
  * Created by liaoinstan
  */
-public class CateInFragment extends BaseFragment {
+public class CateInFragment extends BaseFragment implements OnRecycleItemClickListener{
 
     private int position;
     private View rootView;
@@ -78,7 +80,13 @@ public class CateInFragment extends BaseFragment {
 
     private void initCtrl() {
         adapter = new RecycleAdapterCateIn(getContext());
+        adapter.setOnItemClickListener(this);
         recycle.setLayoutManager(new GridLayoutManager(getContext(), 4, GridLayoutManager.VERTICAL, false));
         recycle.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
+        ProductActivity.start(getActivity());
     }
 }

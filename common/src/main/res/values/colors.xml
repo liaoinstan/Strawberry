@@ -20,6 +20,7 @@
     <color name="com_light">#bbbbbb</color>
     <color name="com_bk">#f1f1f1</color>
     <color name="com_line">#55999999</color>
+    <color name="com_shadow">#33000000</color>
 
     <!--通用基色-->
     <!--基色由APP的设计最终决定，这里列出一些缺损的颜色，如果设计没有提供某种颜色可以暂时使用这些颜色作为替代-->

@@ -60,6 +60,8 @@
 
     <com.ins.common.view.bundleimgview.BundleImgView
         android:id="@+id/bundle"
+        app:editble="false"
+        app:dragble="false"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_width="match_parent"

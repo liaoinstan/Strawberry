@@ -14,7 +14,7 @@ import android.widget.PopupWindow;
 /**
  * Created by Administrator on 2016/6/3 0003.
  */
-public abstract class BaseSinglePopupWindow extends PopupWindow {
+public abstract class BasePopupWindow extends PopupWindow {
 
     protected Context context;
 
@@ -24,7 +24,7 @@ public abstract class BaseSinglePopupWindow extends PopupWindow {
     //背景遮罩层，如果设置了遮罩层，那么背景的变化将使用遮罩层实现，否则将默认使用系统窗口alpha值变化实现效果
     protected View shadowView;
 
-    public BaseSinglePopupWindow(final Context context) {
+    public BasePopupWindow(final Context context) {
         this.context = context;
         setContentView(LayoutInflater.from(context).inflate(getLayout(), null));
 
@@ -36,10 +36,9 @@ public abstract class BaseSinglePopupWindow extends PopupWindow {
         int h = outMetrics.heightPixels;
 
         // 设置SelectPicPopupWindow的View
-        //this.setContentView(getContentView());
+        this.setContentView(getContentView());
         // 设置SelectPicPopupWindow弹出窗体的宽
-//        this.setWidth(w / 3);
-//        this.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        this.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
         // 设置SelectPicPopupWindow弹出窗体的高
         this.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
         // 设置SelectPicPopupWindow弹出窗体可点击

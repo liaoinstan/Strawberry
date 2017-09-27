@@ -12,6 +12,10 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //使用矢量图兼容库
         vectorDrawables.useSupportLibrary = true
+        //databinding
+        dataBinding {
+            enabled = true
+        }
     }
     //##########################
     //配置keystore签名 start
@@ -81,4 +85,6 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     //仿IOS swichbutton
     compile 'com.kyleduo.switchbutton:library:1.4.6'
+    //仿IOS 时间选中器
+    compile 'com.contrarywind:Android-PickerView:3.2.6'
 }
