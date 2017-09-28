@@ -59,12 +59,11 @@ public class BannerView extends FrameLayout implements Runnable {
 
         if (attrs != null) {
             final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.BannerView, 0, 0);
-
             selectedColor = attributes.getColor(R.styleable.BannerView_banner_selected_color, Color.rgb(255, 255, 255));
             unSelectedColor = attributes.getColor(R.styleable.BannerView_banner_unselected_color, Color.argb(33, 255, 255, 255));
-
             mSelectedSrc = attributes.getResourceId(R.styleable.BannerView_banner_selected_drawable, 0);
             mUnSelectedSrc = attributes.getResourceId(R.styleable.BannerView_banner_unselected_drawable, 0);
+            isAutoScroll = attributes.getBoolean(R.styleable.BannerView_banner_autoscroll, true);
         }
     }
 
@@ -303,5 +302,13 @@ public class BannerView extends FrameLayout implements Runnable {
             text_banner.setVisibility(GONE);
         }
         requestLayout();
+    }
+
+    public boolean isAutoScroll() {
+        return isAutoScroll;
+    }
+
+    public void setAutoScroll(boolean autoScroll) {
+        isAutoScroll = autoScroll;
     }
 }

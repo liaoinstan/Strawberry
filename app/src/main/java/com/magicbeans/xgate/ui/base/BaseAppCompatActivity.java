@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.ins.common.base.CommonBaseAppCompatActivity;
+import com.ins.common.utils.StatusBarTextUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.ui.dialog.DialogLoading;

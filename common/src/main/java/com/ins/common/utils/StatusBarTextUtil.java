@@ -15,10 +15,10 @@ import java.lang.reflect.Method;
 /**
  * Created by liaoinstan on 2016/10/25.
  * 状态栏文字颜色工具
- *
+ * <p>
  * APP一般分为深色和浅色两种主题，5.0以后状态栏背景颜色可以自定义后，相应的状态栏文字颜色也需要与之匹配，如果背景深色则文字要浅色，反之亦然
  * 由于小米、魅族手机都由厂商提供API来控制文字颜色，加之6.0系统SDK有提供方法，相互不兼容，必须根据不同系统调用不同API，于是就有了这个工具类
- *
+ * <p>
  * 使用：
  * StatusBarTextUtil.StatusBarLightMode(activity);  状态栏浅色风格（深色文字）
  * StatusBarTextUtil.StatusBarDarkMode(activity);   状态栏深色风格（浅色文字）
@@ -70,18 +70,19 @@ public class StatusBarTextUtil {
     /**
      * 状态栏浅色风格（深色文字）
      * 适配4.4以上版本MIUIV、Flyme和6.0以上版本其他Android
+     *
      * @return 1:MIUUI 2:Flyme 3:android6.0
      */
     public static int StatusBarLightMode(Activity activity) {
         int result = 0;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (MIUISetStatusBarLightMode(activity.getWindow(), true)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                result = 3;
+            } else if (MIUISetStatusBarLightMode(activity.getWindow(), true)) {
                 result = 1;
             } else if (FlymeSetStatusBarLightMode(activity.getWindow(), true)) {
                 result = 2;
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                result = 3;
             }
         }
         return result;
@@ -90,18 +91,19 @@ public class StatusBarTextUtil {
     /**
      * 状态栏深色风格（浅色文字）
      * 适配4.4以上版本MIUIV、Flyme和6.0以上版本其他Android
+     *
      * @return 1:MIUUI 2:Flyme 3:android6.0
      */
     public static int StatusBarDarkMode(Activity activity) {
         int result = 0;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (MIUISetStatusBarLightMode(activity.getWindow(), false)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+                result = 3;
+            } else if (MIUISetStatusBarLightMode(activity.getWindow(), false)) {
                 result = 1;
             } else if (FlymeSetStatusBarLightMode(activity.getWindow(), false)) {
                 result = 2;
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-                result = 3;
             }
         }
         return result;
@@ -110,7 +112,8 @@ public class StatusBarTextUtil {
     /**
      * 已知系统类型时，设置状态栏浅色风格（深色文字）
      * 适配4.4以上版本MIUIV、Flyme和6.0以上版本其他Android
-     * @param type     1:MIUUI 2:Flyme 3:android6.0
+     *
+     * @param type 1:MIUUI 2:Flyme 3:android6.0
      */
     public static void StatusBarLightMode(Activity activity, int type) {
         if (type == 1) {

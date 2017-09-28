@@ -13,9 +13,9 @@
     <declare-styleable name="BannerView">
         <attr name="banner_selected_color" format="color|reference" />
         <attr name="banner_unselected_color" format="color|reference" />
-
         <attr name="banner_selected_drawable" format="reference" />
         <attr name="banner_unselected_drawable" format="reference" />
+        <attr name="banner_autoscroll" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="MovieRecorderView">

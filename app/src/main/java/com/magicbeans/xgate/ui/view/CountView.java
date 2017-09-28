@@ -1,6 +1,7 @@
 package com.magicbeans.xgate.ui.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ public class CountView extends FrameLayout implements View.OnClickListener {
     private ImageView btn_sub;
     private ImageView btn_add;
 
+    private boolean editble;
     private int count;
 
     public CountView(Context context) {
@@ -49,6 +51,10 @@ public class CountView extends FrameLayout implements View.OnClickListener {
     }
 
     private void init(AttributeSet attrs) {
+        // 初始化各项组件
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CountView);
+        editble = a.getBoolean(R.styleable.CountView_editble, false);
+        a.recycle();
     }
 
     @Override
@@ -68,8 +74,8 @@ public class CountView extends FrameLayout implements View.OnClickListener {
         btn_add = (ImageView) findViewById(R.id.btn_add);
         btn_sub.setOnClickListener(this);
         btn_add.setOnClickListener(this);
-        //默认初始化非编辑状态
-        setEdit(false);
+        //默认初始化状态
+        setEdit(editble);
         //初始化数量0
         setCount(0);
     }

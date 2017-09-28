@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.ins.common.common.ItemDecorationDivider;
+import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
@@ -24,7 +25,7 @@ import com.magicbeans.xgate.ui.dialog.MyGridPopupWindow;
 
 import java.util.ArrayList;
 
-public class ProductActivity extends BaseAppCompatActivity {
+public class ProductActivity extends BaseAppCompatActivity implements OnRecycleItemClickListener {
 
     private ActivityProductBinding binding;
     private RecycleAdapterProduct adapter;
@@ -64,6 +65,7 @@ public class ProductActivity extends BaseAppCompatActivity {
 
     private void initCtrl() {
         adapter = new RecycleAdapterProduct(this);
+        adapter.setOnItemClickListener(this);
         binding.recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         binding.recycler.setAdapter(adapter);
         binding.recycler.addItemDecoration(decorationList);
@@ -100,7 +102,7 @@ public class ProductActivity extends BaseAppCompatActivity {
     private void initData() {
         //设置列表测试数据
         adapter.getResults().clear();
-        for (int i=0;i<35;i++) {
+        for (int i = 0; i < 35; i++) {
             adapter.getResults().add(new TestBean());
         }
         adapter.notifyDataSetChanged();
@@ -162,6 +164,11 @@ public class ProductActivity extends BaseAppCompatActivity {
             add(new PopBean("敏感性"));
             add(new PopBean("其他"));
         }});
+    }
+
+    @Override
+    public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
+        ProductDetailActivity.start(this);
     }
 
     public void onClick(View v) {

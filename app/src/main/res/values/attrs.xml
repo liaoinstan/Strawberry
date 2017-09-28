@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CountView">
+        <!-- 是否可编辑状态 -->
+        <attr name="editble" format="boolean" />
+    </declare-styleable>
+</resources>

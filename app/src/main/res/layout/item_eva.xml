@@ -53,24 +53,31 @@
         android:textSize="@dimen/text_nomal_small" />
 
     <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="15dp"-->
-        <!--android:layout_marginRight="15dp" />-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="15dp"-->
+    <!--android:layout_marginRight="15dp" />-->
 
     <com.ins.common.view.bundleimgview.BundleImgView
         android:id="@+id/bundle"
-        app:editble="false"
-        app:dragble="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        app:dragble="false"
+        app:editble="false" />
+
+    <LinearLayout
+        android:id="@+id/lay_eva_recomment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <View
-        style="@style/Line_H"
-        android:layout_marginTop="10dp" />
+        <View style="@style/Line_H" />
 
-    <include layout="@layout/item_eva_goods" />
+        <include layout="@layout/item_eva_goods" />
+
+    </LinearLayout>
 
 </LinearLayout>

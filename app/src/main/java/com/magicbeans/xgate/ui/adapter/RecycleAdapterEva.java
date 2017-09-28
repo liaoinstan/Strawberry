@@ -20,6 +20,12 @@ public class RecycleAdapterEva extends RecyclerView.Adapter<RecycleAdapterEva.Ho
 
     private Context context;
     private List<Eva> results = new ArrayList<>();
+    //是否需要展示推荐数据
+    private boolean needRecomment = true;
+
+    public void setNeedRecomment(boolean needRecomment) {
+        this.needRecomment = needRecomment;
+    }
 
     public List<Eva> getResults() {
         return results;
@@ -55,13 +61,18 @@ public class RecycleAdapterEva extends RecyclerView.Adapter<RecycleAdapterEva.Ho
 
     public class Holder extends RecyclerView.ViewHolder {
 
+        private View lay_eva_recomment;
         private ImageView img_header;
         private BundleImgView bundle;
 
         public Holder(View itemView) {
             super(itemView);
+            lay_eva_recomment = itemView.findViewById(R.id.lay_eva_recomment);
             img_header = (ImageView) itemView.findViewById(R.id.img_header);
             bundle = (BundleImgView) itemView.findViewById(R.id.bundle);
+
+            //决定是否展示推荐数据
+            lay_eva_recomment.setVisibility(needRecomment ? View.VISIBLE : View.GONE);
             bundle.setOnBundleLoadImgListener(new BundleImgView.OnBundleLoadImgListener() {
                 @Override
                 public void onloadImg(ImageView imageView, String imgurl, int defaultSrc) {
