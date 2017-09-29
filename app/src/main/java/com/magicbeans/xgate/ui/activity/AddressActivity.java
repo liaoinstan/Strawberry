@@ -2,6 +2,7 @@ package com.magicbeans.xgate.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,14 +16,15 @@ import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Address;
+import com.magicbeans.xgate.databinding.ActivityAddressBinding;
+import com.magicbeans.xgate.databinding.ActivityAddressaddBinding;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterAddress;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
 public class AddressActivity extends BaseAppCompatActivity implements RecycleAdapterAddress.OnAddressBtnClickListener {
 
-    private LoadingLayout loadingLayout;
-    private SpringView springView;
-    private RecyclerView recycler;
+
+    private ActivityAddressBinding binding;
     private RecycleAdapterAddress adapter;
 
     public static void start(Context context) {
@@ -33,7 +35,7 @@ public class AddressActivity extends BaseAppCompatActivity implements RecycleAda
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_address);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_address);
         setToolbar();
         initBase();
         initView();
@@ -45,25 +47,22 @@ public class AddressActivity extends BaseAppCompatActivity implements RecycleAda
     }
 
     private void initView() {
-        loadingLayout = (LoadingLayout) findViewById(R.id.loadingview);
-        recycler = (RecyclerView) findViewById(R.id.recycler);
-        springView = (SpringView) findViewById(R.id.spring);
     }
 
     private void initCtrl() {
         adapter = new RecycleAdapterAddress(this);
         adapter.setOnAddressBtnClickListener(this);
-        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recycler.setAdapter(adapter);
-        springView.setHeader(new AliHeader(this, false));
-        springView.setFooter(new AliFooter(this, false));
-        springView.setListener(new SpringView.OnFreshListener() {
+        binding.recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        binding.recycler.setAdapter(adapter);
+        binding.spring.setHeader(new AliHeader(this, false));
+        binding.spring.setFooter(new AliFooter(this, false));
+        binding.spring.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        springView.onFinishFreshAndLoad();
+                        binding.spring.onFinishFreshAndLoad();
                     }
                 }, 1000);
             }
@@ -73,12 +72,12 @@ public class AddressActivity extends BaseAppCompatActivity implements RecycleAda
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        springView.onFinishFreshAndLoad();
+                        binding.spring.onFinishFreshAndLoad();
                     }
                 }, 1000);
             }
         });
-        loadingLayout.setOnRefreshListener(new View.OnClickListener() {
+        binding.loadingview.setOnRefreshListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             }
@@ -90,6 +89,14 @@ public class AddressActivity extends BaseAppCompatActivity implements RecycleAda
         adapter.getResults().add(new Address());
         adapter.getResults().add(new Address());
         adapter.getResults().add(new Address());
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_add:
+                AddressAddActivity.start(this);
+                break;
+        }
     }
 
     @Override

@@ -15,17 +15,39 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="0dp">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="45dp"
             android:background="@color/white"
-            app:tabIndicatorColor="@color/st_purple"
-            app:tabIndicatorHeight="2dp"
-            app:tabSelectedTextColor="@color/st_purple"
-            app:tabTextColor="@color/com_text_light" />
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
-        <View style="@style/Line_H"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_rect_cornerfull_dark"
+                    android:gravity="center"
+                    android:hint="搜索"
+                    android:textColor="@color/com_text_dark_light"
+                    android:textColorHint="@color/com_text_dark_light"
+                    android:textSize="@dimen/text_nomal" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+        <View style="@style/Line_H" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -35,6 +57,18 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            app:tabIndicatorColor="@color/st_purple"
+            app:tabIndicatorHeight="2dp"
+            app:tabSelectedTextColor="@color/st_purple"
+            app:tabTextColor="@color/com_text_light" />
+
+        <View style="@style/Line_H" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"

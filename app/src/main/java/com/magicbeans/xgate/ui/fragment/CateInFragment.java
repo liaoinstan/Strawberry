@@ -25,7 +25,7 @@ import com.magicbeans.xgate.ui.base.BaseFragment;
 /**
  * Created by liaoinstan
  */
-public class CateInFragment extends BaseFragment implements OnRecycleItemClickListener{
+public class CateInFragment extends BaseFragment implements OnRecycleItemClickListener {
 
     private int position;
     private View rootView;
@@ -75,6 +75,14 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
         for (int i = 0; i < 100; i++) {
             adapter.getResults().add(new TestBean());
         }
+        //添加头部数据
+        adapter.getResults().add(0, new TestBean("女士护肤"));
+        adapter.getResults().add(7, new TestBean("品牌彩妆"));
+        adapter.getResults().add(13, new TestBean("美发护发"));
+        adapter.getResults().add(21, new TestBean("女士香水"));
+        adapter.getResults().add(27, new TestBean("男士护肤"));
+        adapter.getResults().add(36, new TestBean("男士香水"));
+        adapter.getResults().add(39, new TestBean("暖室香颂"));
         adapter.notifyDataSetChanged();
     }
 

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/st_bk"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.activity.SuggestActivity">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <TextView
+                    android:id="@+id/text_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="支付确认"
+                    android:textColor="@color/com_text_dark_light"
+                    android:textSize="@dimen/text_big" />
+
+            </android.support.v7.widget.Toolbar>
+
+            <View style="@style/Line_H" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:gravity="center_vertical|right"
+                android:paddingRight="15dp"
+                android:text="需支付：452.80元"
+                android:textColor="@color/com_text_dark_light"
+                android:textSize="@dimen/text_nomal" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="center_vertical"
+                    android:text="支付方式"
+                    android:textColor="@color/com_text_dark_light"
+                    android:textSize="@dimen/text_nomal_small" />
+
+                <View
+                    style="@style/Line_H"
+                    android:layout_marginLeft="15dp" />
+
+                <RadioButton
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/ic_tab_home"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/selector_check_shopbag"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="支付宝"
+                    android:textColor="@color/com_text_dark_light"
+                    android:textSize="@dimen/text_nomal_small" />
+
+                <RadioButton
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/ic_tab_home"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/selector_check_shopbag"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="微信支付"
+                    android:textColor="@color/com_text_dark_light"
+                    android:textSize="@dimen/text_nomal_small" />
+
+                <View
+                    style="@style/Line_H"
+                    android:layout_marginLeft="15dp" />
+
+                <RadioButton
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:button="@null"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/selector_check_shopbag"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="银行卡支付"
+                    android:textColor="@color/com_text_dark_light"
+                    android:textSize="@dimen/text_nomal_small" />
+
+                <View
+                    style="@style/Line_H"
+                    android:layout_marginLeft="15dp" />
+                
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"/>
+
+            </RadioGroup>
+
+            <Space style="@style/Space_V" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/line_darklight"
+                android:gravity="center"
+                android:text="微信支付：482.80元"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

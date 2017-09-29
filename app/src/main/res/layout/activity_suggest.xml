@@ -77,31 +77,21 @@
             android:textSize="@dimen/text_nomal" />
 
         <com.ins.common.view.EmojiEditText
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            style="@style/EditLineItem"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:background="@drawable/shape_rect_corner_none_line_dark"
             android:hint="请填写您的姓名"
             android:inputType="text"
-            android:maxLines="1"
-            android:textColor="@color/com_text_blank"
-            android:textColorHint="@color/com_text_dark_light"
-            android:textSize="@dimen/text_nomal_small" />
+            android:maxLines="1" />
 
         <com.ins.common.view.EmojiEditText
-            android:paddingLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:paddingRight="10dp"
+            style="@style/EditLineItem"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:background="@drawable/shape_rect_corner_none_line_dark"
-            android:hint="请填写您的姓名"
+            android:layout_marginTop="10dp"
+            android:hint="请填写您的邮箱"
             android:inputType="text"
-            android:maxLines="1"
-            android:textColor="@color/com_text_blank"
-            android:textColorHint="@color/com_text_dark_light"
-            android:textSize="@dimen/text_nomal_small" />
+            android:maxLines="1" />
 
         <Button
             android:id="@+id/version_check"

@@ -1,6 +1,7 @@
 package com.magicbeans.xgate.ui.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,24 +9,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.amulyakhare.textdrawable.TextDrawable;
-import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.ins.common.helper.SelectHelper;
 import com.ins.common.utils.GlideUtil;
-import com.ins.common.utils.StrUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Brand;
-import com.magicbeans.xgate.bean.User;
+import com.magicbeans.xgate.bean.TestBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecycleAdapterSortBrand extends RecyclerView.Adapter<RecycleAdapterSortBrand.Holder> {
+public class RecycleAdapterSortBrand extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private final int SRC_HEADER = R.layout.item_home_brand_header;
+    private final int SRC_CONTENT = R.layout.item_home_brand;
 
     private List<Brand> results;
     private Context context;
-    private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
-    private TextDrawable.IBuilder mDrawableBuilder = TextDrawable.builder().round();
 
     public List<Brand> getResults() {
         return results;
@@ -46,36 +45,36 @@ public class RecycleAdapterSortBrand extends RecyclerView.Adapter<RecycleAdapter
     }
 
     @Override
-    public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_brand, parent, false);
-        return new Holder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(final Holder holder, final int position) {
-        if (results == null || results.size() == 0 || results.size() <= position)
-            return;
-        final Brand brand = results.get(position);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                brand.setSelect(!brand.isSelect());
-                notifyItemChanged(position);
-            }
-        });
-        if (brand != null) {
-            //TextDrawable drawable = mDrawableBuilder.build(String.valueOf(user.getSortName().charAt(0)), mColorGenerator.getColor(user.getSortName()));
-            //holder.iv_img.setImageDrawable(drawable);
-//            GlideUtil.loadCircleImg(holder.iv_img, R.drawable.default_header_edit, brand.getAvatar());
-//            holder.tv_name.setText(brand.getSortNameSmart());
-//            holder.tv_phone.setText(brand.getPhone());
-//            holder.img_check.setSelected(brand.isSelect());
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case SRC_HEADER:
+                return new HolderHeader(LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false));
+            case SRC_CONTENT:
+                return new HolderContent(LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false));
+            default:
+                return null;
         }
     }
 
-    public void setSelectAll(boolean selectAll) {
-        SelectHelper.selectAllSelectBeans(results, selectAll);
-        notifyDataSetChanged();
+    @Override
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        if (results == null || results.size() == 0 || results.size() <= position)
+            return;
+        if (holder instanceof HolderHeader) {
+            bindHeader((HolderHeader) holder, position);
+        } else if (holder instanceof HolderContent) {
+            bindContent((HolderContent) holder, position);
+        }
+    }
+
+    private void bindContent(HolderContent holder, int position) {
+        Brand brand = results.get(position);
+        holder.text_brand_title.setText(brand.getSortName());
+    }
+
+    private void bindHeader(HolderHeader holder, int position) {
+        Brand brand = results.get(position);
+        holder.text_header_title.setText(brand.getSortName());
     }
 
     @Override
@@ -83,32 +82,57 @@ public class RecycleAdapterSortBrand extends RecyclerView.Adapter<RecycleAdapter
         return results.size();
     }
 
-    public String getSelectedIds() {
-        String ids = "";
-        for (Brand brand : results) {
-            if (brand.isSelect()) {
-                ids += brand.getId() + ",";
-            }
+    @Override
+    public int getItemViewType(int position) {
+        if (results.get(position).isHeader()) {
+            return SRC_HEADER;
+        } else {
+            return SRC_CONTENT;
         }
-        ids = StrUtil.subLastChart(ids, ",");
-        return ids;
     }
 
-    public boolean isAllSelect() {
-        for (Brand brand : results) {
-            if (!brand.isSelect()) {
-                return false;
-            }
+    public class HolderHeader extends RecyclerView.ViewHolder {
+
+        private TextView text_header_title;
+
+        public HolderHeader(View itemView) {
+            super(itemView);
+            text_header_title = (TextView) itemView.findViewById(R.id.text_header_title);
         }
-        return true;
     }
 
-    public static class Holder extends RecyclerView.ViewHolder {
+    public static class HolderContent extends RecyclerView.ViewHolder {
         public final ImageView img_item_brand;
+        public final TextView text_brand_title;
 
-        public Holder(View itemView) {
+        public HolderContent(View itemView) {
             super(itemView);
             img_item_brand = (ImageView) itemView.findViewById(R.id.img_item_brand);
+            text_brand_title = (TextView) itemView.findViewById(R.id.text_brand_title);
+        }
+    }
+
+
+    @Override
+    public void onAttachedToRecyclerView(final RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+        if (manager instanceof GridLayoutManager) {
+            final GridLayoutManager gridManager = ((GridLayoutManager) manager);
+            gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    int type = getItemViewType(position);
+                    switch (type) {
+                        case SRC_HEADER:
+                            return 3;
+                        case SRC_CONTENT:
+                            return 1;
+                        default:
+                            return 1;
+                    }
+                }
+            });
         }
     }
 }

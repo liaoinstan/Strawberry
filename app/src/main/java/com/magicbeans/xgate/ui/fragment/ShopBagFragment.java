@@ -21,6 +21,8 @@ import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Order;
 import com.magicbeans.xgate.bean.TestBean;
+import com.magicbeans.xgate.ui.activity.OrderActivity;
+import com.magicbeans.xgate.ui.activity.OrderAddActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeShopbag;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 
@@ -160,6 +162,7 @@ public class ShopBagFragment extends BaseFragment implements View.OnClickListene
                     DialogSure.showDialog(getContext(), "确定要下单？", new DialogSure.CallBack() {
                         @Override
                         public void onSure() {
+                            OrderAddActivity.start(getContext());
                         }
                     });
                 }

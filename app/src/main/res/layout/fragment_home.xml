@@ -15,18 +15,38 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="45dp"
             android:background="@color/white"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <TextView
-                android:id="@+id/text_toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Strawberry"
-                android:textColor="@color/com_text_dark_light"
-                android:textSize="@dimen/text_big" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:padding="8dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_header"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_rect_cornerfull_dark"
+                    android:gravity="center"
+                    android:hint="搜索"
+                    android:textColor="@color/com_text_dark_light"
+                    android:textColorHint="@color/com_text_dark_light"
+                    android:textSize="@dimen/text_nomal" />
+
+            </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
 

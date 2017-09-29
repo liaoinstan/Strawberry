@@ -60,6 +60,9 @@
             android:name=".ui.activity.ProductActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".ui.activity.ProductDetailActivity" />
+        <activity android:name=".ui.activity.OrderAddActivity" />
+        <activity android:name=".ui.activity.AddressAddActivity" />
+        <activity android:name=".ui.activity.PayActivity" />
     </application>
 
 </manifest>

@@ -1,5 +1,7 @@
 package com.ins.common.utils;
 
+import android.text.TextUtils;
+
 import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.List;
@@ -80,6 +82,20 @@ public class StrUtil {
         } else {
             return false;
         }
+    }
+
+    //判断一个字符串是否是一个英文字符
+    public static boolean isEnChar(String str) {
+        if (!TextUtils.isEmpty(str) && str.length() == 1 && str.matches("^[a-zA-Z]*")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //判断2个字符串是否相同（无视大小写：A==a）
+    public static boolean isEqualsNoCase(String str1,String str2) {
+        return str1.toLowerCase().equals(str2.toLowerCase());
     }
 
     /**

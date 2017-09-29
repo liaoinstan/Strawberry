@@ -1,5 +1,7 @@
 package com.magicbeans.xgate.utils;
 
+import android.text.TextUtils;
+
 import com.github.promeg.pinyinhelper.Pinyin;
 import com.ins.common.common.CharacterParser;
 import com.ins.common.utils.StrUtil;
@@ -40,6 +42,14 @@ public class SortUtil {
                 } else if ("#".equals(o2.getSortTag())) {
                     return -1;
                 } else {
+                    if (o1.getSortTag().equals(o2.getSortTag())) {
+                        //如果2个对象的SortTag一样，那么名称和sortTag一至的对象小（排在前面，例如：A < 啊）
+                        if (StrUtil.isEqualsNoCase(o1.getSortName(), o1.getSortTag())) {
+                            return -1;
+                        } else if (StrUtil.isEqualsNoCase(o2.getSortName(), o2.getSortTag())) {
+                            return 1;
+                        }
+                    }
                     return o1.getSortTag().compareTo(o2.getSortTag());
                 }
             }

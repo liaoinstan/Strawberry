@@ -10,15 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ins.common.common.ItemDecorationSortStickTop;
 import com.ins.common.utils.FocusUtil;
 import com.ins.common.view.IndexBar;
 import com.ins.common.view.LoadingLayout;
 import com.ins.common.view.SideBar;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Brand;
-import com.magicbeans.xgate.bean.TestBean;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterCateIn;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterSortBrand;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.utils.ColorUtil;
@@ -26,6 +23,7 @@ import com.magicbeans.xgate.utils.SortUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 
 /**
@@ -41,7 +39,6 @@ public class BrandFragment extends BaseFragment {
     private IndexBar index_bar;
     private RecyclerView recycler;
     private RecycleAdapterSortBrand adapter;
-    private ItemDecorationSortStickTop decoration;
     private LinearLayoutManager layoutManager;
 
     private List<Brand> brands = new ArrayList<>();
@@ -90,7 +87,6 @@ public class BrandFragment extends BaseFragment {
         adapter = new RecycleAdapterSortBrand(getContext());
 //        recycler.setLayoutManager(layoutManager = new LinearLayoutManager(getContext()));
         recycler.setLayoutManager(layoutManager = new GridLayoutManager(getContext(), 3, GridLayoutManager.VERTICAL, false));
-        recycler.addItemDecoration(decoration = new ItemDecorationSortStickTop(getContext(), ColorUtil.colors));
         recycler.setAdapter(adapter);
         loadingLayout.setOnRefreshListener(new View.OnClickListener() {
             @Override
@@ -100,6 +96,7 @@ public class BrandFragment extends BaseFragment {
         });
 
         index_bar.setColors(ColorUtil.colors);
+        index_bar.setIndexStr("热ABCDEFGHIJKLMNOPQRSTUVWXY#");
         index_bar.addOnIndexChangeListener(new SideBar.OnIndexChangeListener() {
             @Override
             public void onIndexChanged(float centerY, String tag, int position) {
@@ -118,6 +115,7 @@ public class BrandFragment extends BaseFragment {
         brands.add(new Brand("从v"));
         brands.add(new Brand("ui"));
         brands.add(new Brand("键盘"));
+        brands.add(new Brand("天啊撸"));
         brands.add(new Brand("阿萨德"));
         brands.add(new Brand("在v"));
         brands.add(new Brand("太容易人体宴"));
@@ -126,13 +124,37 @@ public class BrandFragment extends BaseFragment {
     }
 
     private void freshData(List<Brand> results) {
+        //对数据进行排序
         SortUtil.sortData(results);
-        String tagsStr = SortUtil.getTags(results);
-        List<String> tagsArr = SortUtil.getTagsArr(results);
-        index_bar.setIndexStr(tagsStr);
-        decoration.setTags(tagsArr);
+        addSortHeaders(results);
+        addHots(results);
         adapter.getResults().clear();
         adapter.getResults().addAll(results);
         adapter.notifyDataSetChanged();
+    }
+
+    //添加
+    private static void addSortHeaders(List<Brand> results) {
+        String temp = "";
+        ListIterator<Brand> iterator = results.listIterator();
+        while (iterator.hasNext()) {
+            Brand brand = iterator.next();
+            if (!temp.equals(brand.getSortTag())) {
+                temp = brand.getSortTag();
+                iterator.previous();
+                iterator.add(new Brand(temp, temp, true));
+            }
+        }
+    }
+
+    private static void addHots(List<Brand> results) {
+        List<Brand> hots = new ArrayList<Brand>() {{
+            add(new Brand("热门品牌", "热", true));
+            add(new Brand("阿迪"));
+            add(new Brand("香奈儿"));
+            add(new Brand("资生堂"));
+            add(new Brand("美肌"));
+        }};
+        results.addAll(0, hots);
     }
 }
