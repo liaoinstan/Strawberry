@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ins.common.common.ItemDecorationDivider;
+import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.ToastUtil;
 import com.liaoinstan.springview.container.AliFooter;
@@ -23,6 +24,7 @@ import com.magicbeans.xgate.bean.Order;
 import com.magicbeans.xgate.bean.TestBean;
 import com.magicbeans.xgate.ui.activity.OrderActivity;
 import com.magicbeans.xgate.ui.activity.OrderAddActivity;
+import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeShopbag;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 
@@ -30,7 +32,7 @@ import com.magicbeans.xgate.ui.base.BaseFragment;
 /**
  * Created by liaoinstan
  */
-public class ShopBagFragment extends BaseFragment implements View.OnClickListener {
+public class ShopBagFragment extends BaseFragment implements View.OnClickListener,OnRecycleItemClickListener {
 
     private int position;
     private View rootView;
@@ -105,6 +107,7 @@ public class ShopBagFragment extends BaseFragment implements View.OnClickListene
 
     private void initCtrl() {
         adapter = new RecycleAdapterHomeShopbag(getContext());
+        adapter.setOnItemClickListener(this);
         recycle.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recycle.addItemDecoration(new ItemDecorationDivider(getContext(), LinearLayoutManager.VERTICAL));
         recycle.setAdapter(adapter);
@@ -131,6 +134,11 @@ public class ShopBagFragment extends BaseFragment implements View.OnClickListene
                 }, 1000);
             }
         });
+    }
+
+    @Override
+    public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
+        ProductDetailActivity.start(getActivity());
     }
 
     @Override

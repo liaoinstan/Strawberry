@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.ins.common.common.GridSpacingItemDecoration;
 import com.ins.common.entity.Image;
+import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.DensityUtil;
 import com.ins.common.utils.FocusUtil;
 import com.ins.common.utils.GlideUtil;
@@ -24,6 +25,9 @@ import com.ins.common.utils.L;
 import com.ins.common.view.BannerView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.TestBean;
+import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
+import com.magicbeans.xgate.ui.activity.SearchActivity;
+import com.magicbeans.xgate.ui.activity.SectionActivity;
 import com.magicbeans.xgate.ui.adapter.PagerAdapterHomeRecommend;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeNew;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeSale;
@@ -36,7 +40,7 @@ import java.util.List;
 /**
  * Created by liaoinstan
  */
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements View.OnClickListener{
 
     private int position;
     private View rootView;
@@ -94,6 +98,10 @@ public class HomeFragment extends BaseFragment {
         recycle_home_new = (RecyclerView) rootView.findViewById(R.id.recycle_home_new);
         tab_home_recommend = (TabLayout) rootView.findViewById(R.id.tab_home_recommend);
         pager_home_recommend = (ViewPager) rootView.findViewById(R.id.pager_home_recommend);
+
+        rootView.findViewById(R.id.text_search).setOnClickListener(this);
+        rootView.findViewById(R.id.btn_new_more).setOnClickListener(this);
+        rootView.findViewById(R.id.btn_brand_more).setOnClickListener(this);
     }
 
     private void initData() {
@@ -150,17 +158,41 @@ public class HomeFragment extends BaseFragment {
         });
 
         adapterHomeSale = new RecycleAdapterHomeSale(getContext());
+        adapterHomeSale.setOnItemClickListener(onRecycleItemClickListener);
         recycle_home_sale.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recycle_home_sale.addItemDecoration(new GridSpacingItemDecoration(1, DensityUtil.dp2px(10), GridLayoutManager.HORIZONTAL, false));
         recycle_home_sale.setAdapter(adapterHomeSale);
 
         adapterHomeNew = new RecycleAdapterHomeNew(getContext());
+        adapterHomeNew.setOnItemClickListener(onRecycleItemClickListener);
         recycle_home_new.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.HORIZONTAL, false));
         recycle_home_new.addItemDecoration(new GridSpacingItemDecoration(2, DensityUtil.dp2px(10), GridLayoutManager.HORIZONTAL, true));
         recycle_home_new.setAdapter(adapterHomeNew);
 
-        pagerAdapterHomeRecommend = new PagerAdapterHomeRecommend(getChildFragmentManager(),new String[]{"热门精选","基础护肤","时尚彩妆","品牌香水"});
+        pagerAdapterHomeRecommend = new PagerAdapterHomeRecommend(getChildFragmentManager(), new String[]{"热门精选", "基础护肤", "时尚彩妆", "品牌香水"});
         tab_home_recommend.setupWithViewPager(pager_home_recommend);
         pager_home_recommend.setAdapter(pagerAdapterHomeRecommend);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.text_search:
+                SearchActivity.start(getActivity());
+                break;
+            case R.id.btn_new_more:
+                SectionActivity.start(getActivity());
+                break;
+            case R.id.btn_brand_more:
+                SectionActivity.start(getActivity());
+                break;
+        }
+    }
+
+    private OnRecycleItemClickListener onRecycleItemClickListener = new OnRecycleItemClickListener() {
+        @Override
+        public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
+            ProductDetailActivity.start(getActivity());
+        }
+    };
 }

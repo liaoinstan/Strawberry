@@ -14,13 +14,19 @@ public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
     private int spanCount;
     private int spacing;
     private boolean includeEdge;
+    private boolean reverseLayout;
     private int orientation = GridLayoutManager.VERTICAL;
 
     public GridSpacingItemDecoration(int spanCount, int spacing, int orientation, boolean includeEdge) {
+        this(spanCount, spacing, orientation, includeEdge, false);
+    }
+
+    public GridSpacingItemDecoration(int spanCount, int spacing, int orientation, boolean includeEdge, boolean reverseLayout) {
         this.spanCount = spanCount;
         this.spacing = spacing;
         this.orientation = orientation;
         this.includeEdge = includeEdge;
+        this.reverseLayout = reverseLayout;
     }
 
     @Override
@@ -51,13 +57,21 @@ public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
                 outRect.left = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
                 outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
                 if (position >= spanCount) {
-                    outRect.top = spacing; // item top
+                    if (!reverseLayout) {
+                        outRect.top = spacing; // item top
+                    } else {
+                        outRect.bottom = spacing; // item top
+                    }
                 }
             } else {
                 outRect.top = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
                 outRect.bottom = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
                 if (position >= spanCount) {
-                    outRect.left = spacing; // item top
+                    if (!reverseLayout) {
+                        outRect.left = spacing; // item top
+                    } else {
+                        outRect.right = spacing; // item top
+                    }
                 }
             }
         }

@@ -138,6 +138,9 @@
             <Space style="@style/Space_V" />
 
             <TextView
+                android:id="@+id/btn_pay"
+                android:onClick="onClick"
+                android:foreground="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@drawable/line_darklight"

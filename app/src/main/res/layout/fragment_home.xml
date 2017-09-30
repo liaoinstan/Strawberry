@@ -29,19 +29,22 @@
 
                 <ImageView
                     android:layout_width="40dp"
-                    android:padding="8dp"
                     android:layout_height="40dp"
+                    android:padding="8dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/default_header"/>
+                    android:src="@drawable/default_header" />
 
                 <TextView
+                    android:id="@+id/text_search"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="40dp"
                     android:layout_weight="1"
                     android:background="@drawable/shape_rect_cornerfull_dark"
+                    android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
                     android:hint="搜索"
+                    android:onClick="onClick"
                     android:textColor="@color/com_text_dark_light"
                     android:textColorHint="@color/com_text_dark_light"
                     android:textSize="@dimen/text_nomal" />
@@ -69,37 +72,37 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/lay_home_bannerboard"/>
+            <include layout="@layout/lay_home_bannerboard" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
-            <include layout="@layout/lay_home_sale"/>
+            <include layout="@layout/lay_home_sale" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
-            <include layout="@layout/lay_home_new"/>
+            <include layout="@layout/lay_home_new" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
-            <include layout="@layout/lay_home_brand"/>
+            <include layout="@layout/lay_home_brand" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
-            <include layout="@layout/lay_home_recommend"/>
+            <include layout="@layout/lay_home_recommend" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
-            <include layout="@layout/lay_home_class"/>
+            <include layout="@layout/lay_home_class" />
 
         </LinearLayout>
 

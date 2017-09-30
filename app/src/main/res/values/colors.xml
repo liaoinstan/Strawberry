@@ -5,6 +5,7 @@
     <color name="colorAccent">@color/st_purple</color>
 
     <color name="st_bk">#f2f2f2</color>
+    <color name="st_bk_light">#fafafa</color>
     <color name="st_default_bk">#f2f2f2</color>
     <color name="st_purple">#652d90</color>
 </resources>

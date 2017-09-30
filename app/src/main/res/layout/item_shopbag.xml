@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <include layout="@layout/lay_shopbag_item_content"/>
+        <include layout="@layout/lay_shopbag_item_content" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -42,7 +42,7 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
     @Override
     public void onBindViewHolder(final RecycleAdapterHomeShopbag.Holder holder, final int position) {
         final TestBean bean = results.get(position);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.lay_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) listener.onItemClick(holder, position);
@@ -84,6 +84,7 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
 
     public class Holder extends RecyclerView.ViewHolder {
 
+        private View lay_content;
         private ImageView img_header;
         private ImageView img_shopbag_check;
         private CountView countview;
@@ -92,6 +93,7 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
 
         public Holder(View itemView) {
             super(itemView);
+            lay_content = itemView.findViewById(R.id.lay_content);
             img_header = (ImageView) itemView.findViewById(R.id.img_header);
             img_shopbag_check = (ImageView) itemView.findViewById(R.id.img_shopbag_check);
             countview = (CountView) itemView.findViewById(R.id.countview);

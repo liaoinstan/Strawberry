@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 
 import com.magicbeans.xgate.R;
@@ -49,5 +50,14 @@ public class PayActivity extends BaseAppCompatActivity {
     }
 
     private void initData() {
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_pay:
+                PayResultActivity.start(this);
+                finish();
+                break;
+        }
     }
 }

@@ -19,19 +19,6 @@
             android:textColor="@color/com_text_dark"
             android:textSize="18sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="right|center_vertical"
-            android:gravity="center"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:text="更多 >"
-            android:textColor="@color/com_text_dark_light"
-            android:textSize="@dimen/text_nomal_small" />
-
-        <!--之说以把“更多”设置为match_parent是为了增大点击区域，否则文字太小容易点控-->
-
     </FrameLayout>
 
     <View style="@style/Line_H" />
