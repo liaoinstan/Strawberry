@@ -18,8 +18,7 @@ public class AppData {
         private static final String SHARENAME = "app_config";
         private static final String KEY_TOKEN = "token";
         private static final String KEY_USER = "user";
-        private static final String KEY_TEXTSIZE_EXAM = "textsize_exam";
-        private static final String KEY_TEXTSIZE_VIDEO = "textsize_video";
+        private static final String KEY_LANGUAGE = "language";
 
         public static void saveToken(String token) {
             SharedPrefUtilV2.open(SHARENAME).putString(KEY_TOKEN, token);
@@ -45,6 +44,13 @@ public class AppData {
             SharedPrefUtilV2.open(SHARENAME).remove(KEY_USER);
         }
 
+        public static String getLanguage() {
+            return SharedPrefUtilV2.open(SHARENAME).getString(KEY_LANGUAGE);
+        }
+
+        public static void saveLanguage(String language) {
+            SharedPrefUtilV2.open(SHARENAME).putString(KEY_LANGUAGE, language);
+        }
     }
 
     /**

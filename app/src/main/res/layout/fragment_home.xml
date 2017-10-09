@@ -43,7 +43,7 @@
                     android:background="@drawable/shape_rect_cornerfull_dark"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
-                    android:hint="搜索"
+                    android:hint="@string/home_search"
                     android:onClick="onClick"
                     android:textColor="@color/com_text_dark_light"
                     android:textColorHint="@color/com_text_dark_light"

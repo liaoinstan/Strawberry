@@ -6,8 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.widget.RadioGroup;
 
+import com.ins.common.utils.LanguageUtil;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.EventBean;
+import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class LanguageActivity extends BaseAppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
@@ -43,6 +48,15 @@ public class LanguageActivity extends BaseAppCompatActivity implements RadioGrou
     }
 
     private void initCtrl() {
+        String language = AppData.App.getLanguage();
+        switch (language) {
+            case "zh":
+                radiogroup.check(R.id.radio_language_zh);
+                break;
+            case "en":
+                radiogroup.check(R.id.radio_language_en);
+                break;
+        }
         radiogroup.setOnCheckedChangeListener(this);
     }
 
@@ -52,10 +66,18 @@ public class LanguageActivity extends BaseAppCompatActivity implements RadioGrou
     @Override
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
         switch (checkedId) {
-            case R.id.radio_language_ch:
+            case R.id.radio_language_zh:
+                LanguageUtil.setLanguage(this, "zh");
+                AppData.App.saveLanguage("zh");
+                EventBus.getDefault().post(new EventBean(EventBean.EVENT_LANGUAGE_CHANGE));
                 break;
             case R.id.radio_language_en:
+                LanguageUtil.setLanguage(this, "en");
+                AppData.App.saveLanguage("en");
+                EventBus.getDefault().post(new EventBean(EventBean.EVENT_LANGUAGE_CHANGE));
                 break;
         }
     }
+
+
 }

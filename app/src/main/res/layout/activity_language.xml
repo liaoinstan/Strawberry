@@ -54,7 +54,7 @@
             <View style="@style/Line_H" />
 
             <RadioButton
-                android:id="@+id/radio_language_ch"
+                android:id="@+id/radio_language_zh"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

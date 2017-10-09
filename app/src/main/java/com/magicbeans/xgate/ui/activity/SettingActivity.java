@@ -10,6 +10,7 @@ import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.ClearCacheUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.shelwee.update.utils.VersionUtil;
@@ -26,9 +27,17 @@ public class SettingActivity extends BaseAppCompatActivity implements View.OnCli
     }
 
     @Override
+    public void onCommonEvent(EventBean event) {
+        if (event.getEvent() == EventBean.EVENT_LANGUAGE_CHANGE) {
+            recreate();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+        registEventBus();
         setToolbar();
         initBase();
         initView();

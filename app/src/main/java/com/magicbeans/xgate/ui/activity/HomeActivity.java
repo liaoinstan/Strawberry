@@ -34,6 +34,13 @@ public class HomeActivity extends BaseAppCompatActivity {
     }
 
     @Override
+    public void onCommonEvent(EventBean event) {
+        if (event.getEvent() == EventBean.EVENT_LANGUAGE_CHANGE) {
+            recreate();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);

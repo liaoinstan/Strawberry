@@ -54,7 +54,7 @@
             <TextView
                 android:id="@+id/text_setting_safe"
                 style="@style/TextMeItem"
-                android:text="账号与安全" />
+                android:text="@string/setting_safe" />
 
             <View
                 style="@style/Line_H"

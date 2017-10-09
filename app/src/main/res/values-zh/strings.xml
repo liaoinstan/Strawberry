@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">草莓网</string>
+    <string name="action_settings">设置</string>
+    <string name="setting_safe">账号与安全</string>
+    <string name="home_tab_home">首页</string>
+    <string name="home_tab_cate">分类</string>
+    <string name="home_tab_shopbag">购物车</string>
+    <string name="home_tab_me">我的</string>
+    <string name="home_search">搜索</string>
+</resources>
