@@ -1,10 +1,22 @@
 <resources>
     <string name="app_name">Strawberry</string>
     <string name="action_settings">Settings</string>
-    <string name="setting_safe">account and safe</string>
     <string name="home_tab_home">home</string>
     <string name="home_tab_cate">category</string>
     <string name="home_tab_shopbag">shopbag</string>
     <string name="home_tab_me">me</string>
     <string name="home_search">search</string>
+    <string name="setting_safe">account and safe</string>
+    <string name="setting_msg">message</string>
+    <string name="setting_language">language</string>
+    <string name="setting_address">address</string>
+    <string name="setting_email">email</string>
+    <string name="setting_suggest">suggest</string>
+    <string name="setting_clear">clear</string>
+    <string name="setting_version">version</string>
+    <string name="setting_about">about strawberry net</string>
+    <string name="setting_logout">logout</string>
+    <string name="setting_name">your name</string>
+    <string name="setting_nick">your nick</string>
+    <string name="title_setting">setting</string>
 </resources>

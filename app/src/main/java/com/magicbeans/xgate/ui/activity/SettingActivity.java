@@ -52,24 +52,17 @@ public class SettingActivity extends BaseAppCompatActivity implements View.OnCli
         text_setting_catchsize = (TextView) findViewById(R.id.text_setting_catchsize);
         text_setting_version_name = (TextView) findViewById(R.id.text_setting_version_name);
         lay_setting_logout = findViewById(R.id.lay_setting_logout);
-        findViewById(R.id.text_setting_safe).setOnClickListener(this);
-        findViewById(R.id.text_setting_msgsetting).setOnClickListener(this);
-        findViewById(R.id.text_setting_language).setOnClickListener(this);
-        findViewById(R.id.text_setting_suggest).setOnClickListener(this);
-        findViewById(R.id.text_setting_version).setOnClickListener(this);
-        findViewById(R.id.text_setting_about).setOnClickListener(this);
-        findViewById(R.id.text_setting_clear).setOnClickListener(this);
-        findViewById(R.id.text_setting_logout).setOnClickListener(this);
     }
 
     private void initCtrl() {
         text_setting_catchsize.setText(ClearCacheUtil.getAppCacheSize(this));
         text_setting_version_name.setText(VersionUtil.getVersion(this));
-        if (AppData.App.getUser() == null) {
-            lay_setting_logout.setVisibility(View.GONE);
-        } else {
-            lay_setting_logout.setVisibility(View.VISIBLE);
-        }
+        //TODO:登录功能未完成，暂时还不需要隐藏
+//        if (AppData.App.getUser() == null) {
+//            lay_setting_logout.setVisibility(View.GONE);
+//        } else {
+//            lay_setting_logout.setVisibility(View.VISIBLE);
+//        }
     }
 
     private void initData() {
@@ -78,17 +71,25 @@ public class SettingActivity extends BaseAppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.lay_setting_header:
+                MeDetailActivity.start(this);
+                break;
             case R.id.text_setting_safe:
                 SafeActivity.start(this);
                 break;
             case R.id.text_setting_msgsetting:
-                MsgSettingActivity.start(this );
+                MsgSettingActivity.start(this);
                 break;
             case R.id.text_setting_language:
-                LanguageActivity.start(this );
+                LanguageActivity.start(this);
+                break;
+            case R.id.text_setting_address:
+                AddressActivity.start(this);
+                break;
+            case R.id.text_setting_email:
                 break;
             case R.id.text_setting_suggest:
-                SuggestActivity.start(this );
+                SuggestActivity.start(this);
                 break;
             case R.id.text_setting_version:
                 VersionActivity.start(this);
