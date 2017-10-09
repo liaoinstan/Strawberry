@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 
 import com.ins.common.utils.BitmapUtil;
 import com.ins.common.utils.FileUtil;
@@ -18,6 +19,9 @@ import java.io.IOException;
 
 /**
  * Created by liaoinstan on 2016/1/19.
+ * Update 2017/10/9
+ * 修复7.0 file://协议废弃问题，完全通过FileProvider形式共享应用间文件
+ *
  * Update 2017/6/19
  * 图片资源选择辅助类
  * <p>
@@ -80,7 +84,8 @@ public class CropHelper {
                     //拍照成功
                     if (needCrop) {
                         //如果需要裁剪，则启调系统裁剪，裁剪后的图片覆盖源文件
-                        startCrop(UriUtil.getUriFromFile(context, path));
+                        //startCrop(UriUtil.getUriFromFile(context, path));
+                        startCrop(UriUtil.getUriFromFile(context, path), Uri.fromFile(new File(this.path)));
                     } else {
                         //不需要裁剪，压缩图片回调成功接口
                         callResultWithCompress(path, path);
@@ -95,16 +100,19 @@ public class CropHelper {
                 if (resultCode == Activity.RESULT_OK) {
                     //获取照片成功
                     if (data != null) {
-                        Uri uri = data.getData();
+                        //获取相册图片路径
+                        String photoPath = FileUtil.PathUtil.getPath(context, data.getData());
                         if (needCrop) {
                             //如果需要裁剪，则启调系统裁剪
+                            //特别注意，裁剪启动uri不能是相册返回的uri:(data.getData())，相册返回的uri未进过content协议共享，必须先获取图片路径后自行通过FileProvider创建uri
+                            Uri inputUri = UriUtil.getUriFromFile(context, photoPath);
                             //产生一个新的文件路径作为输出路径（和拍照不同裁剪后的图片不能覆盖源文件）
-                            path = FileUtil.getPhotoFullPath();
-                            startCrop(uri, UriUtil.getUriFromFile(context, path));
+                            this.path = FileUtil.getPhotoFullPath();
+                            //注意输出uri不能是通过FileProvider创建的uri，这里无关file:content:协议，直接使用Uri.fromFile()创建uri
+                            startCrop(inputUri, Uri.fromFile(new File(this.path)));
                         } else {
                             //不需要裁剪，压缩图片回调成功接口
                             //获取真实的图片路径
-                            String photoPath = FileUtil.PathUtil.getPath(context, uri);
                             callResultWithCompress(photoPath, FileUtil.getPhotoFullPath());
                         }
                     }
@@ -211,6 +219,9 @@ public class CropHelper {
     public void startPhoto() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
+        //验证无需下面代码
+        //intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        //intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivityForResult(intent, PHOTO_PHOTO);
     }
 
@@ -220,13 +231,6 @@ public class CropHelper {
     public void startCrop(Uri uriFrom, Uri uriTo) {
         Intent intent = getCropIntent(uriFrom, uriTo);
         startActivityForResult(intent, PHOTO_CROP);
-    }
-
-    /**
-     * 上面方法的重载，输入覆盖原图片{@link #startCrop(Uri, Uri)}
-     */
-    public void startCrop(Uri uri) {
-        startCrop(uri, uri);
     }
 
     private void startActivityForResult(Intent intent, int requestCode) {
@@ -243,6 +247,8 @@ public class CropHelper {
         Intent intent;
         intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uriFrom, "image/*");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         //裁剪框比例（不设置则可自由拖拽编辑）
         if (needForceLv) {
             intent.putExtra("aspectX", aspectX);

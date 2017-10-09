@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 
 import java.io.File;
 
@@ -26,9 +27,13 @@ public class UriUtil {
             return Uri.fromFile(new File(path));
         } else {
             //适配到android 7.0
-            ContentValues contentValues = new ContentValues(1);
-            contentValues.put(MediaStore.Images.Media.DATA, new File(path).getAbsolutePath());
-            Uri uri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+
+//            ContentValues contentValues = new ContentValues(1);
+//            contentValues.put(MediaStore.Images.Media.DATA, new File(path).getAbsolutePath());
+//            Uri uri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+//            return uri;
+
+            Uri uri = FileProvider.getUriForFile(context, "com.ins.fileprovider", new File(path));
             return uri;
         }
     }

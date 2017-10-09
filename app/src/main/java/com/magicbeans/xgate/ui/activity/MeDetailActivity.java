@@ -50,7 +50,7 @@ public class MeDetailActivity extends BaseAppCompatActivity implements CropHelpe
 
     private void initBase() {
         cropHelperEx = new CropHelperEx(this, this);
-//        cropHelperEx.setNeedCrop(true);
+        cropHelperEx.setNeedCrop(true);
         dayPicker = new DayPicker(this, this);
     }
 

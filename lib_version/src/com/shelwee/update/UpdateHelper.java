@@ -28,6 +28,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -97,7 +98,7 @@ public class UpdateHelper {
                         if (updateInfo.getIsForce() == 1) {
                             showInstallDialog();
                         }
-                        installApk(getUriFromFile(mContext, cache.get(APK_PATH)));
+                        installApk(cache.get(APK_PATH));
                     } else {
                         if (ntfBuilder == null) {
                             ntfBuilder = new NotificationCompat.Builder(mContext);
@@ -106,6 +107,7 @@ public class UpdateHelper {
                                 .setContentTitle(cache.get(APP_NAME))
                                 .setContentText("下载完成，点击安装").setTicker("任务下载完成");
                         Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         intent.setDataAndType(
                                 getUriFromFile(mContext, cache.get(APK_PATH)),
                                 "application/vnd.android.package-archive");
@@ -154,7 +156,7 @@ public class UpdateHelper {
                 myHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        installApk(getUriFromFile(mContext, cache.get(APK_PATH)));
+                        installApk(cache.get(APK_PATH));
                     }
                 }, 100);
             }
@@ -220,7 +222,7 @@ public class UpdateHelper {
         dialog.setOnPositiveListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                installApk(getUriFromFile(mContext, cache.get(APK_PATH)));
+                installApk(cache.get(APK_PATH));
             }
         });
         dialog.show();
@@ -618,15 +620,20 @@ public class UpdateHelper {
         }
     }
 
-    private void installApk(Uri data) {
+    private void installApk(String path) {
+
+        Uri uri = getUriFromFile(mContext, path);
+
         if (mContext != null) {
             if (UpdateHelper.this.updateListener != null) {
                 UpdateHelper.this.updateListener.onInstallApk();
             }
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setDataAndType(data, "application/vnd.android.package-archive");
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            mContext.startActivity(i);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            //由于没有在Activity环境下启动Activity,设置FLAG_ACTIVITY_NEW_TASK标签
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setDataAndType(uri, "application/vnd.android.package-archive");
+            mContext.startActivity(intent);
             if (notificationManager != null) {
                 notificationManager.cancel(DOWNLOAD_NOTIFICATION_ID);
             }
@@ -637,10 +644,6 @@ public class UpdateHelper {
 
     /**
      * 7.0之后废弃了file://协议，使用content://URI ，这里根据系统版本选择不同协议
-     *
-     * @param context
-     * @param path
-     * @return
      */
     public static Uri getUriFromFile(Context context, String path) {
         if (android.os.Build.VERSION.SDK_INT < 24) {
@@ -648,9 +651,7 @@ public class UpdateHelper {
             return Uri.fromFile(new File(path));
         } else {
             //适配到android 7.0
-            ContentValues contentValues = new ContentValues(1);
-            contentValues.put(MediaStore.Images.Media.DATA, new File(path).getAbsolutePath());
-            Uri uri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+            Uri uri = FileProvider.getUriForFile(context, "com.ins.download.fileprovider", new File(path));
             return uri;
         }
     }

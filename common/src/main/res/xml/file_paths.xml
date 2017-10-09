@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--解决7.0 file://URI 协议在应用间废弃的问题，通过FileProvider途径进行文件共享-->
+    <paths>
+        <external-path
+            name="camera_photos"
+            path="" />
+    </paths>
+</resources>
