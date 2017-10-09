@@ -23,6 +23,7 @@ import com.ins.common.utils.FocusUtil;
 import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.L;
 import com.ins.common.view.BannerView;
+import com.ins.common.view.BannerView2;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.TestBean;
 import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
@@ -45,7 +46,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private int position;
     private View rootView;
 
-    private BannerView banner;
+    private BannerView2 banner;
 
     private RecyclerView recycle_home_sale;
     private RecycleAdapterHomeSale adapterHomeSale;
@@ -93,7 +94,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     }
 
     private void initView() {
-        banner = (BannerView) rootView.findViewById(R.id.banner);
+        banner = (BannerView2) rootView.findViewById(R.id.banner);
         recycle_home_sale = (RecyclerView) rootView.findViewById(R.id.recycle_home_sale);
         recycle_home_new = (RecyclerView) rootView.findViewById(R.id.recycle_home_new);
         tab_home_recommend = (TabLayout) rootView.findViewById(R.id.tab_home_recommend);
@@ -150,7 +151,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
 
     private void initCtrl() {
         banner.showTitle(false);
-        banner.setOnLoadImgListener(new BannerView.OnLoadImgListener() {
+        banner.setOnLoadImgListener(new BannerView2.OnLoadImgListener() {
             @Override
             public void onloadImg(ImageView imageView, String imgurl, int defaultSrc) {
                 GlideUtil.loadImg(imageView, R.drawable.default_bk_img, imgurl);

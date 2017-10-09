@@ -22,7 +22,8 @@ import com.ins.common.entity.Image;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/5/30 0030.
+ * Created by liaoinstan on 2016/5/30
+ * 推荐使用{@link BannerView2}，基于alibaba UltraViewPager实现
  */
 public class BannerView extends FrameLayout implements Runnable {
 
