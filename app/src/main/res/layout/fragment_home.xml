@@ -84,25 +84,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
-            <include layout="@layout/lay_home_new" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
             <include layout="@layout/lay_home_brand" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
-            <include layout="@layout/lay_home_recommend" />
+            <include layout="@layout/lay_home_hot" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <include layout="@layout/lay_home_select" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <include layout="@layout/lay_home_single" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
             <include layout="@layout/lay_home_class" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <include layout="@layout/lay_home_recommend" />
 
         </LinearLayout>
 

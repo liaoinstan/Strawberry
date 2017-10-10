@@ -15,7 +15,7 @@ import com.magicbeans.xgate.bean.TestBean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecycleAdapterHomeNew extends RecyclerView.Adapter<RecycleAdapterHomeNew.Holder> {
+public class RecycleAdapterHomeSingle extends RecyclerView.Adapter<RecycleAdapterHomeSingle.Holder> {
 
     private Context context;
     private List<TestBean> results = new ArrayList<>();
@@ -24,17 +24,17 @@ public class RecycleAdapterHomeNew extends RecyclerView.Adapter<RecycleAdapterHo
         return results;
     }
 
-    public RecycleAdapterHomeNew(Context context) {
+    public RecycleAdapterHomeSingle(Context context) {
         this.context = context;
     }
 
     @Override
-    public RecycleAdapterHomeNew.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecycleAdapterHomeSingle.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_sale, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(final RecycleAdapterHomeNew.Holder holder, final int position) {
+    public void onBindViewHolder(final RecycleAdapterHomeSingle.Holder holder, final int position) {
         final TestBean bean = results.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

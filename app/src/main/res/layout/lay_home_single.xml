@@ -15,12 +15,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="本周新品"
+            android:text="王牌单品"
             android:textColor="@color/com_text_dark"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/btn_new_more"
+            android:id="@+id/btn_single_more"
             android:foreground="?attr/selectableItemBackground"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -45,7 +45,7 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycle_home_new"
+            android:id="@+id/recycle_home_single"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

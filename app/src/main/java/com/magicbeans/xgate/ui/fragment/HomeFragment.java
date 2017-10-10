@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.TextView;
 
 import com.ins.common.common.GridSpacingItemDecoration;
 import com.ins.common.entity.Image;
@@ -21,17 +18,15 @@ import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.DensityUtil;
 import com.ins.common.utils.FocusUtil;
 import com.ins.common.utils.GlideUtil;
-import com.ins.common.utils.L;
-import com.ins.common.view.BannerView;
 import com.ins.common.view.BannerView2;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.TestBean;
 import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
 import com.magicbeans.xgate.ui.activity.SearchActivity;
 import com.magicbeans.xgate.ui.activity.SectionActivity;
-import com.magicbeans.xgate.ui.adapter.PagerAdapterHomeRecommend;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeNew;
+import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeSingle;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeSale;
+import com.magicbeans.xgate.ui.adapter.RecycleAdapterRecomment;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -41,22 +36,23 @@ import java.util.List;
 /**
  * Created by liaoinstan
  */
-public class HomeFragment extends BaseFragment implements View.OnClickListener{
+public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private int position;
     private View rootView;
 
     private BannerView2 banner;
+    private BannerView2 banner_home_select;
 
     private RecyclerView recycle_home_sale;
     private RecycleAdapterHomeSale adapterHomeSale;
 
-    private RecyclerView recycle_home_new;
-    private RecycleAdapterHomeNew adapterHomeNew;
+    private RecyclerView recycle_home_single;
+    private RecycleAdapterHomeSingle adapterHomeSingle;
 
     private TabLayout tab_home_recommend;
-    private ViewPager pager_home_recommend;
-    private PagerAdapterHomeRecommend pagerAdapterHomeRecommend;
+    private RecyclerView recycle_home_recommend;
+    private RecycleAdapterRecomment adapterHomeRecomment;
 
     public static Fragment newInstance(int position) {
         HomeFragment fragment = new HomeFragment();
@@ -95,14 +91,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
 
     private void initView() {
         banner = (BannerView2) rootView.findViewById(R.id.banner);
+        banner_home_select = (BannerView2) rootView.findViewById(R.id.banner_home_select);
         recycle_home_sale = (RecyclerView) rootView.findViewById(R.id.recycle_home_sale);
-        recycle_home_new = (RecyclerView) rootView.findViewById(R.id.recycle_home_new);
+        recycle_home_single = (RecyclerView) rootView.findViewById(R.id.recycle_home_single);
         tab_home_recommend = (TabLayout) rootView.findViewById(R.id.tab_home_recommend);
-        pager_home_recommend = (ViewPager) rootView.findViewById(R.id.pager_home_recommend);
+        recycle_home_recommend = (RecyclerView) rootView.findViewById(R.id.recycler_home_recommend);
 
         rootView.findViewById(R.id.text_search).setOnClickListener(this);
-        rootView.findViewById(R.id.btn_new_more).setOnClickListener(this);
         rootView.findViewById(R.id.btn_brand_more).setOnClickListener(this);
+        rootView.findViewById(R.id.btn_select_more).setOnClickListener(this);
+        rootView.findViewById(R.id.btn_single_more).setOnClickListener(this);
     }
 
     private void initData() {
@@ -116,6 +114,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             add(new Image("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1506495515&di=1f7990b9071035dbd5751f1d93c029a6&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F010c87584941bba801219c7702c875.jpg%40900w_1l_2o_100sh.jpg"));
         }};
         banner.setDatas(banners);
+        banner_home_select.setDatas(banners);
 
         //限时促销列表假数据
         adapterHomeSale.getResults().clear();
@@ -130,33 +129,43 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         adapterHomeSale.notifyDataSetChanged();
 
         //本周新品列表假数据
-        adapterHomeNew.getResults().clear();
-        adapterHomeNew.getResults().add(new TestBean());
-        adapterHomeNew.getResults().add(new TestBean());
-        adapterHomeNew.getResults().add(new TestBean());
-        adapterHomeNew.getResults().add(new TestBean());
-        adapterHomeNew.getResults().add(new TestBean());
-        adapterHomeNew.getResults().add(new TestBean());
-        adapterHomeNew.getResults().add(new TestBean());
-        adapterHomeNew.getResults().add(new TestBean());
-        adapterHomeNew.getResults().add(new TestBean());
-        adapterHomeNew.getResults().add(new TestBean());
-        adapterHomeNew.getResults().add(new TestBean());
-        adapterHomeNew.getResults().add(new TestBean());
-        adapterHomeNew.getResults().add(new TestBean());
-        adapterHomeNew.getResults().add(new TestBean());
-        adapterHomeNew.getResults().add(new TestBean());
-        adapterHomeNew.notifyDataSetChanged();
+        adapterHomeSingle.getResults().clear();
+        adapterHomeSingle.getResults().add(new TestBean());
+        adapterHomeSingle.getResults().add(new TestBean());
+        adapterHomeSingle.getResults().add(new TestBean());
+        adapterHomeSingle.getResults().add(new TestBean());
+        adapterHomeSingle.getResults().add(new TestBean());
+        adapterHomeSingle.getResults().add(new TestBean());
+        adapterHomeSingle.getResults().add(new TestBean());
+        adapterHomeSingle.getResults().add(new TestBean());
+        adapterHomeSingle.getResults().add(new TestBean());
+        adapterHomeSingle.getResults().add(new TestBean());
+        adapterHomeSingle.getResults().add(new TestBean());
+        adapterHomeSingle.getResults().add(new TestBean());
+        adapterHomeSingle.getResults().add(new TestBean());
+        adapterHomeSingle.getResults().add(new TestBean());
+        adapterHomeSingle.getResults().add(new TestBean());
+        adapterHomeSingle.notifyDataSetChanged();
+
+        //精品推荐数据
+        adapterHomeRecomment.getResults().clear();
+        adapterHomeRecomment.getResults().add(new TestBean());
+        adapterHomeRecomment.getResults().add(new TestBean());
+        adapterHomeRecomment.getResults().add(new TestBean());
+        adapterHomeRecomment.getResults().add(new TestBean());
+        adapterHomeRecomment.getResults().add(new TestBean());
+        adapterHomeRecomment.getResults().add(new TestBean());
+        adapterHomeRecomment.getResults().add(new TestBean());
+        adapterHomeRecomment.getResults().add(new TestBean());
+        adapterHomeRecomment.getResults().add(new TestBean());
+        adapterHomeRecomment.getResults().add(new TestBean());
+        adapterHomeRecomment.getResults().add(new TestBean());
+        adapterHomeRecomment.notifyDataSetChanged();
     }
 
     private void initCtrl() {
-        banner.showTitle(false);
-        banner.setOnLoadImgListener(new BannerView2.OnLoadImgListener() {
-            @Override
-            public void onloadImg(ImageView imageView, String imgurl, int defaultSrc) {
-                GlideUtil.loadImg(imageView, R.drawable.default_bk_img, imgurl);
-            }
-        });
+        banner.setOnLoadImgListener(onLoadImgListener);
+        banner_home_select.setOnLoadImgListener(onLoadImgListener);
 
         adapterHomeSale = new RecycleAdapterHomeSale(getContext());
         adapterHomeSale.setOnItemClickListener(onRecycleItemClickListener);
@@ -164,15 +173,23 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         recycle_home_sale.addItemDecoration(new GridSpacingItemDecoration(1, DensityUtil.dp2px(10), GridLayoutManager.HORIZONTAL, false));
         recycle_home_sale.setAdapter(adapterHomeSale);
 
-        adapterHomeNew = new RecycleAdapterHomeNew(getContext());
-        adapterHomeNew.setOnItemClickListener(onRecycleItemClickListener);
-        recycle_home_new.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.HORIZONTAL, false));
-        recycle_home_new.addItemDecoration(new GridSpacingItemDecoration(2, DensityUtil.dp2px(10), GridLayoutManager.HORIZONTAL, true));
-        recycle_home_new.setAdapter(adapterHomeNew);
+        adapterHomeSingle = new RecycleAdapterHomeSingle(getContext());
+        adapterHomeSingle.setOnItemClickListener(onRecycleItemClickListener);
+        recycle_home_single.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.HORIZONTAL, false));
+        recycle_home_single.addItemDecoration(new GridSpacingItemDecoration(2, DensityUtil.dp2px(10), GridLayoutManager.HORIZONTAL, true));
+        recycle_home_single.setAdapter(adapterHomeSingle);
 
-        pagerAdapterHomeRecommend = new PagerAdapterHomeRecommend(getChildFragmentManager(), new String[]{"热门精选", "基础护肤", "时尚彩妆", "品牌香水"});
-        tab_home_recommend.setupWithViewPager(pager_home_recommend);
-        pager_home_recommend.setAdapter(pagerAdapterHomeRecommend);
+        adapterHomeRecomment = new RecycleAdapterRecomment(getContext());
+        adapterHomeRecomment.setOnItemClickListener(onRecycleItemClickListener);
+        recycle_home_recommend.setNestedScrollingEnabled(false);
+        recycle_home_recommend.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
+        recycle_home_recommend.addItemDecoration(new GridSpacingItemDecoration(2, DensityUtil.dp2px(4), GridLayoutManager.VERTICAL, false));
+        recycle_home_recommend.setAdapter(adapterHomeRecomment);
+
+        tab_home_recommend.addTab(tab_home_recommend.newTab().setText("热门精选"));
+        tab_home_recommend.addTab(tab_home_recommend.newTab().setText("基础护肤"));
+        tab_home_recommend.addTab(tab_home_recommend.newTab().setText("时尚彩妆"));
+        tab_home_recommend.addTab(tab_home_recommend.newTab().setText("品牌香水"));
     }
 
     @Override
@@ -181,10 +198,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             case R.id.text_search:
                 SearchActivity.start(getActivity());
                 break;
-            case R.id.btn_new_more:
-                SectionActivity.start(getActivity());
-                break;
             case R.id.btn_brand_more:
+            case R.id.btn_select_more:
+            case R.id.btn_single_more:
                 SectionActivity.start(getActivity());
                 break;
         }
@@ -196,4 +212,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             ProductDetailActivity.start(getActivity());
         }
     };
+
+
+    private BannerView2.OnLoadImgListener onLoadImgListener = new BannerView2.OnLoadImgListener() {
+        @Override
+        public void onloadImg(ImageView imageView, String imgurl, int defaultSrc) {
+            GlideUtil.loadImg(imageView, R.drawable.default_bk_img, imgurl);
+        }
+    };
+
 }
