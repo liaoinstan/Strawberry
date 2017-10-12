@@ -91,4 +91,10 @@ public interface NetInterface {
      */
     @GET("/app/productList.aspx")
     Call<ResponseBody> netProductList(@QueryMap Map<String, Object> param);
+
+    /**
+     * 品牌列表
+     */
+    @GET("/app/shopByBrand.aspx")
+    Call<ResponseBody> netBrandList(@QueryMap Map<String, Object> param);
 }

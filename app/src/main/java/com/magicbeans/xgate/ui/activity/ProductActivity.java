@@ -43,8 +43,18 @@ public class ProductActivity extends BaseAppCompatActivity implements OnRecycleI
     private MyGridPopupWindow pop_cate;
     private MyGridPopupWindow pop_skin;
 
+    private String BrandID;
+
+    //测试启动
     public static void start(Context context) {
         Intent intent = new Intent(context, ProductActivity.class);
+        intent.putExtra("BrandID", "288");
+        context.startActivity(intent);
+    }
+
+    public static void start(Context context, String BrandID) {
+        Intent intent = new Intent(context, ProductActivity.class);
+        intent.putExtra("BrandID", BrandID);
         context.startActivity(intent);
     }
 
@@ -60,6 +70,8 @@ public class ProductActivity extends BaseAppCompatActivity implements OnRecycleI
     }
 
     private void initBase() {
+        BrandID = getIntent().getStringExtra("BrandID");
+
         decorationList = new ItemDecorationDivider(this, ItemDecorationDivider.VERTICAL_LIST);
         pop_brand = new MyGridPopupWindow(this);
         pop_cate = new MyGridPopupWindow(this);
@@ -78,7 +90,7 @@ public class ProductActivity extends BaseAppCompatActivity implements OnRecycleI
         binding.recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         binding.recycler.setAdapter(adapter);
         binding.recycler.addItemDecoration(decorationList);
-        binding.loadingLayout.setOnRefreshListener(new View.OnClickListener() {
+        binding.loadingview.setOnRefreshListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 netGetProductList();
@@ -212,8 +224,7 @@ public class ProductActivity extends BaseAppCompatActivity implements OnRecycleI
 
     private void netGetProductList() {
         Map<String, Object> param = new NetParam()
-                //TODO:暂时只是写死一个品牌id，后期会动态选择
-                .put("brandId", 281)
+                .put("brandId", BrandID)
                 .build();
         binding.loadingview.showLoadingView();
         NetApi.NI().netProductList(param).enqueue(new STCallback<ProductWrap>(ProductWrap.class) {

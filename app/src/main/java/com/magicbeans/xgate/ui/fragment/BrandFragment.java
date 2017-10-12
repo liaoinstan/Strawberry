@@ -10,12 +10,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.FocusUtil;
+import com.ins.common.utils.StrUtil;
+import com.ins.common.utils.ToastUtil;
 import com.ins.common.view.IndexBar;
 import com.ins.common.view.LoadingLayout;
 import com.ins.common.view.SideBar;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.Brand;
+import com.magicbeans.xgate.bean.brand.Brand;
+import com.magicbeans.xgate.bean.brand.BrandIndex;
+import com.magicbeans.xgate.bean.brand.BrandWrap;
+import com.magicbeans.xgate.bean.common.SortBean;
+import com.magicbeans.xgate.bean.home.Product;
+import com.magicbeans.xgate.bean.home.ProductWrap;
+import com.magicbeans.xgate.net.NetApi;
+import com.magicbeans.xgate.net.NetParam;
+import com.magicbeans.xgate.net.STCallback;
+import com.magicbeans.xgate.ui.activity.ProductActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterSortBrand;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.utils.ColorUtil;
@@ -24,12 +36,13 @@ import com.magicbeans.xgate.utils.SortUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 
 
 /**
  * Created by liaoinstan
  */
-public class BrandFragment extends BaseFragment {
+public class BrandFragment extends BaseFragment implements OnRecycleItemClickListener{
 
     private int position;
     private View rootView;
@@ -40,8 +53,6 @@ public class BrandFragment extends BaseFragment {
     private RecyclerView recycler;
     private RecycleAdapterSortBrand adapter;
     private LinearLayoutManager layoutManager;
-
-    private List<Brand> brands = new ArrayList<>();
 
     public static Fragment newInstance(int position) {
         BrandFragment fragment = new BrandFragment();
@@ -85,7 +96,7 @@ public class BrandFragment extends BaseFragment {
 
     public void initCtrl() {
         adapter = new RecycleAdapterSortBrand(getContext());
-//        recycler.setLayoutManager(layoutManager = new LinearLayoutManager(getContext()));
+        adapter.setOnItemClickListener(this);
         recycler.setLayoutManager(layoutManager = new GridLayoutManager(getContext(), 3, GridLayoutManager.VERTICAL, false));
         recycler.setAdapter(adapter);
         loadingLayout.setOnRefreshListener(new View.OnClickListener() {
@@ -100,61 +111,87 @@ public class BrandFragment extends BaseFragment {
         index_bar.addOnIndexChangeListener(new SideBar.OnIndexChangeListener() {
             @Override
             public void onIndexChanged(float centerY, String tag, int position) {
-                int pos = SortUtil.getPosByTag(adapter.getResults(), tag);
+                int pos = getPosByTag(adapter.getResults(), tag);
                 if (pos != -1) layoutManager.scrollToPositionWithOffset(pos, 0);
             }
         });
     }
 
     private void initData() {
-        brands.clear();
-        brands.add(new Brand("阿达"));
-        brands.add(new Brand("阿萨德"));
-        brands.add(new Brand("地方"));
-        brands.add(new Brand("让他一人"));
-        brands.add(new Brand("从v"));
-        brands.add(new Brand("ui"));
-        brands.add(new Brand("键盘"));
-        brands.add(new Brand("天啊撸"));
-        brands.add(new Brand("阿萨德"));
-        brands.add(new Brand("在v"));
-        brands.add(new Brand("太容易人体宴"));
-        brands.add(new Brand("驱蚊器"));
-        freshData(brands);
+        netGetBrandList();
     }
 
     private void freshData(List<Brand> results) {
-        //对数据进行排序
-        SortUtil.sortData(results);
-        addSortHeaders(results);
         addHots(results);
         adapter.getResults().clear();
         adapter.getResults().addAll(results);
         adapter.notifyDataSetChanged();
     }
 
-    //添加
-    private static void addSortHeaders(List<Brand> results) {
-        String temp = "";
-        ListIterator<Brand> iterator = results.listIterator();
-        while (iterator.hasNext()) {
-            Brand brand = iterator.next();
-            if (!temp.equals(brand.getSortTag())) {
-                temp = brand.getSortTag();
-                iterator.previous();
-                iterator.add(new Brand(temp, temp, true));
+    @Override
+    public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
+        Brand brand = adapter.getResults().get(position);
+        ProductActivity.start(getContext(),brand.getBrandID());
+    }
+
+    //从联系人中获取tag标记的位置，如果未获取到，返回-1
+    public static int getPosByTag(List<Brand> results, String tag) {
+        if (!StrUtil.isEmpty(results) || !StrUtil.isEmpty(tag)) {
+            for (int i = 0; i < results.size(); i++) {
+                if (tag.equals(results.get(i).getIndexName())) {
+                    return i;
+                }
             }
         }
+        return -1;
+    }
+
+    private static List<Brand> format(List<BrandIndex> brandIndexs) {
+        ArrayList<Brand> brandsAll = new ArrayList<>();
+        if (!StrUtil.isEmpty(brandIndexs)) {
+            for (BrandIndex brandIndex : brandIndexs) {
+                String indexName = brandIndex.getIndexName();
+                List<Brand> brands = brandIndex.getBrandList();
+                Brand header = new Brand(indexName, indexName, true);
+                brandsAll.add(header);
+                brandsAll.addAll(brands);
+            }
+        }
+        return brandsAll;
     }
 
     private static void addHots(List<Brand> results) {
         List<Brand> hots = new ArrayList<Brand>() {{
-            add(new Brand("热门品牌", "热", true));
-            add(new Brand("阿迪"));
-            add(new Brand("香奈儿"));
-            add(new Brand("资生堂"));
-            add(new Brand("美肌"));
+            add(new Brand("热", "热门品牌", true));
+            add(new Brand("773", "5", "盖马蒂洛", "Gai Mattiolo"));
+            add(new Brand("488", "6", "姬尔克曼", "Gale Hayman"));
+            add(new Brand("1466", "1", "江南宝", "Gangbly"));
+            add(new Brand("92", "6", "盖普", "Gap"));
         }};
         results.addAll(0, hots);
+    }
+
+    private void netGetBrandList() {
+        Map<String, Object> param = new NetParam()
+                .build();
+        loadingLayout.showLoadingView();
+        NetApi.NI().netBrandList(param).enqueue(new STCallback<BrandWrap>(BrandWrap.class) {
+            @Override
+            public void onSuccess(int status, BrandWrap bean, String msg) {
+                List<Brand> brands = format(bean.getBrandIndexList());
+                if (!StrUtil.isEmpty(brands)) {
+                    freshData(brands);
+                    loadingLayout.showOut();
+                } else {
+                    loadingLayout.showLackView();
+                }
+            }
+
+            @Override
+            public void onError(int status, String msg) {
+                ToastUtil.showToastShort(msg);
+                loadingLayout.showFailView();
+            }
+        });
     }
 }

@@ -1,11 +1,9 @@
 package com.magicbeans.xgate.utils;
 
-import android.text.TextUtils;
-
 import com.github.promeg.pinyinhelper.Pinyin;
 import com.ins.common.common.CharacterParser;
 import com.ins.common.utils.StrUtil;
-import com.magicbeans.xgate.bean.SortBean;
+import com.magicbeans.xgate.bean.common.SortBean;
 
 import java.util.ArrayList;
 import java.util.Collections;
