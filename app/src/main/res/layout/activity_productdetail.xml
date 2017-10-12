@@ -1,149 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/st_bk"
-    tools:context=".ui.activity.ProductDetailActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:elevation="0dp"
-        app:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:contentScrim="@color/colorPrimary"
-            app:expandedTitleMarginStart="100dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:statusBarScrim="@android:color/transparent"
-            app:titleEnabled="false">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="76dp"
-                android:background="@color/none"
-                android:paddingTop="20dp"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-            <com.ins.common.view.BannerView
-                android:id="@+id/banner"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                app:banner_autoscroll="false"
-                app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="0.8" />
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-
-    </android.support.design.widget.AppBarLayout>
-
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:background="@color/st_bk"
+        tools:context=".ui.activity.ProductDetailActivity">
 
-        <android.support.v4.widget.NestedScrollView
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            app:elevation="0dp"
+            app:theme="@style/AppTheme.AppBarOverlay">
 
-            <LinearLayout
+            <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                app:contentScrim="@color/colorPrimary"
+                app:expandedTitleMarginStart="100dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:statusBarScrim="@android:color/transparent"
+                app:titleEnabled="false">
 
-                <include layout="@layout/lay_productdetail_nameboard" />
-
-                <include layout="@layout/lay_productdetail_attr" />
-
-                <include layout="@layout/lay_productdetail_eva" />
-
-                <WebView
-                    android:id="@+id/webview"
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp" />
+                    android:layout_height="76dp"
+                    android:background="@color/none"
+                    android:paddingTop="20dp"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            </LinearLayout>
+                <com.ins.common.view.BannerView2
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    app:autoscroll="false"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.8" />
 
-        </android.support.v4.widget.NestedScrollView>
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/white"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <View style="@style/Line_H" />
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <include
+                        android:id="@+id/include_nameboard"
+                        layout="@layout/lay_productdetail_nameboard" />
+
+                    <include
+                        android:id="@+id/include_attr"
+                        layout="@layout/lay_productdetail_attr" />
+
+                    <include
+                        android:id="@+id/include_eva"
+                        layout="@layout/lay_productdetail_eva" />
+
+                    <WebView
+                        android:id="@+id/webview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/white" />
+
+                </LinearLayout>
+
+            </android.support.v4.widget.NestedScrollView>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="50dp"
+                <View style="@style/Line_H" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:drawableTop="@drawable/ic_tab_home"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center_horizontal"
-                    android:paddingTop="3dp"
-                    android:text="购物车"
-                    android:textColor="@color/com_text_dark_light"
-                    android:textSize="@dimen/text_tiny" />
+                    android:orientation="horizontal">
 
-                <View style="@style/Line_V" />
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:drawableTop="@drawable/ic_tab_home"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center_horizontal"
+                        android:paddingTop="3dp"
+                        android:text="购物车"
+                        android:textColor="@color/com_text_dark_light"
+                        android:textSize="@dimen/text_tiny" />
 
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:drawableTop="@drawable/ic_tab_home"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center_horizontal"
-                    android:paddingTop="3dp"
-                    android:text="收藏"
-                    android:textColor="@color/com_text_dark_light"
-                    android:textSize="@dimen/text_tiny" />
+                    <View style="@style/Line_V" />
 
-                <View style="@style/Line_V" />
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:drawableTop="@drawable/ic_tab_home"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center_horizontal"
+                        android:paddingTop="3dp"
+                        android:text="收藏"
+                        android:textColor="@color/com_text_dark_light"
+                        android:textSize="@dimen/text_tiny" />
 
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:drawableTop="@drawable/ic_tab_home"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center_horizontal"
-                    android:paddingTop="3dp"
-                    android:text="客服"
-                    android:textColor="@color/com_text_dark_light"
-                    android:textSize="@dimen/text_tiny" />
+                    <View style="@style/Line_V" />
 
-                <View style="@style/Line_V" />
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:drawableTop="@drawable/ic_tab_home"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center_horizontal"
+                        android:paddingTop="3dp"
+                        android:text="客服"
+                        android:textColor="@color/com_text_dark_light"
+                        android:textSize="@dimen/text_tiny" />
 
-                <Space style="@style/Space_H" />
+                    <View style="@style/Line_V" />
 
-                <TextView
-                    android:id="@+id/btn_go"
-                    android:layout_width="120dp"
-                    android:layout_height="match_parent"
-                    android:background="#cccccc"
-                    android:gravity="center"
-                    android:text="加入购物车"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_nomal" />
+                    <Space style="@style/Space_H" />
+
+                    <TextView
+                        android:id="@+id/btn_go"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:background="#cccccc"
+                        android:gravity="center"
+                        android:text="加入购物车"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_nomal" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
-
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

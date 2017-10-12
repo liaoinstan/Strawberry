@@ -1,6 +1,7 @@
 package com.ins.common.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.util.AttributeSet;
@@ -28,10 +29,15 @@ public class BannerView2 extends FrameLayout {
     private UltraViewPager mViewPager;
     private BannerAdapter mBannerAdapter;
     private List<Image> images;
+    private boolean isAutoScroll;
 
     public BannerView2(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
+        if (attrs != null) {
+            final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.BannerView2, 0, 0);
+            isAutoScroll = attributes.getBoolean(R.styleable.BannerView2_autoscroll, true);
+        }
     }
 
     @Override
@@ -45,13 +51,13 @@ public class BannerView2 extends FrameLayout {
         mViewPager = (UltraViewPager) findViewById(R.id.viewpager);
         mViewPager.getViewPager().setPageMargin(0);
         mViewPager.setInfiniteLoop(true);
-        mViewPager.setAutoScroll(3000);
+        if (isAutoScroll) mViewPager.setAutoScroll(3000);
         mViewPager.initIndicator();
         mViewPager.getIndicator()
                 .setOrientation(UltraViewPager.Orientation.HORIZONTAL)
                 .setFocusColor(Color.parseColor("#ffffff"))
                 .setNormalColor(Color.parseColor("#33ffffff"))
-                .setMargin(0,0, DensityUtil.dp2px(5), DensityUtil.dp2px(5))
+                .setMargin(0, 0, DensityUtil.dp2px(5), DensityUtil.dp2px(5))
                 .setRadius(DensityUtil.dp2px(3));
         mViewPager.getIndicator().setGravity(Gravity.RIGHT | Gravity.BOTTOM);
         mViewPager.getIndicator().build();

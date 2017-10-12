@@ -18,6 +18,10 @@
         <attr name="banner_autoscroll" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="BannerView2">
+        <attr name="autoscroll" format="boolean" />
+    </declare-styleable>
+
     <declare-styleable name="MovieRecorderView">
         <!-- 开始是否打开摄像头 -->
         <attr name="is_open_camera" format="boolean" />
