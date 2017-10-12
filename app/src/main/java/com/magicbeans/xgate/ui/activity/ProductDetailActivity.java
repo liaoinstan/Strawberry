@@ -15,6 +15,8 @@ import com.ins.common.common.ItemDecorationDivider;
 import com.ins.common.entity.Image;
 import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.StatusBarTextUtil;
+import com.ins.common.utils.StrUtil;
+import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.viewutils.WebViewUtil;
 import com.ins.common.view.BannerView;
 import com.ins.common.view.BannerView2;
@@ -22,7 +24,13 @@ import com.ins.common.view.bundleimgview.BundleImgEntity;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Eva;
 import com.magicbeans.xgate.bean.common.KeyValue;
+import com.magicbeans.xgate.bean.product.Product;
+import com.magicbeans.xgate.bean.product.ProductDetail;
+import com.magicbeans.xgate.bean.product.ProductWrap;
 import com.magicbeans.xgate.databinding.ActivityProductdetailBinding;
+import com.magicbeans.xgate.net.NetApi;
+import com.magicbeans.xgate.net.NetParam;
+import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterEva;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterProductAttr;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
@@ -33,6 +41,7 @@ import com.magicbeans.xgate.ui.dialog.DialogBottomProductAttr;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ProductDetailActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
@@ -44,18 +53,18 @@ public class ProductDetailActivity extends BaseAppCompatActivity implements View
 
     private DialogBottomProductAttr dialogBottomProductAttr;
 
-    private String ProdID;
+    private String prodId;
 
     //测试启动
     public static void start(Context context) {
         Intent intent = new Intent(context, ProductDetailActivity.class);
-        intent.putExtra("ProdID", "56574");
+        intent.putExtra("prodId", "174755");
         context.startActivity(intent);
     }
 
-    public static void start(Context context, String ProdID) {
+    public static void start(Context context, String prodId) {
         Intent intent = new Intent(context, ProductDetailActivity.class);
-        intent.putExtra("ProdID", ProdID);
+        intent.putExtra("prodId", prodId);
         context.startActivity(intent);
     }
 
@@ -74,7 +83,7 @@ public class ProductDetailActivity extends BaseAppCompatActivity implements View
     }
 
     private void initBase() {
-        ProdID = getIntent().getStringExtra("ProdID");
+        prodId = getIntent().getStringExtra("prodId");
         productDetailNameBoradController = new ProductDetailNameBoradController(this);
         productDetailAttrController = new ProductDetailAttrController(binding.includeAttr);
         productDetailEvaController = new ProductDetailEvaController(binding.includeEva);
@@ -97,6 +106,7 @@ public class ProductDetailActivity extends BaseAppCompatActivity implements View
         productDetailNameBoradController.initData();
         productDetailAttrController.initData();
         productDetailEvaController.initData();
+        netProductDetail();
     }
 
     @Override
@@ -106,5 +116,26 @@ public class ProductDetailActivity extends BaseAppCompatActivity implements View
                 dialogBottomProductAttr.show();
                 break;
         }
+    }
+
+    private void netProductDetail() {
+        Map<String, Object> param = new NetParam()
+                .put("prodId", prodId)
+                .put("currId", "CNY")
+                .build();
+        binding.loadingview.showLoadingView();
+        NetApi.NI().netProductDetail(param).enqueue(new STCallback<ProductDetail>(ProductDetail.class) {
+            @Override
+            public void onSuccess(int status, ProductDetail productDetail, String msg) {
+                productDetailNameBoradController.setData(productDetail, prodId);
+                binding.loadingview.showOut();
+            }
+
+            @Override
+            public void onError(int status, String msg) {
+                ToastUtil.showToastShort(msg);
+                binding.loadingview.showFailView();
+            }
+        });
     }
 }

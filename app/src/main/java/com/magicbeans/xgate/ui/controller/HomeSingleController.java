@@ -2,7 +2,6 @@ package com.magicbeans.xgate.ui.controller;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -11,8 +10,8 @@ import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.DensityUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.TestBean;
-import com.magicbeans.xgate.bean.home.ProductWrap;
+import com.magicbeans.xgate.bean.product.Product;
+import com.magicbeans.xgate.bean.product.ProductWrap;
 import com.magicbeans.xgate.databinding.LayHomeSingleBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
@@ -56,7 +55,8 @@ public class HomeSingleController implements View.OnClickListener{
     private OnRecycleItemClickListener onRecycleItemClickListener = new OnRecycleItemClickListener() {
         @Override
         public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
-            ProductDetailActivity.start(context);
+            Product product = adapter.getResults().get(position);
+            ProductDetailActivity.start(context, product.getProdID());
         }
     };
 

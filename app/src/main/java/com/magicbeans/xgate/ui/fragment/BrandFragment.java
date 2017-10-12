@@ -21,9 +21,6 @@ import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.brand.Brand;
 import com.magicbeans.xgate.bean.brand.BrandIndex;
 import com.magicbeans.xgate.bean.brand.BrandWrap;
-import com.magicbeans.xgate.bean.common.SortBean;
-import com.magicbeans.xgate.bean.home.Product;
-import com.magicbeans.xgate.bean.home.ProductWrap;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
@@ -31,11 +28,9 @@ import com.magicbeans.xgate.ui.activity.ProductActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterSortBrand;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.utils.ColorUtil;
-import com.magicbeans.xgate.utils.SortUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 

@@ -1,27 +1,12 @@
 package com.magicbeans.xgate.ui.controller;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
-import com.ins.common.common.GridSpacingItemDecoration;
 import com.ins.common.common.ItemDecorationDivider;
-import com.ins.common.interfaces.OnRecycleItemClickListener;
-import com.ins.common.utils.DensityUtil;
-import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.bean.common.KeyValue;
-import com.magicbeans.xgate.bean.home.ProductWrap;
-import com.magicbeans.xgate.databinding.LayHomeSaleBinding;
 import com.magicbeans.xgate.databinding.LayProductdetailAttrBinding;
-import com.magicbeans.xgate.net.NetApi;
-import com.magicbeans.xgate.net.NetParam;
-import com.magicbeans.xgate.net.STCallback;
-import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeSale;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterProductAttr;
-
-import java.util.Map;
 
 /**
  * Created by Administrator on 2017/10/11.

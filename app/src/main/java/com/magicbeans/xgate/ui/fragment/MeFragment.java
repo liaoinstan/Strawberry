@@ -34,7 +34,7 @@ import com.magicbeans.xgate.ui.base.BaseFragment;
 /**
  * Created by liaoinstan
  */
-public class MeFragment extends BaseFragment implements View.OnClickListener, OnRecycleItemClickListener {
+public class MeFragment extends BaseFragment implements View.OnClickListener{
 
     private FragmentMeBinding binding;
     private int position;
@@ -104,16 +104,10 @@ public class MeFragment extends BaseFragment implements View.OnClickListener, On
 
     private void initCtrl() {
         adapter = new RecycleAdapterRecomment(getContext());
-        adapter.setOnItemClickListener(this);
         binding.recycleRecomment.setNestedScrollingEnabled(false);
         binding.recycleRecomment.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
         binding.recycleRecomment.addItemDecoration(new GridSpacingItemDecoration(2, DensityUtil.dp2px(4), GridLayoutManager.VERTICAL, false));
         binding.recycleRecomment.setAdapter(adapter);
-    }
-
-    @Override
-    public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
-        ProductDetailActivity.start(getContext());
     }
 
     @Override

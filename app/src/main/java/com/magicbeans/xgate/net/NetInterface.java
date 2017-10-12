@@ -93,6 +93,14 @@ public interface NetInterface {
     Call<ResponseBody> netProductList(@QueryMap Map<String, Object> param);
 
     /**
+     * 产品详情
+     * ProdId 产品id
+     * currId 货币类型
+     */
+    @GET("/app/apiProdDetail.aspx")
+    Call<ResponseBody> netProductDetail(@QueryMap Map<String, Object> param);
+
+    /**
      * 品牌列表
      */
     @GET("/app/shopByBrand.aspx")

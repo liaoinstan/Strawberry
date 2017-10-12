@@ -1,4 +1,4 @@
-package com.magicbeans.xgate.bean.home;
+package com.magicbeans.xgate.bean.product;
 
 import java.io.Serializable;
 

@@ -6,21 +6,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.viewutils.TextViewUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.TestBean;
-import com.magicbeans.xgate.bean.home.Product;
-import com.magicbeans.xgate.bean.home.ProductWrap;
-import com.magicbeans.xgate.databinding.ItemHomeSaleBinding;
+import com.magicbeans.xgate.bean.product.Product;
+import com.magicbeans.xgate.bean.product.ProductWrap;
 import com.magicbeans.xgate.databinding.ItemRecommentGridBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
+import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +48,7 @@ public class RecycleAdapterRecomment extends RecyclerView.Adapter<RecycleAdapter
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listener != null) listener.onItemClick(holder, position);
+                ProductDetailActivity.start(context, product.getProdID());
             }
         });
         GlideUtil.loadImg(holder.binding.imgHeader, R.drawable.default_bk_img, product.getProductImages().getImg350Src());
@@ -73,12 +71,6 @@ public class RecycleAdapterRecomment extends RecyclerView.Adapter<RecycleAdapter
             super(binding.getRoot());
             this.binding = binding;
         }
-    }
-
-    private OnRecycleItemClickListener listener;
-
-    public void setOnItemClickListener(OnRecycleItemClickListener listener) {
-        this.listener = listener;
     }
 
     //##############  业务方法 ################

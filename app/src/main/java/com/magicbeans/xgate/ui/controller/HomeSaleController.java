@@ -9,7 +9,8 @@ import com.ins.common.common.GridSpacingItemDecoration;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.DensityUtil;
 import com.ins.common.utils.ToastUtil;
-import com.magicbeans.xgate.bean.home.ProductWrap;
+import com.magicbeans.xgate.bean.product.Product;
+import com.magicbeans.xgate.bean.product.ProductWrap;
 import com.magicbeans.xgate.databinding.LayHomeSaleBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
@@ -50,7 +51,8 @@ public class HomeSaleController {
     private OnRecycleItemClickListener onRecycleItemClickListener = new OnRecycleItemClickListener() {
         @Override
         public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
-            ProductDetailActivity.start(context);
+            Product product = adapter.getResults().get(position);
+            ProductDetailActivity.start(context, product.getProdID());
         }
     };
 

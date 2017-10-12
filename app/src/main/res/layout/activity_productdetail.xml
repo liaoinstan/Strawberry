@@ -45,114 +45,122 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <LinearLayout
+        <com.ins.common.view.LoadingLayout
+            android:id="@+id/loadingview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <android.support.v4.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <include
-                        android:id="@+id/include_nameboard"
-                        layout="@layout/lay_productdetail_nameboard" />
-
-                    <include
-                        android:id="@+id/include_attr"
-                        layout="@layout/lay_productdetail_attr" />
-
-                    <include
-                        android:id="@+id/include_eva"
-                        layout="@layout/lay_productdetail_eva" />
-
-                    <WebView
-                        android:id="@+id/webview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/white" />
-
-                </LinearLayout>
-
-            </android.support.v4.widget.NestedScrollView>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_fail="@layout/layout_fail"
+            app:layout_lack="@layout/layout_lack"
+            app:layout_loading="@layout/layout_loading">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/white"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <View style="@style/Line_H" />
+                <android.support.v4.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <include
+                            android:id="@+id/include_nameboard"
+                            layout="@layout/lay_productdetail_nameboard" />
+
+                        <include
+                            android:id="@+id/include_attr"
+                            layout="@layout/lay_productdetail_attr" />
+
+                        <include
+                            android:id="@+id/include_eva"
+                            layout="@layout/lay_productdetail_eva" />
+
+                        <WebView
+                            android:id="@+id/webview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/white" />
+
+                    </LinearLayout>
+
+                </android.support.v4.widget.NestedScrollView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="50dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="50dp"
+                    <View style="@style/Line_H" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:drawableTop="@drawable/ic_tab_home"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center_horizontal"
-                        android:paddingTop="3dp"
-                        android:text="购物车"
-                        android:textColor="@color/com_text_dark_light"
-                        android:textSize="@dimen/text_tiny" />
+                        android:orientation="horizontal">
 
-                    <View style="@style/Line_V" />
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="match_parent"
+                            android:drawableTop="@drawable/ic_tab_home"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:gravity="center_horizontal"
+                            android:paddingTop="3dp"
+                            android:text="购物车"
+                            android:textColor="@color/com_text_dark_light"
+                            android:textSize="@dimen/text_tiny" />
 
-                    <TextView
-                        android:layout_width="50dp"
-                        android:layout_height="match_parent"
-                        android:drawableTop="@drawable/ic_tab_home"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center_horizontal"
-                        android:paddingTop="3dp"
-                        android:text="收藏"
-                        android:textColor="@color/com_text_dark_light"
-                        android:textSize="@dimen/text_tiny" />
+                        <View style="@style/Line_V" />
 
-                    <View style="@style/Line_V" />
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="match_parent"
+                            android:drawableTop="@drawable/ic_tab_home"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:gravity="center_horizontal"
+                            android:paddingTop="3dp"
+                            android:text="收藏"
+                            android:textColor="@color/com_text_dark_light"
+                            android:textSize="@dimen/text_tiny" />
 
-                    <TextView
-                        android:layout_width="50dp"
-                        android:layout_height="match_parent"
-                        android:drawableTop="@drawable/ic_tab_home"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center_horizontal"
-                        android:paddingTop="3dp"
-                        android:text="客服"
-                        android:textColor="@color/com_text_dark_light"
-                        android:textSize="@dimen/text_tiny" />
+                        <View style="@style/Line_V" />
 
-                    <View style="@style/Line_V" />
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="match_parent"
+                            android:drawableTop="@drawable/ic_tab_home"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:gravity="center_horizontal"
+                            android:paddingTop="3dp"
+                            android:text="客服"
+                            android:textColor="@color/com_text_dark_light"
+                            android:textSize="@dimen/text_tiny" />
 
-                    <Space style="@style/Space_H" />
+                        <View style="@style/Line_V" />
 
-                    <TextView
-                        android:id="@+id/btn_go"
-                        android:layout_width="120dp"
-                        android:layout_height="match_parent"
-                        android:background="#cccccc"
-                        android:gravity="center"
-                        android:text="加入购物车"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_nomal" />
+                        <Space style="@style/Space_H" />
+
+                        <TextView
+                            android:id="@+id/btn_go"
+                            android:layout_width="120dp"
+                            android:layout_height="match_parent"
+                            android:background="#cccccc"
+                            android:gravity="center"
+                            android:text="加入购物车"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_nomal" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
-
-        </LinearLayout>
-
+        </com.ins.common.view.LoadingLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

@@ -20,7 +20,7 @@ import com.magicbeans.xgate.ui.adapter.RecycleAdapterProduct;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterRecomment;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
-public class PayResultActivity extends BaseAppCompatActivity implements OnRecycleItemClickListener {
+public class PayResultActivity extends BaseAppCompatActivity {
 
     private ActivityPayresultBinding binding;
     private RecycleAdapterRecomment adapter;
@@ -56,7 +56,6 @@ public class PayResultActivity extends BaseAppCompatActivity implements OnRecycl
 
     private void initCtrl() {
         adapter = new RecycleAdapterRecomment(this);
-        adapter.setOnItemClickListener(this);
         binding.recycleRecomment.setNestedScrollingEnabled(false);
         binding.recycleRecomment.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
         binding.recycleRecomment.addItemDecoration(new GridSpacingItemDecoration(2, DensityUtil.dp2px(4), GridLayoutManager.VERTICAL, false));
@@ -65,10 +64,5 @@ public class PayResultActivity extends BaseAppCompatActivity implements OnRecycl
 
     private void initData() {
         adapter.netGetRecommend();
-    }
-
-    @Override
-    public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
-        ProductDetailActivity.start(this);
     }
 }
