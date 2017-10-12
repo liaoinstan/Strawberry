@@ -10,6 +10,8 @@ import com.ins.common.utils.ToastUtil;
 import com.ins.domain.launcher.DomainLauncher;
 import com.magicbeans.xgate.BuildConfig;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.common.AppData;
+import com.magicbeans.xgate.net.NetApi;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -48,12 +50,12 @@ public class StrawberryApp extends Application {
         DomainLauncher.getInstance().setSettingChangeCallback(new DomainLauncher.SettingChangeCallback() {
             @Override
             public void onDomainChange(String domain) {
-                //NetApi.setBaseUrl("http://" + domain + "/");
+                NetApi.setBaseUrl("https://" + domain + "/");
             }
 
             @Override
             public void onDomainResChange(String domainRes) {
-                //AppData.Url.domainRes = "http://" + domainRes + "/";
+//                AppData.Url.domainRes = "http://" + domainRes + "/";
                 //GlideUtil.setImgBaseUrl(AppData.Url.domainRes);
             }
         });
@@ -64,7 +66,7 @@ public class StrawberryApp extends Application {
                 .addDomain("192.168.31.110:8080", "(内部测试服务器)")
                 .addDomain("139.129.111.76:8110", "(远程测试服务器)")
                 .addDomain("tiger.magic-beans.cn", "(演示服务器)")
-                .addDomain("app.aimaiap.com", "(正式服务器)");
+                .addDomain("cn.strawberrynet.com", "(正式服务器)");
     }
 
     private void initFonts() {

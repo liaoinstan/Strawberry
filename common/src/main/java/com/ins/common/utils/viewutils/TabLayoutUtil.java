@@ -1,10 +1,12 @@
-package com.ins.common.utils;
+package com.ins.common.utils.viewutils;
 
 import android.support.design.widget.TabLayout;
 import android.text.TextPaint;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.ins.common.utils.DensityUtil;
 
 import java.lang.reflect.Field;
 

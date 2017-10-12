@@ -1,16 +1,21 @@
 package com.magicbeans.xgate.ui.adapter;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.GlideUtil;
+import com.ins.common.utils.viewutils.TextViewUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.TestBean;
+import com.magicbeans.xgate.bean.home.Product;
+import com.magicbeans.xgate.databinding.ItemHomeSaleBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +23,10 @@ import java.util.List;
 public class RecycleAdapterProduct extends RecyclerView.Adapter<RecycleAdapterProduct.Holder> {
 
     private Context context;
-    private List<TestBean> results = new ArrayList<>();
+    private List<Product> results = new ArrayList<>();
     private boolean gridMode = false;
 
-    public List<TestBean> getResults() {
+    public List<Product> getResults() {
         return results;
     }
 
@@ -31,30 +36,40 @@ public class RecycleAdapterProduct extends RecyclerView.Adapter<RecycleAdapterPr
 
     @Override
     public RecycleAdapterProduct.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (gridMode){
+        if (gridMode) {
             return new Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_grid, parent, false));
-        }else {
+        } else {
             return new Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_list, parent, false));
         }
     }
 
     @Override
     public void onBindViewHolder(final RecycleAdapterProduct.Holder holder, final int position) {
-        final TestBean bean = results.get(position);
+        final Product product = results.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) listener.onItemClick(holder, position);
             }
         });
-        GlideUtil.loadImgTest(holder.img_header);
+        holder.btn_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        GlideUtil.loadImg(holder.img_header, R.drawable.default_bk_img, product.getProductImages().getImg350Src());
+        holder.text_name.setText(product.getProdLangName());
+        holder.text_intro.setText(product.getProdLangSize());
+        holder.text_price.setText("¥" + product.getShopprice());
+        holder.text_price_old.setText("¥" + product.getRefPrice());
+        TextViewUtil.addDelLine(holder.text_price_old);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (gridMode){
+        if (gridMode) {
             return 0;
-        }else {
+        } else {
             return 1;
         }
     }
@@ -67,10 +82,20 @@ public class RecycleAdapterProduct extends RecyclerView.Adapter<RecycleAdapterPr
     public class Holder extends RecyclerView.ViewHolder {
 
         private ImageView img_header;
+        private TextView text_name;
+        private TextView text_intro;
+        private TextView text_price;
+        private TextView text_price_old;
+        private View btn_buy;
 
         public Holder(View itemView) {
             super(itemView);
             img_header = (ImageView) itemView.findViewById(R.id.img_header);
+            text_name = (TextView) itemView.findViewById(R.id.text_name);
+            text_intro = (TextView) itemView.findViewById(R.id.text_intro);
+            text_price = (TextView) itemView.findViewById(R.id.text_price);
+            text_price_old = (TextView) itemView.findViewById(R.id.text_price_old);
+            btn_buy = itemView.findViewById(R.id.btn_buy);
         }
     }
 

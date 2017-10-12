@@ -43,11 +43,6 @@ public class BannerView2 extends FrameLayout {
 
     private void initView() {
         mViewPager = (UltraViewPager) findViewById(R.id.viewpager);
-    }
-
-    private void initCtrl() {
-        mBannerAdapter = new BannerAdapter();
-        mViewPager.setAdapter(mBannerAdapter);
         mViewPager.getViewPager().setPageMargin(0);
         mViewPager.setInfiniteLoop(true);
         mViewPager.setAutoScroll(3000);
@@ -60,7 +55,13 @@ public class BannerView2 extends FrameLayout {
                 .setRadius(DensityUtil.dp2px(3));
         mViewPager.getIndicator().setGravity(Gravity.RIGHT | Gravity.BOTTOM);
         mViewPager.getIndicator().build();
+        mBannerAdapter = new BannerAdapter();
+        mViewPager.setAdapter(mBannerAdapter);
+    }
 
+    private void initCtrl() {
+        mBannerAdapter = new BannerAdapter();
+        mViewPager.setAdapter(mBannerAdapter);
     }
 
     private class BannerAdapter extends PagerAdapter {

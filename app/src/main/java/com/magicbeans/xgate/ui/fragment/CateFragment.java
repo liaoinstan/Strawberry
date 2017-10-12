@@ -5,26 +5,14 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.ins.common.common.ItemDecorationDivider;
-import com.ins.common.utils.DensityUtil;
-import com.ins.common.utils.TabLayoutUtil;
+import com.ins.common.utils.viewutils.TabLayoutUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.TestBean;
 import com.magicbeans.xgate.ui.adapter.PagerAdapterCate;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeShopbag;
 import com.magicbeans.xgate.ui.base.BaseFragment;
-
-import java.lang.reflect.Field;
-
-import static com.liaoinstan.springview.utils.DensityUtil.dip2px;
 
 
 /**

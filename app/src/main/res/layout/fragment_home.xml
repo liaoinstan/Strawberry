@@ -1,123 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/st_bk"
-    android:fitsSystemWindows="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.design.widget.AppBarLayout
+    <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:elevation="0dp">
+        android:layout_height="match_parent"
+        android:background="@color/st_bk"
+        android:fitsSystemWindows="true">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:padding="8dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/default_header" />
+
+                    <TextView
+                        android:id="@+id/text_search"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="40dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_rect_cornerfull_dark"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:hint="@string/home_search"
+                        android:onClick="onClick"
+                        android:textColor="@color/com_text_dark_light"
+                        android:textColorHint="@color/com_text_dark_light"
+                        android:textSize="@dimen/text_nomal" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/com_line" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
+                android:id="@+id/showingroup"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="8dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/default_header" />
+                <include
+                    android:id="@+id/include_home_bannerboard"
+                    layout="@layout/lay_home_bannerboard" />
 
-                <TextView
-                    android:id="@+id/text_search"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_marginRight="40dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/shape_rect_cornerfull_dark"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:hint="@string/home_search"
-                    android:onClick="onClick"
-                    android:textColor="@color/com_text_dark_light"
-                    android:textColorHint="@color/com_text_dark_light"
-                    android:textSize="@dimen/text_nomal" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <include
+                    android:id="@+id/include_home_sale"
+                    layout="@layout/lay_home_sale" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <include
+                    android:id="@+id/include_home_brand"
+                    layout="@layout/lay_home_brand" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <include
+                    android:id="@+id/include_home_hot"
+                    layout="@layout/lay_home_hot" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <include
+                    android:id="@+id/include_home_select"
+                    layout="@layout/lay_home_select" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <include
+                    android:id="@+id/include_home_single"
+                    layout="@layout/lay_home_single" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <include
+                    android:id="@+id/include_homeclass"
+                    layout="@layout/lay_home_class" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <include
+                    android:id="@+id/include_home_recommend"
+                    layout="@layout/lay_home_recommend" />
 
             </LinearLayout>
 
-        </android.support.v7.widget.Toolbar>
+        </android.support.v4.widget.NestedScrollView>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/com_line" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <LinearLayout
-            android:id="@+id/showingroup"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <include layout="@layout/lay_home_bannerboard" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <include layout="@layout/lay_home_sale" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <include layout="@layout/lay_home_brand" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <include layout="@layout/lay_home_hot" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <include layout="@layout/lay_home_select" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <include layout="@layout/lay_home_single" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <include layout="@layout/lay_home_class" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <include layout="@layout/lay_home_recommend" />
-
-        </LinearLayout>
-
-    </android.support.v4.widget.NestedScrollView>
-
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

@@ -6,12 +6,9 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
-import com.ins.common.utils.TabLayoutUtil;
-import com.ins.common.utils.ToastUtil;
+import com.ins.common.utils.viewutils.TabLayoutUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.Order;
 import com.magicbeans.xgate.ui.adapter.PagerAdapterEva;
-import com.magicbeans.xgate.ui.adapter.PagerAdapterOrder;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
 public class EvaActivity extends BaseAppCompatActivity {

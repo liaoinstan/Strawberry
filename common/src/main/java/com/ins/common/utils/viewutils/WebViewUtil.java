@@ -1,4 +1,4 @@
-package com.ins.common.utils;
+package com.ins.common.utils.viewutils;
 
 import android.os.Build;
 import android.webkit.WebSettings;

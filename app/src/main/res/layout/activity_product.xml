@@ -178,9 +178,13 @@
                 app:layout_lack="@layout/layout_lack"
                 app:layout_loading="@layout/layout_loading">
 
-                <FrameLayout
+                <com.ins.common.view.LoadingLayout
+                    android:id="@+id/loadingLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    app:layout_fail="@layout/layout_fail"
+                    app:layout_lack="@layout/layout_lack"
+                    app:layout_loading="@layout/layout_loading">
 
                     <com.liaoinstan.springview.widget.SpringView
                         android:id="@+id/spring"
@@ -203,7 +207,7 @@
                         android:background="@color/com_shadow"
                         android:visibility="gone" />
 
-                </FrameLayout>
+                </com.ins.common.view.LoadingLayout>
             </com.ins.common.view.LoadingLayout>
 
         </LinearLayout>

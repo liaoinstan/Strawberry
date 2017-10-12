@@ -1,156 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.ins.common.view.BannerView2
-        android:id="@+id/banner"
-        android:layout_width="match_parent"
-        android:layout_height="140dp" />
-
-
-    <com.ins.common.view.AutoFitGridLayout
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
-        app:columnCount="5">
+        android:background="@color/white"
+        android:orientation="vertical">
 
-        <TextView
+        <com.ins.common.view.BannerView2
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="140dp" />
+
+
+        <com.ins.common.view.AutoFitGridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawablePadding="5dp"
-            android:drawableTop="@drawable/shape_rect_corner_light"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="最新活动"
-            android:textColor="@color/com_text_dark"
-            android:textSize="@dimen/text_small" />
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            app:columnCount="5">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="5dp"
-            android:drawableTop="@drawable/shape_rect_corner_light"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="我的签到"
-            android:textColor="@color/com_text_dark"
-            android:textSize="@dimen/text_small" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/shape_rect_corner_light"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="最新活动"
+                android:textColor="@color/com_text_dark"
+                android:textSize="@dimen/text_small" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="5dp"
-            android:drawableTop="@drawable/shape_rect_corner_light"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="促销活动"
-            android:textColor="@color/com_text_dark"
-            android:textSize="@dimen/text_small" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/shape_rect_corner_light"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="我的签到"
+                android:textColor="@color/com_text_dark"
+                android:textSize="@dimen/text_small" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="5dp"
-            android:drawableTop="@drawable/shape_rect_corner_light"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="美妆论坛"
-            android:textColor="@color/com_text_dark"
-            android:textSize="@dimen/text_small" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/shape_rect_corner_light"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="促销活动"
+                android:textColor="@color/com_text_dark"
+                android:textSize="@dimen/text_small" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="5dp"
-            android:drawableTop="@drawable/shape_rect_corner_light"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="每日精选"
-            android:textColor="@color/com_text_dark"
-            android:textSize="@dimen/text_small" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/shape_rect_corner_light"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="美妆论坛"
+                android:textColor="@color/com_text_dark"
+                android:textSize="@dimen/text_small" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="5dp"
-            android:drawableTop="@drawable/shape_rect_corner_light"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="礼盒套装"
-            android:textColor="@color/com_text_dark"
-            android:textSize="@dimen/text_small" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/shape_rect_corner_light"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="每日精选"
+                android:textColor="@color/com_text_dark"
+                android:textSize="@dimen/text_small" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="5dp"
-            android:drawableTop="@drawable/shape_rect_corner_light"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="超值精选"
-            android:textColor="@color/com_text_dark"
-            android:textSize="@dimen/text_small" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/shape_rect_corner_light"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="礼盒套装"
+                android:textColor="@color/com_text_dark"
+                android:textSize="@dimen/text_small" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="5dp"
-            android:drawableTop="@drawable/shape_rect_corner_light"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="榜单热卖"
-            android:textColor="@color/com_text_dark"
-            android:textSize="@dimen/text_small" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/shape_rect_corner_light"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="超值精选"
+                android:textColor="@color/com_text_dark"
+                android:textSize="@dimen/text_small" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="5dp"
-            android:drawableTop="@drawable/shape_rect_corner_light"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="新品上线"
-            android:textColor="@color/com_text_dark"
-            android:textSize="@dimen/text_small" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/shape_rect_corner_light"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="榜单热卖"
+                android:textColor="@color/com_text_dark"
+                android:textSize="@dimen/text_small" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="5dp"
-            android:drawableTop="@drawable/shape_rect_corner_light"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="品牌彩妆"
-            android:textColor="@color/com_text_dark"
-            android:textSize="@dimen/text_small" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/shape_rect_corner_light"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="新品上线"
+                android:textColor="@color/com_text_dark"
+                android:textSize="@dimen/text_small" />
 
-    </com.ins.common.view.AutoFitGridLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/shape_rect_corner_light"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="品牌彩妆"
+                android:textColor="@color/com_text_dark"
+                android:textSize="@dimen/text_small" />
 
-</LinearLayout>
+        </com.ins.common.view.AutoFitGridLayout>
+
+    </LinearLayout>
+</layout>

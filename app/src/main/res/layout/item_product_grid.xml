@@ -6,8 +6,8 @@
     android:background="@color/white"
     android:foreground="?attr/selectableItemBackground"
     android:gravity="center_vertical"
-    android:padding="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <ImageView
         android:id="@+id/img_header"
@@ -17,14 +17,16 @@
         android:src="@color/st_default_bk" />
 
     <TextView
-        android:layout_marginTop="5dp"
+        android:id="@+id/text_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:text="产品名称"
         android:textColor="@color/com_text_dark_light"
         android:textSize="@dimen/text_nomal" />
 
     <TextView
+        android:id="@+id/text_intro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -41,6 +43,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/text_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="￥89.00"
@@ -48,6 +51,7 @@
             android:textSize="@dimen/text_nomal_small" />
 
         <TextView
+            android:id="@+id/text_price_old"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -58,10 +62,12 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/btn_buy"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginTop="3dp"
         android:background="@drawable/shape_rect_corner_purple"
+        android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"

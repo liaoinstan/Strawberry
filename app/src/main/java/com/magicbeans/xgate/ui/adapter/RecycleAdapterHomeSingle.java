@@ -1,6 +1,7 @@
 package com.magicbeans.xgate.ui.adapter;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +10,11 @@ import android.widget.ImageView;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.GlideUtil;
+import com.ins.common.utils.viewutils.TextViewUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.TestBean;
+import com.magicbeans.xgate.bean.home.Product;
+import com.magicbeans.xgate.databinding.ItemHomeSaleBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +22,9 @@ import java.util.List;
 public class RecycleAdapterHomeSingle extends RecyclerView.Adapter<RecycleAdapterHomeSingle.Holder> {
 
     private Context context;
-    private List<TestBean> results = new ArrayList<>();
+    private List<Product> results = new ArrayList<>();
 
-    public List<TestBean> getResults() {
+    public List<Product> getResults() {
         return results;
     }
 
@@ -30,19 +34,24 @@ public class RecycleAdapterHomeSingle extends RecyclerView.Adapter<RecycleAdapte
 
     @Override
     public RecycleAdapterHomeSingle.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_sale, parent, false));
+        return new RecycleAdapterHomeSingle.Holder((ItemHomeSaleBinding) DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_home_sale, parent, false));
     }
 
     @Override
     public void onBindViewHolder(final RecycleAdapterHomeSingle.Holder holder, final int position) {
-        final TestBean bean = results.get(position);
+        final Product product = results.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) listener.onItemClick(holder, position);
             }
         });
-        GlideUtil.loadImgTest(holder.img_header);
+
+        GlideUtil.loadImg(holder.binding.imgHeader, R.drawable.default_bk_img, product.getProductImages().getImg350Src());
+        holder.binding.textName.setText(product.getProdLangName());
+        holder.binding.textPrice.setText("¥" + product.getShopprice());
+        holder.binding.textPriceOld.setText("¥" + product.getRefPrice());
+        TextViewUtil.addDelLine(holder.binding.textPriceOld);
     }
 
     @Override
@@ -51,12 +60,11 @@ public class RecycleAdapterHomeSingle extends RecyclerView.Adapter<RecycleAdapte
     }
 
     public class Holder extends RecyclerView.ViewHolder {
+        ItemHomeSaleBinding binding;
 
-        private ImageView img_header;
-
-        public Holder(View itemView) {
-            super(itemView);
-            img_header = (ImageView) itemView.findViewById(R.id.img_header);
+        public Holder(ItemHomeSaleBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 

@@ -60,6 +60,35 @@ public interface NetInterface {
     @POST("/api/user/updateUser")
     Call<ResponseBody> updateUserWithToken(@Header("token") String token, @FieldMap Map<String, Object> param);
 
+    //##################################################################
+    //#########               接口
+    //##################################################################
 
+    /**
+     * 首页获取今日秒杀
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=90")
+    Call<ResponseBody> netHomeSaleList(@QueryMap Map<String, Object> param);
 
+    /**
+     * 首页获取品牌好货
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=17")
+    Call<ResponseBody> netHomeSingleList(@QueryMap Map<String, Object> param);
+
+    /**
+     * 获取推荐产品列表
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=21")
+    Call<ResponseBody> netRecommendList(@QueryMap Map<String, Object> param);
+
+    /**
+     * 产品列表
+     * CatgId 功能
+     * brandId 品牌
+     * typeId
+     * sort 排序（producttype, alphabetical, popularity, save, lowerprice）
+     */
+    @GET("/app/productList.aspx")
+    Call<ResponseBody> netProductList(@QueryMap Map<String, Object> param);
 }

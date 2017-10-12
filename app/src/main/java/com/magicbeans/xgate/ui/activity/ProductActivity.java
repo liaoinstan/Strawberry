@@ -12,18 +12,27 @@ import android.view.View;
 
 import com.ins.common.common.ItemDecorationDivider;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
+import com.ins.common.utils.StrUtil;
+import com.ins.common.utils.ToastUtil;
 import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.PopBean;
 import com.magicbeans.xgate.bean.TestBean;
+import com.magicbeans.xgate.bean.home.Product;
+import com.magicbeans.xgate.bean.home.ProductWrap;
 import com.magicbeans.xgate.databinding.ActivityProductBinding;
+import com.magicbeans.xgate.net.NetApi;
+import com.magicbeans.xgate.net.NetParam;
+import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterProduct;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.dialog.MyGridPopupWindow;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class ProductActivity extends BaseAppCompatActivity implements OnRecycleItemClickListener {
 
@@ -69,6 +78,12 @@ public class ProductActivity extends BaseAppCompatActivity implements OnRecycleI
         binding.recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         binding.recycler.setAdapter(adapter);
         binding.recycler.addItemDecoration(decorationList);
+        binding.loadingLayout.setOnRefreshListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                netGetProductList();
+            }
+        });
         binding.spring.setHeader(new AliHeader(this, false));
         binding.spring.setFooter(new AliFooter(this, false));
         binding.spring.setListener(new SpringView.OnFreshListener() {
@@ -100,12 +115,7 @@ public class ProductActivity extends BaseAppCompatActivity implements OnRecycleI
     }
 
     private void initData() {
-        //设置列表测试数据
-        adapter.getResults().clear();
-        for (int i = 0; i < 35; i++) {
-            adapter.getResults().add(new TestBean());
-        }
-        adapter.notifyDataSetChanged();
+        netGetProductList();
         //设置品牌测试数据
         pop_brand.setResults(new ArrayList<PopBean>() {{
             add(new PopBean("雅诗兰黛"));
@@ -198,5 +208,33 @@ public class ProductActivity extends BaseAppCompatActivity implements OnRecycleI
                 pop_skin.showPopupWindow(v);
                 break;
         }
+    }
+
+    private void netGetProductList() {
+        Map<String, Object> param = new NetParam()
+                //TODO:暂时只是写死一个品牌id，后期会动态选择
+                .put("brandId", 281)
+                .build();
+        binding.loadingview.showLoadingView();
+        NetApi.NI().netProductList(param).enqueue(new STCallback<ProductWrap>(ProductWrap.class) {
+            @Override
+            public void onSuccess(int status, ProductWrap bean, String msg) {
+                List<Product> products = bean.getProductList();
+                if (!StrUtil.isEmpty(products)) {
+                    adapter.getResults().clear();
+                    adapter.getResults().addAll(products);
+                    adapter.notifyDataSetChanged();
+                    binding.loadingview.showOut();
+                } else {
+                    binding.loadingview.showLackView();
+                }
+            }
+
+            @Override
+            public void onError(int status, String msg) {
+                ToastUtil.showToastShort(msg);
+                binding.loadingview.showFailView();
+            }
+        });
     }
 }

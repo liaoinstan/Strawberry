@@ -64,19 +64,7 @@ public class PayResultActivity extends BaseAppCompatActivity implements OnRecycl
     }
 
     private void initData() {
-        adapter.getResults().clear();
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.notifyDataSetChanged();
+        adapter.netGetRecommend();
     }
 
     @Override

@@ -99,19 +99,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener, On
     }
 
     private void initData() {
-        adapter.getResults().clear();
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.notifyDataSetChanged();
+        adapter.netGetRecommend();
     }
 
     private void initCtrl() {
