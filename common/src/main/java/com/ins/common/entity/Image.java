@@ -11,11 +11,12 @@ import java.io.Serializable;
 public class Image implements Serializable {
 
     private int id;
+    @SerializedName("PromotionName")
     private String title;
     private String content;
-    @SerializedName("apiImage")
+    @SerializedName("imgPath")
     private String img;
-    @SerializedName("linkUrl")
+    @SerializedName("URL")
     private String url;
     /** 是否是外链  0:否   1:是 */
     private int isLink;

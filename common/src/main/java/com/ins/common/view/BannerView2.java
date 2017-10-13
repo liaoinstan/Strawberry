@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import com.ins.common.R;
 import com.ins.common.entity.Image;
 import com.ins.common.utils.DensityUtil;
+import com.ins.common.utils.StrUtil;
 import com.tmall.ultraviewpager.UltraViewPager;
 
 import java.util.List;
@@ -51,7 +52,6 @@ public class BannerView2 extends FrameLayout {
         mViewPager = (UltraViewPager) findViewById(R.id.viewpager);
         mViewPager.getViewPager().setPageMargin(0);
         mViewPager.setInfiniteLoop(true);
-        if (isAutoScroll) mViewPager.setAutoScroll(3000);
         mViewPager.initIndicator();
         mViewPager.getIndicator()
                 .setOrientation(UltraViewPager.Orientation.HORIZONTAL)
@@ -66,6 +66,12 @@ public class BannerView2 extends FrameLayout {
     }
 
     private void initCtrl() {
+        //如果允许滚动标志为true，并且数据条目>1则自动滚动，否则不滚动
+        if (isAutoScroll && !StrUtil.isEmpty(images) && images.size() > 1) {
+            mViewPager.setAutoScroll(3000);
+        } else {
+            mViewPager.disableAutoScroll();
+        }
         mBannerAdapter = new BannerAdapter();
         mViewPager.setAdapter(mBannerAdapter);
     }
@@ -97,7 +103,7 @@ public class BannerView2 extends FrameLayout {
                 @Override
                 public void onClick(View v) {
                     if (onBannerClickListener != null) {
-                        onBannerClickListener.onBannerClick(position);
+                        onBannerClickListener.onBannerClick(position,images.get(position));
                     }
                 }
             });
@@ -122,7 +128,7 @@ public class BannerView2 extends FrameLayout {
     }
 
     public interface OnBannerClickListener {
-        void onBannerClick(int position);
+        void onBannerClick(int position, Image image);
     }
 
     private OnLoadImgListener onLoadImgListener;

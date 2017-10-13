@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -14,9 +16,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
-            android:text="Aesop/伊索 香芹籽抗氧化精华100ml 舒缓补水保湿精华"
             android:textColor="@color/com_text_dark_light"
-            android:textSize="@dimen/text_nomal" />
+            android:textSize="@dimen/text_nomal"
+            tools:text="Aesop/伊索 香芹籽抗氧化精华100ml 舒缓补水保湿精华" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,9 +33,9 @@
                 android:id="@+id/text_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="￥369.00"
                 android:textColor="@color/com_text_dark_light"
-                android:textSize="@dimen/text_big" />
+                android:textSize="@dimen/text_big"
+                tools:text="￥369.00" />
 
         </LinearLayout>
 

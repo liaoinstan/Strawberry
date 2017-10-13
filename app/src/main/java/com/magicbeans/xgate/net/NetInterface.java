@@ -65,6 +65,12 @@ public interface NetInterface {
     //##################################################################
 
     /**
+     * 首页获取Banner
+     */
+    @GET("/app/mainPage.aspx")
+    Call<ResponseBody> netHomeBanner(@QueryMap Map<String, Object> param);
+
+    /**
      * 首页获取今日秒杀
      */
     @GET("/app/promotionList.aspx?OthCatgId=90")
@@ -99,6 +105,15 @@ public interface NetInterface {
      */
     @GET("/app/apiProdDetail.aspx")
     Call<ResponseBody> netProductDetail(@QueryMap Map<String, Object> param);
+
+    /**
+     * 产品评论
+     * ProdId 产品id
+     * Page
+     * region cn
+     */
+    @GET("/ajaxProdReview.aspx?region=cn")
+    Call<ResponseBody> netProductReview(@QueryMap Map<String, Object> param);
 
     /**
      * 品牌列表

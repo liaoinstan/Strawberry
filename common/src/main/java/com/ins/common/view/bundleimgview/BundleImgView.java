@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import com.ins.common.R;
 import com.ins.common.common.DragItemTouchCallback;
 import com.ins.common.common.OnRecyclerItemClickListener;
+import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.VibratorUtil;
 
 import java.util.ArrayList;
@@ -144,7 +145,7 @@ public class BundleImgView extends FrameLayout {
 
     public void setPhotos(List<BundleImgEntity> results) {
         adapter.getResults().clear();
-        adapter.getResults().addAll(results);
+        if (!StrUtil.isEmpty(results)) adapter.getResults().addAll(results);
         adapter.notifyDataSetChanged();
     }
 

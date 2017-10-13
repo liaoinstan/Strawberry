@@ -34,7 +34,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:text="查看全部评价37个"
+            android:text="查看全部评价0个"
             android:textColor="@color/com_text_dark_light"
             android:textSize="@dimen/text_small" />
 

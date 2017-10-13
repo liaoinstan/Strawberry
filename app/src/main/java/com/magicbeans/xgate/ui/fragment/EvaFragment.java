@@ -18,7 +18,7 @@ import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.Eva;
+import com.magicbeans.xgate.bean.eva.Eva;
 import com.magicbeans.xgate.bean.Goods;
 import com.magicbeans.xgate.bean.Order;
 import com.magicbeans.xgate.bean.TestBean;

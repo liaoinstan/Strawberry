@@ -67,6 +67,7 @@
         <activity android:name=".ui.activity.SearchActivity" />
         <activity android:name=".ui.activity.PayResultActivity" />
         <activity android:name=".ui.activity.SectionActivity" />
+        <activity android:name=".ui.activity.EvaListActivity" />
     </application>
 
 </manifest>

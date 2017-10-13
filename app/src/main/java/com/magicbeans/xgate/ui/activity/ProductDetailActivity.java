@@ -22,7 +22,7 @@ import com.ins.common.view.BannerView;
 import com.ins.common.view.BannerView2;
 import com.ins.common.view.bundleimgview.BundleImgEntity;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.Eva;
+import com.magicbeans.xgate.bean.eva.Eva;
 import com.magicbeans.xgate.bean.common.KeyValue;
 import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.bean.product.ProductDetail;
@@ -105,7 +105,7 @@ public class ProductDetailActivity extends BaseAppCompatActivity implements View
     private void initData() {
         productDetailNameBoradController.initData();
         productDetailAttrController.initData();
-        productDetailEvaController.initData();
+        productDetailEvaController.initData(prodId);
         netProductDetail();
     }
 
@@ -123,18 +123,18 @@ public class ProductDetailActivity extends BaseAppCompatActivity implements View
                 .put("prodId", prodId)
                 .put("currId", "CNY")
                 .build();
-        binding.loadingview.showLoadingView();
+        showLoadingDialog();
         NetApi.NI().netProductDetail(param).enqueue(new STCallback<ProductDetail>(ProductDetail.class) {
             @Override
             public void onSuccess(int status, ProductDetail productDetail, String msg) {
                 productDetailNameBoradController.setData(productDetail, prodId);
-                binding.loadingview.showOut();
+                hideLoadingDialog();
             }
 
             @Override
             public void onError(int status, String msg) {
                 ToastUtil.showToastShort(msg);
-                binding.loadingview.showFailView();
+                hideLoadingDialog();
             }
         });
     }
