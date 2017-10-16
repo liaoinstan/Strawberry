@@ -1,4 +1,4 @@
-package com.magicbeans.xgate.bean;
+package com.magicbeans.xgate.bean.common;
 
 import com.ins.common.entity.BaseSelectBean;
 

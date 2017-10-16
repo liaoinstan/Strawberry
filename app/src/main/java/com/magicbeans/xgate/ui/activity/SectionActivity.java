@@ -5,16 +5,12 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
-import com.ins.common.common.GridSpacingItemDecoration;
 import com.ins.common.entity.Image;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
-import com.ins.common.utils.DensityUtil;
 import com.ins.common.utils.FocusUtil;
 import com.ins.common.utils.GlideUtil;
 import com.ins.common.view.BannerView;
@@ -22,10 +18,8 @@ import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.TestBean;
-import com.magicbeans.xgate.databinding.ActivityPayresultBinding;
+import com.magicbeans.xgate.bean.common.TestBean;
 import com.magicbeans.xgate.databinding.ActivitySectionBinding;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterRecomment;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterSection;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 

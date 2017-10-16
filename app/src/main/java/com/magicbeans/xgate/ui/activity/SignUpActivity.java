@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.ins.common.helper.ValiHelper;
 import com.ins.common.ui.dialog.DialogSure;
@@ -13,30 +12,33 @@ import com.ins.common.utils.App;
 import com.ins.common.utils.StatusBarTextUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.common.CommonEntity;
+import com.magicbeans.xgate.bean.product.ProductWrap;
+import com.magicbeans.xgate.bean.user.SignUpWrap;
 import com.magicbeans.xgate.databinding.ActivityLoginBinding;
+import com.magicbeans.xgate.databinding.ActivitySignupBinding;
+import com.magicbeans.xgate.net.NetApi;
+import com.magicbeans.xgate.net.NetParam;
+import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
-public class LoginActivity extends BaseAppCompatActivity {
+import java.util.Map;
 
-    private ActivityLoginBinding binding;
+public class SignUpActivity extends BaseAppCompatActivity {
+
+    private ActivitySignupBinding binding;
 
     private ValiHelper valiHelper;
 
-    public static void start() {
-        Intent intent = new Intent(App.getContext(), LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        App.getContext().startActivity(intent);
-    }
-
     public static void start(Context context) {
-        Intent intent = new Intent(context, LoginActivity.class);
+        Intent intent = new Intent(context, SignUpActivity.class);
         context.startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_signup);
         StatusBarTextUtil.StatusBarLightMode(this);
         setToolbar();
         initBase();
@@ -64,15 +66,12 @@ public class LoginActivity extends BaseAppCompatActivity {
             case R.id.btn_close:
                 finish();
                 break;
-            case R.id.btn_toregist:
-                SignUpActivity.start(this);
+            case R.id.btn_tologin:
+                LoginActivity.start(this);
                 finish();
                 break;
             case R.id.text_vali:
                 valiHelper.start();
-                break;
-            case R.id.btn_go:
-                binding.textValinote.setText("验证码错误，请重新输入");
                 break;
             case R.id.btn_qq:
                 DialogSure.showDialog(this, "\"草莓网\"想要打开QQ并登陆？", new DialogSure.CallBack() {
@@ -98,6 +97,44 @@ public class LoginActivity extends BaseAppCompatActivity {
                     }
                 });
                 break;
+            case R.id.btn_go:
+                String account = binding.editAccount.getText().toString();
+                String psw = binding.editPsw.getText().toString();
+                String psw_re = binding.editPswRe.getText().toString();
+                netSignUp(account, psw);
+                break;
         }
+    }
+
+    private void netSignUp(String account, String psw) {
+        Map<String, Object> param = new NetParam()
+                .put("signupemail", account)
+                .put("password", psw)
+                .put("repassword", psw)
+                .put("signupFirstname", "")
+                .put("signupLastname", "")
+                .put("isSubscribe", "1")
+                .build();
+        NetApi.NI().netSignUp(param).enqueue(new STCallback<SignUpWrap>(SignUpWrap.class) {
+            @Override
+            public void onSuccess(int status, SignUpWrap bean, String msg) {
+                switch (bean.getResponseCode()) {
+                    case 0:
+                        binding.textValinote.setText(bean.getResponseMsg());
+                        break;
+                    case 1:
+                        ToastUtil.showToastShort(bean.getResponseMsg());
+                        break;
+                    case 2:
+                        binding.textValinote.setText(bean.getResponseMsg());
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(int status, String msg) {
+                ToastUtil.showToastShort(msg);
+            }
+        });
     }
 }

@@ -12,7 +12,7 @@ import com.ins.common.common.GridSpacingItemDecoration;
 import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.DensityUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.TestBean;
+import com.magicbeans.xgate.bean.common.TestBean;
 import com.magicbeans.xgate.databinding.ActivitySearchBinding;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterLable;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterSearchHistory;

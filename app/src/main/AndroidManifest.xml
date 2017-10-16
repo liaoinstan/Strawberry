@@ -51,6 +51,7 @@
             android:name=".ui.activity.LoginActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoTitleFullscreen" />
+        <activity android:name=".ui.activity.SignUpActivity" />
         <activity android:name=".ui.activity.OrderActivity" />
         <activity android:name=".ui.activity.AddressActivity" />
         <activity android:name=".ui.activity.FavoActivity" />

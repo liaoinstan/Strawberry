@@ -5,18 +5,12 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.ins.common.common.GridSpacingItemDecoration;
-import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.DensityUtil;
 import com.ins.common.utils.FocusUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.TestBean;
-import com.magicbeans.xgate.databinding.ActivityPayBinding;
 import com.magicbeans.xgate.databinding.ActivityPayresultBinding;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterProduct;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterRecomment;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 

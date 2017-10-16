@@ -6,14 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.ins.common.helper.SelectHelper;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.GlideUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.Address;
-import com.magicbeans.xgate.bean.TestBean;
+import com.magicbeans.xgate.bean.common.TestBean;
 
 import java.util.ArrayList;
 import java.util.List;

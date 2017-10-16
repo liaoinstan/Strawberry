@@ -14,7 +14,7 @@ import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.TestBean;
+import com.magicbeans.xgate.bean.common.TestBean;
 import com.magicbeans.xgate.ui.view.CountView;
 
 import java.util.ArrayList;

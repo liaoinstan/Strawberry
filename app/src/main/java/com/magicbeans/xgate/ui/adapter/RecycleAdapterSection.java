@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.GlideUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.TestBean;
+import com.magicbeans.xgate.bean.common.TestBean;
 
 import java.util.ArrayList;
 import java.util.List;

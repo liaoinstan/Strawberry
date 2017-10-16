@@ -39,9 +39,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/shape_rect_cornerfull_none_line_dark"
-                        android:hint="请输入手机号码"
-                        android:inputType="text"
-                        android:maxLength="11"
+                        android:hint="请输入手机号码 / 邮箱"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="32"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         android:textColor="@color/com_text_blank"
@@ -63,13 +63,43 @@
                 </LinearLayout>
 
                 <com.ins.common.view.EmojiEditText
+                    android:id="@+id/edit_vali"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/shape_rect_cornerfull_none_line_dark"
+                    android:hint="验证码"
+                    android:inputType="numberSigned"
+                    android:maxLength="11"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/com_text_blank"
+                    android:textColorHint="@color/com_text_dark_light"
+                    android:textSize="@dimen/text_small" />
+
+                <com.ins.common.view.EmojiEditText
                     android:id="@+id/edit_psw"
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/shape_rect_cornerfull_none_line_dark"
-                    android:hint="请输入手机号码"
-                    android:inputType="text"
+                    android:hint="6-10位登录密码"
+                    android:inputType="textPassword"
+                    android:maxLength="11"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/com_text_blank"
+                    android:textColorHint="@color/com_text_dark_light"
+                    android:textSize="@dimen/text_small" />
+
+                <com.ins.common.view.EmojiEditText
+                    android:id="@+id/edit_psw_re"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/shape_rect_cornerfull_none_line_dark"
+                    android:hint="再次输入密码"
+                    android:inputType="textPassword"
                     android:maxLength="11"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
@@ -95,12 +125,12 @@
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
                     android:onClick="onClick"
-                    android:text="登录"
+                    android:text="注册"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_nomal" />
 
                 <TextView
-                    android:id="@+id/btn_toregist"
+                    android:id="@+id/btn_tologin"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_gravity="right"
@@ -109,7 +139,7 @@
                     android:onClick="onClick"
                     android:textColor="@color/com_text_dark_light"
                     android:textSize="10sp"
-                    android:text="没有账号，去注册" />
+                    android:text="已有账号，去登录" />
 
             </LinearLayout>
 

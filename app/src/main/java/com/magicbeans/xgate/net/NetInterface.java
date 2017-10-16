@@ -120,4 +120,16 @@ public interface NetInterface {
      */
     @GET("/app/shopByBrand.aspx")
     Call<ResponseBody> netBrandList(@QueryMap Map<String, Object> param);
+
+    /**
+     * 注册
+     * signupemail
+     * password
+     * repassword
+     * signupFirstname ?
+     * signupLastname ?
+     * isSubscribe
+     */
+    @GET("https://secure.strawberrynet.com/app/apiAccountSignup.aspx")
+    Call<ResponseBody> netSignUp(@QueryMap Map<String, Object> param);
 }
