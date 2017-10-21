@@ -7,8 +7,8 @@ android {
         applicationId "com.magicbeans.xgate"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.0.0.2"
+        versionCode 3
+        versionName "1.0.1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //使用矢量图兼容库
         vectorDrawables.useSupportLibrary = true
@@ -35,8 +35,8 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.myConfig
-            buildConfigField "String", "BASE_URL", '"http://app.aimaiap.com/"'
-            buildConfigField "String", "BASE_URL_RES", '"http://multimedia.aimaiap.com/"'
+            buildConfigField "String", "BASE_URL", '"https://cn.strawberrynet.com/"'
+            buildConfigField "String", "BASE_URL_RES", '"https://cn.strawberrynet.com/"'
             minifyEnabled true      //开启代码混淆
             zipAlignEnabled true    //是否zip对齐优化
             shrinkResources true    //移除无用的资源文件

@@ -34,6 +34,7 @@ public class StrawberryApp extends Application {
         ToastUtil.init(this);
         ToastUtil.setDebug(BuildConfig.DEBUG);
         GlideUtil.init(this);
+        NetApi.setBaseUrl(BuildConfig.BASE_URL);
     }
 
     private void initJpush() {
