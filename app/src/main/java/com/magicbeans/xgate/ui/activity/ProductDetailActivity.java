@@ -99,7 +99,9 @@ public class ProductDetailActivity extends BaseAppCompatActivity implements View
         productDetailEvaController.initCtrl();
 
         WebViewUtil.initWebSetting(binding.webview);
-        binding.webview.loadUrl("https://www.baidu.com");
+//        binding.webview.loadUrl("https://www.baidu.com");
+        //TODO:暂且加载一个本地页面
+        binding.webview.loadUrl("file:///android_asset/localhtml.html");
     }
 
     private void initData() {
