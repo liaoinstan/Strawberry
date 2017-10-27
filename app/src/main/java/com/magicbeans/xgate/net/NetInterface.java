@@ -77,6 +77,12 @@ public interface NetInterface {
     Call<ResponseBody> netHomeSaleList(@QueryMap Map<String, Object> param);
 
     /**
+     * 首页获取今日秒杀时限
+     */
+    @GET("/ajaxDailySpecials.aspx")
+    Call<ResponseBody> netDailySaleTime(@QueryMap Map<String, Object> param);
+
+    /**
      * 首页获取品牌好货
      */
     @GET("/app/promotionList.aspx?OthCatgId=17")

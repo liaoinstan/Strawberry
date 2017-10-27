@@ -50,11 +50,17 @@ android {
     }
     //配置keystore签名 end
     //##########################
+//    android.applicationVariants.all { variant ->
+//        variant.outputs.each { output ->
+//            output.outputFile = new File(
+//                    output.outputFile.parent,
+//                    "strawberry-" + defaultConfig.versionCode + "-" + defaultConfig.versionName + "-" + variant.buildType.name + ".apk");
+//        }
+//    }
     android.applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            output.outputFile = new File(
-                    output.outputFile.parent,
-                    "strawberry-" + defaultConfig.versionCode + "-" + defaultConfig.versionName + "-" + variant.buildType.name + ".apk");
+        variant.outputs.all {
+            def releaseTime = new Date().format("yyyyMMddHHmm");
+            outputFileName = "strawberry-${defaultConfig.versionCode}-${defaultConfig.versionName}-${variant.buildType.name}-${releaseTime}.apk"
         }
     }
     sourceSets {
