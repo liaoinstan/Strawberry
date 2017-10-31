@@ -108,7 +108,6 @@ public class EvaListActivity extends BaseAppCompatActivity {
 
     /**
      * type:0 首次加载 1:下拉刷新 2:上拉加载
-     *
      * @param type
      */
     private void netProductReview(final int type) {
