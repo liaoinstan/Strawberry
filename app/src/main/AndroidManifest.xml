@@ -69,6 +69,7 @@
         <activity android:name=".ui.activity.PayResultActivity" />
         <activity android:name=".ui.activity.SectionActivity" />
         <activity android:name=".ui.activity.EvaListActivity" />
+        <activity android:name=".ui.activity.ScanActivity" />
     </application>
 
 </manifest>
