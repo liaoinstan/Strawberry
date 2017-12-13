@@ -94,4 +94,16 @@ dependencies {
     compile project(':common')
     compile project(':lib_domain')
     compile project(':lib_version')
+
+    //Lifecycle
+    compile 'android.arch.lifecycle:runtime:1.0.3'
+    compile 'android.arch.lifecycle:extensions:1.0.0'
+    annotationProcessor 'android.arch.lifecycle:compiler:1.0.0'
+    //room
+    compile 'android.arch.persistence.room:runtime:1.0.0'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
+    //二维码扫码库
+    compile 'com.google.zxing:core:3.3.0'
+    compile 'cn.bingoogolapple:bga-qrcodecore:1.1.9@aar'
+    compile 'cn.bingoogolapple:bga-zxing:1.1.9@aar'
 }

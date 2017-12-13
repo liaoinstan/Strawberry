@@ -2,6 +2,7 @@ package com.magicbeans.xgate.ui.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,8 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ins.common.utils.FocusUtil;
+import com.liaoinstan.springview.container.AliFooter;
+import com.liaoinstan.springview.container.AliHeader;
+import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.databinding.FragmentHomeBinding;
+import com.magicbeans.xgate.ui.activity.ScanActivity;
 import com.magicbeans.xgate.ui.activity.SearchActivity;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.ui.controller.HomeBannerBoardController;
@@ -88,6 +93,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private void initView() {
         binding.textSearch.setOnClickListener(this);
+        binding.btnLeft.setOnClickListener(this);
     }
 
     private void initData() {
@@ -110,6 +116,29 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         homeSingleController.initCtrl();
         homeClassController.initCtrl();
         homeRecommendController.initCtrl();
+        binding.spring.setHeader(new AliHeader(getActivity(),false));
+        binding.spring.setFooter(new AliFooter(getActivity(),false));
+        binding.spring.setListener(new SpringView.OnFreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.spring.onFinishFreshAndLoad();
+                    }
+                },1000);
+            }
+
+            @Override
+            public void onLoadmore() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.spring.onFinishFreshAndLoad();
+                    }
+                },1000);
+            }
+        });
     }
 
     @Override
@@ -117,6 +146,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.text_search:
                 SearchActivity.start(getActivity());
+                break;
+            case R.id.btn_left:
+                ScanActivity.start(getActivity());
                 break;
         }
     }

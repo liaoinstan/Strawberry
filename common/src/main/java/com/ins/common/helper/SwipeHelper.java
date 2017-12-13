@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
  * Created by liaoinstan on 2016/7/26 0026.
  * 使用SwipeRefreshLayout实现下拉刷新的时候，没有上拉加载啊很蛋疼
  * 这个工具类可以为SwipeRefreshLayout添加加载更多的监听
- * 实际上是检测RecyclerView是否滚到底部，是则回调，这种自动加载方式在数据量多的列表中效果意外的好啊
+ * 实际上是检测RecyclerView是否滚到底部，是则回调，这种自动加载方式在数据量多的列表中效果意外好用
  */
 public class SwipeHelper {
 
@@ -17,6 +17,16 @@ public class SwipeHelper {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                /**
+                 LinearLayoutManager layoutManager = (LinearLayoutManager)
+                 recyclerView.getLayoutManager();
+                 int lastPosition = layoutManager
+                 .findLastCompletelyVisibleItemPosition();
+                 if (lastPosition == mAdapter.getItemCount() - 1) {
+                 // 上拉加载更多数据
+                 mListViewModel.loadNextPageZhihu(lastPosition);
+                 }
+                 */
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
 
                     boolean b = ViewCompat.canScrollVertically(recyclerView, 1);

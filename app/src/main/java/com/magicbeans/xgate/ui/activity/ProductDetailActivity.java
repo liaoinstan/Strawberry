@@ -13,13 +13,16 @@ import android.widget.TextView;
 
 import com.ins.common.common.ItemDecorationDivider;
 import com.ins.common.entity.Image;
+import com.ins.common.helper.ToobarTansColorHelper;
 import com.ins.common.utils.GlideUtil;
+import com.ins.common.utils.L;
 import com.ins.common.utils.StatusBarTextUtil;
 import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.viewutils.WebViewUtil;
 import com.ins.common.view.BannerView;
 import com.ins.common.view.BannerView2;
+import com.ins.common.view.ObservableNestedScrollView;
 import com.ins.common.view.bundleimgview.BundleImgEntity;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.eva.Eva;
@@ -99,9 +102,16 @@ public class ProductDetailActivity extends BaseAppCompatActivity implements View
         productDetailEvaController.initCtrl();
 
         WebViewUtil.initWebSetting(binding.webview);
-//        binding.webview.loadUrl("https://www.baidu.com");
+        //binding.webview.loadUrl("https://www.baidu.com");
         //TODO:暂且加载一个本地页面
         binding.webview.loadUrl("file:///android_asset/localhtml.html");
+
+        binding.scrollView.setOnScrollChangedListener(new ObservableNestedScrollView.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged(int x, int y, int oldx, int oldy) {
+                binding.includeNameboard.banner.setTranslationY(y/2);
+            }
+        });
     }
 
     private void initData() {
