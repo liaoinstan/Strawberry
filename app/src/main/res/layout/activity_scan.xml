@@ -50,7 +50,7 @@
             app:qrcv_tipTextColor="@android:color/white"
             app:qrcv_tipTextSize="12sp"
             app:qrcv_toolbarHeight="56dp"
-            app:qrcv_topOffset="90dp" />
+            app:qrcv_topOffset="120dp" />
 
     </LinearLayout>
 
