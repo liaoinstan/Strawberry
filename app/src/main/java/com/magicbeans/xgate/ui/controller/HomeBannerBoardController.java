@@ -34,6 +34,8 @@ public class HomeBannerBoardController {
     public HomeBannerBoardController(LayHomeBannerboardBinding binding) {
         this.binding = binding;
         this.context = binding.getRoot().getContext();
+        initCtrl();
+        initData();
     }
 
     public void initCtrl() {

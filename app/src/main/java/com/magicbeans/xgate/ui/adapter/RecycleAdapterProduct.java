@@ -49,11 +49,6 @@ public class RecycleAdapterProduct extends RecyclerView.Adapter<RecycleAdapterPr
                 if (listener != null) listener.onItemClick(holder, position);
             }
         });
-        holder.btn_buy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
         GlideUtil.loadImg(holder.img_header, R.drawable.default_bk_img, product.getProductImages().getImg350Src());
         holder.text_name.setText(product.getProdLangName());
         holder.text_intro.setText(product.getProdLangSize());
@@ -92,7 +87,6 @@ public class RecycleAdapterProduct extends RecyclerView.Adapter<RecycleAdapterPr
             text_intro = (TextView) itemView.findViewById(R.id.text_intro);
             text_price = (TextView) itemView.findViewById(R.id.text_price);
             text_price_old = (TextView) itemView.findViewById(R.id.text_price_old);
-            btn_buy = itemView.findViewById(R.id.btn_buy);
         }
     }
 

@@ -1,81 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/am_bk"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.activity.HomeActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/none"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:elevation="0dp">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginRight="40dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/shape_rect_cornerfull_dark"
-                    android:gravity="center"
-                    android:hint="搜索"
-                    android:textColor="@color/com_text_dark_light"
-                    android:textColorHint="@color/com_text_dark_light"
-                    android:textSize="@dimen/text_nomal" />
-
-            </LinearLayout>
-
-        </android.support.v7.widget.Toolbar>
-
-        <View style="@style/Line_H" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <LinearLayout
-        android:id="@+id/showingroup"
+    <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:background="@color/am_bk"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.activity.HomeActivity">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab"
+        <include
+            android:id="@+id/include_toobar_home"
+            layout="@layout/lay_toobbar_home" />
+
+        <!--app:layout_scrollFlags="scroll|enterAlways"-->
+
+        <LinearLayout
+            android:id="@+id/showingroup"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"
-            app:tabIndicatorColor="@color/st_purple"
-            app:tabIndicatorHeight="2dp"
-            app:tabSelectedTextColor="@color/st_purple"
-            app:tabTextColor="@color/com_text_light" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <View style="@style/Line_H" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle_tab"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
-    </LinearLayout>
+        </LinearLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

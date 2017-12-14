@@ -17,10 +17,12 @@ import com.ins.common.utils.ToastUtil;
 import com.ins.common.view.IndexBar;
 import com.ins.common.view.LoadingLayout;
 import com.ins.common.view.SideBar;
+import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.brand.Brand;
 import com.magicbeans.xgate.bean.brand.BrandIndex;
 import com.magicbeans.xgate.bean.brand.BrandWrap;
+import com.magicbeans.xgate.helper.SpringViewHelper;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
@@ -43,13 +45,14 @@ public class BrandFragment extends BaseFragment implements OnRecycleItemClickLis
     private View rootView;
 
     private LoadingLayout loadingLayout;
+    private SpringView spring;
 
     private IndexBar index_bar;
     private RecyclerView recycler;
     private RecycleAdapterSortBrand adapter;
     private LinearLayoutManager layoutManager;
 
-    public static Fragment newInstance(int position) {
+    public static BrandFragment newInstance(int position) {
         BrandFragment fragment = new BrandFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("position", position);
@@ -83,6 +86,7 @@ public class BrandFragment extends BaseFragment implements OnRecycleItemClickLis
     }
 
     private void initView() {
+        spring = (SpringView) rootView.findViewById(R.id.spring);
         loadingLayout = (LoadingLayout) rootView.findViewById(R.id.loadingLayout);
         index_bar = (IndexBar) rootView.findViewById(R.id.index_bar);
         recycler = (RecyclerView) rootView.findViewById(R.id.rl_recycle_view);
@@ -110,6 +114,7 @@ public class BrandFragment extends BaseFragment implements OnRecycleItemClickLis
                 if (pos != -1) layoutManager.scrollToPositionWithOffset(pos, 0);
             }
         });
+        SpringViewHelper.initSpringViewForTest(spring);
     }
 
     private void initData() {

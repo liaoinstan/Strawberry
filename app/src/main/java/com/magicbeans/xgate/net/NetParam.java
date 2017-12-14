@@ -23,7 +23,7 @@ public class NetParam {
     }
 
     public NetParam() {
-//        paramMap.put("isWechat", 0);
+        paramMap.put("region", "cn");
     }
 
     //添加参数
