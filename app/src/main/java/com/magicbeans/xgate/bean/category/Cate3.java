@@ -10,7 +10,8 @@ public class Cate3 implements Serializable {
 
     private String ProdTypeId;
     private String ProdTypeName;
-
+    //本地字段
+    private String ProdCatgId;
     //逻辑字段
     private boolean isHeader;
     private String HeaderName;
@@ -51,5 +52,13 @@ public class Cate3 implements Serializable {
 
     public void setHeaderName(String headerName) {
         HeaderName = headerName;
+    }
+
+    public String getProdCatgId() {
+        return ProdCatgId;
+    }
+
+    public void setProdCatgId(String prodCatgId) {
+        ProdCatgId = prodCatgId;
     }
 }

@@ -121,7 +121,8 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
 
     @Override
     public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
-        ProductActivity.start(getActivity());
+        Cate3 cate3 = adapter.getResults().get(viewHolder.getLayoutPosition());
+        ProductActivity.startCate3(getActivity(), cate3);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.magicbeans.xgate.net;
 
 import com.ins.common.utils.L;
+import com.ins.common.utils.StrUtil;
 
 import java.io.File;
 import java.util.LinkedHashMap;
@@ -28,6 +29,9 @@ public class NetParam {
 
     //添加参数
     public NetParam put(String key, Object value) {
+        //如果参数值为null或者""则不放进参数map
+        if (value == null || StrUtil.isEmpty(value))
+            return this;
         paramMap.put(key, value);
         return this;
     }
@@ -39,11 +43,12 @@ public class NetParam {
 
     //构建参数集合
     public Map<String, Object> build() {
+        pritParam();
         return paramMap;
     }
 
     //构造一个上传文件的Bodypart
-    public static MultipartBody.Part buildFileBodyPart(String partName,String path) {
+    public static MultipartBody.Part buildFileBodyPart(String partName, String path) {
         File file = new File(path);
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData(partName, file.getName(), requestFile);

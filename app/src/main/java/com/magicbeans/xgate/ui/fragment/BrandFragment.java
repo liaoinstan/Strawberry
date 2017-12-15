@@ -20,6 +20,7 @@ import com.ins.common.view.SideBar;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.brand.Brand;
+import com.magicbeans.xgate.bean.brand.BrandHotWrap;
 import com.magicbeans.xgate.bean.brand.BrandIndex;
 import com.magicbeans.xgate.bean.brand.BrandWrap;
 import com.magicbeans.xgate.helper.SpringViewHelper;
@@ -39,7 +40,7 @@ import java.util.Map;
 /**
  * Created by liaoinstan
  */
-public class BrandFragment extends BaseFragment implements OnRecycleItemClickListener{
+public class BrandFragment extends BaseFragment implements OnRecycleItemClickListener {
 
     private int position;
     private View rootView;
@@ -119,19 +120,13 @@ public class BrandFragment extends BaseFragment implements OnRecycleItemClickLis
 
     private void initData() {
         netGetBrandList();
-    }
-
-    private void freshData(List<Brand> results) {
-        addHots(results);
-        adapter.getResults().clear();
-        adapter.getResults().addAll(results);
-        adapter.notifyDataSetChanged();
+        netGetBrand();
     }
 
     @Override
     public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
         Brand brand = adapter.getResults().get(position);
-        ProductActivity.start(getContext(),brand.getBrandID());
+        ProductActivity.startBrand(getContext(), brand.getBrandID());
     }
 
     //从联系人中获取tag标记的位置，如果未获取到，返回-1
@@ -146,6 +141,7 @@ public class BrandFragment extends BaseFragment implements OnRecycleItemClickLis
         return -1;
     }
 
+    //结构化数据模型
     private static List<Brand> format(List<BrandIndex> brandIndexs) {
         ArrayList<Brand> brandsAll = new ArrayList<>();
         if (!StrUtil.isEmpty(brandIndexs)) {
@@ -160,37 +156,53 @@ public class BrandFragment extends BaseFragment implements OnRecycleItemClickLis
         return brandsAll;
     }
 
-    private static void addHots(List<Brand> results) {
-        List<Brand> hots = new ArrayList<Brand>() {{
-            add(new Brand("热", "热门品牌", true));
-            add(new Brand("773", "5", "盖马蒂洛", "Gai Mattiolo"));
-            add(new Brand("488", "6", "姬尔克曼", "Gale Hayman"));
-            add(new Brand("1466", "1", "江南宝", "Gangbly"));
-            add(new Brand("92", "6", "盖普", "Gap"));
-        }};
-        results.addAll(0, hots);
+    private void setBrandData(List<Brand> brands) {
+        adapter.getResults().addAll(brands);
+        adapter.notifyDataSetChanged();
     }
 
+    private void setBrandHotData(List<Brand> brandHots) {
+        brandHots.add(0, new Brand("热", "热门品牌", true));
+        adapter.getResults().addAll(0, brandHots);
+        adapter.notifyDataSetChanged();
+    }
+
+    //API获取品牌列表
     private void netGetBrandList() {
         Map<String, Object> param = new NetParam()
                 .build();
-        loadingLayout.showLoadingView();
         NetApi.NI().netBrandList(param).enqueue(new STCallback<BrandWrap>(BrandWrap.class) {
             @Override
             public void onSuccess(int status, BrandWrap bean, String msg) {
                 List<Brand> brands = format(bean.getBrandIndexList());
                 if (!StrUtil.isEmpty(brands)) {
-                    freshData(brands);
-                    loadingLayout.showOut();
-                } else {
-                    loadingLayout.showLackView();
+                    setBrandData(brands);
                 }
             }
 
             @Override
             public void onError(int status, String msg) {
                 ToastUtil.showToastShort(msg);
-                loadingLayout.showFailView();
+            }
+        });
+    }
+
+    //API获取热门品牌列表
+    private void netGetBrand() {
+        Map<String, Object> param = new NetParam()
+                .build();
+        NetApi.NI().netHomeSelectBrand(param).enqueue(new STCallback<BrandHotWrap>(BrandHotWrap.class) {
+            @Override
+            public void onSuccess(int status, BrandHotWrap bean, String msg) {
+                List<Brand> brandHots = bean.getBrand();
+                if (!StrUtil.isEmpty(brandHots)) {
+                    setBrandHotData(brandHots);
+                }
+            }
+
+            @Override
+            public void onError(int status, String msg) {
+                ToastUtil.showToastShort(msg);
             }
         });
     }

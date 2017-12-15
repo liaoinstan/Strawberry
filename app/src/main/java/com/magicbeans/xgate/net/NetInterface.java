@@ -88,6 +88,7 @@ public interface NetInterface {
      * brandId 品牌
      * typeId
      * sort 排序（producttype, alphabetical, popularity, save, lowerprice）
+     * page
      */
     @GET("/app/productList.aspx")
     Call<ResponseBody> netProductList(@QueryMap Map<String, Object> param);

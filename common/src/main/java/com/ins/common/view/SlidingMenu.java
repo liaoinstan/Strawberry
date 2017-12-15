@@ -43,7 +43,7 @@ public class SlidingMenu extends HorizontalScrollView {
     private float lastX;
     private float dx;
 
-//    @Override
+    //    @Override
 //    public boolean onTouchEvent(MotionEvent ev) {
 //        switch (ev.getAction()) {
 //            case MotionEvent.ACTION_DOWN:
@@ -67,4 +67,18 @@ public class SlidingMenu extends HorizontalScrollView {
 //        }
 //        return super.onTouchEvent(ev);
 //    }
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_UP:
+                int scrollX = getScrollX();
+                if (Math.abs(scrollX) > mMenuWidth / 2) {
+                    this.smoothScrollTo(mMenuWidth, 0);
+                } else {
+                    this.smoothScrollTo(0, 0);
+                }
+                return true;
+        }
+        return super.onTouchEvent(ev);
+    }
 }

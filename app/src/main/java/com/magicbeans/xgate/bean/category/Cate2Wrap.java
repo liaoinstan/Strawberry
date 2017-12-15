@@ -1,5 +1,7 @@
 package com.magicbeans.xgate.bean.category;
 
+import com.ins.common.utils.StrUtil;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +20,18 @@ public class Cate2Wrap implements Serializable {
         //数据模型转换
         ArrayList<Cate3> cate3List = new ArrayList<>();
         for (Cate2 cate2 : Groups) {
+            //添加header
             Cate3 header = new Cate3(true, cate2.getProdGroupName());
             cate3List.add(header);
-            cate3List.addAll(cate2.getProdTypes());
+            //为每个cate3实体设置catgId
+            List<Cate3> contents = cate2.getProdTypes();
+            if (!StrUtil.isEmpty(contents)) {
+                for (Cate3 cate3 : contents) {
+                    cate3.setProdCatgId(ProdCatgId);
+                }
+            }
+            //添加cate3内容
+            cate3List.addAll(contents);
         }
         return cate3List;
     }

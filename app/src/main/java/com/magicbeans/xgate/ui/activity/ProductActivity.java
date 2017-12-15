@@ -19,6 +19,7 @@ import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.PopBean;
+import com.magicbeans.xgate.bean.category.Cate3;
 import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.bean.product.ProductWrap;
 import com.magicbeans.xgate.databinding.ActivityProductBinding;
@@ -42,20 +43,40 @@ public class ProductActivity extends BaseAppCompatActivity implements OnRecycleI
     private MyGridPopupWindow pop_cate;
     private MyGridPopupWindow pop_skin;
 
-    private String BrandID;
+    private String catgId;
+    private String brandID;
+    private String typeId;
+    private String sort; //producttype, alphabetical, popularity, save, lowerprice
+    private int page = 1;
 
     //测试启动
     public static void start(Context context) {
         Intent intent = new Intent(context, ProductActivity.class);
-        intent.putExtra("BrandID", "288");
+        intent.putExtra("brandID", "288");
         context.startActivity(intent);
     }
 
-    public static void start(Context context, String BrandID) {
+    public static void startCategroy(Context context, String catgId) {
+        start(context, catgId, null, null);
+    }
+
+    public static void startBrand(Context context, String brandID) {
+        start(context, null, brandID, null);
+    }
+
+    public static void startCate3(Context context, Cate3 cate3) {
+        start(context, cate3.getProdCatgId(), null, cate3.getProdTypeId());
+    }
+
+
+    public static void start(Context context, String catgId, String brandID, String typeId) {
         Intent intent = new Intent(context, ProductActivity.class);
-        intent.putExtra("BrandID", BrandID);
+        intent.putExtra("catgId", catgId);
+        intent.putExtra("brandID", brandID);
+        intent.putExtra("typeId", typeId);
         context.startActivity(intent);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +90,9 @@ public class ProductActivity extends BaseAppCompatActivity implements OnRecycleI
     }
 
     private void initBase() {
-        BrandID = getIntent().getStringExtra("BrandID");
+        catgId = getIntent().getStringExtra("catgId");
+        brandID = getIntent().getStringExtra("brandID");
+        typeId = getIntent().getStringExtra("typeId");
 
         decorationList = new ItemDecorationDivider(this, ItemDecorationDivider.VERTICAL_LIST);
         pop_brand = new MyGridPopupWindow(this);
@@ -223,7 +246,10 @@ public class ProductActivity extends BaseAppCompatActivity implements OnRecycleI
 
     private void netGetProductList() {
         Map<String, Object> param = new NetParam()
-                .put("brandId", BrandID)
+                .put("catgId", catgId)
+                .put("brandId", brandID)
+                .put("typeId", typeId)
+                .put("page", page)
                 .build();
         binding.loadingview.showLoadingView();
         NetApi.NI().netProductList(param).enqueue(new STCallback<ProductWrap>(ProductWrap.class) {
