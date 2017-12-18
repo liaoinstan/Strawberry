@@ -45,6 +45,8 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
     private int position;
     private View rootView;
 
+    private String CatgId;
+
     private FragmentCateinBinding binding;
     private RecycleAdapterCateIn adapter;
 
@@ -84,7 +86,6 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
 
     private void initView() {
         GlideUtil.loadImg(binding.imgPop, R.drawable.default_bk_img, "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513231176137&di=8962c6a63f455e0e7da0e092bc39377d&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01016457a01a840000012e7e03ff55.jpg");
-//        GlideUtil.loadImg(binding.imgPop, R.drawable.default_bk_img, "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513845476&di=643fdc849eeb0ee85ee61f21739949a9&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01a9e45846dae6a8012060c8aee515.jpg%40900w_1l_2o_100sh.jpg");
     }
 
     private void initData() {
@@ -93,6 +94,7 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
 
     //刷新数据并检查是否有缓存
     public void freshData(String CatgId) {
+        this.CatgId = CatgId;
         Cate2Wrap cate2Wrap = CateRuntimeCache.getInstance().getCache(CatgId);
         if (cate2Wrap != null) {
             setData(cate2Wrap);
@@ -129,7 +131,7 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_pop:
-                ProductActivity.start(getActivity());
+                ProductActivity.startCategroy(getActivity(), CatgId);
                 break;
         }
     }
