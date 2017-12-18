@@ -15,23 +15,23 @@ import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.databinding.FragmentHomeBinding;
+import com.magicbeans.xgate.helper.SpringViewHelper;
 import com.magicbeans.xgate.ui.activity.ScanActivity;
 import com.magicbeans.xgate.ui.activity.SearchActivity;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.ui.controller.HomeBannerBoardController;
 import com.magicbeans.xgate.ui.controller.HomeBrandController;
-import com.magicbeans.xgate.ui.controller.HomeClassController;
-import com.magicbeans.xgate.ui.controller.HomeHotController;
+import com.magicbeans.xgate.ui.controller.HomeClearController;
+import com.magicbeans.xgate.ui.controller.HomeNewProductController;
 import com.magicbeans.xgate.ui.controller.HomeRecommendController;
-import com.magicbeans.xgate.ui.controller.HomeSaleController;
-import com.magicbeans.xgate.ui.controller.HomeSelectController;
 import com.magicbeans.xgate.ui.controller.HomeSingleController;
+import com.magicbeans.xgate.ui.controller.ToolbarHomeController;
 
 
 /**
  * Created by liaoinstan
  */
-public class HomeFragment extends BaseFragment implements View.OnClickListener {
+public class HomeFragment extends BaseFragment {
 
     private FragmentHomeBinding binding;
 
@@ -39,14 +39,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private View rootView;
 
     //各个子模块控制器，各控制器相互独立，各种处理自己模块的业务逻辑
+    private ToolbarHomeController toolbarHomeController;
     private HomeBannerBoardController homeBannerBoardController;
-    private HomeSaleController homeSaleController;
-    private HomeBrandController homeBrandController;
-    private HomeHotController homeHotController;
-    private HomeSelectController homeSelectController;
     private HomeSingleController homeSingleController;
-    private HomeClassController homeClassController;
+    private HomeNewProductController homeNewProductController;
+    private HomeBrandController homeBrandController;
     private HomeRecommendController homeRecommendController;
+    private HomeClearController homeClearController;
 
     public static Fragment newInstance(int position) {
         HomeFragment fragment = new HomeFragment();
@@ -81,75 +80,22 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initBase() {
+        toolbarHomeController = new ToolbarHomeController(binding.includeToobarHome);
         homeBannerBoardController = new HomeBannerBoardController(binding.includeHomeBannerboard);
-        homeSaleController = new HomeSaleController(binding.includeHomeSale);
-        homeBrandController = new HomeBrandController(binding.includeHomeBrand);
-        homeHotController = new HomeHotController(binding.includeHomeHot);
-        homeSelectController = new HomeSelectController(binding.includeHomeSelect);
         homeSingleController = new HomeSingleController(binding.includeHomeSingle);
-        homeClassController = new HomeClassController(binding.includeHomeclass);
+        homeNewProductController = new HomeNewProductController(binding.includeHomeNewproduct);
+        homeBrandController = new HomeBrandController(binding.includeHomeBrand);
         homeRecommendController = new HomeRecommendController(binding.includeHomeRecommend);
+        homeClearController = new HomeClearController(binding.includeHomeClear);
     }
 
     private void initView() {
-        binding.textSearch.setOnClickListener(this);
-        binding.btnLeft.setOnClickListener(this);
     }
 
     private void initData() {
-        homeBannerBoardController.initData();
-        homeSaleController.initData();
-        homeBrandController.initData();
-        homeHotController.initData();
-        homeSelectController.initData();
-        homeSingleController.initData();
-        homeClassController.initData();
-        homeRecommendController.initData();
     }
 
     private void initCtrl() {
-        homeBannerBoardController.initCtrl();
-        homeSaleController.initCtrl();
-        homeBrandController.initCtrl();
-        homeHotController.initCtrl();
-        homeSelectController.initCtrl();
-        homeSingleController.initCtrl();
-        homeClassController.initCtrl();
-        homeRecommendController.initCtrl();
-        binding.spring.setHeader(new AliHeader(getActivity(),false));
-        binding.spring.setFooter(new AliFooter(getActivity(),false));
-        binding.spring.setListener(new SpringView.OnFreshListener() {
-            @Override
-            public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.spring.onFinishFreshAndLoad();
-                    }
-                },1000);
-            }
-
-            @Override
-            public void onLoadmore() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.spring.onFinishFreshAndLoad();
-                    }
-                },1000);
-            }
-        });
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.text_search:
-                SearchActivity.start(getActivity());
-                break;
-            case R.id.btn_left:
-                ScanActivity.start(getActivity());
-                break;
-        }
+        SpringViewHelper.initSpringViewForTest(binding.spring);
     }
 }

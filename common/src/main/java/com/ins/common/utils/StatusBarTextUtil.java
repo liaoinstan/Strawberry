@@ -50,6 +50,7 @@ public class StatusBarTextUtil {
      */
     @TargetApi(19)
     public static void transparencyBar(Activity activity) {
+        if (activity==null) return;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = activity.getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
@@ -64,6 +65,21 @@ public class StatusBarTextUtil {
             Window window = activity.getWindow();
             window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+    }
+
+    /**
+     * 修改状态栏为固定颜色（不收缩）
+     *
+     * @param activity
+     */
+    @TargetApi(19)
+    public static void transBarBackground(Activity activity, int color) {
+        if (activity==null) return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = activity.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(color);
         }
     }
 

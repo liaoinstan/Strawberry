@@ -61,12 +61,13 @@ public class StrawberryApp extends Application {
             }
         });
         DomainLauncher.getInstance()
-                .addDomain("192.168.31.126:8080", "(Web开发服务器)")
-                .addDomain("192.168.31.205:8080", "(开发服务器：李作焕)")
-                .addDomain("192.168.31.166", "(开发服务器：谢启谋)")
-                .addDomain("192.168.31.110:8080", "(内部测试服务器)")
-                .addDomain("139.129.111.76:8110", "(远程测试服务器)")
-                .addDomain("tiger.magic-beans.cn", "(演示服务器)")
+                .addDomain("192.168.31.126:8080", "(Web开发服务器：不可用)")
+                .addDomain("192.168.31.205:8080", "(开发服务器1：不可用)")
+                .addDomain("192.168.31.166", "(开发服务器2：不可用)")
+                .addDomain("192.168.31.110:8080", "(内部测试服务器：不可用)")
+                .addDomain("139.129.111.76:8110", "(远程测试服务器：不可用)")
+//                .addDomain("tiger.magic-beans.cn", "(演示服务器：不可用)")
+                .addDomain("demo2017.strawberrynet.com", "(演示服务器)")
                 .addDomain("cn.strawberrynet.com", "(正式服务器)");
     }
 

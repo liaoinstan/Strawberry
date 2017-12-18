@@ -4,12 +4,12 @@
     <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:background="@color/white">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -19,35 +19,31 @@
                 android:textColor="@color/com_text_dark"
                 android:textSize="18sp" />
 
+            <TextView
+                android:id="@+id/btn_more"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right|center_vertical"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="更多 >"
+                android:textColor="@color/com_text_dark_light"
+                android:textSize="@dimen/text_nomal_small" />
+
         </FrameLayout>
 
         <View style="@style/Line_H" />
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/st_bk"
-            android:orientation="vertical">
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tab"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@color/white"
-                app:tabIndicatorColor="@color/st_purple"
-                app:tabIndicatorHeight="1dp"
-                app:tabSelectedTextColor="@color/st_purple"
-                app:tabTextColor="@color/com_text_dark_light" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:paddingBottom="10dp"
-                android:paddingTop="5dp" />
-
-        </LinearLayout>
+            android:clipToPadding="false"
+            android:paddingBottom="10dp"
+            android:paddingTop="5dp" />
 
     </LinearLayout>
 </layout>

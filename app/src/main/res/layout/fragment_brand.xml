@@ -21,12 +21,19 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rl_recycle_view"
+            <com.liaoinstan.springview.widget.SpringView
+                android:id="@+id/spring"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:paddingBottom="10dp" />
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rl_recycle_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:paddingBottom="10dp" />
+
+            </com.liaoinstan.springview.widget.SpringView>
 
             <com.ins.common.view.IndexBar
                 android:id="@+id/index_bar"

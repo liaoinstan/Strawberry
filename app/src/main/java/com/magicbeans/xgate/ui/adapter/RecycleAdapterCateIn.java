@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.GlideUtil;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.category.Cate3;
 import com.magicbeans.xgate.bean.common.TestBean;
 
 import java.util.ArrayList;
@@ -24,9 +25,9 @@ public class RecycleAdapterCateIn extends RecyclerView.Adapter<RecyclerView.View
     private final int SRC_CONTENT = R.layout.item_home_catein;
 
     private Context context;
-    private List<TestBean> results = new ArrayList<>();
+    private List<Cate3> results = new ArrayList<>();
 
-    public List<TestBean> getResults() {
+    public List<Cate3> getResults() {
         return results;
     }
 
@@ -48,7 +49,7 @@ public class RecycleAdapterCateIn extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        final TestBean bean = results.get(position);
+        final Cate3 bean = results.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,12 +64,14 @@ public class RecycleAdapterCateIn extends RecyclerView.Adapter<RecyclerView.View
     }
 
     private void bindContent(HolderContent holder, int position) {
+        Cate3 bean = results.get(position);
+        holder.text_title.setText(bean.getProdTypeName());
         GlideUtil.loadImgTest(holder.img_header);
     }
 
     private void bindHeader(HolderHeader holder, int position) {
-        TestBean bean = results.get(position);
-        holder.text_header_title.setText(bean.getName());
+        Cate3 bean = results.get(position);
+        holder.text_header_title.setText(bean.getHeaderName());
     }
 
     @Override
@@ -78,7 +81,7 @@ public class RecycleAdapterCateIn extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemViewType(int position) {
-        if (!TextUtils.isEmpty(results.get(position).getName())) {
+        if (results.get(position).isHeader()) {
             return SRC_HEADER;
         } else {
             return SRC_CONTENT;
@@ -88,10 +91,12 @@ public class RecycleAdapterCateIn extends RecyclerView.Adapter<RecyclerView.View
     public class HolderContent extends RecyclerView.ViewHolder {
 
         private ImageView img_header;
+        private TextView text_title;
 
         public HolderContent(View itemView) {
             super(itemView);
-            img_header = (ImageView) itemView.findViewById(R.id.img_header);
+            img_header = itemView.findViewById(R.id.img_header);
+            text_title = itemView.findViewById(R.id.text_title);
         }
     }
 

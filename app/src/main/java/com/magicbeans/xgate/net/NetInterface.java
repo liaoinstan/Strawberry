@@ -83,23 +83,12 @@ public interface NetInterface {
     Call<ResponseBody> netDailySaleTime(@QueryMap Map<String, Object> param);
 
     /**
-     * 首页获取品牌好货
-     */
-    @GET("/app/promotionList.aspx?OthCatgId=17")
-    Call<ResponseBody> netHomeSingleList(@QueryMap Map<String, Object> param);
-
-    /**
-     * 获取推荐产品列表
-     */
-    @GET("/app/promotionList.aspx?OthCatgId=21")
-    Call<ResponseBody> netRecommendList(@QueryMap Map<String, Object> param);
-
-    /**
      * 产品列表
      * CatgId 功能
      * brandId 品牌
      * typeId
      * sort 排序（producttype, alphabetical, popularity, save, lowerprice）
+     * page
      */
     @GET("/app/productList.aspx")
     Call<ResponseBody> netProductList(@QueryMap Map<String, Object> param);
@@ -118,7 +107,7 @@ public interface NetInterface {
      * Page
      * region cn
      */
-    @GET("/ajaxProdReview.aspx?region=cn")
+    @GET("/ajaxProdReview.aspx")
     Call<ResponseBody> netProductReview(@QueryMap Map<String, Object> param);
 
     /**
@@ -138,4 +127,69 @@ public interface NetInterface {
      */
     @GET("https://secure.strawberrynet.com/app/apiAccountSignup.aspx")
     Call<ResponseBody> netSignUp(@QueryMap Map<String, Object> param);
+
+    //##################################################################
+    //#########               2017/12/13 改版后新增
+    //##################################################################
+
+    /**
+     * 精选品牌
+     */
+    @GET("https://demo2017.strawberrynet.com/app/apiTopBrands.aspx")
+    Call<ResponseBody> netHomeSelectBrand(@QueryMap Map<String, Object> param);
+
+    /**
+     * 获取推荐产品列表
+     * https://cn.strawberrynet.com/app/promotionList.aspx?OthCatgId=supervaluezone&PCId=2&TypeId=39
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=21")
+    Call<ResponseBody> netRecommendList(@QueryMap Map<String, Object> param);
+
+    /**
+     * 获取一级分类列表
+     */
+    @GET("app/categoryList.aspx")
+    Call<ResponseBody> netMainCategory(@QueryMap Map<String, Object> param);
+
+    /**
+     * 获取二级三级分类列表
+     * CatgId  一级分类ID
+     */
+    @GET("https://demo2017.strawberrynet.com/app/apiSubCategories.aspx")
+    Call<ResponseBody> netSubCategory(@QueryMap Map<String, Object> param);
+
+
+    //##################################################################
+    //#########               2017/12/13 首页模块变更接口
+    //##################################################################
+
+    /**
+     * 首页获取品牌好货
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=17")
+    Call<ResponseBody> netHomePromotionList(@QueryMap Map<String, Object> param);
+
+    /**
+     * 首页获取王牌单品
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=bestseller")
+    Call<ResponseBody> netHomeSingleList(@QueryMap Map<String, Object> param);
+
+    /**
+     * 首页获取新品上市
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=17&PCId=2&TypeId=39")
+    Call<ResponseBody> netHomeNewList(@QueryMap Map<String, Object> param);
+
+    /**
+     * 首页获取精品推荐
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=supervaluezone&PCId=2&TypeId=39")
+    Call<ResponseBody> netHomeRecommendList(@QueryMap Map<String, Object> param);
+
+    /**
+     * 首页获取清仓优惠
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=89")
+    Call<ResponseBody> netHomeClearList(@QueryMap Map<String, Object> param);
 }

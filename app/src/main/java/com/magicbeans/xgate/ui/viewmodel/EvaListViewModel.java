@@ -40,9 +40,11 @@ public class EvaListViewModel extends ViewModel {
     }
 
     public LiveData<List<Eva>> resetResults() {
+        results = new MutableLiveData();
         dataRepository.queryResults(prodId, 0, 20, new DataRepository.DataCallback() {
             @Override
             public void onSuccess(int status, List<Eva> evas, String msg) {
+                results.setValue(evas);
                 loadingViewStatus.setValue(LoadingStatus.NONE);
             }
 
@@ -58,7 +60,7 @@ public class EvaListViewModel extends ViewModel {
 
             @Override
             public void onStart() {
-                loadingViewStatus.setValue(LoadingStatus.NONE);
+                loadingViewStatus.setValue(LoadingStatus.LOADING);
             }
         });
         return results;

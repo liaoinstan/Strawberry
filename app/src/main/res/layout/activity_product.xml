@@ -21,6 +21,7 @@
                 android:background="@color/white"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
                 <LinearLayout

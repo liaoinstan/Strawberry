@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import com.ins.common.common.GridSpacingItemDecoration;
 import com.ins.common.utils.DensityUtil;
 import com.ins.common.utils.FocusUtil;
+import com.ins.common.utils.StatusBarTextUtil;
+import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Order;
 import com.magicbeans.xgate.databinding.FragmentMeBinding;
@@ -28,7 +31,7 @@ import com.magicbeans.xgate.ui.base.BaseFragment;
 /**
  * Created by liaoinstan
  */
-public class MeFragment extends BaseFragment implements View.OnClickListener{
+public class MeFragment extends BaseFragment implements View.OnClickListener {
 
     private FragmentMeBinding binding;
     private int position;
@@ -68,6 +71,16 @@ public class MeFragment extends BaseFragment implements View.OnClickListener{
         initData();
         toolbar.bringToFront();
         FocusUtil.focusToTop(binding.getRoot());
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (getActivity() != null) StatusBarTextUtil.transparencyBar(getActivity());
+        } else {
+            if (getActivity() != null) StatusBarTextUtil.transBarBackground(getActivity(), ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+        }
     }
 
     private void initBase() {

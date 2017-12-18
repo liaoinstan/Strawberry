@@ -7,60 +7,9 @@
         android:background="@color/st_bk"
         android:fitsSystemWindows="true">
 
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            app:elevation="0dp">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@color/white"
-                app:contentInsetLeft="0dp"
-                app:contentInsetStart="0dp"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/btn_left"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:padding="8dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/default_header" />
-
-                    <TextView
-                        android:id="@+id/text_search"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_marginRight="40dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/shape_rect_cornerfull_dark"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:hint="@string/home_search"
-                        android:onClick="onClick"
-                        android:textColor="@color/com_text_dark_light"
-                        android:textColorHint="@color/com_text_dark_light"
-                        android:textSize="@dimen/text_nomal" />
-
-                </LinearLayout>
-
-            </android.support.v7.widget.Toolbar>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/com_line" />
-
-        </android.support.design.widget.AppBarLayout>
+        <include
+            android:id="@+id/include_toobar_home"
+            layout="@layout/lay_toobbar_home" />
 
         <com.liaoinstan.springview.widget.SpringView
             android:id="@+id/spring"
@@ -79,6 +28,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <!--banner面板-->
                     <include
                         android:id="@+id/include_home_bannerboard"
                         layout="@layout/lay_home_bannerboard" />
@@ -87,38 +37,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="10dp" />
 
-                    <include
-                        android:id="@+id/include_home_sale"
-                        layout="@layout/lay_home_sale" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp" />
-
-                    <include
-                        android:id="@+id/include_home_brand"
-                        layout="@layout/lay_home_brand" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp" />
-
-                    <include
-                        android:id="@+id/include_home_hot"
-                        layout="@layout/lay_home_hot" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp" />
-
-                    <include
-                        android:id="@+id/include_home_select"
-                        layout="@layout/lay_home_select" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp" />
-
+                    <!--王牌单品-->
                     <include
                         android:id="@+id/include_home_single"
                         layout="@layout/lay_home_single" />
@@ -127,17 +46,37 @@
                         android:layout_width="match_parent"
                         android:layout_height="10dp" />
 
+                    <!--新品上市-->
                     <include
-                        android:id="@+id/include_homeclass"
-                        layout="@layout/lay_home_class" />
+                        android:id="@+id/include_home_newproduct"
+                        layout="@layout/lay_home_newproduct" />
 
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="10dp" />
 
+                    <!--精选品牌-->
+                    <include
+                        android:id="@+id/include_home_brand"
+                        layout="@layout/lay_home_brand" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <!--新品推荐-->
                     <include
                         android:id="@+id/include_home_recommend"
                         layout="@layout/lay_home_recommend" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <!--清仓优惠-->
+                    <include
+                        android:id="@+id/include_home_clear"
+                        layout="@layout/lay_home_clear" />
 
                 </LinearLayout>
 

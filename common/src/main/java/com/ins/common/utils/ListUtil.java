@@ -24,4 +24,14 @@ public class ListUtil {
     public static <T> T getLast(List<T> list) {
         return get(list, list.size() - 1);
     }
+
+    //取列表前n个，如果越界或者空返回null
+    public static <T> List<T> getFirst(List<T> list, int n) {
+        if (list == null) return null;
+        if (list.size() <= 4) {
+            return list;
+        } else {
+            return list.subList(0, n);
+        }
+    }
 }

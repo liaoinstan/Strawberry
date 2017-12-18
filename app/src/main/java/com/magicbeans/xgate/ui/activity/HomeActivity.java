@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -55,7 +56,8 @@ public class HomeActivity extends BaseAppCompatActivity {
         updateHelper = new UpdateHelper.Builder(this).checkUrl(AppData.Url.version).isHintNewVersion(false).build();
         updateHelper.check();
 
-        StatusBarTextUtil.transparencyBar(HomeActivity.this);
+//        StatusBarTextUtil.transparencyBar(HomeActivity.this);
+        StatusBarTextUtil.transBarBackground(this, ContextCompat.getColor(this, R.color.colorPrimaryDark));
         StatusBarTextUtil.StatusBarLightMode(HomeActivity.this);
 
         initBase();
