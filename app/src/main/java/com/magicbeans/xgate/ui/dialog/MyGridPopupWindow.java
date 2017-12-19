@@ -40,6 +40,11 @@ public class MyGridPopupWindow extends BaseRecyclePopupWindow<PopBean, MyGridPop
         holder.text_item_singpop_name.setText(popBean.getName());
     }
 
+    @Override
+    protected void onPopItemClick(PopBean popBean, int position) {
+        if (onGridPopItemClick != null) onGridPopItemClick.onItemClick(this, popBean, position);
+    }
+
     public class Holder extends RecyclerView.ViewHolder {
 
         private TextView text_item_singpop_name;
@@ -48,5 +53,16 @@ public class MyGridPopupWindow extends BaseRecyclePopupWindow<PopBean, MyGridPop
             super(itemView);
             text_item_singpop_name = (TextView) itemView.findViewById(com.magicbeans.xgate.R.id.text_item_singpop_name);
         }
+    }
+
+
+    private OnGridPopItemClick onGridPopItemClick;
+
+    public void setOnGridPopItemClick(OnGridPopItemClick onGridPopItemClick) {
+        this.onGridPopItemClick = onGridPopItemClick;
+    }
+
+    public interface OnGridPopItemClick {
+        void onItemClick(BaseRecyclePopupWindow contain, PopBean popBean, int position);
     }
 }

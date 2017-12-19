@@ -25,6 +25,7 @@ import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterProduct;
+import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.dialog.MyGridPopupWindow;
 
 import java.util.ArrayList;
@@ -35,13 +36,13 @@ import java.util.Map;
  * Created by Administrator on 2017/10/11.
  */
 
-public class ProductListContentController implements OnRecycleItemClickListener{
+public class ProductListContentController implements OnRecycleItemClickListener {
 
     private Context context;
     private LayProductlistContentBinding binding;
 
     private RecycleAdapterProduct adapter;
-    private RecyclerView.ItemDecoration decorationList;
+    private GridLayoutManager layoutManager;
 
     private String catgId;
     private String brandID;
@@ -61,17 +62,16 @@ public class ProductListContentController implements OnRecycleItemClickListener{
     }
 
     public void initCtrl() {
-        decorationList = new ItemDecorationDivider(context, ItemDecorationDivider.VERTICAL_LIST);
+        layoutManager = new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false);
 
         adapter = new RecycleAdapterProduct(context);
         adapter.setOnItemClickListener(this);
-        binding.recycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        binding.recycler.setLayoutManager(layoutManager);
         binding.recycler.setAdapter(adapter);
-        binding.recycler.addItemDecoration(decorationList);
         binding.loadingview.setOnRefreshListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                netGetProductList();
+                netGetProductList(true);
             }
         });
         binding.spring.setHeader(new AliHeader(context, false));
@@ -79,27 +79,19 @@ public class ProductListContentController implements OnRecycleItemClickListener{
         binding.spring.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.spring.onFinishFreshAndLoad();
-                    }
-                }, 1000);
+                netGetProductList(false);
             }
 
             @Override
             public void onLoadmore() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.spring.onFinishFreshAndLoad();
-                    }
-                }, 1000);
+                netLoadmore();
             }
         });
-        binding.loadingview.setOnRefreshListener(new View.OnClickListener() {
+        //返回顶部按钮
+        binding.fabTop.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                binding.recycler.smoothScrollToPosition(0);
             }
         });
     }
@@ -113,35 +105,35 @@ public class ProductListContentController implements OnRecycleItemClickListener{
         ProductDetailActivity.start(context);
     }
 
-    public void setListMode(){
+    public void setListMode() {
         //设置为列表样式
-        binding.recycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        binding.recycler.addItemDecoration(decorationList);
+        layoutManager.setSpanCount(1);
         adapter.setGridMode(false);
-        adapter.notifyDataSetChanged();
+        adapter.notifyItemRangeChanged(0, adapter.getItemCount());
     }
 
-    public void setGridMode(){
+    public void setGridMode() {
         //设置为网格样式
-        binding.recycler.setLayoutManager(new GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false));
-        binding.recycler.removeItemDecoration(decorationList);
+        layoutManager.setSpanCount(2);
         adapter.setGridMode(true);
-        adapter.notifyDataSetChanged();
+        adapter.notifyItemRangeChanged(0, adapter.getItemCount());
     }
 
     //当前列表是list状态还是grid状态
-    public boolean isGridMode(){
-        return binding.recycler.getLayoutManager() instanceof GridLayoutManager;
+    public boolean isGridMode() {
+        return layoutManager.getSpanCount() == 2;
     }
 
-    public void netGetProductList() {
+    public void netGetProductList(final boolean showLoading) {
+        page = 1;
         Map<String, Object> param = new NetParam()
                 .put("catgId", catgId)
                 .put("brandId", brandID)
                 .put("typeId", typeId)
+                .put("sort", sort)
                 .put("page", page)
                 .build();
-        binding.loadingview.showLoadingView();
+        if (showLoading) ((BaseAppCompatActivity) context).showLoadingDialog();
         NetApi.NI().netProductList(param).enqueue(new STCallback<ProductWrap>(ProductWrap.class) {
             @Override
             public void onSuccess(int status, ProductWrap bean, String msg) {
@@ -150,16 +142,47 @@ public class ProductListContentController implements OnRecycleItemClickListener{
                     adapter.getResults().clear();
                     adapter.getResults().addAll(products);
                     adapter.notifyDataSetChanged();
-                    binding.loadingview.showOut();
                 } else {
-                    binding.loadingview.showLackView();
+                }
+                if (showLoading) ((BaseAppCompatActivity) context).hideLoadingDialog();
+                binding.spring.onFinishFreshAndLoad();
+            }
+
+            @Override
+            public void onError(int status, String msg) {
+                ToastUtil.showToastShort(msg);
+                if (showLoading) ((BaseAppCompatActivity) context).hideLoadingDialog();
+                binding.spring.onFinishFreshAndLoad();
+            }
+        });
+    }
+
+    public void netLoadmore() {
+        Map<String, Object> param = new NetParam()
+                .put("catgId", catgId)
+                .put("brandId", brandID)
+                .put("typeId", typeId)
+                .put("sort", sort)
+                .put("page", page + 1)
+                .build();
+        NetApi.NI().netProductList(param).enqueue(new STCallback<ProductWrap>(ProductWrap.class) {
+            @Override
+            public void onSuccess(int status, ProductWrap bean, String msg) {
+                List<Product> products = bean.getProductList();
+                if (!StrUtil.isEmpty(products)) {
+                    page++;
+                    adapter.getResults().addAll(products);
+                    adapter.notifyDataSetChanged();
+                    binding.spring.onFinishFreshAndLoad();
+                } else {
+                    binding.spring.onFinishFreshAndLoad();
                 }
             }
 
             @Override
             public void onError(int status, String msg) {
                 ToastUtil.showToastShort(msg);
-                binding.loadingview.showFailView();
+                binding.spring.onFinishFreshAndLoad();
             }
         });
     }

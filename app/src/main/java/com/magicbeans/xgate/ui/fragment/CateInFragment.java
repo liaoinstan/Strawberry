@@ -3,7 +3,6 @@ package com.magicbeans.xgate.ui.fragment;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,16 +11,12 @@ import android.view.ViewGroup;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.GlideUtil;
-import com.ins.common.utils.ListUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.category.Cate2;
+import com.magicbeans.xgate.bean.category.Cate1;
 import com.magicbeans.xgate.bean.category.Cate2Wrap;
 import com.magicbeans.xgate.bean.category.Cate3;
-import com.magicbeans.xgate.bean.common.TestBean;
-import com.magicbeans.xgate.bean.product.ProductWrap;
-import com.magicbeans.xgate.data.cache.CateRuntimeCache;
-import com.magicbeans.xgate.databinding.FragmentCateBinding;
+import com.magicbeans.xgate.data.cache.RuntimeCache;
 import com.magicbeans.xgate.databinding.FragmentCateinBinding;
 import com.magicbeans.xgate.helper.SpringViewHelper;
 import com.magicbeans.xgate.net.NetApi;
@@ -32,8 +27,6 @@ import com.magicbeans.xgate.ui.adapter.RecycleAdapterCateIn;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 
@@ -45,7 +38,7 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
     private int position;
     private View rootView;
 
-    private String CatgId;
+    private Cate2Wrap cate2Wrap;
 
     private FragmentCateinBinding binding;
     private RecycleAdapterCateIn adapter;
@@ -94,8 +87,7 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
 
     //刷新数据并检查是否有缓存
     public void freshData(String CatgId) {
-        this.CatgId = CatgId;
-        Cate2Wrap cate2Wrap = CateRuntimeCache.getInstance().getCache(CatgId);
+        Cate2Wrap cate2Wrap = RuntimeCache.getInstance().getCate2Cache(CatgId);
         if (cate2Wrap != null) {
             setData(cate2Wrap);
         } else {
@@ -124,14 +116,15 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
     @Override
     public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
         Cate3 cate3 = adapter.getResults().get(viewHolder.getLayoutPosition());
-        ProductActivity.startCate3(getActivity(), cate3);
+        ProductActivity.startType(getActivity(), cate3);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_pop:
-                ProductActivity.startCategroy(getActivity(), CatgId);
+                Cate1 cate1 = new Cate1(cate2Wrap.getProdCatgName(), cate2Wrap.getProdCatgId());
+                ProductActivity.startCategroy(getActivity(), cate1);
                 break;
         }
     }
@@ -146,9 +139,10 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
             @Override
             public void onSuccess(int status, Cate2Wrap bean, String msg) {
                 ((BaseAppCompatActivity) getActivity()).hideLoadingDialog();
+                cate2Wrap = bean;
                 setData(bean);
                 //添加运行时缓存
-                CateRuntimeCache.getInstance().putCache(CatgId, bean);
+                RuntimeCache.getInstance().putCate2Cache(CatgId, bean);
             }
 
             @Override

@@ -67,7 +67,7 @@ public abstract class BaseRecyclePopupWindow<T, H extends RecyclerView.ViewHolde
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (listener != null) listener.onItemClick(holder, position);
+                    onPopItemClick(t,position);
                 }
             });
             setData(holder, t, position);
@@ -78,16 +78,14 @@ public abstract class BaseRecyclePopupWindow<T, H extends RecyclerView.ViewHolde
             return results.size();
         }
 
-        private OnRecycleItemClickListener listener;
-
-        public void setOnItemClickListener(OnRecycleItemClickListener listener) {
-            this.listener = listener;
-        }
     }
 
     ////////////////////////
     //////////对外接口
     ////////////////////////
+
+    protected void onPopItemClick(T t, int position) {
+    }
 
     protected abstract H getViewHolder(ViewGroup parent, int viewType);
 

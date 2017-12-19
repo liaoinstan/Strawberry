@@ -4,37 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
-import com.ins.common.common.ItemDecorationDivider;
-import com.ins.common.interfaces.OnRecycleItemClickListener;
-import com.ins.common.utils.StrUtil;
-import com.ins.common.utils.ToastUtil;
-import com.liaoinstan.springview.container.AliFooter;
-import com.liaoinstan.springview.container.AliHeader;
-import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.PopBean;
+import com.magicbeans.xgate.bean.brand.Brand;
+import com.magicbeans.xgate.bean.category.Cate1;
 import com.magicbeans.xgate.bean.category.Cate3;
-import com.magicbeans.xgate.bean.product.Product;
-import com.magicbeans.xgate.bean.product.ProductWrap;
 import com.magicbeans.xgate.databinding.ActivityProductBinding;
-import com.magicbeans.xgate.net.NetApi;
-import com.magicbeans.xgate.net.NetParam;
-import com.magicbeans.xgate.net.STCallback;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterProduct;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.controller.ProductListContentController;
 import com.magicbeans.xgate.ui.controller.ProductListSortController;
-import com.magicbeans.xgate.ui.dialog.MyGridPopupWindow;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class ProductActivity extends BaseAppCompatActivity {
 
@@ -51,27 +31,26 @@ public class ProductActivity extends BaseAppCompatActivity {
         context.startActivity(intent);
     }
 
-    public static void startCategroy(Context context, String catgId) {
-        start(context, catgId, null, null);
-    }
-
-    public static void startBrand(Context context, String brandID) {
-        start(context, null, brandID, null);
-    }
-
-    public static void startCate3(Context context, Cate3 cate3) {
-        start(context, cate3.getProdCatgId(), null, cate3.getProdTypeId());
-    }
-
-
-    public static void start(Context context, String catgId, String brandID, String typeId) {
+    public static void startCategroy(Context context, Cate1 cate1) {
         Intent intent = new Intent(context, ProductActivity.class);
-        intent.putExtra("catgId", catgId);
-        intent.putExtra("brandID", brandID);
-        intent.putExtra("typeId", typeId);
+        intent.putExtra("catgId", cate1.getCatgId());
+        intent.putExtra("catgName", cate1.getTitle());
         context.startActivity(intent);
     }
 
+    public static void startBrand(Context context, Brand brand) {
+        Intent intent = new Intent(context, ProductActivity.class);
+        intent.putExtra("brandID", brand.getBrandID());
+        intent.putExtra("brandName", brand.getBrandLangName());
+        context.startActivity(intent);
+    }
+
+    public static void startType(Context context, Cate3 cate3) {
+        Intent intent = new Intent(context, ProductActivity.class);
+        intent.putExtra("catgId", cate3.getProdCatgId());
+        intent.putExtra("typeId", cate3.getProdTypeId());
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +68,9 @@ public class ProductActivity extends BaseAppCompatActivity {
         String brandID = getIntent().getStringExtra("brandID");
         String typeId = getIntent().getStringExtra("typeId");
 
+        String catgName = getIntent().getStringExtra("catgName");
+        String brandName = getIntent().getStringExtra("brandName");
+
         //初始化控制器
         productListSortController = new ProductListSortController(binding.includeProductlistSort);
         productListContentController = new ProductListContentController(binding.includeProductlistContent);
@@ -96,6 +78,29 @@ public class ProductActivity extends BaseAppCompatActivity {
         productListContentController.setCatgId(catgId);
         productListContentController.setBrandID(brandID);
         productListContentController.setTypeId(typeId);
+        if (!TextUtils.isEmpty(catgName)) productListSortController.setSelectCate(catgName);
+        if (!TextUtils.isEmpty(brandName)) productListSortController.setSelectBrand(brandName);
+        productListSortController.setOnSortSelectListenner(new ProductListSortController.OnSortSelectListenner() {
+            @Override
+            public void onSort(String sort) {
+                productListContentController.setSort(sort);
+                productListContentController.netGetProductList(true);
+            }
+
+            @Override
+            public void onSelectCate(String catgId) {
+                productListContentController.setTypeId(null);
+                productListContentController.setCatgId(catgId);
+                productListContentController.netGetProductList(true);
+            }
+
+            @Override
+            public void onSelectBrand(String brandID) {
+                productListContentController.setTypeId(null);
+                productListContentController.setBrandID(brandID);
+                productListContentController.netGetProductList(true);
+            }
+        });
     }
 
     private void initView() {
@@ -105,7 +110,7 @@ public class ProductActivity extends BaseAppCompatActivity {
     }
 
     private void initData() {
-        productListContentController.netGetProductList();
+        productListSortController.checkFirst();
     }
 
     public void onClick(View v) {

@@ -54,6 +54,7 @@ public class RecycleAdapterProduct extends RecyclerView.Adapter<RecycleAdapterPr
         holder.text_intro.setText(product.getProdLangSize());
         holder.text_price.setText("¥" + product.getShopprice());
         holder.text_price_old.setText("¥" + product.getRefPrice());
+        holder.text_rating.setText(product.getRatingCount() + "条评论");
         TextViewUtil.addDelLine(holder.text_price_old);
     }
 
@@ -78,7 +79,7 @@ public class RecycleAdapterProduct extends RecyclerView.Adapter<RecycleAdapterPr
         private TextView text_intro;
         private TextView text_price;
         private TextView text_price_old;
-        private View btn_buy;
+        private TextView text_rating;
 
         public Holder(View itemView) {
             super(itemView);
@@ -87,6 +88,7 @@ public class RecycleAdapterProduct extends RecyclerView.Adapter<RecycleAdapterPr
             text_intro = (TextView) itemView.findViewById(R.id.text_intro);
             text_price = (TextView) itemView.findViewById(R.id.text_price);
             text_price_old = (TextView) itemView.findViewById(R.id.text_price_old);
+            text_rating = (TextView) itemView.findViewById(R.id.text_rating);
         }
     }
 

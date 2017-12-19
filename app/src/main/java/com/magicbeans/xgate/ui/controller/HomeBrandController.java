@@ -63,7 +63,7 @@ public class HomeBrandController implements View.OnClickListener {
         @Override
         public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
             Brand brand = adapter.getResults().get(viewHolder.getLayoutPosition());
-            ProductActivity.startBrand(context, brand.getBrandID());
+            ProductActivity.startBrand(context, brand);
         }
     };
 

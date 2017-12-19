@@ -23,6 +23,9 @@ public class Product implements Serializable {
     @SerializedName("ProductImages")
     private ProductImages productImages;
 
+    private int AverageRating;
+    private int RatingCount;
+
     public String getProdID() {
         return ProdID;
     }
@@ -101,5 +104,21 @@ public class Product implements Serializable {
 
     public void setProductImages(ProductImages productImages) {
         this.productImages = productImages;
+    }
+
+    public int getAverageRating() {
+        return AverageRating;
+    }
+
+    public void setAverageRating(int averageRating) {
+        AverageRating = averageRating;
+    }
+
+    public int getRatingCount() {
+        return RatingCount;
+    }
+
+    public void setRatingCount(int ratingCount) {
+        RatingCount = ratingCount;
     }
 }

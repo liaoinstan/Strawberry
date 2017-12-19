@@ -16,6 +16,7 @@ import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.category.Cate1;
 import com.magicbeans.xgate.bean.category.Cate1Wrap;
 import com.magicbeans.xgate.bean.common.TestBean;
+import com.magicbeans.xgate.data.cache.RuntimeCache;
 import com.magicbeans.xgate.databinding.ItemCateTabBinding;
 import com.magicbeans.xgate.databinding.ItemHomeBrandSelectBinding;
 import com.magicbeans.xgate.net.NetApi;
@@ -93,6 +94,8 @@ public class RecycleAdapterCateTab extends RecyclerView.Adapter<RecycleAdapterCa
             @Override
             public void onSuccess(int status, Cate1Wrap bean, String msg) {
                 List<Cate1> cate1List = bean.getMenuList();
+                //加入运行时缓存
+                RuntimeCache.getInstance().putCate1Cache(cate1List);
                 //添加一个品牌分类
                 cate1List.add(0, new Cate1(true, "品牌"));
                 getResults().clear();
