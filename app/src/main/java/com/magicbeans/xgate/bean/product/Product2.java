@@ -1,6 +1,11 @@
 package com.magicbeans.xgate.bean.product;
 
+import android.text.TextUtils;
+import android.util.EventLogTags;
+
 import com.google.gson.annotations.SerializedName;
+import com.ins.common.entity.BaseSelectBean;
+import com.ins.common.utils.StrUtil;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,7 +16,7 @@ import java.util.List;
  * 在详情中返回的Product2中ProductImages字段是一个集合，而列表中是一个对象。。。日
  */
 
-public class Product2 implements Serializable {
+public class Product2 extends BaseSelectBean implements Serializable {
 
     private String ProdID;
     private String ProdName;
@@ -30,6 +35,41 @@ public class Product2 implements Serializable {
     private boolean isSale;
     private List<ProductImages> ProductImages;
     private List<String> Description;
+
+    // ###########  逻辑方法  ################
+
+    //把Description所有描述字段以（\n）拼接返回
+    public String getShowDescription() {
+        String ret = "";
+        if (!StrUtil.isEmpty(Description)) {
+            for (String str : Description) {
+                ret += str + "\n";
+            }
+            ret = StrUtil.subLastChart(ret, "\n");
+        }
+        return ret;
+    }
+
+    public static Product2 findProduct2ById(List<Product2> product2s, String prodId) {
+        if (StrUtil.isEmpty(product2s) || TextUtils.isEmpty(prodId)) return null;
+        for (Product2 product2 : product2s) {
+            if (product2.getProdID().equals(prodId)) {
+                return product2;
+            }
+        }
+        return null;
+    }
+
+    //获取商品头像（第一张详情图）
+    public String getHeaderImg() {
+        if (!StrUtil.isEmpty(ProductImages)) {
+            return ProductImages.get(0).getImg700Src();
+        } else {
+            return null;
+        }
+    }
+
+    // ###########  逻辑方法  ################
 
     public String getProdID() {
         return ProdID;

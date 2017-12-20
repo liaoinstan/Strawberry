@@ -1,13 +1,17 @@
 package com.magicbeans.xgate.bean.product;
 
+import com.ins.common.entity.Image;
+import com.ins.common.utils.StrUtil;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by SEELE on 2017/10/12.
  */
 
-public class ProductDetail implements Serializable{
+public class ProductDetail implements Serializable {
 
     private boolean IsOutOfStock;
     private int ResponseCode;
@@ -29,6 +33,34 @@ public class ProductDetail implements Serializable{
     private String AverageRation;
 
     private List<Product2> Prods;
+
+    //新增字段
+    private String ProdID;
+
+    // ###########  逻辑方法  ################
+
+    //从ProductDetail详情实体中找到指定id的Product2实体
+    public static Product2 getSelectProduct(ProductDetail productDetail, String prodId) {
+        return Product2.findProduct2ById(productDetail.getProds(), prodId);
+    }
+
+    //从ProductDetail详情实体中找所有的Product2的产品图片，并以集合形式返回
+    public static List<Image> getImgs(ProductDetail productDetail) {
+        ArrayList<Image> imgs = new ArrayList<>();
+        List<Product2> product2s = productDetail.getProds();
+        if (!StrUtil.isEmpty(product2s)) {
+            for (Product2 product2 : product2s) {
+                List<ProductImages> productImages = product2.getProductImages();
+                if (!StrUtil.isEmpty(productImages)) {
+                    for (ProductImages productImage : productImages) {
+                        imgs.add(new Image(productImage.getImg700Src()));
+                    }
+                }
+            }
+        }
+        return imgs;
+    }
+    // ###########  逻辑方法  ################
 
     public boolean isIsOutOfStock() {
         return IsOutOfStock;
@@ -188,5 +220,13 @@ public class ProductDetail implements Serializable{
 
     public void setAverageRation(String averageRation) {
         AverageRation = averageRation;
+    }
+
+    public String getProdID() {
+        return ProdID;
+    }
+
+    public void setProdID(String prodID) {
+        ProdID = prodID;
     }
 }

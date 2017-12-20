@@ -2,7 +2,11 @@ package com.magicbeans.xgate.ui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,31 +14,35 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.ins.common.common.GridSpacingItemDecoration;
+import com.ins.common.interfaces.OnRecycleItemClickListener;
+import com.ins.common.utils.DensityUtil;
+import com.ins.common.utils.GlideUtil;
+import com.ins.common.utils.StrUtil;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.product.Product;
+import com.magicbeans.xgate.bean.product.Product2;
+import com.magicbeans.xgate.bean.product.ProductDetail;
+import com.magicbeans.xgate.databinding.DialogProductattrBinding;
+import com.magicbeans.xgate.helper.AppHelper;
+import com.magicbeans.xgate.ui.adapter.RecycleAdapterDialogProductDetailAttr;
+
+import java.util.List;
 
 /**
  * liaoinstan
- * 选择照片或拍照弹窗
+ * 选择商品规格弹窗
  */
-public class DialogBottomProductAttr extends Dialog {
-    private TextView text_cancel, text_photo, text_camera;
+public class DialogBottomProductAttr extends Dialog implements OnRecycleItemClickListener {
+
     private Context context;
+    private DialogProductattrBinding binding;
+    private RecycleAdapterDialogProductDetailAttr adapter;
 
     public DialogBottomProductAttr(Context context) {
         super(context, R.style.PopupDialog);
         this.context = context;
         setMsgDialog();
-    }
-
-    private void setMsgDialog() {
-        View mView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_productattr, null);
-        text_cancel = (TextView) mView.findViewById(R.id.text_pop_identy_cancel);
-        text_photo = (TextView) mView.findViewById(R.id.text_pop_identy_photo);
-        text_camera = (TextView) mView.findViewById(R.id.text_pop_identy_camera);
-
-        this.setCanceledOnTouchOutside(true);    //点击外部关闭
-
-        super.setContentView(mView);
     }
 
     @Override
@@ -46,5 +54,60 @@ public class DialogBottomProductAttr extends Dialog {
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         win.setAttributes(lp);
+    }
+
+    private void setMsgDialog() {
+        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_productattr, null, false);
+
+        adapter = new RecycleAdapterDialogProductDetailAttr(context);
+        adapter.setOnItemClickListener(this);
+        binding.recycle.setNestedScrollingEnabled(false);
+        binding.recycle.setAdapter(adapter);
+        binding.recycle.addItemDecoration(new GridSpacingItemDecoration(1, DensityUtil.dp2px(10), GridLayoutManager.HORIZONTAL, false));
+        binding.recycle.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+
+        this.setCanceledOnTouchOutside(true);    //点击外部关闭
+
+        setContentView(binding.getRoot());
+    }
+
+    @Override
+    public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
+        Product2 product2 = adapter.getResults().get(viewHolder.getLayoutPosition());
+        setSelectData(product2);
+        if (onSelectListenner != null) onSelectListenner.onSelect(product2);
+    }
+
+    public void setData(ProductDetail productDetail) {
+        adapter.getResults().clear();
+        adapter.getResults().addAll(productDetail.getProds());
+        adapter.notifyDataSetChanged();
+        setSelect(productDetail.getProdID());
+    }
+
+    public void setSelect(String prodId) {
+        Product2 product2 = adapter.selectItem(prodId);
+        adapter.notifyDataSetChanged();
+        setSelectData(product2);
+    }
+
+    public void setSelectData(Product2 product2) {
+        if (product2 != null) {
+            GlideUtil.loadImg(binding.imgHeader, R.drawable.default_bk_img, product2.getHeaderImg());
+            binding.textPrice.setText("¥" + product2.getShopPrice());
+            String sizeText = product2.getSizeText();
+            sizeText = StrUtil.subFirstChart(sizeText, "容量：").trim();
+            binding.textAttr.setText("规格：" + sizeText);
+        }
+    }
+
+    private OnSelectListenner onSelectListenner;
+
+    public void setOnSelectListenner(OnSelectListenner onSelectListenner) {
+        this.onSelectListenner = onSelectListenner;
+    }
+
+    public interface OnSelectListenner {
+        void onSelect(Product2 product2);
     }
 }

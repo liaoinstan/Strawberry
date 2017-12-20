@@ -2,6 +2,7 @@ package com.magicbeans.xgate.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,7 @@ public class RecycleAdapterProduct extends RecyclerView.Adapter<RecycleAdapterPr
         holder.text_intro.setText(product.getProdLangSize());
         holder.text_price.setText("¥" + product.getShopprice());
         holder.text_price_old.setText("¥" + product.getRefPrice());
+        holder.text_price_old.setVisibility(!TextUtils.isEmpty(product.getRefPrice()) ? View.VISIBLE : View.INVISIBLE);
         holder.text_rating.setText(product.getRatingCount() + "条评论");
         TextViewUtil.addDelLine(holder.text_price_old);
     }

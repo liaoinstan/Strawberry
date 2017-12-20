@@ -23,7 +23,7 @@ public class Product implements Serializable {
     @SerializedName("ProductImages")
     private ProductImages productImages;
 
-    private int AverageRating;
+    private float AverageRating;
     private int RatingCount;
 
     public String getProdID() {
@@ -106,11 +106,11 @@ public class Product implements Serializable {
         this.productImages = productImages;
     }
 
-    public int getAverageRating() {
+    public float getAverageRating() {
         return AverageRating;
     }
 
-    public void setAverageRating(int averageRating) {
+    public void setAverageRating(float averageRating) {
         AverageRating = averageRating;
     }
 
