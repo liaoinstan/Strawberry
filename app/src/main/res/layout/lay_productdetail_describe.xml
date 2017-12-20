@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/text_describe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:lineSpacingExtra="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:textColor="@color/com_text_dark"
+        android:textSize="@dimen/text_nomal"
+        tools:context=".ui.activity.ProductDetailActivity"
+        tools:text="适用发质：所有发质\n产品功效：丰盈，柔顺\n产品特点：具有丰盈效果同时可提升发质的护发素，质地丰盈，独特的凝乳配方富含Filloxane、矿物成份及聚合因子，为头发增加放量，令缠结头发更柔顺灵动。同时令卷发更丰盈润卷，自然柔美。" />
+
+</layout>

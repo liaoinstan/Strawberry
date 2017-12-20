@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.ins.common.common.ItemDecorationDivider;
+import com.ins.common.utils.ListUtil;
 import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.view.bundleimgview.BundleImgEntity;
@@ -35,23 +36,25 @@ public class ProductDetailEvaController implements View.OnClickListener {
     private RecycleAdapterEva adapter;
     private String prodId;
 
-    public ProductDetailEvaController(LayProductdetailEvaBinding binding) {
+    public ProductDetailEvaController(LayProductdetailEvaBinding binding,String prodId) {
+        this.prodId = prodId;
         this.binding = binding;
         this.context = binding.getRoot().getContext();
+        initCtrl();
+        initData();
     }
 
-    public void initCtrl() {
+    private void initCtrl() {
         adapter = new RecycleAdapterEva(context);
-        adapter.setNeedRecomment(false);
-        binding.recycle.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        binding.recycle.addItemDecoration(new ItemDecorationDivider(context));
         binding.recycle.setNestedScrollingEnabled(false);
+        binding.recycle.addItemDecoration(new ItemDecorationDivider(context));
+        binding.recycle.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         binding.recycle.setAdapter(adapter);
+        adapter.setNeedRecomment(false);
         binding.btnMore.setOnClickListener(this);
     }
 
-    public void initData(String prodId) {
-        this.prodId = prodId;
+    private void initData(){
         netProductReview(prodId);
     }
 
@@ -62,6 +65,10 @@ public class ProductDetailEvaController implements View.OnClickListener {
                 EvaListActivity.start(context, prodId);
                 break;
         }
+    }
+
+    public View getRootView(){
+        return binding.getRoot();
     }
 
     private void netProductReview(String prodId) {
@@ -75,7 +82,7 @@ public class ProductDetailEvaController implements View.OnClickListener {
                 List<Eva> evas = bean.getProducts();
                 if (!StrUtil.isEmpty(evas)) {
                     adapter.getResults().clear();
-                    adapter.getResults().addAll(evas);
+                    adapter.getResults().addAll(ListUtil.getFirst(evas,5));
                     adapter.notifyDataSetChanged();
 
                     binding.btnMore.setText("查看全部评价" + bean.getTotal() + "个");

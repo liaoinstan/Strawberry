@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.ins.common.view.LoadingLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/loadingview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_fail="@layout/layout_fail"
+        app:layout_lack="@layout/layout_lack"
+        app:layout_loading="@layout/layout_loading">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.liaoinstan.springview.widget.SpringView
+                android:id="@+id/spring"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:type="follow">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:paddingBottom="10dp" />
+            </com.liaoinstan.springview.widget.SpringView>
+
+            <View
+                android:id="@+id/shadow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/com_shadow"
+                android:visibility="gone" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                app:srcCompat="@android:drawable/ic_dialog_map" />
+
+        </FrameLayout>
+
+    </com.ins.common.view.LoadingLayout>
+</layout>

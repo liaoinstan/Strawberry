@@ -55,7 +55,6 @@ public class RecycleAdapterEva extends RecyclerView.Adapter<RecycleAdapterEva.Ho
         holder.binding.textName.setText(eva.getAccName());
         holder.binding.textAttr.setText(eva.getSubject());
         holder.binding.textContent.setText(eva.getContent());
-        holder.binding.bundle.setPhotos(eva.getImgs());
     }
 
     @Override
@@ -72,12 +71,6 @@ public class RecycleAdapterEva extends RecyclerView.Adapter<RecycleAdapterEva.Ho
 
             //决定是否展示推荐数据
             binding.layEvaRecomment.setVisibility(needRecomment ? View.VISIBLE : View.GONE);
-            binding.bundle.setOnBundleLoadImgListener(new BundleImgView.OnBundleLoadImgListener() {
-                @Override
-                public void onloadImg(ImageView imageView, String imgurl, int defaultSrc) {
-                    GlideUtil.loadImgTest(imageView);
-                }
-            });
         }
     }
 

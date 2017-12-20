@@ -21,6 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:ellipsize="end"
+        android:lineSpacingExtra="3dp"
+        android:maxLines="3"
         android:text="产品名称"
         android:textColor="@color/com_text_dark_light"
         android:textSize="@dimen/text_nomal" />
@@ -35,10 +38,20 @@
         android:textColor="@color/com_text_light"
         android:textSize="9sp" />
 
+    <TextView
+        android:id="@+id/text_rating"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="2dp"
+        android:text="0 条评论"
+        android:textColor="@color/com_text_dark_light"
+        android:textSize="@dimen/text_tiny" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 

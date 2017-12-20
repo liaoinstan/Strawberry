@@ -8,13 +8,9 @@
         android:background="@color/st_bk"
         tools:context=".ui.activity.ProductDetailActivity">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="76dp"
-            android:background="@color/none"
-            android:paddingTop="20dp"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+        <include
+            android:id="@+id/include_toobbar_productdetail"
+            layout="@layout/lay_toobbar_productdetail" />
 
         <com.ins.common.view.LoadingLayout
             android:id="@+id/loadingview"
@@ -52,12 +48,13 @@
                             android:id="@+id/include_eva"
                             layout="@layout/lay_productdetail_eva" />
 
-                        <WebView
-                            android:id="@+id/webview"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:background="@color/white" />
+                        <include
+                            android:id="@+id/include_describe"
+                            layout="@layout/lay_productdetail_describe" />
+
+                        <include
+                            android:id="@+id/include_recomend"
+                            layout="@layout/lay_recommend" />
 
                     </LinearLayout>
 

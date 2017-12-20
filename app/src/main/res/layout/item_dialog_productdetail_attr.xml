@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/text_attr"
+        android:layout_width="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_height="35dp"
+        android:background="@drawable/selector_rect_corner_darklight_purple"
+        android:gravity="center"
+        android:text="100ml"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_small" />
+</layout>

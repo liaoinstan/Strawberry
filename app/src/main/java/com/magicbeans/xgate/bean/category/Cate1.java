@@ -33,6 +33,11 @@ public class Cate1 extends BaseSelectBean implements Serializable {
         this.isHeader = isHeader;
     }
 
+    public Cate1(String title, String catgId) {
+        this.title = title;
+        CatgId = catgId;
+    }
+
     public String getTitle() {
         return title;
     }

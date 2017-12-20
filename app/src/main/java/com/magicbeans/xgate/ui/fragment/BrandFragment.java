@@ -23,6 +23,7 @@ import com.magicbeans.xgate.bean.brand.Brand;
 import com.magicbeans.xgate.bean.brand.BrandHotWrap;
 import com.magicbeans.xgate.bean.brand.BrandIndex;
 import com.magicbeans.xgate.bean.brand.BrandWrap;
+import com.magicbeans.xgate.data.cache.RuntimeCache;
 import com.magicbeans.xgate.helper.SpringViewHelper;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
@@ -126,7 +127,7 @@ public class BrandFragment extends BaseFragment implements OnRecycleItemClickLis
     @Override
     public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
         Brand brand = adapter.getResults().get(position);
-        ProductActivity.startBrand(getContext(), brand.getBrandID());
+        ProductActivity.startBrand(getContext(), brand);
     }
 
     //从联系人中获取tag标记的位置，如果未获取到，返回-1
@@ -196,6 +197,8 @@ public class BrandFragment extends BaseFragment implements OnRecycleItemClickLis
             public void onSuccess(int status, BrandHotWrap bean, String msg) {
                 List<Brand> brandHots = bean.getBrand();
                 if (!StrUtil.isEmpty(brandHots)) {
+                    //加入运行时缓存
+                    RuntimeCache.getInstance().putHotBrandsCache(brandHots);
                     setBrandHotData(brandHots);
                 }
             }

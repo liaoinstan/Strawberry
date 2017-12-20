@@ -17,15 +17,14 @@ import com.ins.common.utils.DensityUtil;
 public class ToobarTansColorHelper {
 
     private ToobarTansColorHelper() {
-    }
-
-    public static ToobarTansColorHelper getInstance() {
-        return new ToobarTansColorHelper();
+        //默认值
+        this.colorStart = Color.parseColor("#002f76b8");
+        this.colorEnd = Color.parseColor("#2f76b8");
+        this.heightMax = DensityUtil.dp2px(200);
     }
 
     private Context context;
     private Toolbar toolbar;
-    private RecyclerView recyclerView;
     private int heightMax;
     private int colorStart;
     private int colorEnd;
@@ -33,10 +32,25 @@ public class ToobarTansColorHelper {
 
     private OnPointListener onPointListener;
 
-    public ToobarTansColorHelper with(RecyclerView recyclerView, Toolbar toolbar) {
-        this.toolbar = toolbar;
-        this.recyclerView = recyclerView;
-        initBase();
+    public static ToobarTansColorHelper with(Toolbar toolbar) {
+        ToobarTansColorHelper INSTANCE = new ToobarTansColorHelper();
+        INSTANCE.toolbar = toolbar;
+        INSTANCE.context = toolbar.getContext();
+        return INSTANCE;
+    }
+
+    public ToobarTansColorHelper initColorStart(int colorStart) {
+        this.colorStart = colorStart;
+        return this;
+    }
+
+    public ToobarTansColorHelper initColorEnd(int colorEnd) {
+        this.colorEnd = colorEnd;
+        return this;
+    }
+
+    public ToobarTansColorHelper initMaxHeight(int heightMax) {
+        this.heightMax = heightMax;
         return this;
     }
 
@@ -45,27 +59,26 @@ public class ToobarTansColorHelper {
         return this;
     }
 
-    private void initBase() {
-        this.context = recyclerView.getContext();
-//        this.heightMax = Resources.getSystem().getDisplayMetrics().heightPixels / 3;
-        this.heightMax = DensityUtil.dp2px(200);
-        this.colorStart = Color.parseColor("#002f76b8");
-        this.colorEnd = ContextCompat.getColor(context, R.color.am_blue);
-        recyclerView.addOnScrollListener(onScrollListener);
+    public void start(int scroll) {
+        float lv = caculAlpha(scroll);
+        setToolbar(lv);
+        setPointCallback(lv);
     }
 
     /**
      * 根据来拉距离计算百分比[0,1] -> [未拉动,拉满]
      */
-    private float caculAlpha(int scrollY) {
-        float y = Math.abs(scrollY);
-        if (y <= 0) {
-            return 0;
-        } else if (y >= heightMax) {
-            return 1;
+    private float caculAlpha(int scroll) {
+        float lv;
+        int heightMax = DensityUtil.dp2px(200);
+        if (scroll <= 0) {
+            lv = 0;
+        } else if (scroll >= heightMax) {
+            lv = 1;
         } else {
-            return y / heightMax;
+            lv = (float) scroll / heightMax;
         }
+        return lv;
     }
 
     private void setToolbar(float lv) {
@@ -73,7 +86,7 @@ public class ToobarTansColorHelper {
         ArgbEvaluator evaluator = new ArgbEvaluator();
         //根据positionOffset得到渐变色，因为positionOffset本身为0~1之间的小数所以无需多做处理了
         int colorTrans = (int) evaluator.evaluate(lv, colorStart, colorEnd);
-        toolbar.setBackgroundColor(colorTrans);
+        if (toolbar != null) toolbar.setBackgroundColor(colorTrans);
     }
 
     private float lastLv;
@@ -88,18 +101,6 @@ public class ToobarTansColorHelper {
         }
         lastLv = lv;
     }
-
-    //记录RecyclerView的scrollY
-    private int scrollY;
-    RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            scrollY -= dy;
-            float lv = caculAlpha(scrollY);
-            setToolbar(lv);
-            setPointCallback(lv);
-        }
-    };
 
     public interface OnPointListener {
         void onPoint(boolean upOrDown);

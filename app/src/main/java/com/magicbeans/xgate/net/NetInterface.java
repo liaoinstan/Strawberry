@@ -67,7 +67,7 @@ public interface NetInterface {
     /**
      * 首页获取Banner
      */
-    @GET("/app/mainPage.aspx")
+    @GET("/app/RotationBanner.aspx")
     Call<ResponseBody> netHomeBanner(@QueryMap Map<String, Object> param);
 
     /**

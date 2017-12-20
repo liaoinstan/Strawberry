@@ -13,6 +13,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.ins.common.utils.L;
+import com.ins.common.utils.viewutils.WebViewUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
@@ -72,25 +73,28 @@ public class WebActivity extends BaseAppCompatActivity {
     }
 
     private void initCtrl() {
-        WebSettings setting = webView.getSettings();
-        setting.setJavaScriptEnabled(true);
 
-        ///
-        setting.setAllowFileAccess(true);
-        setting.setAllowFileAccessFromFileURLs(true);
-        setting.setAllowUniversalAccessFromFileURLs(true);
-        setting.setAppCacheEnabled(true);
-        setting.setDatabaseEnabled(true);
-        setting.setDomStorageEnabled(true);
-        setting.setCacheMode(WebSettings.LOAD_DEFAULT);
-        setting.setAppCachePath(webView.getContext().getCacheDir().getAbsolutePath());
-        setting.setUseWideViewPort(true);
-        setting.setLoadWithOverviewMode(true);
-        setting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            setting.setAllowFileAccessFromFileURLs(true);
-        }
-        ///
+        WebViewUtil.initWebSetting(webView);
+//
+//        WebSettings setting = webView.getSettings();
+//        setting.setJavaScriptEnabled(true);
+//
+//        ///
+//        setting.setAllowFileAccess(true);
+//        setting.setAllowFileAccessFromFileURLs(true);
+//        setting.setAllowUniversalAccessFromFileURLs(true);
+//        setting.setAppCacheEnabled(true);
+//        setting.setDatabaseEnabled(true);
+//        setting.setDomStorageEnabled(true);
+//        setting.setCacheMode(WebSettings.LOAD_DEFAULT);
+//        setting.setAppCachePath(webView.getContext().getCacheDir().getAbsolutePath());
+//        setting.setUseWideViewPort(true);
+//        setting.setLoadWithOverviewMode(true);
+//        setting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//            setting.setAllowFileAccessFromFileURLs(true);
+//        }
+//        ///
 
         webView.setWebChromeClient(new WebChromeClient() {
             @Override

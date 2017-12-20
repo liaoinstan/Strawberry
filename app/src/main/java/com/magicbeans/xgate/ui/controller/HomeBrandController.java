@@ -19,6 +19,7 @@ import com.magicbeans.xgate.databinding.LayHomeSingleBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
+import com.magicbeans.xgate.ui.activity.ProductActivity;
 import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
 import com.magicbeans.xgate.ui.activity.SectionActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeBrand;
@@ -30,7 +31,7 @@ import java.util.Map;
  * Created by Administrator on 2017/10/11.
  */
 
-public class HomeBrandController implements View.OnClickListener{
+public class HomeBrandController implements View.OnClickListener {
 
     private Context context;
     private LayHomeBrandBinding binding;
@@ -61,6 +62,8 @@ public class HomeBrandController implements View.OnClickListener{
     private OnRecycleItemClickListener onRecycleItemClickListener = new OnRecycleItemClickListener() {
         @Override
         public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
+            Brand brand = adapter.getResults().get(viewHolder.getLayoutPosition());
+            ProductActivity.startBrand(context, brand);
         }
     };
 
