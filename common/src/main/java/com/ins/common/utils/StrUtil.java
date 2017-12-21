@@ -35,10 +35,14 @@ public class StrUtil {
      * @return
      */
     public static boolean isEmpty(Object obj) {
+        return isEmpty(obj, true);
+    }
+
+    public static boolean isEmpty(Object obj, boolean includeNum) {
         if (obj == null) {
             return true;
         }
-        if (obj instanceof Number) {
+        if (obj instanceof Number && includeNum) {
             Number num = (Number) obj;
             if (num.intValue() == 0) {
                 return true;
@@ -94,7 +98,7 @@ public class StrUtil {
     }
 
     //判断2个字符串是否相同（无视大小写：A==a）
-    public static boolean isEqualsNoCase(String str1,String str2) {
+    public static boolean isEqualsNoCase(String str1, String str2) {
         return str1.toLowerCase().equals(str2.toLowerCase());
     }
 

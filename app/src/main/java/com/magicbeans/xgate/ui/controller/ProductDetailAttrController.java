@@ -17,7 +17,7 @@ import com.magicbeans.xgate.ui.dialog.DialogBottomProductAttr;
  * Created by Administrator on 2017/10/11.
  */
 
-public class ProductDetailAttrController implements View.OnClickListener {
+public class ProductDetailAttrController {
 
     private Context context;
     private LayProductdetailAttrBinding binding;
@@ -33,11 +33,18 @@ public class ProductDetailAttrController implements View.OnClickListener {
 
     private void initCtrl() {
         dialogBottomProductAttr = new DialogBottomProductAttr(context);
-        binding.btnSelectattr.setOnClickListener(this);
+        binding.btnSelectattr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBottomProductAttr.show();
+            }
+        });
         dialogBottomProductAttr.setOnSelectListenner(new DialogBottomProductAttr.OnSelectListenner() {
             @Override
             public void onSelect(Product2 product2) {
-                binding.btnSelectattr.setText(product2.getSizeText());
+                dialogBottomProductAttr.hide();
+                binding.btnSelectattr.setText(product2.getAttrText());
+                if (onSelectListenner != null) onSelectListenner.onSelect(product2);
             }
         });
     }
@@ -46,16 +53,20 @@ public class ProductDetailAttrController implements View.OnClickListener {
     }
 
     public void setData(ProductDetail productDetail) {
+        //设置商品信息
         binding.textBrand.setText(productDetail.getBrandName());
+        //设置已选则品类信息
+        Product2 product2 = productDetail.getSelectProduct(productDetail.getProdID());
+        if (product2 != null) binding.btnSelectattr.setText(product2.getAttrText());
+        //设置弹窗已选则品类信息
         dialogBottomProductAttr.setData(productDetail);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_selectattr:
-                dialogBottomProductAttr.show();
-                break;
-        }
+    //###########  对外监听接口  #############
+
+    private DialogBottomProductAttr.OnSelectListenner onSelectListenner;
+
+    public void setOnSelectListenner(DialogBottomProductAttr.OnSelectListenner onSelectListenner) {
+        this.onSelectListenner = onSelectListenner;
     }
 }

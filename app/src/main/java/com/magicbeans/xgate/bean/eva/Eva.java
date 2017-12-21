@@ -1,5 +1,6 @@
 package com.magicbeans.xgate.bean.eva;
 
+import com.ins.common.entity.BaseSelectBean;
 import com.ins.common.view.bundleimgview.BundleImgEntity;
 
 import java.io.Serializable;
@@ -11,9 +12,21 @@ import java.util.List;
 
 public class Eva implements Serializable{
 
+    /**
+     "CommentId": "70004652",
+     "AccName": "颜 丽",
+     "Seal": "False",
+     "Subject": "柠檬生姜",
+     "Content": "小清新的味道，没有想象中的姜味，柠檬味为主，",
+     "Rating": "4.00000000",
+     "YesCount": "0",
+     "NoCount": "0",
+     "CommentDate": "16/06/2016"
+     */
+
     private String CommentId;
     private String AccName;
-    private String Seal;
+    private boolean Seal;
     private String Subject;
     private String Content;
     private String Rating;
@@ -47,11 +60,11 @@ public class Eva implements Serializable{
         this.AccName = AccName;
     }
 
-    public String getSeal() {
+    public boolean getSeal() {
         return Seal;
     }
 
-    public void setSeal(String Seal) {
+    public void setSeal(boolean Seal) {
         this.Seal = Seal;
     }
 

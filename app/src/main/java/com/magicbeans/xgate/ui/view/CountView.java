@@ -35,6 +35,7 @@ public class CountView extends FrameLayout implements View.OnClickListener {
 
     private boolean editble;
     private int count;
+    private int MIN_COUNT = 1;//最小为1
 
     public CountView(Context context) {
         this(context, null);
@@ -107,7 +108,8 @@ public class CountView extends FrameLayout implements View.OnClickListener {
 
     public void setCount(int count) {
         //数量不能小于0
-        if (count < 0) count = 0;
+        if (count < MIN_COUNT) count = MIN_COUNT;
+        if (onCountChangeListenner != null) onCountChangeListenner.onCountChange(count, this.count);
         this.count = count;
         text_count.setText(count + "");
         text_count_show.setText("x" + count);
@@ -126,5 +128,17 @@ public class CountView extends FrameLayout implements View.OnClickListener {
     public void sub() {
         count--;
         setCount(count);
+    }
+
+    //############# 对外监听 ##############
+
+    private OnCountChangeListenner onCountChangeListenner;
+
+    public void setOnCountChangeListenner(OnCountChangeListenner onCountChangeListenner) {
+        this.onCountChangeListenner = onCountChangeListenner;
+    }
+
+    public interface OnCountChangeListenner {
+        void onCountChange(int count, int lastCount);
     }
 }

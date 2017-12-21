@@ -38,7 +38,7 @@ public class ProductDetailDescribeController {
     }
 
     public void setData(ProductDetail productDetail) {
-        Product2 product2 = ProductDetail.getSelectProduct(productDetail, productDetail.getProdID());
+        Product2 product2 = productDetail.getSelectProduct(productDetail.getProdID());
         if (product2 != null && !StrUtil.isEmpty(product2.getDescription())) {
             binding.textDescribe.setVisibility(View.VISIBLE);
             binding.textDescribe.setText(product2.getShowDescription());

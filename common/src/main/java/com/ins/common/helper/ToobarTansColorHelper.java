@@ -70,7 +70,6 @@ public class ToobarTansColorHelper {
      */
     private float caculAlpha(int scroll) {
         float lv;
-        int heightMax = DensityUtil.dp2px(200);
         if (scroll <= 0) {
             lv = 0;
         } else if (scroll >= heightMax) {

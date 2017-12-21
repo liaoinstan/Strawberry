@@ -19,7 +19,13 @@
     </declare-styleable>
 
     <declare-styleable name="BannerView2">
+        <attr name="selected_color" format="color|reference" />
+        <attr name="unselected_color" format="color|reference" />
         <attr name="autoscroll" format="boolean" />
+        <attr name="is_square">
+            <enum name="by_width" value="1" />
+            <enum name="by_hight" value="2" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="MovieRecorderView">

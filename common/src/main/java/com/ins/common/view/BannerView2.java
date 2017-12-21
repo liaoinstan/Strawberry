@@ -30,14 +30,27 @@ public class BannerView2 extends FrameLayout {
     private UltraViewPager mViewPager;
     private BannerAdapter mBannerAdapter;
     private List<Image> images;
+
+    //自定义属性
+    private int selectedColor;
+    private int unSelectedColor;
     private boolean isAutoScroll;
+    private Square square = Square.NONE;
+    //是否显示为正方形：NONE：否 BY_WIDTH：由宽决定高 BY_HIGHT：由高决定宽
+    public enum Square {
+        NONE, BY_WIDTH, BY_HIGHT
+    }
 
     public BannerView2(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
         if (attrs != null) {
-            final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.BannerView2, 0, 0);
-            isAutoScroll = attributes.getBoolean(R.styleable.BannerView2_autoscroll, true);
+            final TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.BannerView2, 0, 0);
+            selectedColor = ta.getColor(R.styleable.BannerView2_selected_color, Color.rgb(255, 255, 255));
+            unSelectedColor = ta.getColor(R.styleable.BannerView2_unselected_color, Color.argb(33, 255, 255, 255));
+            isAutoScroll = ta.getBoolean(R.styleable.BannerView2_autoscroll, true);
+            square = Square.values()[ta.getInt(R.styleable.BannerView2_is_square, 0)];
+            ta.recycle();
         }
     }
 
@@ -48,6 +61,21 @@ public class BannerView2 extends FrameLayout {
         initView();
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        switch (square) {
+            case NONE:
+                super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+                break;
+            case BY_WIDTH:
+                super.onMeasure(widthMeasureSpec, widthMeasureSpec);
+                break;
+            case BY_HIGHT:
+                super.onMeasure(heightMeasureSpec, heightMeasureSpec);
+                break;
+        }
+    }
+
     private void initView() {
         mViewPager = (UltraViewPager) findViewById(R.id.viewpager);
         mViewPager.getViewPager().setPageMargin(0);
@@ -55,8 +83,8 @@ public class BannerView2 extends FrameLayout {
         mViewPager.initIndicator();
         mViewPager.getIndicator()
                 .setOrientation(UltraViewPager.Orientation.HORIZONTAL)
-                .setFocusColor(Color.parseColor("#ffffff"))
-                .setNormalColor(Color.parseColor("#33ffffff"))
+                .setFocusColor(selectedColor)
+                .setNormalColor(unSelectedColor)
                 .setMargin(0, 0, DensityUtil.dp2px(5), DensityUtil.dp2px(5))
                 .setRadius(DensityUtil.dp2px(3));
         mViewPager.getIndicator().setGravity(Gravity.RIGHT | Gravity.BOTTOM);
@@ -103,7 +131,7 @@ public class BannerView2 extends FrameLayout {
                 @Override
                 public void onClick(View v) {
                     if (onBannerClickListener != null) {
-                        onBannerClickListener.onBannerClick(position,images.get(position));
+                        onBannerClickListener.onBannerClick(position, images.get(position));
                     }
                 }
             });

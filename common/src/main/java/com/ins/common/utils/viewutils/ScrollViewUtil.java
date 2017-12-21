@@ -63,8 +63,15 @@ public class ScrollViewUtil {
         scrollView.scrollTo(0, hight);
     }
 
+    public static void scrollTo(ScrollView scrollView, View viewin) {
+        scrollTo(scrollView, viewin, 0);
+    }
 
-    private static int cacuHightByView(ScrollView scrollView, View viewin) {
+    public static void scrollTo(NestedScrollView scrollView, View viewin) {
+        scrollTo(scrollView, viewin, 0);
+    }
+
+    public static int cacuHightByView(ScrollView scrollView, View viewin) {
         int topAll = viewin.getTop();
         ViewParent p = viewin.getParent();
         while (p != null) {
@@ -77,7 +84,7 @@ public class ScrollViewUtil {
         return topAll;
     }
 
-    private static int cacuHightByView(NestedScrollView scrollView, View viewin) {
+    public static int cacuHightByView(NestedScrollView scrollView, View viewin) {
         int topAll = viewin.getTop();
         ViewParent p = viewin.getParent();
         while (p != null) {

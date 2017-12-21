@@ -64,13 +64,16 @@ public class RecycleAdapterDialogProductDetailAttr extends RecyclerView.Adapter<
         holder.binding.textAttr.setSelected(product2.isSelect());
     }
 
-    public Product2 selectItem(String prodId) {
+    public void selectItem(String prodId) {
         Product2 product2 = Product2.findProduct2ById(results, prodId);
         if (product2 != null) {
             SelectHelper.selectAllSelectBeans(results, false);
             product2.setSelect(true);
         }
-        return product2;
+    }
+
+    public Product2 getSelectProduct(){
+        return SelectHelper.getSelectBean(results);
     }
 
     @Override

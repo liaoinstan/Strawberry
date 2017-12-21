@@ -36,6 +36,9 @@ public class Product2 extends BaseSelectBean implements Serializable {
     private List<ProductImages> ProductImages;
     private List<String> Description;
 
+    //新增字段
+    private int count = 1; //购买数量，默认1，无法为0
+
     // ###########  逻辑方法  ################
 
     //把Description所有描述字段以（\n）拼接返回
@@ -67,6 +70,11 @@ public class Product2 extends BaseSelectBean implements Serializable {
         } else {
             return null;
         }
+    }
+
+    //获取商品品类信息
+    public String getAttrText() {
+        return "已选 " + count + "件 " + SizeText;
     }
 
     // ###########  逻辑方法  ################
@@ -205,5 +213,13 @@ public class Product2 extends BaseSelectBean implements Serializable {
 
     public void setDescription(List<String> description) {
         Description = description;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }

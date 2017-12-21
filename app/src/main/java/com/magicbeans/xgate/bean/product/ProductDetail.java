@@ -40,16 +40,15 @@ public class ProductDetail implements Serializable {
     // ###########  逻辑方法  ################
 
     //从ProductDetail详情实体中找到指定id的Product2实体
-    public static Product2 getSelectProduct(ProductDetail productDetail, String prodId) {
-        return Product2.findProduct2ById(productDetail.getProds(), prodId);
+    public Product2 getSelectProduct(String prodId) {
+        return Product2.findProduct2ById(Prods, prodId);
     }
 
     //从ProductDetail详情实体中找所有的Product2的产品图片，并以集合形式返回
-    public static List<Image> getImgs(ProductDetail productDetail) {
+    public List<Image> getImgs() {
         ArrayList<Image> imgs = new ArrayList<>();
-        List<Product2> product2s = productDetail.getProds();
-        if (!StrUtil.isEmpty(product2s)) {
-            for (Product2 product2 : product2s) {
+        if (!StrUtil.isEmpty(Prods)) {
+            for (Product2 product2 : Prods) {
                 List<ProductImages> productImages = product2.getProductImages();
                 if (!StrUtil.isEmpty(productImages)) {
                     for (ProductImages productImage : productImages) {

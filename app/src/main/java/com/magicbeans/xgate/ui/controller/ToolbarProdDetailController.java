@@ -3,6 +3,7 @@ package com.magicbeans.xgate.ui.controller;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 
 import com.ins.common.utils.FontUtils;
@@ -48,7 +49,17 @@ public class ToolbarProdDetailController {
         binding.radiogroupHeader.setOnCheckedChangeListener(listener);
     }
 
-    public int getHeight(){
+    public int getHeight() {
         return binding.getRoot().getHeight();
+    }
+
+    //根据滚动位置反向设置tab的切换
+    public void setTabByScrollHeight(int hightLimit, int scrollY, int oldScrollY) {
+        //根据滚动位置反向设置tab切换
+        if (scrollY > hightLimit && oldScrollY < hightLimit) {
+            binding.radiogroupHeader.check(R.id.radio_recommend);
+        } else if (scrollY < hightLimit && oldScrollY > hightLimit) {
+            binding.radiogroupHeader.check(R.id.radio_product);
+        }
     }
 }

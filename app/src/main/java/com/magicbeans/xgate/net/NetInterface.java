@@ -192,4 +192,12 @@ public interface NetInterface {
      */
     @GET("/app/promotionList.aspx?OthCatgId=89")
     Call<ResponseBody> netHomeClearList(@QueryMap Map<String, Object> param);
+
+    /**
+     * 对评论点赞
+     * CommentID
+     * type 0：踩   1：赞
+     */
+    @GET("/ajaxProdReviewFB.aspx")
+    Call<ResponseBody> netZanRecomment(@QueryMap Map<String, Object> param);
 }

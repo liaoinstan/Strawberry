@@ -31,6 +31,13 @@ import com.magicbeans.xgate.ui.viewmodel.EvaListViewModel;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 该页面Activity完全使用 MVVM + databinding + lifecycle 架构实现
+ * MVVM :Model-View-ViewModel 视图模型驱动架构
+ * databinding :2015 google开发者大会发布的官方数据绑定解决方案
+ * lifecycle :2017 google开发者大会发布的官方组织架构方案
+ * 该页面业务逻辑较为简单，尝试进行新技术试点
+ */
 public class EvaListActivity extends BaseAppCompatActivity {
 
     private ActivityEvalistBinding binding;
@@ -82,22 +89,12 @@ public class EvaListActivity extends BaseAppCompatActivity {
         binding.spring.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.spring.onFinishFreshAndLoad();
-                    }
-                }, 1000);
+                viewModel.refreshResults(false);
             }
 
             @Override
             public void onLoadmore() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.spring.onFinishFreshAndLoad();
-                    }
-                }, 1000);
+                viewModel.refreshResults(true);
             }
         });
         viewModel.getResults().observe(this, new Observer<List<Eva>>() {
@@ -124,6 +121,14 @@ public class EvaListActivity extends BaseAppCompatActivity {
                     case ERROR:
                         binding.loadingview.showFailView();
                         break;
+                }
+            }
+        });
+        viewModel.finishSpringLoad.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if (aBoolean) {
+                    binding.spring.onFinishFreshAndLoad();
                 }
             }
         });

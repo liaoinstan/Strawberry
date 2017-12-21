@@ -60,73 +60,9 @@
 
                 </com.ins.common.view.ObservableNestedScrollView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@color/white"
-                    android:orientation="vertical">
-
-                    <View style="@style/Line_H" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="50dp"
-                            android:layout_height="match_parent"
-                            android:drawableTop="@drawable/ic_tab_home"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:gravity="center_horizontal"
-                            android:paddingTop="3dp"
-                            android:text="购物车"
-                            android:textColor="@color/com_text_dark_light"
-                            android:textSize="@dimen/text_tiny" />
-
-                        <View style="@style/Line_V" />
-
-                        <TextView
-                            android:layout_width="50dp"
-                            android:layout_height="match_parent"
-                            android:drawableTop="@drawable/ic_tab_home"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:gravity="center_horizontal"
-                            android:paddingTop="3dp"
-                            android:text="收藏"
-                            android:textColor="@color/com_text_dark_light"
-                            android:textSize="@dimen/text_tiny" />
-
-                        <View style="@style/Line_V" />
-
-                        <TextView
-                            android:layout_width="50dp"
-                            android:layout_height="match_parent"
-                            android:drawableTop="@drawable/ic_tab_home"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:gravity="center_horizontal"
-                            android:paddingTop="3dp"
-                            android:text="客服"
-                            android:textColor="@color/com_text_dark_light"
-                            android:textSize="@dimen/text_tiny" />
-
-                        <View style="@style/Line_V" />
-
-                        <Space style="@style/Space_H" />
-
-                        <TextView
-                            android:id="@+id/btn_go"
-                            android:layout_width="120dp"
-                            android:layout_height="match_parent"
-                            android:background="#cccccc"
-                            android:gravity="center"
-                            android:text="加入购物车"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_nomal" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
+                <include
+                    android:id="@+id/include_bottombar"
+                    layout="@layout/lay_productdetail_bottombar"/>
 
             </LinearLayout>
         </com.ins.common.view.LoadingLayout>

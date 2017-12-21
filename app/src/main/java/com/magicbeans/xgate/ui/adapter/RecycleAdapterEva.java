@@ -10,14 +10,20 @@ import android.widget.ImageView;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.GlideUtil;
+import com.ins.common.utils.ToastUtil;
 import com.ins.common.view.bundleimgview.BundleImgView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.eva.Eva;
+import com.magicbeans.xgate.bean.product.ProductWrap;
 import com.magicbeans.xgate.databinding.ItemEvaBinding;
 import com.magicbeans.xgate.databinding.ItemHomeSaleBinding;
+import com.magicbeans.xgate.net.NetApi;
+import com.magicbeans.xgate.net.NetParam;
+import com.magicbeans.xgate.net.STCallback;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class RecycleAdapterEva extends RecyclerView.Adapter<RecycleAdapterEva.Holder> {
 
@@ -52,9 +58,32 @@ public class RecycleAdapterEva extends RecyclerView.Adapter<RecycleAdapterEva.Ho
                 if (listener != null) listener.onItemClick(holder, position);
             }
         });
+        holder.binding.textZan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (holder.binding.textZan.isSelected()) {
+                    ToastUtil.showToastShort("您已经点过赞了");
+                } else {
+                    netZanRecomment(holder, eva.getCommentId(), 1);
+                }
+            }
+        });
+        holder.binding.textNozan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (holder.binding.textNozan.isSelected()) {
+                    ToastUtil.showToastShort("您已经点过踩了");
+                } else {
+                    netZanRecomment(holder, eva.getCommentId(), 0);
+                }
+            }
+        });
         holder.binding.textName.setText(eva.getAccName());
         holder.binding.textAttr.setText(eva.getSubject());
         holder.binding.textContent.setText(eva.getContent());
+        holder.binding.textZan.setText(eva.getYesCount());
+        holder.binding.textNozan.setText(eva.getNoCount());
+//        holder.binding.textZan.setText("1");
     }
 
     @Override
@@ -78,5 +107,35 @@ public class RecycleAdapterEva extends RecyclerView.Adapter<RecycleAdapterEva.Ho
 
     public void setOnItemClickListener(OnRecycleItemClickListener listener) {
         this.listener = listener;
+    }
+
+    //##############  业务方法 ################
+
+    //点赞
+    public void netZanRecomment(final Holder holder, String CommentID, final int type) {
+        Map<String, Object> param = new NetParam()
+                .put("CommentID", CommentID)
+                .put("type", type)
+                .build();
+        NetApi.NI().netZanRecomment(param).enqueue(new STCallback<Integer>(Integer.class) {
+            @Override
+            public void onSuccess(int status, Integer count, String msg) {
+//                ToastUtil.showToastShort("点赞成功");
+                if (type == 1) {
+                    if (holder.binding.textZan != null) holder.binding.textZan.setText(count + "");
+                    if (holder.binding.textZan != null) holder.binding.textZan.setSelected(true);
+                } else {
+                    if (holder.binding.textNozan != null)
+                        holder.binding.textNozan.setText(count + "");
+                    if (holder.binding.textNozan != null)
+                        holder.binding.textNozan.setSelected(true);
+                }
+            }
+
+            @Override
+            public void onError(int status, String msg) {
+                ToastUtil.showToastShort(msg);
+            }
+        });
     }
 }

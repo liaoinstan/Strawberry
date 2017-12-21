@@ -123,8 +123,10 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_pop:
-                Cate1 cate1 = new Cate1(cate2Wrap.getProdCatgName(), cate2Wrap.getProdCatgId());
-                ProductActivity.startCategroy(getActivity(), cate1);
+                if (cate2Wrap != null) {
+                    Cate1 cate1 = new Cate1(cate2Wrap.getProdCatgName(), cate2Wrap.getProdCatgId());
+                    ProductActivity.startCategroy(getActivity(), cate1);
+                }
                 break;
         }
     }

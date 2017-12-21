@@ -30,7 +30,7 @@ public class NetParam {
     //添加参数
     public NetParam put(String key, Object value) {
         //如果参数值为null或者""则不放进参数map
-        if (value == null || StrUtil.isEmpty(value))
+        if (value == null || StrUtil.isEmpty(value, false))
             return this;
         paramMap.put(key, value);
         return this;

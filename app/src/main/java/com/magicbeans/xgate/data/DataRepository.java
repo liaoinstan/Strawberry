@@ -36,15 +36,14 @@ public class DataRepository {
         return INSTANCE;
     }
 
-    public void queryResults(String prodId, int page, int pageSize, final DataCallback callback) {
+    public void queryResults(String prodId, int page, final DataCallback callback) {
         //发起网络请求，请求评论数据
         Map<String, Object> param = new NetParam()
                 .put("page", page)
-                .put("pageSize", pageSize)
                 .put("prodId", prodId)
                 .build();
         if (callback != null) callback.onStart();
-        NetApi.NI().netProductReview(NetParam.newInstance().put(param).build()).enqueue(new STCallback<EvaWrap>(EvaWrap.class) {
+        NetApi.NI().netProductReview(param).enqueue(new STCallback<EvaWrap>(EvaWrap.class) {
             @Override
             public void onSuccess(int status, EvaWrap bean, String msg) {
                 List<Eva> evas = bean.getProducts();
