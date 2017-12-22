@@ -78,7 +78,6 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
     }
 
     private void initView() {
-        GlideUtil.loadImg(binding.imgPop, R.drawable.default_bk_img, "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513231176137&di=8962c6a63f455e0e7da0e092bc39377d&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01016457a01a840000012e7e03ff55.jpg");
     }
 
     private void initData() {
@@ -99,7 +98,7 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
         adapter = new RecycleAdapterCateIn(getContext());
         adapter.setOnItemClickListener(this);
         binding.recycle.setNestedScrollingEnabled(false);
-        binding.recycle.setLayoutManager(new GridLayoutManager(getContext(), 4, GridLayoutManager.VERTICAL, false));
+        binding.recycle.setLayoutManager(new GridLayoutManager(getContext(), 3, GridLayoutManager.VERTICAL, false));
         binding.recycle.setAdapter(adapter);
 
         binding.imgPop.setOnClickListener(this);
@@ -110,7 +109,7 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
         adapter.getResults().clear();
         adapter.getResults().addAll(cate2Wrap.formatToCate3List());
         adapter.notifyDataSetChanged();
-        binding.textPop.setText("所有" + cate2Wrap.getProdCatgName() + "商品 >");
+        binding.textPop.setText("所有" + cate2Wrap.getProdCatgName() + "商品");
     }
 
     @Override

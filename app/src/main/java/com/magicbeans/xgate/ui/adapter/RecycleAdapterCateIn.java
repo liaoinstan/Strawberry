@@ -128,7 +128,7 @@ public class RecycleAdapterCateIn extends RecyclerView.Adapter<RecyclerView.View
                     int type = getItemViewType(position);
                     switch (type) {
                         case SRC_HEADER:
-                            return 4;
+                            return 3;
                         case SRC_CONTENT:
                             return 1;
                         default:

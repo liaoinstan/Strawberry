@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="Marie"
-                android:textColor="@color/com_text_dark"
+                android:textColor="@color/com_text_blank"
                 android:textSize="@dimen/text_nomal" />
 
         </LinearLayout>
@@ -43,7 +43,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:text="08-16 颜色：白色"
-            android:textColor="@color/com_text_dark_light"
+            android:textColor="@color/com_text_dark"
             android:textSize="@dimen/text_small" />
 
         <TextView
@@ -55,7 +55,7 @@
             android:layout_marginTop="10dp"
             android:lineSpacingExtra="5dp"
             android:text="您的评价描述......"
-            android:textColor="@color/com_text_dark"
+            android:textColor="@color/com_text_blank"
             android:textSize="@dimen/text_nomal_small" />
 
         <LinearLayout
@@ -76,7 +76,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="0"
-                android:textColor="@color/com_text_dark"
+                android:textColor="@color/com_text_blank"
                 android:textSize="@dimen/text_nomal_small" />
 
             <TextView
@@ -90,7 +90,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="0"
-                android:textColor="@color/com_text_dark"
+                android:textColor="@color/com_text_blank"
                 android:textSize="@dimen/text_nomal_small" />
 
         </LinearLayout>

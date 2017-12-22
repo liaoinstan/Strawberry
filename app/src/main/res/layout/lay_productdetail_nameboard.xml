@@ -33,8 +33,9 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/com_text_dark_light"
-                android:textSize="@dimen/text_nomal"
+                android:lineSpacingExtra="5dp"
+                android:textColor="@color/com_text_blank"
+                android:textSize="@dimen/text_big_nomal"
                 tools:text="Aesop/伊索 香芹籽抗氧化精华100ml 舒缓补水保湿精华" />
 
             <LinearLayout
@@ -50,7 +51,7 @@
                     android:id="@+id/text_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/com_text_dark_light"
+                    android:textColor="@color/st_red"
                     android:textSize="@dimen/text_big"
                     tools:text="￥369.00" />
 

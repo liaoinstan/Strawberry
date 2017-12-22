@@ -8,6 +8,7 @@ import android.view.View;
 import com.ins.common.common.GridSpacingItemDecoration;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.DensityUtil;
+import com.ins.common.utils.ListUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.brand.Brand;
@@ -49,7 +50,7 @@ public class HomeBrandController implements View.OnClickListener {
         adapter.setOnItemClickListener(onRecycleItemClickListener);
         binding.recycle.setNestedScrollingEnabled(false);
         binding.recycle.setLayoutManager(new GridLayoutManager(context, 3, GridLayoutManager.VERTICAL, false));
-//        binding.recycle.addItemDecoration(new GridSpacingItemDecoration(3, DensityUtil.dp2px(4), GridLayoutManager.VERTICAL, false));
+        binding.recycle.addItemDecoration(new GridSpacingItemDecoration(3, DensityUtil.dp2px(4), GridLayoutManager.VERTICAL, false));
         binding.recycle.setAdapter(adapter);
 
         binding.btnMore.setOnClickListener(this);
@@ -83,7 +84,7 @@ public class HomeBrandController implements View.OnClickListener {
             @Override
             public void onSuccess(int status, BrandHotWrap bean, String msg) {
                 adapter.getResults().clear();
-                adapter.getResults().addAll(bean.getBrand());
+                adapter.getResults().addAll(ListUtil.getFirst(bean.getBrand(), 12));
                 adapter.notifyDataSetChanged();
             }
 

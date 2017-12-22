@@ -48,11 +48,11 @@ public class RecycleAdapterHomeBrand extends RecyclerView.Adapter<RecycleAdapter
             }
         });
 
-        if (position % 3 == 2 || position == results.size() - 1) {
-            holder.binding.viewLineV.setVisibility(View.INVISIBLE);
-        } else {
-            holder.binding.viewLineV.setVisibility(View.VISIBLE);
-        }
+//        if (position % 3 == 2 || position == results.size() - 1) {
+//            holder.binding.viewLineV.setVisibility(View.INVISIBLE);
+//        } else {
+//            holder.binding.viewLineV.setVisibility(View.VISIBLE);
+//        }
         holder.binding.textBrandTitle.setText(brand.getBrandLangName());
     }
 

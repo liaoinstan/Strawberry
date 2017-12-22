@@ -27,17 +27,28 @@
             android:maxLines="2"
             android:minLines="2"
             android:text="产品名称"
-            android:textColor="@color/com_text_dark"
+            android:textColor="@color/com_text_blank"
             android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/text_intro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="3dp"
+            android:lineSpacingExtra="2dp"
+            android:text="产品|功效|功能"
+            android:textColor="@color/com_text_dark_light"
+            android:textSize="9sp" />
 
         <TextView
             android:id="@+id/text_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="7dp"
             android:text="￥ 49"
-            android:textColor="@color/com_text_dark_light"
+            android:textColor="@color/st_red"
             android:textSize="@dimen/text_small" />
 
         <TextView
@@ -47,7 +58,7 @@
             android:layout_marginLeft="2dp"
             android:text="￥ 69"
             android:textColor="@color/com_text_light"
-            android:textSize="@dimen/text_small_tiny" />
+            android:textSize="9sp" />
 
     </LinearLayout>
 </layout>

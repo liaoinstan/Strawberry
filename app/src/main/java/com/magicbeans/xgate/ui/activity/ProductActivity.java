@@ -121,8 +121,10 @@ public class ProductActivity extends BaseAppCompatActivity {
             case R.id.btn_right:
                 if (productListContentController.isGridMode()) {
                     productListContentController.setListMode();
+                    binding.btnRight.setSelected(false);
                 } else {
                     productListContentController.setGridMode();
+                    binding.btnRight.setSelected(true);
                 }
                 break;
         }

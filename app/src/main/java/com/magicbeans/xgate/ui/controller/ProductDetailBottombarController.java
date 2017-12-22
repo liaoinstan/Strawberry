@@ -32,7 +32,6 @@ public class ProductDetailBottombarController implements View.OnClickListener {
     private void initCtrl() {
         binding.textShopbag.setOnClickListener(this);
         binding.textFavo.setOnClickListener(this);
-        binding.textServer.setOnClickListener(this);
         binding.textAdd.setOnClickListener(this);
     }
 
@@ -49,8 +48,6 @@ public class ProductDetailBottombarController implements View.OnClickListener {
             case R.id.text_shopbag:
                 break;
             case R.id.text_favo:
-                break;
-            case R.id.text_server:
                 break;
             case R.id.text_add:
                 if (productDetail != null) {

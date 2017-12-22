@@ -21,7 +21,7 @@
                 android:button="@null"
                 android:gravity="center"
                 android:text="综合"
-                android:textColor="@color/select_text_dark_purple_check"
+                android:textColor="@color/select_text_dark_red_check"
                 android:textSize="@dimen/text_nomal_small" />
 
             <RadioButton
@@ -32,7 +32,7 @@
                 android:button="@null"
                 android:gravity="center"
                 android:text="销量"
-                android:textColor="@color/select_text_dark_purple_check"
+                android:textColor="@color/select_text_dark_red_check"
                 android:textSize="@dimen/text_nomal_small" />
 
             <RadioButton
@@ -43,7 +43,7 @@
                 android:button="@null"
                 android:gravity="center"
                 android:text="价格"
-                android:textColor="@color/select_text_dark_purple_check"
+                android:textColor="@color/select_text_dark_red_check"
                 android:textSize="@dimen/text_nomal_small" />
 
             <RadioButton
@@ -54,7 +54,7 @@
                 android:button="@null"
                 android:gravity="center"
                 android:text="折扣"
-                android:textColor="@color/select_text_dark_purple_check"
+                android:textColor="@color/select_text_dark_red_check"
                 android:textSize="@dimen/text_nomal_small" />
 
         </RadioGroup>
@@ -63,33 +63,50 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:orientation="horizontal">
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:id="@+id/text_select_cate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_rect_cornersmall_light"
+                android:button="@null"
+                android:drawableRight="@drawable/ic_down"
+                android:ellipsize="end"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:text="按分类"
+                android:textColor="@color/com_text_blank"
+                android:textSize="@dimen/text_small" />
 
             <TextView
                 android:id="@+id/text_select_brand"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/shape_rect_cornersmall_light"
                 android:button="@null"
                 android:checked="true"
+                android:drawableRight="@drawable/ic_down"
+                android:ellipsize="end"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
-                android:text="按品牌搜索"
-                android:textColor="@color/select_text_dark_purple_check"
-                android:textSize="@dimen/text_nomal_small" />
-
-            <TextView
-                android:id="@+id/text_select_cate"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@null"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:text="分类"
-                android:textColor="@color/select_text_dark_purple_check"
-                android:textSize="@dimen/text_nomal_small" />
+                android:maxLines="1"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:text="按品牌"
+                android:textColor="@color/com_text_blank"
+                android:textSize="@dimen/text_small" />
 
         </LinearLayout>
 

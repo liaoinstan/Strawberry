@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.ins.common.common.ItemDecorationDivider;
 import com.ins.common.entity.Image;
+import com.ins.common.utils.FontUtils;
 import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.StrUtil;
 import com.ins.common.view.BannerView;
@@ -50,6 +51,7 @@ public class ProductDetailNameBoradController {
                 GlideUtil.loadImg(imageView, R.drawable.default_bk_img, imgurl);
             }
         });
+        FontUtils.boldText(binding.textPrice);
     }
 
     private void initData() {

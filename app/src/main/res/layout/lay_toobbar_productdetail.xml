@@ -24,7 +24,7 @@
                 android:checked="true"
                 android:gravity="center"
                 android:text="商品"
-                android:textColor="@color/select_text_blank_purple_check"
+                android:textColor="@color/select_text_dark_red_check"
                 android:textSize="@dimen/text_big_nomal" />
 
             <RadioButton
@@ -34,7 +34,7 @@
                 android:button="@null"
                 android:gravity="center"
                 android:text="评价"
-                android:textColor="@color/select_text_blank_purple_check"
+                android:textColor="@color/select_text_dark_red_check"
                 android:textSize="@dimen/text_big" />
         </RadioGroup>
 

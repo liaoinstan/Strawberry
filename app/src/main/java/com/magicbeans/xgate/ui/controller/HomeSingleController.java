@@ -28,7 +28,7 @@ import java.util.Map;
  * 王牌单品
  */
 
-public class HomeSingleController implements View.OnClickListener{
+public class HomeSingleController{
 
     private Context context;
     private LayHomeSingleBinding binding;
@@ -49,7 +49,6 @@ public class HomeSingleController implements View.OnClickListener{
         binding.recycle.addItemDecoration(new GridSpacingItemDecoration(2, DensityUtil.dp2px(7), GridLayoutManager.HORIZONTAL, true));
         binding.recycle.setAdapter(adapter);
 
-        binding.btnMore.setOnClickListener(this);
     }
 
     public void initData() {
@@ -63,15 +62,6 @@ public class HomeSingleController implements View.OnClickListener{
             ProductDetailActivity.start(context, product.getProdID());
         }
     };
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_more:
-                ProductActivity.start(context);
-                break;
-        }
-    }
 
     private void netGetSingle() {
         Map<String, Object> param = new NetParam()

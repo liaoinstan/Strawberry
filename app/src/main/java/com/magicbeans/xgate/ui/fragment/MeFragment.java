@@ -78,8 +78,6 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             if (getActivity() != null) StatusBarTextUtil.transparencyBar(getActivity());
-        } else {
-            if (getActivity() != null) StatusBarTextUtil.transBarBackground(getActivity(), ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
         }
     }
 

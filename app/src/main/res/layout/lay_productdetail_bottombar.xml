@@ -16,45 +16,34 @@
 
             <TextView
                 android:id="@+id/text_shopbag"
-                android:layout_width="60dp"
+                android:layout_width="70dp"
                 android:layout_height="match_parent"
-                android:drawableTop="@drawable/ic_tab_home"
+                android:drawablePadding="2dp"
+                android:drawableTop="@drawable/ic_productdetail_shopcar"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_horizontal"
-                android:paddingTop="3dp"
+                android:paddingTop="5dp"
                 android:text="购物车"
-                android:textColor="@color/com_text_dark_light"
+                android:textColor="@color/com_text_blank"
                 android:textSize="@dimen/text_tiny" />
 
-            <View style="@style/Line_V" />
+            <View
+                style="@style/Line_V"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp" />
 
             <TextView
                 android:id="@+id/text_favo"
-                android:layout_width="60dp"
+                android:layout_width="70dp"
                 android:layout_height="match_parent"
-                android:drawableTop="@drawable/ic_tab_home"
+                android:drawablePadding="2dp"
+                android:drawableTop="@drawable/ic_productdetail_favo"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_horizontal"
-                android:paddingTop="3dp"
+                android:paddingTop="5dp"
                 android:text="收藏"
-                android:textColor="@color/com_text_dark_light"
+                android:textColor="@color/com_text_blank"
                 android:textSize="@dimen/text_tiny" />
-
-            <View style="@style/Line_V" />
-
-            <TextView
-                android:id="@+id/text_server"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:drawableTop="@drawable/ic_tab_home"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center_horizontal"
-                android:paddingTop="3dp"
-                android:text="客服"
-                android:textColor="@color/com_text_dark_light"
-                android:textSize="@dimen/text_tiny" />
-
-            <View style="@style/Line_V" />
 
             <Space style="@style/Space_H" />
 
@@ -62,7 +51,7 @@
                 android:id="@+id/text_add"
                 android:layout_width="120dp"
                 android:layout_height="match_parent"
-                android:background="@color/st_purple"
+                android:background="@color/st_red"
                 android:gravity="center"
                 android:text="加入购物车"
                 android:textColor="@color/white"

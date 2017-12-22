@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
+import com.ins.common.utils.FontUtils;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.brand.Brand;
 
@@ -76,11 +77,18 @@ public class RecycleAdapterSortBrand extends RecyclerView.Adapter<RecyclerView.V
         Brand brand = results.get(position);
         //FIXME:部分品牌只有英文名，如果中文名不存在则显示英文名
         holder.text_brand_title.setText(!TextUtils.isEmpty(brand.getBrandLangName()) ? brand.getBrandLangName() : brand.getBrandName());
+        holder.text_brand_title_en.setText(brand.getBrandName());
     }
 
     private void bindHeader(HolderHeader holder, int position) {
         Brand brand = results.get(position);
         holder.text_header_title.setText(brand.getBrandLangName());
+        FontUtils.boldText(holder.text_header_title);
+        if (brand.getBrandLangName().startsWith("热门")) {
+            holder.text_header_title.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_brandhot_title, 0, 0, 0);
+        } else {
+            holder.text_header_title.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        }
     }
 
     @Override
@@ -108,13 +116,13 @@ public class RecycleAdapterSortBrand extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public static class HolderContent extends RecyclerView.ViewHolder {
-        public final ImageView img_item_brand;
+        public final TextView text_brand_title_en;
         public final TextView text_brand_title;
 
         public HolderContent(View itemView) {
             super(itemView);
-            img_item_brand = (ImageView) itemView.findViewById(R.id.img_item_brand);
             text_brand_title = (TextView) itemView.findViewById(R.id.text_brand_title);
+            text_brand_title_en = (TextView) itemView.findViewById(R.id.text_brand_title_en);
         }
     }
 

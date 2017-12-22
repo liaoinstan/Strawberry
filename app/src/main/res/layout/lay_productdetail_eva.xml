@@ -5,8 +5,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:layout_marginTop="10dp"
         android:orientation="vertical">
+
+        <View style="@style/Line_H"
+            android:layout_marginLeft="15dp"/>
 
         <TextView
             android:id="@+id/text_title"
@@ -14,11 +16,11 @@
             android:layout_height="45dp"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:text="商品评价"
-            android:textColor="@color/com_text_dark"
-            android:textSize="@dimen/text_nomal" />
+            android:textColor="@color/com_text_blank"
+            android:textSize="@dimen/text_small" />
 
         <View style="@style/Line_H" />
 
@@ -30,14 +32,14 @@
         <TextView
             android:id="@+id/btn_more"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:drawableRight="@drawable/ic_me_next"
+            android:layout_height="40dp"
+            android:drawableRight="@drawable/ic_next_dark"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="查看全部评价0个"
-            android:textColor="@color/com_text_dark_light"
+            android:textColor="@color/com_text_blank"
             android:textSize="@dimen/text_small" />
 
     </LinearLayout>

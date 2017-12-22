@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="@color/white"
-    android:gravity="center"
     android:foreground="?attr/selectableItemBackground"
+    android:gravity="center"
     android:orientation="vertical">
 
     <TextView
@@ -13,7 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="A"
-        android:textColor="@color/com_text_dark"
+        android:drawableLeft="@drawable/ic_brandhot_title"
+        android:drawablePadding="8dp"
+        android:textColor="@color/com_text_blank_deep_light"
         android:textSize="@dimen/text_big" />
 
 </LinearLayout>

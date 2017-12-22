@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
+            android:background="@color/st_pink"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <TextView
@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="购物袋"
-                android:textColor="@color/com_text_dark_light"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_big" />
 
             <TextView
@@ -36,7 +36,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:text="编辑"
-                android:textColor="@color/com_text_dark_light"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_big_nomal" />
 
         </android.support.v7.widget.Toolbar>

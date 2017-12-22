@@ -11,23 +11,23 @@
         <TextView
             android:id="@+id/btn_selectattr"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="50dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
-            android:drawableRight="@drawable/ic_me_next"
+            android:drawableRight="@drawable/ic_next_dark"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="请选择 颜色规格"
-            android:textColor="@color/com_text_dark"
+            android:textColor="@color/com_text_blank"
             android:textSize="@dimen/text_big" />
 
         <View style="@style/Line_H"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:background="@color/white"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="品牌"
-                android:textColor="@color/com_text_light"
+                android:textColor="@color/com_text_blank"
                 android:textSize="@dimen/text_small" />
 
             <Space style="@style/Space_H" />
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 tools:text="抗氧化 保湿 净化排毒"
-                android:textColor="@color/com_text_light"
+                android:textColor="@color/com_text_blank"
                 android:textSize="@dimen/text_small" />
 
         </LinearLayout>

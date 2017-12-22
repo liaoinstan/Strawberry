@@ -51,12 +51,23 @@
 
                     <LinearLayout
                         android:id="@+id/lay_me_header"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginBottom="30dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
+                        android:layout_marginBottom="30dp"
+                        android:layout_marginLeft="30dp"
                         android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/shape_product_tag_bk"
+                            android:gravity="center"
+                            android:rotation="-20"
+                            android:text="10%\nOFF"
+                            android:textAppearance="@style/TextAppearance.Tag"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_small" />
 
                         <ImageView
                             android:id="@+id/img_me_header"

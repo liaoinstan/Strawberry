@@ -58,7 +58,7 @@ public class HomeActivity extends BaseAppCompatActivity {
 
 //        StatusBarTextUtil.transparencyBar(HomeActivity.this);
         StatusBarTextUtil.transBarBackground(this, ContextCompat.getColor(this, R.color.colorPrimaryDark));
-        StatusBarTextUtil.StatusBarLightMode(HomeActivity.this);
+        StatusBarTextUtil.StatusBarDarkMode(HomeActivity.this);
 
         initBase();
         initView();

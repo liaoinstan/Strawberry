@@ -111,7 +111,7 @@ public class RecycleAdapterEva extends RecyclerView.Adapter<RecycleAdapterEva.Ho
 
     //##############  业务方法 ################
 
-    //点赞
+    //ic_eva_zan_hot
     public void netZanRecomment(final Holder holder, String CommentID, final int type) {
         Map<String, Object> param = new NetParam()
                 .put("CommentID", CommentID)

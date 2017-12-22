@@ -11,7 +11,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:background="@color/white"
+            android:background="@color/st_pink"
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
             app:layout_scrollFlags="scroll|enterAlways|snap"
@@ -23,13 +23,17 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <ImageView
+                <TextView
                     android:id="@+id/btn_left"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
+                    android:drawableTop="@drawable/ic_toolbar_scan"
                     android:foreground="?attr/selectableItemBackground"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_toolbar_scan" />
+                    android:gravity="center"
+                    android:paddingTop="6dp"
+                    android:text="扫一扫"
+                    android:textColor="@color/white"
+                    android:textSize="8sp" />
 
                 <TextView
                     android:id="@+id/text_search"
@@ -38,22 +42,28 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/shape_rect_cornerfull_dark"
+                    android:background="@drawable/shape_rect_cornerfull_white"
                     android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:hint="@string/home_search"
                     android:onClick="onClick"
-                    android:textColor="@color/com_text_dark_light"
-                    android:textColorHint="@color/com_text_dark_light"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:textColor="@color/com_text_dark"
+                    android:textColorHint="@color/com_text_hint"
                     android:textSize="@dimen/text_nomal" />
 
-                <ImageView
+                <TextView
                     android:id="@+id/btn_right"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
+                    android:drawableTop="@drawable/ic_toolbar_msg"
                     android:foreground="?attr/selectableItemBackground"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_toolbar_msg" />
+                    android:gravity="center"
+                    android:paddingTop="6dp"
+                    android:text="消息"
+                    android:textColor="@color/white"
+                    android:textSize="8sp" />
 
             </LinearLayout>
 

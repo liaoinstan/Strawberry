@@ -20,137 +20,113 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
-            app:columnCount="5">
+            app:columnCount="4">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
-                android:drawableTop="@drawable/shape_rect_corner_light"
+                android:drawableTop="@drawable/ic_home_bannerboard_today"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="最新活动"
-                android:textColor="@color/com_text_dark"
+                android:text="今日秒杀"
+                android:textColor="@color/com_text_dark_blank"
                 android:textSize="@dimen/text_small" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
-                android:drawableTop="@drawable/shape_rect_corner_light"
+                android:drawableTop="@drawable/ic_home_bannerboard_sale"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="我的签到"
-                android:textColor="@color/com_text_dark"
+                android:text="特卖专场"
+                android:textColor="@color/com_text_dark_blank"
                 android:textSize="@dimen/text_small" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
-                android:drawableTop="@drawable/shape_rect_corner_light"
+                android:drawableTop="@drawable/ic_home_bannerboard_single"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="促销活动"
-                android:textColor="@color/com_text_dark"
+                android:text="王牌单品"
+                android:textColor="@color/com_text_dark_blank"
                 android:textSize="@dimen/text_small" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
-                android:drawableTop="@drawable/shape_rect_corner_light"
+                android:drawableTop="@drawable/ic_home_bannerboard_new"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="美妆论坛"
-                android:textColor="@color/com_text_dark"
+                android:text="新品上市"
+                android:textColor="@color/com_text_dark_blank"
                 android:textSize="@dimen/text_small" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
-                android:drawableTop="@drawable/shape_rect_corner_light"
+                android:drawableTop="@drawable/ic_home_bannerboard_brandhot"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="精选品牌"
+                android:textColor="@color/com_text_dark_blank"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/ic_home_bannerboard_recommed"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="精品推荐"
+                android:textColor="@color/com_text_dark_blank"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/ic_home_bannerboard_clear"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="清仓优惠"
+                android:textColor="@color/com_text_dark_blank"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/ic_home_bannerboard_selection"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:text="每日精选"
-                android:textColor="@color/com_text_dark"
+                android:textColor="@color/com_text_dark_blank"
                 android:textSize="@dimen/text_small" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="5dp"
-                android:drawableTop="@drawable/shape_rect_corner_light"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="礼盒套装"
-                android:textColor="@color/com_text_dark"
-                android:textSize="@dimen/text_small" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="5dp"
-                android:drawableTop="@drawable/shape_rect_corner_light"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="超值精选"
-                android:textColor="@color/com_text_dark"
-                android:textSize="@dimen/text_small" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="5dp"
-                android:drawableTop="@drawable/shape_rect_corner_light"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="榜单热卖"
-                android:textColor="@color/com_text_dark"
-                android:textSize="@dimen/text_small" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="5dp"
-                android:drawableTop="@drawable/shape_rect_corner_light"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="新品上线"
-                android:textColor="@color/com_text_dark"
-                android:textSize="@dimen/text_small" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="5dp"
-                android:drawableTop="@drawable/shape_rect_corner_light"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="品牌彩妆"
-                android:textColor="@color/com_text_dark"
-                android:textSize="@dimen/text_small" />
 
         </com.ins.common.view.AutoFitGridLayout>
 
