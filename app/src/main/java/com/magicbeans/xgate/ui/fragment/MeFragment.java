@@ -73,13 +73,13 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         FocusUtil.focusToTop(binding.getRoot());
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            if (getActivity() != null) StatusBarTextUtil.transparencyBar(getActivity());
-        }
-    }
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (isVisibleToUser) {
+//            if (getActivity() != null) StatusBarTextUtil.transparencyBar(getActivity());
+//        }
+//    }
 
     private void initBase() {
     }

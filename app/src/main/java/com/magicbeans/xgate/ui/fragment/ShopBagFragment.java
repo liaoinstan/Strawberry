@@ -1,5 +1,7 @@
 package com.magicbeans.xgate.ui.fragment;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -21,16 +23,20 @@ import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.common.TestBean;
+import com.magicbeans.xgate.data.db.AppDatabaseManager;
+import com.magicbeans.xgate.data.db.entity.ShopCart;
 import com.magicbeans.xgate.ui.activity.OrderAddActivity;
 import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeShopbag;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 
+import java.util.List;
+
 
 /**
  * Created by liaoinstan
  */
-public class ShopBagFragment extends BaseFragment implements View.OnClickListener,OnRecycleItemClickListener {
+public class ShopBagFragment extends BaseFragment implements View.OnClickListener, OnRecycleItemClickListener {
 
     private int position;
     private View rootView;
@@ -51,13 +57,15 @@ public class ShopBagFragment extends BaseFragment implements View.OnClickListene
         return fragment;
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            if (getActivity() != null) StatusBarTextUtil.transBarBackground(getActivity(), ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
-        }
-    }
+    //TODO:这个方法里设置StatusBar字体颜色会导致UI出现无法及时响应的异常，不要这样做，在CateFragment中这样做会导致子fragment无法加载的异常
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (isVisibleToUser) {
+//            if (getActivity() != null)
+//                StatusBarTextUtil.transBarBackground(getActivity(), ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+//        }
+//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,18 +105,16 @@ public class ShopBagFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void initData() {
-        //限时促销列表假数据
-        adapter.getResults().clear();
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.getResults().add(new TestBean());
-        adapter.notifyDataSetChanged();
-
+        LiveData<List<ShopCart>> shopCartsLiveData = AppDatabaseManager.getInstance().queryShopCarts();
+        shopCartsLiveData.observeForever(new Observer<List<ShopCart>>() {
+            @Override
+            public void onChanged(@Nullable List<ShopCart> shopCarts) {
+                adapter.getResults().clear();
+                adapter.getResults().addAll(ShopCart.convertShopcartListToProduct2List(shopCarts));
+                adapter.notifyDataSetChanged();
+                springView.onFinishFreshAndLoad();
+            }
+        });
     }
 
     private void initCtrl() {
@@ -122,12 +128,7 @@ public class ShopBagFragment extends BaseFragment implements View.OnClickListene
         springView.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        springView.onFinishFreshAndLoad();
-                    }
-                }, 1000);
+                initData();
             }
 
             @Override
@@ -154,7 +155,7 @@ public class ShopBagFragment extends BaseFragment implements View.OnClickListene
                 if (adapter.isSelectAll()) {
                     text_shopbag_checkall.setSelected(false);
                     adapter.selectAll(false);
-                }else {
+                } else {
                     text_shopbag_checkall.setSelected(true);
                     adapter.selectAll(true);
                 }
@@ -172,7 +173,7 @@ public class ShopBagFragment extends BaseFragment implements View.OnClickListene
                         public void onSure() {
                         }
                     });
-                }else {
+                } else {
                     DialogSure.showDialog(getContext(), "确定要下单？", new DialogSure.CallBack() {
                         @Override
                         public void onSure() {

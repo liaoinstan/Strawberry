@@ -40,7 +40,7 @@ public class HomeFragment extends BaseFragment {
     private int position;
     private View rootView;
 
-    //各个子模块控制器，各控制器相互独立，各种处理自己模块的业务逻辑
+    //各个子模块控制器，各控制器相互独立，各自处理自己模块的业务逻辑
     private ToolbarHomeController toolbarHomeController;
     private HomeBannerBoardController homeBannerBoardController;
     private HomeSingleController homeSingleController;

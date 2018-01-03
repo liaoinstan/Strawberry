@@ -59,14 +59,14 @@ public class CateFragment extends BaseFragment implements OnRecycleItemClickList
         return fragment;
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-//            if (getActivity() != null) StatusBarTextUtil.transBarBackground(getActivity(), ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
-            if (getActivity() != null) StatusBarTextUtil.StatusBarDarkMode(getActivity());
-        }
-    }
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (isVisibleToUser) {
+////            if (getActivity() != null) StatusBarTextUtil.transBarBackground(getActivity(), ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+//            if (getActivity() != null) StatusBarTextUtil.StatusBarDarkMode(getActivity());
+//        }
+//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

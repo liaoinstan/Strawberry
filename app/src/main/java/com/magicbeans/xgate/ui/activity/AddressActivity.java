@@ -17,7 +17,6 @@ import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Address;
 import com.magicbeans.xgate.databinding.ActivityAddressBinding;
-import com.magicbeans.xgate.databinding.ActivityAddressaddBinding;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterAddress;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 

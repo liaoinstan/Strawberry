@@ -1,87 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/lay_content"
-    android:background="@color/white"
-    android:foreground="?attr/selectableItemBackground"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:id="@+id/img_shopbag_check"
-        android:layout_width="30dp"
-        android:layout_height="match_parent"
-        android:scaleType="center"
-        android:src="@drawable/selector_check_shopbag" />
-
-    <ImageView
-        android:id="@+id/img_header"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:scaleType="centerCrop"
-        android:src="@color/st_default_bk" />
-
-    <LinearLayout
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/lay_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
+        android:background="@color/white"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:text="产品名称"
-            android:textColor="@color/com_text_dark_light"
-            android:textSize="@dimen/text_nomal" />
+        <ImageView
+            android:id="@+id/img_shopbag_check"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:scaleType="center"
+            android:src="@drawable/selector_check_shopbag" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="规格：2.27g  颜色： 11"
-            android:textColor="@color/com_text_dark_light"
-            android:textSize="9sp" />
+        <ImageView
+            android:id="@+id/img_header"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="centerCrop"
+            android:src="@color/st_default_bk" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/text_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="￥89.00"
+                android:layout_marginTop="7dp"
+                android:text="产品名称"
                 android:textColor="@color/com_text_dark_light"
-                android:textSize="@dimen/text_nomal_small" />
+                android:textSize="@dimen/text_nomal" />
 
             <TextView
+                android:id="@+id/text_attr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="￥298"
-                android:textColor="@color/com_text_light"
+                android:layout_marginTop="5dp"
+                android:text="规格：2.27g  颜色： 11"
+                android:textColor="@color/com_text_dark_light"
                 android:textSize="9sp" />
 
-            <Space style="@style/Space_H" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <!--<TextView-->
+                <TextView
+                    android:id="@+id/text_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥89.00"
+                    android:textColor="@color/com_text_dark_light"
+                    android:textSize="@dimen/text_nomal_small" />
+
+                <TextView
+                    android:id="@+id/text_price_old"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="￥298"
+                    android:textColor="@color/com_text_light"
+                    android:textSize="9sp" />
+
+                <Space style="@style/Space_H" />
+
+                <!--<TextView-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="wrap_content"-->
                 <!--android:text="x1"-->
                 <!--android:textColor="@color/com_text_dark_light"-->
                 <!--android:textSize="@dimen/text_small" />-->
 
-            <com.magicbeans.xgate.ui.view.CountView
-                android:id="@+id/countview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                <com.magicbeans.xgate.ui.view.CountView
+                    android:id="@+id/countview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-</LinearLayout>
+    </LinearLayout>
+</layout>

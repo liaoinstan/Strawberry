@@ -1,6 +1,7 @@
 package com.magicbeans.xgate.ui.adapter;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,11 @@ import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.common.TestBean;
+import com.magicbeans.xgate.bean.product.Product2;
+import com.magicbeans.xgate.data.db.AppDatabaseManager;
+import com.magicbeans.xgate.data.db.entity.ShopCart;
+import com.magicbeans.xgate.databinding.ItemShopbagBinding;
+import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.view.CountView;
 
 import java.util.ArrayList;
@@ -23,10 +29,10 @@ import java.util.List;
 public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapterHomeShopbag.Holder> {
 
     private Context context;
-    private List<TestBean> results = new ArrayList<>();
+    private List<Product2> results = new ArrayList<>();
     private boolean isEdit = false;
 
-    public List<TestBean> getResults() {
+    public List<Product2> getResults() {
         return results;
     }
 
@@ -36,45 +42,53 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
 
     @Override
     public RecycleAdapterHomeShopbag.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_shopbag, parent, false));
+        return new Holder((ItemShopbagBinding) DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_shopbag, parent, false));
     }
 
     @Override
     public void onBindViewHolder(final RecycleAdapterHomeShopbag.Holder holder, final int position) {
-        final TestBean bean = results.get(position);
-        holder.lay_content.setOnClickListener(new View.OnClickListener() {
+        final Product2 bean = results.get(position);
+        holder.binding.includeCoutent.layContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) listener.onItemClick(holder, position);
             }
         });
-        holder.img_shopbag_check.setOnClickListener(new View.OnClickListener() {
+        holder.binding.includeCoutent.imgShopbagCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bean.setSelect(!bean.isSelect());
                 notifyItemChanged(position);
             }
         });
-        holder.btn_item_shopbag_favo.setOnClickListener(new View.OnClickListener() {
+        holder.binding.btnItemShopbagFavo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ToastUtil.showToastShort("收藏");
             }
         });
-        holder.btn_item_shopbag_del.setOnClickListener(new View.OnClickListener() {
+        holder.binding.btnItemShopbagDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogSure.showDialog(context, "确定要删除该商品？", new DialogSure.CallBack() {
                     @Override
                     public void onSure() {
+                        AppDatabaseManager.getInstance().deleteShopCart(ShopCart.convertProduct2ToShopcart(bean));
+                        results.remove(bean);
+                        notifyItemRemoved(position);
                     }
                 });
             }
         });
-        holder.img_shopbag_check.setSelected(bean.isSelect());
-        GlideUtil.loadImgTestByPosition(holder.img_header, position);
-        holder.countview.setCount(1);
-        holder.countview.setEdit(isEdit);
+        holder.binding.includeCoutent.imgShopbagCheck.setSelected(bean.isSelect());
+        GlideUtil.loadImg(holder.binding.includeCoutent.imgHeader, R.drawable.default_bk_img, bean.getHeaderImg());
+        holder.binding.includeCoutent.textName.setText(bean.getProdName());
+        holder.binding.includeCoutent.textAttr.setText(bean.getSizeText());
+        holder.binding.includeCoutent.textPrice.setText(AppHelper.getPriceSymbol("") + bean.getShopPrice());
+        holder.binding.includeCoutent.textPrice.setText(AppHelper.getPriceSymbol("") + bean.getWasPrice());
+        holder.binding.includeCoutent.countview.setCount(1);
+        holder.binding.includeCoutent.countview.setEdit(isEdit);
+        holder.binding.slidmenu.close();
     }
 
     @Override
@@ -83,22 +97,11 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
     }
 
     public class Holder extends RecyclerView.ViewHolder {
+        ItemShopbagBinding binding;
 
-        private View lay_content;
-        private ImageView img_header;
-        private ImageView img_shopbag_check;
-        private CountView countview;
-        private TextView btn_item_shopbag_favo;
-        private TextView btn_item_shopbag_del;
-
-        public Holder(View itemView) {
-            super(itemView);
-            lay_content = itemView.findViewById(R.id.lay_content);
-            img_header = (ImageView) itemView.findViewById(R.id.img_header);
-            img_shopbag_check = (ImageView) itemView.findViewById(R.id.img_shopbag_check);
-            countview = (CountView) itemView.findViewById(R.id.countview);
-            btn_item_shopbag_favo = (TextView) itemView.findViewById(R.id.btn_item_shopbag_favo);
-            btn_item_shopbag_del = (TextView) itemView.findViewById(R.id.btn_item_shopbag_del);
+        public Holder(ItemShopbagBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 
