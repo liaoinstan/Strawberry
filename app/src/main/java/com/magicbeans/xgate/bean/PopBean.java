@@ -1,5 +1,6 @@
 package com.magicbeans.xgate.bean;
 
+import com.ins.common.entity.BaseSelectBean;
 import com.ins.common.utils.StrUtil;
 import com.magicbeans.xgate.bean.brand.Brand;
 import com.magicbeans.xgate.bean.category.Cate1;
@@ -13,7 +14,7 @@ import java.util.List;
  * Created by Administrator on 2017/9/20.
  */
 
-public class PopBean implements Serializable {
+public class PopBean extends BaseSelectBean implements Serializable {
 
     private String id;
     private String name;
@@ -40,6 +41,15 @@ public class PopBean implements Serializable {
         return popCates;
     }
 
+    public static PopBean findById(List<PopBean> popBeanList, String id) {
+        for (PopBean popBean : popBeanList) {
+            if (id.equals(popBean.getId())) {
+                return popBean;
+            }
+        }
+        return null;
+    }
+
     //###############  业务方法  #################
 
 
@@ -50,6 +60,12 @@ public class PopBean implements Serializable {
     public PopBean(String id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public PopBean(String id, String name, boolean isSelect) {
+        this.id = id;
+        this.name = name;
+        this.isSelect = isSelect;
     }
 
     public String getId() {

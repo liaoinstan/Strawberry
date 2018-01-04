@@ -34,14 +34,12 @@ public class ProductActivity extends BaseAppCompatActivity {
     public static void startCategroy(Context context, Cate1 cate1) {
         Intent intent = new Intent(context, ProductActivity.class);
         intent.putExtra("catgId", cate1.getCatgId());
-        intent.putExtra("catgName", cate1.getTitle());
         context.startActivity(intent);
     }
 
     public static void startBrand(Context context, Brand brand) {
         Intent intent = new Intent(context, ProductActivity.class);
         intent.putExtra("brandID", brand.getBrandID());
-        intent.putExtra("brandName", brand.getBrandLangName());
         context.startActivity(intent);
     }
 
@@ -68,9 +66,6 @@ public class ProductActivity extends BaseAppCompatActivity {
         String brandID = getIntent().getStringExtra("brandID");
         String typeId = getIntent().getStringExtra("typeId");
 
-        String catgName = getIntent().getStringExtra("catgName");
-        String brandName = getIntent().getStringExtra("brandName");
-
         //初始化控制器
         productListSortController = new ProductListSortController(binding.includeProductlistSort);
         productListContentController = new ProductListContentController(binding.includeProductlistContent);
@@ -78,8 +73,8 @@ public class ProductActivity extends BaseAppCompatActivity {
         productListContentController.setCatgId(catgId);
         productListContentController.setBrandID(brandID);
         productListContentController.setTypeId(typeId);
-        if (!TextUtils.isEmpty(catgName)) productListSortController.setSelectCate(catgName);
-        if (!TextUtils.isEmpty(brandName)) productListSortController.setSelectBrand(brandName);
+        if (!TextUtils.isEmpty(catgId)) productListSortController.setSelectCate(catgId);
+        if (!TextUtils.isEmpty(brandID)) productListSortController.setSelectBrand(brandID);
         productListSortController.setOnSortSelectListenner(new ProductListSortController.OnSortSelectListenner() {
             @Override
             public void onSort(String sort) {

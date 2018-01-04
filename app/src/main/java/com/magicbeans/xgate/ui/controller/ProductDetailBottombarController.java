@@ -12,12 +12,14 @@ import com.ins.common.utils.L;
 import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.product.ProductDetail;
 //import com.magicbeans.xgate.data.db.AppDatabaseManager;
 //import com.magicbeans.xgate.data.db.entity.ShopCart;
 import com.magicbeans.xgate.data.db.AppDatabaseManager;
 import com.magicbeans.xgate.data.db.entity.ShopCart;
+import com.magicbeans.xgate.data.db.entity.ShopCartTable;
 import com.magicbeans.xgate.databinding.LayProductdetailBottombarBinding;
 import com.magicbeans.xgate.databinding.LayProductdetailDescribeBinding;
 
@@ -66,17 +68,17 @@ public class ProductDetailBottombarController implements View.OnClickListener {
                     Product2 product2 = productDetail.getSelectProduct(productDetail.getProdID());
                     if (product2 != null) {
                         //###### 添加到数据库 ######
-                        AppDatabaseManager.getInstance().insertShopCart(ShopCart.convertProduct2ToShopcart(product2));
-
-                        final LiveData<List<ShopCart>> shopCartsLiveData = AppDatabaseManager.getInstance().queryShopCarts();
-                        shopCartsLiveData.observeForever(new Observer<List<ShopCart>>() {
-                            @Override
-                            public void onChanged(@Nullable List<ShopCart> shopCarts) {
-                                for (ShopCart shopCart : shopCarts) {
-                                    L.e(shopCart.toString());
-                                }
-                            }
-                        });
+//                        AppDatabaseManager.getInstance().insertShopCart(ShopCart.convertProduct2ToShopcart(product2));
+                        AppDatabaseManager.getInstance().insertShopCartTable(product2);
+//                        LiveData<List<Product2>> productsLiveData = AppDatabaseManager.getInstance().queryShopCartTables();
+//                        productsLiveData.observeForever(new Observer<List<Product2>>() {
+//                            @Override
+//                            public void onChanged(@Nullable List<Product2> product2s) {
+//                                for (Product2 product2:product2s){
+//                                    L.e(product2.getProdID());
+//                                }
+//                            }
+//                        });
                         //###### 添加到数据库 ######
                         ToastUtil.showToastLong("测试：\nid：" + product2.getProdID() + "\n类别:" + product2.getSizeText() + "\n数量：" + product2.getCount() + "\n添加成功");
                     }

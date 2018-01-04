@@ -51,10 +51,10 @@ public class ProductListSortController implements View.OnClickListener, RadioGro
     public void initData() {
         //获取缓存数据
         List<PopBean> popBrands = PopBean.transFromBrands(RuntimeCache.getInstance().getHotBrandsCache());
-        popBrands.add(0, new PopBean(null, "全部"));
+        popBrands.add(0, new PopBean(null, "全部", true));
         pop_brand.setResults(popBrands);
         List<PopBean> popCates = PopBean.transFromCate1s(RuntimeCache.getInstance().getCate1Cache());
-        popCates.add(0, new PopBean(null, "全部"));
+        popCates.add(0, new PopBean(null, "全部", true));
         pop_cate.setResults(popCates);
     }
 
@@ -67,17 +67,15 @@ public class ProductListSortController implements View.OnClickListener, RadioGro
     public void onItemClick(BaseRecyclePopupWindow contain, PopBean popBean, int position) {
         if (contain == pop_brand) {
             if (!TextUtils.isEmpty(popBean.getId())) {
-                setSelectBrand(popBean.getName());
+                binding.textSelectBrand.setText(popBean.getName());
             } else {
-                binding.textSelectBrand.setSelected(false);
                 binding.textSelectBrand.setText("按品牌搜索");
             }
             if (onSortSelectListenner != null) onSortSelectListenner.onSelectBrand(popBean.getId());
         } else {
             if (!TextUtils.isEmpty(popBean.getId())) {
-                setSelectCate(popBean.getName());
+                binding.textSelectCate.setText(popBean.getName());
             } else {
-                binding.textSelectCate.setSelected(false);
                 binding.textSelectCate.setText("分类");
             }
             if (onSortSelectListenner != null) onSortSelectListenner.onSelectCate(popBean.getId());
@@ -122,14 +120,22 @@ public class ProductListSortController implements View.OnClickListener, RadioGro
         binding.radioAll.setChecked(true);
     }
 
-    public void setSelectBrand(String name) {
-        binding.textSelectBrand.setSelected(true);
-        binding.textSelectBrand.setText(name);
+    public void setSelectBrand(String brandId) {
+        List<PopBean> results = pop_brand.getResults();
+        PopBean popBean = PopBean.findById(results, brandId);
+        if (popBean != null) {
+            pop_brand.selectItem(popBean);
+            binding.textSelectBrand.setText(popBean.getName());
+        }
     }
 
-    public void setSelectCate(String name) {
-        binding.textSelectCate.setSelected(true);
-        binding.textSelectCate.setText(name);
+    public void setSelectCate(String cateId) {
+        List<PopBean> results = pop_cate.getResults();
+        PopBean popBean = PopBean.findById(results, cateId);
+        if (popBean != null) {
+            pop_cate.selectItem(popBean);
+            binding.textSelectCate.setText(popBean.getName());
+        }
     }
 
     private OnSortSelectListenner onSortSelectListenner;

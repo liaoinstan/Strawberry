@@ -23,6 +23,7 @@ import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.common.TestBean;
+import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.data.db.AppDatabaseManager;
 import com.magicbeans.xgate.data.db.entity.ShopCart;
 import com.magicbeans.xgate.ui.activity.OrderAddActivity;
@@ -105,12 +106,22 @@ public class ShopBagFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void initData() {
-        LiveData<List<ShopCart>> shopCartsLiveData = AppDatabaseManager.getInstance().queryShopCarts();
-        shopCartsLiveData.observeForever(new Observer<List<ShopCart>>() {
+//        LiveData<List<ShopCart>> shopCartsLiveData = AppDatabaseManager.getInstance().queryShopCarts();
+//        shopCartsLiveData.observeForever(new Observer<List<ShopCart>>() {
+//            @Override
+//            public void onChanged(@Nullable List<ShopCart> shopCarts) {
+//                adapter.getResults().clear();
+//                adapter.getResults().addAll(ShopCart.convertShopcartListToProduct2List(shopCarts));
+//                adapter.notifyDataSetChanged();
+//                springView.onFinishFreshAndLoad();
+//            }
+//        });
+        LiveData<List<Product2>> product2sLiveData = AppDatabaseManager.getInstance().queryShopCartTables();
+        product2sLiveData.observeForever(new Observer<List<Product2>>() {
             @Override
-            public void onChanged(@Nullable List<ShopCart> shopCarts) {
+            public void onChanged(@Nullable List<Product2> product2s) {
                 adapter.getResults().clear();
-                adapter.getResults().addAll(ShopCart.convertShopcartListToProduct2List(shopCarts));
+                adapter.getResults().addAll(product2s);
                 adapter.notifyDataSetChanged();
                 springView.onFinishFreshAndLoad();
             }

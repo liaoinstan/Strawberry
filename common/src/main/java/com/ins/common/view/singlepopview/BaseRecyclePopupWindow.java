@@ -17,13 +17,17 @@ import java.util.List;
  */
 public abstract class BaseRecyclePopupWindow<T, H extends RecyclerView.ViewHolder> extends BasePopupWindow {
 
-    private RecyclerView recyclerView;
-    private RecyclePopAdapter adapter;
+    protected RecyclerView recyclerView;
+    protected RecyclePopAdapter adapter;
 
     public void setResults(List<T> results) {
         adapter.getResults().clear();
         adapter.getResults().addAll(results);
         adapter.notifyDataSetChanged();
+    }
+
+    public List<T> getResults() {
+        return adapter.getResults();
     }
 
     public BaseRecyclePopupWindow(Context context) {
@@ -67,7 +71,7 @@ public abstract class BaseRecyclePopupWindow<T, H extends RecyclerView.ViewHolde
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onPopItemClick(t,position);
+                    onPopItemClick(t, position);
                 }
             });
             setData(holder, t, position);

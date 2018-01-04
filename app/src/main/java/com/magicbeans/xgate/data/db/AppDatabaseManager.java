@@ -8,7 +8,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 
+import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.data.db.entity.ShopCart;
+import com.magicbeans.xgate.data.db.entity.ShopCartTable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +91,72 @@ public class AppDatabaseManager {
                 AppDataBase.getInstance().beginTransaction();
                 try {
                     AppDataBase.getInstance().shopCartDao().deleteAll(shopCarts);
+                    AppDataBase.getInstance().setTransactionSuccessful();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    AppDataBase.getInstance().endTransaction();
+                }
+                return null;
+            }
+        }.execute();
+    }
+
+    //////////////////
+
+
+    public LiveData<List<Product2>> queryShopCartTables() {
+        final MutableLiveData<List<Product2>> resultsLiveData = new MediatorLiveData<>();
+        new AsyncTask<Void, Void, List<ShopCartTable>>() {
+            @Override
+            protected List<ShopCartTable> doInBackground(Void... voids) {
+                List<ShopCartTable> results = new ArrayList<>();
+                AppDataBase.getInstance().beginTransaction();
+                try {
+                    results.addAll(AppDataBase.getInstance().shopCartTableDao().querryAll());
+                    AppDataBase.getInstance().setTransactionSuccessful();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    AppDataBase.getInstance().endTransaction();
+                }
+                return results;
+            }
+
+            @Override
+            protected void onPostExecute(List<ShopCartTable> shopCartTables) {
+                super.onPostExecute(shopCartTables);
+                resultsLiveData.setValue(ShopCartTable.wraps2contents(shopCartTables));
+            }
+        }.execute();
+        return resultsLiveData;
+    }
+
+    public void insertShopCartTable(final Product2... product2s) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                AppDataBase.getInstance().beginTransaction();
+                try {
+                    AppDataBase.getInstance().shopCartTableDao().insertAll(ShopCartTable.contents2wraps(product2s));
+                    AppDataBase.getInstance().setTransactionSuccessful();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    AppDataBase.getInstance().endTransaction();
+                }
+                return null;
+            }
+        }.execute();
+    }
+
+    public void deleteShopCartTable(final Product2... product2s) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                AppDataBase.getInstance().beginTransaction();
+                try {
+                    AppDataBase.getInstance().shopCartTableDao().deleteAll(ShopCartTable.contents2wraps(product2s));
                     AppDataBase.getInstance().setTransactionSuccessful();
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -73,7 +73,8 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
                 DialogSure.showDialog(context, "确定要删除该商品？", new DialogSure.CallBack() {
                     @Override
                     public void onSure() {
-                        AppDatabaseManager.getInstance().deleteShopCart(ShopCart.convertProduct2ToShopcart(bean));
+//                        AppDatabaseManager.getInstance().deleteShopCart(ShopCart.convertProduct2ToShopcart(bean));
+                        AppDatabaseManager.getInstance().deleteShopCartTable(bean);
                         results.remove(bean);
                         notifyItemRemoved(position);
                     }
@@ -86,7 +87,7 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
         holder.binding.includeCoutent.textAttr.setText(bean.getSizeText());
         holder.binding.includeCoutent.textPrice.setText(AppHelper.getPriceSymbol("") + bean.getShopPrice());
         holder.binding.includeCoutent.textPrice.setText(AppHelper.getPriceSymbol("") + bean.getWasPrice());
-        holder.binding.includeCoutent.countview.setCount(1);
+        holder.binding.includeCoutent.countview.setCount(bean.getCount());
         holder.binding.includeCoutent.countview.setEdit(isEdit);
         holder.binding.slidmenu.close();
     }
