@@ -21,11 +21,18 @@ import com.magicbeans.xgate.ui.activity.SaleActivity;
 import com.magicbeans.xgate.ui.activity.WebActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
+import cn.sharesdk.tencent.qzone.QZone;
+import cn.sharesdk.wechat.friends.Wechat;
 
 /**
  * Created by Administrator on 2017/10/11.
@@ -79,15 +86,27 @@ public class HomeBannerBoardController implements View.OnClickListener{
                 SaleActivity.start(context);
                 break;
             case R.id.btn_bannerboard_sale:
-                OnekeyShare oks = new OnekeyShare();
-                oks.disableSSOWhenAuthorize();
-                oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
-                oks.setTitleUrl("http://www.baidu.com");
-                oks.setText("text");
-                oks.setTitle("标题");
-//                oks.setPlatform(QQ.NAME);
-                oks.show(context);
+                Platform plat = ShareSDK.getPlatform(QZone.NAME);
+                plat.SSOSetting(true);  //设置false表示使用SSO授权方式
+                plat.setPlatformActionListener(new PlatformActionListener() {
+                    @Override
+                    public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                        ToastUtil.showToastShort("onComplete");
+                    }
 
+                    @Override
+                    public void onError(Platform platform, int i, Throwable throwable) {
+                        ToastUtil.showToastShort("onError");
+                    }
+
+                    @Override
+                    public void onCancel(Platform platform, int i) {
+                        ToastUtil.showToastShort("onCancel");
+                    }
+                }); // 设置分享事件回调
+
+                plat.authorize();//单独授权
+                plat.showUser(null);//授权并获取用户信息
                 break;
             case R.id.btn_bannerboard_single:
                 break;

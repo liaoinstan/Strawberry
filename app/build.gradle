@@ -90,8 +90,8 @@ MobSDK {
                 bypassApproval true
             }
             QQ {
-                appId "1106267236"
-                appKey "pfFMtxZukC7wxbvR"
+                appId "100371282"
+                appKey "aed9b0303e3ed1e27bae87c33761161d"
                 shareByAppClient true
             }
             QZone {
