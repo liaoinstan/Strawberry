@@ -23,6 +23,7 @@
             app:columnCount="4">
 
             <TextView
+                android:id="@+id/btn_bannerboard_today"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
@@ -36,6 +37,7 @@
                 android:textSize="@dimen/text_small" />
 
             <TextView
+                android:id="@+id/btn_bannerboard_sale"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
@@ -49,6 +51,7 @@
                 android:textSize="@dimen/text_small" />
 
             <TextView
+                android:id="@+id/btn_bannerboard_single"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
@@ -62,6 +65,7 @@
                 android:textSize="@dimen/text_small" />
 
             <TextView
+                android:id="@+id/btn_bannerboard_new"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
@@ -75,6 +79,7 @@
                 android:textSize="@dimen/text_small" />
 
             <TextView
+                android:id="@+id/btn_bannerboard_brandhot"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
@@ -88,6 +93,7 @@
                 android:textSize="@dimen/text_small" />
 
             <TextView
+                android:id="@+id/btn_bannerboard_recommed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
@@ -101,6 +107,7 @@
                 android:textSize="@dimen/text_small" />
 
             <TextView
+                android:id="@+id/btn_bannerboard_clear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
@@ -114,6 +121,7 @@
                 android:textSize="@dimen/text_small" />
 
             <TextView
+                android:id="@+id/btn_bannerboard_selection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
@@ -125,8 +133,6 @@
                 android:text="每日精选"
                 android:textColor="@color/com_text_dark_blank"
                 android:textSize="@dimen/text_small" />
-
-
 
         </com.ins.common.view.AutoFitGridLayout>
 

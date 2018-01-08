@@ -3,6 +3,7 @@ package com.magicbeans.xgate.ui.controller;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.ins.common.entity.Image;
@@ -16,6 +17,7 @@ import com.magicbeans.xgate.databinding.LayHomeBannerboardBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
+import com.magicbeans.xgate.ui.activity.SaleActivity;
 import com.magicbeans.xgate.ui.activity.WebActivity;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import java.util.Map;
  * Created by Administrator on 2017/10/11.
  */
 
-public class HomeBannerBoardController {
+public class HomeBannerBoardController implements View.OnClickListener{
 
     private Context context;
     private LayHomeBannerboardBinding binding;
@@ -46,6 +48,14 @@ public class HomeBannerBoardController {
                 WebActivity.start(context, image.getTitle(), image.getUrl());
             }
         });
+        binding.btnBannerboardToday.setOnClickListener(this);
+        binding.btnBannerboardSale.setOnClickListener(this);
+        binding.btnBannerboardSingle.setOnClickListener(this);
+        binding.btnBannerboardNew.setOnClickListener(this);
+        binding.btnBannerboardBrandhot.setOnClickListener(this);
+        binding.btnBannerboardRecommed.setOnClickListener(this);
+        binding.btnBannerboardClear.setOnClickListener(this);
+        binding.btnBannerboardSelection.setOnClickListener(this);
     }
 
     public void initData() {
@@ -58,6 +68,29 @@ public class HomeBannerBoardController {
             GlideUtil.loadImg(imageView, R.drawable.default_bk_img, imgurl);
         }
     };
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_bannerboard_today:
+                SaleActivity.start(context);
+                break;
+            case R.id.btn_bannerboard_sale:
+                break;
+            case R.id.btn_bannerboard_single:
+                break;
+            case R.id.btn_bannerboard_new:
+                break;
+            case R.id.btn_bannerboard_brandhot:
+                break;
+            case R.id.btn_bannerboard_recommed:
+                break;
+            case R.id.btn_bannerboard_clear:
+                break;
+            case R.id.btn_bannerboard_selection:
+                break;
+        }
+    }
 
     private void netHomeBanner() {
         Map<String, Object> param = new NetParam()

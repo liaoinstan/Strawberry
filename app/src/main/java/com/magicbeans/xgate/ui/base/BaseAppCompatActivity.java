@@ -70,7 +70,7 @@ public class BaseAppCompatActivity extends CommonBaseAppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             if (toolbar.getNavigationIcon() == null) {
-                toolbar.setNavigationIcon(R.drawable.ic_back);
+                toolbar.setNavigationIcon(R.drawable.ic_back_light);
             }
             toolbar.setTitle("");
             setSupportActionBar(toolbar);
