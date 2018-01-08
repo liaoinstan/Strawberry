@@ -10,9 +10,9 @@ import com.ins.common.utils.ToastUtil;
 import com.ins.domain.launcher.DomainLauncher;
 import com.magicbeans.xgate.BuildConfig;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.data.db.AppDataBase;
 import com.magicbeans.xgate.net.NetApi;
+import com.mob.MobSDK;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -26,6 +26,7 @@ public class StrawberryApp extends Application {
         initFonts();
         initJpush();
         initBugly();
+        initShareSdk();
     }
 
     private void initSetting() {
@@ -44,6 +45,10 @@ public class StrawberryApp extends Application {
 //        JPushInterface.setDebugMode(BuildConfig.DEBUG);
 //        JPushInterface.init(this);            // 初始化 JPush
 //        JPushInterface.getRegistrationID(this); //在这里获取一次JpushID
+    }
+
+    private void initShareSdk() {
+        MobSDK.init(this);
     }
 
     private void initBugly() {

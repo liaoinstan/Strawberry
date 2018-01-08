@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.tencent.qq.QQ;
+
 /**
  * Created by Administrator on 2017/10/11.
  */
@@ -76,6 +79,15 @@ public class HomeBannerBoardController implements View.OnClickListener{
                 SaleActivity.start(context);
                 break;
             case R.id.btn_bannerboard_sale:
+                OnekeyShare oks = new OnekeyShare();
+                oks.disableSSOWhenAuthorize();
+                oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+                oks.setTitleUrl("http://www.baidu.com");
+                oks.setText("text");
+                oks.setTitle("标题");
+//                oks.setPlatform(QQ.NAME);
+                oks.show(context);
+
                 break;
             case R.id.btn_bannerboard_single:
                 break;

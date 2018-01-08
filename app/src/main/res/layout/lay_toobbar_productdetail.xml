@@ -19,7 +19,7 @@
             <RadioButton
                 android:id="@+id/radio_product"
                 android:layout_width="50dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:button="@null"
                 android:checked="true"
                 android:gravity="center"
@@ -36,8 +36,19 @@
                 android:text="评价"
                 android:textColor="@color/select_text_dark_red_check"
                 android:textSize="@dimen/text_big" />
+
         </RadioGroup>
 
+        <TextView
+            android:id="@+id/btn_right"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="分享"
+            android:textColor="@color/com_text_dark"
+            android:textSize="@dimen/text_big_nomal" />
     </android.support.v7.widget.Toolbar>
 
 </layout>

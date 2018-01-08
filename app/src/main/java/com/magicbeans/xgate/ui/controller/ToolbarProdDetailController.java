@@ -13,6 +13,7 @@ import com.ins.common.utils.viewutils.TextViewUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.databinding.LayToobbarHomeBinding;
 import com.magicbeans.xgate.databinding.LayToobbarProductdetailBinding;
+import com.magicbeans.xgate.sharesdk.ShareDialog;
 import com.magicbeans.xgate.ui.activity.ScanActivity;
 import com.magicbeans.xgate.ui.activity.SearchActivity;
 
@@ -38,6 +39,12 @@ public class ToolbarProdDetailController {
         binding.toolbar.setTitle("");
         ((AppCompatActivity) context).setSupportActionBar(binding.toolbar);
         ((AppCompatActivity) context).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        binding.btnRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ShareDialog(context).show();
+            }
+        });
     }
 
     public void initData() {

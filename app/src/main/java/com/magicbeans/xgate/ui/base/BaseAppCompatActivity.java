@@ -18,6 +18,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.ref.WeakReference;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
@@ -27,7 +29,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class BaseAppCompatActivity extends CommonBaseAppCompatActivity {
 
     protected Toolbar toolbar;
-    private DialogLoading dialogLoading;
+    private WeakReference<DialogLoading> dialogLoading;
+    ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +38,14 @@ public class BaseAppCompatActivity extends CommonBaseAppCompatActivity {
         if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
+        dialogLoading = new WeakReference(new DialogLoading(this));
         super.onCreate(savedInstanceState);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (dialogLoading != null) dialogLoading.dismiss();
+        if (dialogLoading.get() != null) dialogLoading.get().dismiss();
         if (eventBusSurppot) EventBus.getDefault().unregister(this);
     }
 
@@ -106,12 +110,12 @@ public class BaseAppCompatActivity extends CommonBaseAppCompatActivity {
 
 
     public final void showLoadingDialog() {
-        if (dialogLoading == null) dialogLoading = new DialogLoading(this);
-        dialogLoading.show();
+        if (dialogLoading.get() == null) dialogLoading = new WeakReference(new DialogLoading(this));
+        dialogLoading.get().show();
     }
 
     public final void hideLoadingDialog() {
-        if (dialogLoading != null) dialogLoading.hide();
+        if (dialogLoading.get() != null) dialogLoading.get().dismiss();
     }
 
     ///////// event

@@ -127,6 +127,13 @@ public static java.lang.String TABLENAME;
 -dontwarn com.mob.**
 -dontwarn cn.sharesdk.**
 -dontwarn **.R$*
+
+#-keep class cn.sharesdk.**{*;}
+#-keep class com.sina.**{*;}
+#-keep class **.R$* {*;}
+#-keep class **.R{*;}
+#-keep class com.mob.**{*;}
+
 #eventbus 3.0
 -keepattributes *Annotation*
 -keepclassmembers class ** {
