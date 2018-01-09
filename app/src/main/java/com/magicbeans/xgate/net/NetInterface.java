@@ -41,24 +41,26 @@ public interface NetInterface {
 
 
     //##################################################################
-    //#########               登录注册个人中心
+    //#########               登录及其注册流程
     //##################################################################
 
     /**
-     * 登录
-     * java.lang.String phone, java.lang.String password, java.lang.Integer deviceType, java.lang.Integer deviceToken, java.lang.Integer isWechat
+     * 检查OpenId是否存在，存在则会登录并返回用户token
      */
     @FormUrlEncoded
-    @POST("/api/user/login")
-    Call<ResponseBody> login(@FieldMap Map<String, Object> param);
+    @POST("/app/apiCheckAccountExist.aspx?ID=xGate")
+    Call<ResponseBody> checkOpenidExist(@FieldMap Map<String, Object> param);
 
     /**
-     * 更新用户信息
-     * java.lang.String showName, java.lang.String avatar, java.lang.Integer cityId, java.lang.Integer definition
+     * 获取用户信息
+     * accountID
+     * action
+     * token
      */
     @FormUrlEncoded
-    @POST("/api/user/updateUser")
-    Call<ResponseBody> updateUserWithToken(@Header("token") String token, @FieldMap Map<String, Object> param);
+    @POST("/app/apiUserProfile.aspx")
+    Call<ResponseBody> getUserProfile(@FieldMap Map<String, Object> param);
+
 
     //##################################################################
     //#########               接口

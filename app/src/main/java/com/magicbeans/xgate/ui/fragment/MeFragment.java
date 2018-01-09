@@ -19,6 +19,7 @@ import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Order;
 import com.magicbeans.xgate.databinding.FragmentMeBinding;
 import com.magicbeans.xgate.ui.activity.FavoActivity;
+import com.magicbeans.xgate.ui.activity.LoginActivity;
 import com.magicbeans.xgate.ui.activity.MeDetailActivity;
 import com.magicbeans.xgate.ui.activity.MsgSettingActivity;
 import com.magicbeans.xgate.ui.activity.OrderActivity;
@@ -119,7 +120,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.lay_me_header:
-                MeDetailActivity.start(getActivity());
+                LoginActivity.start(getActivity());
                 break;
             case R.id.btn_right_msg:
                 MsgSettingActivity.start(getActivity());

@@ -66,15 +66,15 @@ android {
 
 // 在MobSDK的扩展中注册ShareSDK的相关信息
 MobSDK {
-    appKey "23964694e84f0"
-    appSecret "d75aa1cc197ff35b1c50da27ce500e0b"
+    appKey "21934733ec542"
+    appSecret "7ecebe10b09b9961cea34ec49f6fd64a"
     version "3.1.2"
     ShareSDK {
         devInfo {
             SinaWeibo {
-                appKey "568898243"
-                appSecret "38a4f8204cc784f81f9f0daaf31e02e3"
-                callbackUri "http://www.sharesdk.cn"
+                appKey "1067369245"
+                appSecret "4f5a16dce75684c794a09bf086768704"
+                callbackUri "https://cn.strawberrynet.com"
                 shareByAppClient true
             }
             Wechat {
@@ -90,13 +90,13 @@ MobSDK {
                 bypassApproval true
             }
             QQ {
-                appId "100371282"
-                appKey "aed9b0303e3ed1e27bae87c33761161d"
+                appId "1106667604"
+                appKey "sZiCFt0eXdNzAWY5"
                 shareByAppClient true
             }
             QZone {
-                appId "1106267236"
-                appKey "pfFMtxZukC7wxbvR"
+                appId "1106667604"
+                appKey "sZiCFt0eXdNzAWY5"
                 shareByAppClient true
             }
         }

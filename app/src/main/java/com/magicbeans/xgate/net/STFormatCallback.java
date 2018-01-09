@@ -23,12 +23,12 @@ import retrofit2.Response;
  * 账户被冻结，锁定APP
  */
 
-public abstract class BaseCallback<T> implements Callback<ResponseBody> {
+public abstract class STFormatCallback<T> implements Callback<ResponseBody> {
 
     private Gson gson = new Gson();
     private Type type;
 
-    public BaseCallback(Type type) {
+    public STFormatCallback(Type type) {
         this.type = type;
     }
 
@@ -46,11 +46,11 @@ public abstract class BaseCallback<T> implements Callback<ResponseBody> {
             int status = 0;
             String msg = "";
             String data = "";
-            if (root.has("code")) {
-                status = root.getInt("code");
+            if (root.has("Code")) {
+                status = root.getInt("Code");
             }
-            if (root.has("msg")) {
-                msg = root.getString("msg");
+            if (root.has("Message")) {
+                msg = root.getString("Message");
             }
             if (root.has("data")) {
                 data = root.getString("data");
@@ -68,9 +68,9 @@ public abstract class BaseCallback<T> implements Callback<ResponseBody> {
                 case 1005:
                     onError(status, msg);
                     //统一处理未登录状态
-                    AppData.App.removeUser();
-                    AppData.App.removeToken();
-                    EventBus.getDefault().post(new EventBean(EventBean.EVENT_NOLOGIN));
+//                    AppData.App.removeUser();
+//                    AppData.App.removeToken();
+//                    EventBus.getDefault().post(new EventBean(EventBean.EVENT_NOLOGIN));
 //                    LoginActivity.start();
                     break;
                 default:

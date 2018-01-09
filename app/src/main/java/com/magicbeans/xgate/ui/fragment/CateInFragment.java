@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
-import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.category.Cate1;
@@ -139,7 +138,7 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
         NetApi.NI().netSubCategory(param).enqueue(new STCallback<Cate2Wrap>(Cate2Wrap.class) {
             @Override
             public void onSuccess(int status, Cate2Wrap bean, String msg) {
-                ((BaseAppCompatActivity) getActivity()).hideLoadingDialog();
+                ((BaseAppCompatActivity) getActivity()).dismissLoadingDialog();
                 cate2Wrap = bean;
                 setData(bean);
                 //添加运行时缓存
@@ -149,7 +148,7 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
             @Override
             public void onError(int status, String msg) {
                 ToastUtil.showToastShort(msg);
-                ((BaseAppCompatActivity) getActivity()).hideLoadingDialog();
+                ((BaseAppCompatActivity) getActivity()).dismissLoadingDialog();
             }
         });
     }

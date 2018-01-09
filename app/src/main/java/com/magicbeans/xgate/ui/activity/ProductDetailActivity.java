@@ -1,50 +1,27 @@
 package com.magicbeans.xgate.ui.activity;
 
-import android.animation.ArgbEvaluator;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.webkit.WebView;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.ins.common.common.ItemDecorationDivider;
-import com.ins.common.entity.Image;
 import com.ins.common.helper.ToobarTansColorHelper;
 import com.ins.common.utils.DensityUtil;
-import com.ins.common.utils.GlideUtil;
-import com.ins.common.utils.L;
 import com.ins.common.utils.StatusBarTextUtil;
-import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.viewutils.ScrollViewUtil;
-import com.ins.common.utils.viewutils.WebViewUtil;
-import com.ins.common.view.BannerView;
-import com.ins.common.view.BannerView2;
 import com.ins.common.view.ObservableNestedScrollView;
-import com.ins.common.view.bundleimgview.BundleImgEntity;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.eva.Eva;
-import com.magicbeans.xgate.bean.common.KeyValue;
-import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.product.ProductDetail;
-import com.magicbeans.xgate.bean.product.ProductWrap;
 import com.magicbeans.xgate.databinding.ActivityProductdetailBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterEva;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterProductAttr;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.controller.CommonRecommendController;
 import com.magicbeans.xgate.ui.controller.ProductDetailAttrController;
@@ -55,8 +32,6 @@ import com.magicbeans.xgate.ui.controller.ProductDetailNameBoradController;
 import com.magicbeans.xgate.ui.controller.ToolbarProdDetailController;
 import com.magicbeans.xgate.ui.dialog.DialogBottomProductAttr;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class ProductDetailActivity extends BaseAppCompatActivity {
@@ -186,13 +161,13 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
                 productDetail.setProdID(prodId);
                 ProductDetailActivity.this.productDetail = productDetail;
                 setData(productDetail);
-                hideLoadingDialog();
+                dismissLoadingDialog();
             }
 
             @Override
             public void onError(int status, String msg) {
                 ToastUtil.showToastShort(msg);
-                hideLoadingDialog();
+                dismissLoadingDialog();
             }
         });
     }

@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
@@ -16,21 +15,14 @@ import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.brand.Brand;
-import com.magicbeans.xgate.bean.category.Cate1;
-import com.magicbeans.xgate.bean.category.Cate3;
 import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.bean.product.ProductWrap;
-import com.magicbeans.xgate.databinding.ActivityProductBinding;
 import com.magicbeans.xgate.databinding.ActivitySaleBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterProduct;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterSale;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
-import com.magicbeans.xgate.ui.controller.ProductListContentController;
-import com.magicbeans.xgate.ui.controller.ProductListSortController;
 
 import java.util.List;
 import java.util.Map;
@@ -116,14 +108,14 @@ public class SaleActivity extends BaseAppCompatActivity implements OnRecycleItem
                     adapter.notifyDataSetChanged();
                 } else {
                 }
-                if (showLoading) hideLoadingDialog();
+                if (showLoading) dismissLoadingDialog();
                 binding.spring.onFinishFreshAndLoad();
             }
 
             @Override
             public void onError(int status, String msg) {
                 ToastUtil.showToastShort(msg);
-                if (showLoading) hideLoadingDialog();
+                if (showLoading) dismissLoadingDialog();
                 binding.spring.onFinishFreshAndLoad();
             }
         });

@@ -1,7 +1,7 @@
 package com.magicbeans.xgate.common;
 
 import com.ins.common.utils.SharedPrefUtilV2;
-import com.magicbeans.xgate.bean.User;
+import com.magicbeans.xgate.bean.user.User;
 
 import java.util.ArrayList;
 import java.util.List;

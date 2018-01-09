@@ -114,8 +114,12 @@ public class BaseAppCompatActivity extends CommonBaseAppCompatActivity {
         dialogLoading.get().show();
     }
 
-    public final void hideLoadingDialog() {
+    public final void dismissLoadingDialog() {
         if (dialogLoading.get() != null) dialogLoading.get().dismiss();
+    }
+
+    public final void hideLoadingDialog() {
+        if (dialogLoading.get() != null) dialogLoading.get().hide();
     }
 
     ///////// event

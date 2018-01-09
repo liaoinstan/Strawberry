@@ -41,7 +41,7 @@ public class NetApi {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addNetworkInterceptor(httpLoggingInterceptor)
-//                .addInterceptor(new NetInterceptor())
+                .addInterceptor(new NetInterceptor())
                 .readTimeout(20, TimeUnit.SECONDS)
                 .connectTimeout(20, TimeUnit.SECONDS)
                 .build();
