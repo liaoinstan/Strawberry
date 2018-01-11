@@ -61,7 +61,7 @@ public class LoginApi implements Callback {
             return;
         }
         //FIXME:获取授权之前先移除
-        plat.removeAccount(true);
+        //plat.removeAccount(true);
         //使用SSO授权，通过客户单授权
         plat.SSOSetting(false);
         plat.setPlatformActionListener(new PlatformActionListener() {

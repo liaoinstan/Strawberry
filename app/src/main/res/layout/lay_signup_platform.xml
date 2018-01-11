@@ -5,6 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
         android:layout_marginBottom="40dp"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
@@ -15,11 +16,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="5dp"
             android:drawableTop="@drawable/ic_share_qq"
             android:gravity="center"
             android:text="QQ"
-            android:textColor="@color/com_text_dark_light"
+            android:textColor="@color/com_text_blank"
             android:textSize="@dimen/text_nomal_small" />
 
         <TextView
@@ -27,11 +27,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="5dp"
             android:drawableTop="@drawable/ic_share_wx"
             android:gravity="center"
             android:text="微信"
-            android:textColor="@color/com_text_dark_light"
+            android:textColor="@color/com_text_blank"
             android:textSize="@dimen/text_nomal_small" />
 
         <TextView
@@ -39,11 +38,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="5dp"
-            android:drawableTop="@drawable/ic_share_wxfriend"
+            android:drawableTop="@drawable/ic_share_sinaweibo"
             android:gravity="center"
-            android:text="微博"
-            android:textColor="@color/com_text_dark_light"
+            android:text="新浪微博"
+            android:textColor="@color/com_text_blank"
             android:textSize="@dimen/text_nomal_small" />
 
     </LinearLayout>

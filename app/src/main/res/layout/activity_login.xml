@@ -15,21 +15,28 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginBottom="40dp"
+                android:layout_width="150dp"
+                android:adjustViewBounds="true"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:layout_marginTop="80dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/logo" />
 
-            <include
-                android:id="@+id/include_content"
-                layout="@layout/lay_signup_content" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <Space style="@style/Space_V" />
+                <include
+                    android:id="@+id/include_content"
+                    layout="@layout/lay_signup_content" />
 
-            <include
-                android:id="@+id/include_platform"
-                layout="@layout/lay_signup_platform" />
+                <include
+                    android:id="@+id/include_platform"
+                    layout="@layout/lay_signup_platform" />
+
+            </FrameLayout>
+
 
         </LinearLayout>
 
@@ -37,17 +44,17 @@
             android:id="@+id/btn_close"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:padding="18dp"
             android:onClick="onClick"
-            android:scaleType="center"
-            android:src="@drawable/ic_home_close" />
+            android:layout_gravity="right"
+            android:scaleType="fitCenter"
+            android:src="@drawable/shape_cha" />
 
         <TextView
             android:id="@+id/text_log"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
             android:layout_margin="10dp"
-            android:gravity="right"
             android:textColor="@color/red"
             android:textSize="@dimen/text_tiny"
             tools:text="很长很长的文字字很长很长的文字" />

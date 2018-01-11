@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawablePadding="6dp"
-                android:drawableTop="@drawable/ic_share_wxfriend"
+                android:drawableTop="@drawable/ic_share_sinaweibo"
                 android:gravity="center"
                 android:text="朋友圈"
                 android:textColor="#666"

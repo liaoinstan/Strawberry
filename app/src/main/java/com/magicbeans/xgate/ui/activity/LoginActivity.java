@@ -1,39 +1,31 @@
 package com.magicbeans.xgate.ui.activity;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.os.Handler;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
-import com.ins.common.helper.ValiHelper;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.ins.common.common.SinpleShowInAnimatorListener;
 import com.ins.common.utils.App;
-import com.ins.common.utils.L;
 import com.ins.common.utils.StatusBarTextUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.product.ProductWrap;
 import com.magicbeans.xgate.bean.user.User;
 import com.magicbeans.xgate.databinding.ActivityLoginBinding;
-import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
-import com.magicbeans.xgate.net.ParamHelper;
 import com.magicbeans.xgate.net.STCallback;
-import com.magicbeans.xgate.net.STFormatCallback;
-import com.magicbeans.xgate.sharesdk.LoginApi;
-import com.magicbeans.xgate.sharesdk.UserInfo;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.controller.SignupContentController;
 import com.magicbeans.xgate.ui.controller.SignupPlatformController;
 
 import java.util.Map;
-
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.sina.weibo.SinaWeibo;
-import cn.sharesdk.tencent.qq.QQ;
-import cn.sharesdk.wechat.friends.Wechat;
 
 public class LoginActivity extends BaseAppCompatActivity {
 
@@ -70,6 +62,8 @@ public class LoginActivity extends BaseAppCompatActivity {
         signupPlatformController = new SignupPlatformController(binding.includePlatform);
         signupContentController.setLogTextView(binding.textLog);
         signupPlatformController.setLogTextView(binding.textLog);
+        signupContentController.hide(false);
+        signupPlatformController.show(false);
         signupPlatformController.setSignupPlatCallback(new SignupPlatformController.SignupPlatCallback() {
             @Override
             public void onOpenIdExist(String openId, String accountID, String token) {
@@ -79,7 +73,10 @@ public class LoginActivity extends BaseAppCompatActivity {
             @Override
             public void onOpenIdInExist(String openId, String platform) {
                 signupContentController.setPlatform(platform);
-                signupContentController.setVisibleEmail();
+                signupContentController.setStatusEmailCheck();
+
+                signupPlatformController.hide(true);
+                signupContentController.show(true);
             }
         });
     }
@@ -96,7 +93,8 @@ public class LoginActivity extends BaseAppCompatActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_close:
-                finish();
+                signupPlatformController.show(true);
+                signupContentController.hide(true);
                 break;
         }
     }

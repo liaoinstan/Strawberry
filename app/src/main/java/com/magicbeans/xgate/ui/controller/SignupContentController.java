@@ -1,54 +1,45 @@
 package com.magicbeans.xgate.ui.controller;
 
 import android.content.Context;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.TextView;
 
-import com.ins.common.entity.Image;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.ins.common.common.SinpleShowInAnimatorListener;
+import com.ins.common.common.SinpleShowOutAnimatorListener;
 import com.ins.common.helper.ValiHelper;
-import com.ins.common.utils.GlideUtil;
-import com.ins.common.utils.ToastUtil;
-import com.ins.common.view.BannerView2;
+import com.ins.common.utils.FontUtils;
+import com.ins.common.utils.others.AnimUtil;
+import com.ins.common.utils.viewutils.EditTextUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.banner.BannerWrap;
 import com.magicbeans.xgate.bean.user.User;
-import com.magicbeans.xgate.databinding.LayHomeBannerboardBinding;
 import com.magicbeans.xgate.databinding.LaySignupContentBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.ParamHelper;
-import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.net.STFormatCallback;
-import com.magicbeans.xgate.ui.activity.SaleActivity;
-import com.magicbeans.xgate.ui.activity.WebActivity;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.tencent.qzone.QZone;
 
 /**
  * Created by Administrator on 2017/10/11.
  */
 
-public class SignupContentController implements View.OnClickListener {
-
-    private Context context;
-    private LaySignupContentBinding binding;
+public class SignupContentController extends BaseController<LaySignupContentBinding> implements View.OnClickListener {
 
     private ValiHelper valiHelper;
 
     private String platform;
 
     public SignupContentController(LaySignupContentBinding binding) {
-        this.binding = binding;
-        this.context = binding.getRoot().getContext();
+        super(binding);
         initCtrl();
         initData();
     }
@@ -57,7 +48,6 @@ public class SignupContentController implements View.OnClickListener {
         valiHelper = new ValiHelper(binding.textVali);
         binding.textVali.setOnClickListener(this);
         binding.btnGo.setOnClickListener(this);
-        setVisibleAllHide();
     }
 
     public void initData() {
@@ -93,7 +83,8 @@ public class SignupContentController implements View.OnClickListener {
             public void onSuccess(int status, User user, String msg) {
                 //Email已存在，输入密码进入合并账户流程
                 textLog.append("\nEmail已存在，输入密码进入合并账户流程");
-                setVisibleEmailPsw();
+                binding.textValinote.setText("该邮箱已被注册，请输入密码登录");
+                setStatusMerge();
             }
 
             @Override
@@ -101,7 +92,8 @@ public class SignupContentController implements View.OnClickListener {
                 if (status == 201) {
                     //用户不存在（新用户）
                     textLog.append("\nEmail不存在，请输入手机号进入注册流程");
-                    setVisiblePhone();
+                    binding.textValinote.setText("请验证手机号并完成注册");
+                    setStatusCreateNew();
                 }
             }
         });
@@ -109,32 +101,72 @@ public class SignupContentController implements View.OnClickListener {
 
     //########## 对外接口 ###########
 
-    public void setVisibleAllHide() {
-        binding.getRoot().setVisibility(View.GONE);
+    public void hide(boolean needAnim) {
+        if (needAnim) {
+            YoYo.with(Techniques.FadeOutDown)
+                    .duration(300)
+                    .interpolate(new AccelerateDecelerateInterpolator())
+                    .withListener(new SinpleShowOutAnimatorListener(binding.getRoot()))
+                    .playOn(getRoot());
+        } else {
+            binding.getRoot().setVisibility(View.INVISIBLE);
+        }
     }
 
-    public void setVisibleEmail(){
-        binding.getRoot().setVisibility(View.VISIBLE);
+    public void show(boolean needAnim) {
+        if (needAnim) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    YoYo.with(Techniques.FadeInUp)
+                            .duration(300)
+                            .interpolate(new AccelerateDecelerateInterpolator())
+                            .withListener(new SinpleShowInAnimatorListener(binding.getRoot()))
+                            .playOn(binding.getRoot());
+                }
+            }, 100);
+        } else {
+            binding.getRoot().setVisibility(View.VISIBLE);
+        }
+    }
+
+    //检查邮箱状态
+    public void setStatusEmailCheck() {
         binding.editEmail.setVisibility(View.VISIBLE);
         binding.editPsw.setVisibility(View.GONE);
         binding.layPhone.setVisibility(View.GONE);
-        binding.editVali.setVisibility(View.GONE);
+        setEmailEditble(true);
+        binding.textValinote.setText("");
     }
 
-    public void setVisibleEmailPsw(){
-        binding.getRoot().setVisibility(View.VISIBLE);
+    //合并已有账户状态
+    public void setStatusMerge() {
         binding.editEmail.setVisibility(View.VISIBLE);
         binding.editPsw.setVisibility(View.VISIBLE);
         binding.layPhone.setVisibility(View.GONE);
-        binding.editVali.setVisibility(View.GONE);
+        AnimUtil.show(binding.editPsw);
+        setEmailEditble(false);
     }
 
-    public void setVisiblePhone(){
-        binding.getRoot().setVisibility(View.VISIBLE);
+    //创建新用户状态
+    public void setStatusCreateNew() {
         binding.editEmail.setVisibility(View.VISIBLE);
         binding.editPsw.setVisibility(View.GONE);
         binding.layPhone.setVisibility(View.VISIBLE);
-        binding.editVali.setVisibility(View.VISIBLE);
+        AnimUtil.show(binding.layPhone);
+        setEmailEditble(false);
+    }
+
+    private void setEmailEditble(boolean editble) {
+        if (editble) {
+            binding.editEmail.setBackgroundResource(R.drawable.shape_rect_cornerfull_none_line_red);
+            binding.editEmail.setTextColor(ContextCompat.getColor(context, R.color.st_red_login));
+            EditTextUtil.enableEditText(binding.editEmail);
+        } else {
+            binding.editEmail.setBackgroundResource(R.drawable.none);
+            binding.editEmail.setTextColor(ContextCompat.getColor(context, R.color.com_text_blank));
+            EditTextUtil.disableEditText(binding.editEmail);
+        }
     }
 
     //########## get & set ###########

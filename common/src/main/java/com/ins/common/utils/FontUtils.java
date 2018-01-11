@@ -38,10 +38,21 @@ public class FontUtils {
         }
     }
 
+    public static void unboldText(TextView textView) {
+        if (textView != null) {
+            textView.getPaint().setFakeBoldText(false);
+        }
+    }
+
     //设置粗体，可以传入view，但只有TextView会生效
     public static void boldText(View view) {
         if (view instanceof TextView) {
             boldText((TextView) view);
+        }
+    }
+    public static void unboldText(View view) {
+        if (view instanceof TextView) {
+            unboldText((TextView) view);
         }
     }
 }

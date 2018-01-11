@@ -17,10 +17,13 @@ public class EditTextUtil {
 
     public static void disableEditText(EditText editText){
         editText.setFocusable(false);
+        editText.setFocusableInTouchMode(false);
     }
 
     public static void enableEditText(EditText editText){
         editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
     }
 
 }

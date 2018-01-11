@@ -1,11 +1,18 @@
 package com.magicbeans.xgate.ui.controller;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.ins.common.common.SinpleShowInAnimatorListener;
+import com.ins.common.common.SinpleShowOutAnimatorListener;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.user.User;
+import com.magicbeans.xgate.databinding.LaySignupContentBinding;
 import com.magicbeans.xgate.databinding.LaySignupPlatformBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
@@ -24,14 +31,10 @@ import cn.sharesdk.wechat.friends.Wechat;
  * Created by Administrator on 2017/10/11.
  */
 
-public class SignupPlatformController implements View.OnClickListener {
-
-    private Context context;
-    private LaySignupPlatformBinding binding;
+public class SignupPlatformController extends BaseController<LaySignupPlatformBinding> implements View.OnClickListener {
 
     public SignupPlatformController(LaySignupPlatformBinding binding) {
-        this.binding = binding;
-        this.context = binding.getRoot().getContext();
+        super(binding);
         initCtrl();
         initData();
     }
@@ -60,10 +63,7 @@ public class SignupPlatformController implements View.OnClickListener {
         }
     }
 
-    private String platName;
-
     private void getUserInfo(final String platName) {
-        this.platName = platName;
         //启调三方平台进行登录获取用户信息，如未授权会自动完成授权后登录，如果已经授权会读取本地数据库记录不会真正发起授权
         //只有在没有授权记录的情况下才会发起授权获取用户信息，该方法在后台线程执行并在UI线程回调，不需关心授权状态和本地数据状态，直接发起login等待回调即可
         LoginApi.with(context).setOnLoginListener(new LoginApi.OnLoginCallback() {
@@ -118,6 +118,34 @@ public class SignupPlatformController implements View.OnClickListener {
         void onOpenIdInExist(String openId, String platform);
     }
 
+    public void hide(boolean needAnim) {
+        if (needAnim) {
+            YoYo.with(Techniques.FadeOutDown)
+                    .duration(300)
+                    .interpolate(new AccelerateDecelerateInterpolator())
+                    .withListener(new SinpleShowOutAnimatorListener(binding.getRoot()))
+                    .playOn(getRoot());
+        } else {
+            binding.getRoot().setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void show(boolean needAnim) {
+        if (needAnim) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    YoYo.with(Techniques.FadeInUp)
+                            .duration(300)
+                            .interpolate(new AccelerateDecelerateInterpolator())
+                            .withListener(new SinpleShowInAnimatorListener(binding.getRoot()))
+                            .playOn(binding.getRoot());
+                }
+            }, 100);
+        } else {
+            binding.getRoot().setVisibility(View.VISIBLE);
+        }
+    }
 
     //########## 测试 ###########
     private TextView textLog;

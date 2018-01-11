@@ -5,109 +5,96 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:orientation="vertical">
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:padding="1px">
+
+        <!--android 7.1系统使用圆角背景的控件如果和父控件边框紧靠的话，会留下1px的边缘残影，增加1px的边距即可解决，这应该是android 的bug，有待后期观察-->
 
         <com.ins.common.view.EmojiEditText
             android:id="@+id/edit_email"
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:background="@drawable/shape_rect_cornerfull_none_line_dark"
+            style="@style/EditLogin"
             android:hint="请输入邮箱"
             android:inputType="textEmailSubject"
-            android:maxLength="32"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:textColor="@color/com_text_blank"
-            android:textColorHint="@color/com_text_dark_light"
-            android:textSize="@dimen/text_small" />
-
-        <com.ins.common.view.EmojiEditText
-            android:id="@+id/edit_psw"
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/shape_rect_cornerfull_none_line_dark"
-            android:hint="请输入密码"
-            android:inputType="textPassword"
-            android:maxLength="11"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:textColor="@color/com_text_blank"
-            android:textColorHint="@color/com_text_dark_light"
-            android:textSize="@dimen/text_small" />
-
-        <LinearLayout
-            android:id="@+id/lay_phone"
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal">
-
-            <com.ins.common.view.EmojiEditText
-                android:id="@+id/edit_phone"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/shape_rect_cornerfull_none_line_dark"
-                android:hint="请输入手机号码"
-                android:inputType="text"
-                android:maxLength="11"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textColor="@color/com_text_blank"
-                android:textColorHint="@color/com_text_dark_light"
-                android:textSize="@dimen/text_small" />
-
-            <TextView
-                android:id="@+id/text_vali"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/shape_rect_cornerfull_none_line_dark"
-                android:gravity="center"
-                android:text="获取验证码"
-                android:textColor="@color/com_text_dark_light"
-                android:textSize="@dimen/text_small" />
-
-        </LinearLayout>
-
-        <com.ins.common.view.EmojiEditText
-            android:id="@+id/edit_vali"
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/shape_rect_cornerfull_none_line_dark"
-            android:hint="请输入验证码"
-            android:inputType="numberSigned"
-            android:maxLength="6"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:textColor="@color/com_text_blank"
-            android:textColorHint="@color/com_text_dark_light"
-            android:textSize="@dimen/text_small" />
+            android:maxLength="32" />
 
         <TextView
             android:id="@+id/text_valinote"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
             android:gravity="center_vertical"
-            android:textColor="@color/wj_red"
+            android:textColor="@color/st_red_login"
             android:textSize="10sp"
             tools:text="验证码错误，请重新输入" />
 
+        <com.ins.common.view.EmojiEditText
+            android:id="@+id/edit_psw"
+            style="@style/EditLogin"
+            android:layout_marginBottom="12dp"
+            android:hint="请输入密码"
+            android:inputType="textPassword"
+            android:maxLength="11" />
+
+        <LinearLayout
+            android:id="@+id/lay_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.ins.common.view.EmojiEditText
+                    android:id="@+id/edit_phone"
+                    style="@style/EditLogin"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:hint="请输入手机号码"
+                    android:inputType="text"
+                    android:maxLength="11" />
+
+                <TextView
+                    android:id="@+id/text_vali"
+                    android:layout_width="80dp"
+                    android:layout_height="28dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="@drawable/shape_rect_cornerfull_none_line_red"
+                    android:gravity="center"
+                    android:text="发送验证码"
+                    android:textColor="@color/st_red_login"
+                    android:textSize="@dimen/text_tiny" />
+
+            </LinearLayout>
+
+            <com.ins.common.view.EmojiEditText
+                android:id="@+id/edit_vali"
+                style="@style/EditLogin"
+                android:layout_marginTop="12dp"
+                android:hint="请输入验证码"
+                android:inputType="numberSigned"
+                android:maxLength="6" />
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/btn_go"
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:background="@drawable/shape_rect_cornerfull_purple"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/shape_rect_cornerfull_red"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:text="登录"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_nomal" />
+            android:textSize="@dimen/text_big" />
+
 
     </LinearLayout>
 </layout>
