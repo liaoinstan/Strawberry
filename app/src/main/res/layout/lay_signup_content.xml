@@ -82,19 +82,37 @@
 
         </LinearLayout>
 
-        <TextView
+        <!--<TextView-->
+        <!--android:id="@+id/btn_go"-->
+        <!--android:layout_width="150dp"-->
+        <!--android:layout_height="35dp"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="30dp"-->
+        <!--android:background="@drawable/shape_rect_cornerfull_red"-->
+        <!--android:foreground="?attr/selectableItemBackground"-->
+        <!--android:gravity="center"-->
+        <!--android:text="登录"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="@dimen/text_big" />-->
+
+        <com.dd.CircularProgressButton
             android:id="@+id/btn_go"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="150dp"
-            android:layout_height="35dp"
+            android:layout_height="38dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
-            android:background="@drawable/shape_rect_cornerfull_red"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:text="登录"
+            android:background="#00000000"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_big" />
-
+            android:textSize="@dimen/text_big"
+            app:cpb_colorIndicator="@color/st_red_login"
+            app:cpb_colorIndicatorBackground="@color/st_red_login_hint"
+            app:cpb_colorProgress="#00000000"
+            app:cpb_cornerRadius="30dp"
+            app:cpb_iconComplete="@drawable/ic_action_accept"
+            app:cpb_iconError="@drawable/ic_action_cancel"
+            app:cpb_selectorIdle="@drawable/idle_state_selector"
+            app:cpb_textIdle="登录" />
 
     </LinearLayout>
 </layout>

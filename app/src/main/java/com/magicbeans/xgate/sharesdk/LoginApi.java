@@ -102,16 +102,16 @@ public class LoginApi implements Callback {
     public boolean handleMessage(Message msg) {
         switch (msg.what) {
             case MSG_AUTH_CANCEL: {
-                // 取消
                 Toast.makeText(context, "用户取消授权", Toast.LENGTH_SHORT).show();
+                if (loginListener != null) loginListener.onFailed("用户取消授权");
             }
             break;
             case MSG_AUTH_ERROR: {
-                // 失败
                 Throwable t = (Throwable) msg.obj;
                 String text = "授权失败: " + t.getMessage();
                 Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
+                if (loginListener != null) loginListener.onFailed(text);
             }
             break;
             case MSG_AUTH_COMPLETE: {
@@ -137,5 +137,7 @@ public class LoginApi implements Callback {
 
     public interface OnLoginCallback {
         void onLogin(String platform, UserInfo userInfo);
+
+        void onFailed(String msg);
     }
 }

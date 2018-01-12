@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DevInfor>
+<SinaWeibo AppKey="1067369245" AppSecret="4f5a16dce75684c794a09bf086768704" ShareByAppClient="true" RedirectUrl="https://cn.strawberrynet.com" />
+<TencentWeibo Enable="false" />
+<Douban Enable="false" />
+<QZone AppId="1106667604" AppKey="sZiCFt0eXdNzAWY5" ShareByAppClient="true" />
+<Renren Enable="false" />
+<KaiXin Enable="false" />
+<Facebook Enable="false" />
+<Twitter Enable="false" />
+<Evernote Enable="false" />
+<FourSquare Enable="false" />
+<GooglePlus Enable="false" />
+<Instagram Enable="false" />
+<LinkedIn Enable="false" />
+<Tumblr Enable="false" />
+<Email Enable="false" />
+<ShortMessage Enable="false" />
+<Wechat AppId="wx94b9103030fc353b" AppSecret="e6399076ba565a39bcb6b82101c54b27" ShareByAppClient="true" BypassApproval="true" />
+<WechatMoments AppId="wx94b9103030fc353b" AppSecret="e6399076ba565a39bcb6b82101c54b27" ShareByAppClient="true" BypassApproval="true" />
+<QQ AppId="1106667604" AppKey="sZiCFt0eXdNzAWY5" ShareByAppClient="true" />
+<Instapaper Enable="false" />
+<Pocket Enable="false" />
+<YouDao Enable="false" />
+<Pinterest Enable="false" />
+<Flickr Enable="false" />
+<Dropbox Enable="false" />
+<VKontakte Enable="false" />
+<WechatFavorite Enable="false" />
+<Yixin Enable="false" />
+<YixinMoments Enable="false" />
+<Mingdao Enable="false" />
+<Line Enable="false" />
+<WhatsApp Enable="false" />
+<KakaoTalk Enable="false" />
+<KakaoStory Enable="false" />
+<FacebookMessenger Enable="false" />
+<Alipay Enable="false" />
+<AlipayMoments Enable="false" />
+<Dingding Enable="false" />
+<Youtube Enable="false" />
+<Meipai Enable="false" />
+</DevInfor>

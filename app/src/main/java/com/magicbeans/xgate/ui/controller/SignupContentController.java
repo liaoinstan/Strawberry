@@ -14,11 +14,15 @@ import com.ins.common.common.SinpleShowInAnimatorListener;
 import com.ins.common.common.SinpleShowOutAnimatorListener;
 import com.ins.common.helper.ValiHelper;
 import com.ins.common.utils.FontUtils;
+import com.ins.common.utils.KeyBoardUtil;
+import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.others.AnimUtil;
 import com.ins.common.utils.viewutils.EditTextUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.user.User;
+import com.magicbeans.xgate.common.AppVali;
 import com.magicbeans.xgate.databinding.LaySignupContentBinding;
+import com.magicbeans.xgate.helper.ProgressButtonHelper;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.ParamHelper;
@@ -48,6 +52,7 @@ public class SignupContentController extends BaseController<LaySignupContentBind
         valiHelper = new ValiHelper(binding.textVali);
         binding.textVali.setOnClickListener(this);
         binding.btnGo.setOnClickListener(this);
+        binding.btnGo.setIndeterminateProgressMode(true);
     }
 
     public void initData() {
@@ -60,10 +65,21 @@ public class SignupContentController extends BaseController<LaySignupContentBind
                 valiHelper.start();
                 break;
             case R.id.btn_go:
-                if (!TextUtils.isEmpty(platform)) {
+                KeyBoardUtil.hideKeybord(context);
+                if (TextUtils.isEmpty(platform)) return;
+                if (isStatusEmailCheck()) {
                     String email = binding.editEmail.getText().toString();
                     String openId = ShareSDK.getPlatform(platform).getDb().getUserId();
-                    netCheckEmailExist(platform, openId, email);
+                    String msg = AppVali.email(email);
+                    if (TextUtils.isEmpty(msg)) {
+                        netCheckEmailExist(platform, openId, email);
+                    } else {
+                        binding.textValinote.setText(msg);
+                    }
+                } else if (isStatusMerge()) {
+                    ToastUtil.showToastShort("建设中");
+                } else if (isStatusCreateNew()) {
+                    ToastUtil.showToastShort("建设中");
                 }
                 break;
         }
@@ -71,6 +87,7 @@ public class SignupContentController extends BaseController<LaySignupContentBind
 
     //检查服务器email是否已经存在
     private void netCheckEmailExist(String platform, String openId, String email) {
+        binding.btnGo.setProgress(50);
         Map<String, Object> param = new NetParam()
                 .put("openId", openId)
                 .put("openIDType", ParamHelper.getOpenIDType(platform))
@@ -82,6 +99,7 @@ public class SignupContentController extends BaseController<LaySignupContentBind
             @Override
             public void onSuccess(int status, User user, String msg) {
                 //Email已存在，输入密码进入合并账户流程
+                ProgressButtonHelper.progOk2dle(binding.btnGo);
                 textLog.append("\nEmail已存在，输入密码进入合并账户流程");
                 binding.textValinote.setText("该邮箱已被注册，请输入密码登录");
                 setStatusMerge();
@@ -91,9 +109,13 @@ public class SignupContentController extends BaseController<LaySignupContentBind
             public void onError(int status, String msg) {
                 if (status == 201) {
                     //用户不存在（新用户）
+                    ProgressButtonHelper.progOk2dle(binding.btnGo);
                     textLog.append("\nEmail不存在，请输入手机号进入注册流程");
                     binding.textValinote.setText("请验证手机号并完成注册");
                     setStatusCreateNew();
+                } else {
+                    ProgressButtonHelper.progError2dle(binding.btnGo);
+                    ToastUtil.showToastShort(msg);
                 }
             }
         });
@@ -155,6 +177,24 @@ public class SignupContentController extends BaseController<LaySignupContentBind
         binding.layPhone.setVisibility(View.VISIBLE);
         AnimUtil.show(binding.layPhone);
         setEmailEditble(false);
+    }
+
+    public boolean isStatusEmailCheck() {
+        if (binding.editEmail.getVisibility() == View.VISIBLE
+                && binding.editPsw.getVisibility() != View.VISIBLE
+                && binding.layPhone.getVisibility() != View.VISIBLE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isStatusMerge() {
+        return binding.editPsw.getVisibility() == View.VISIBLE;
+    }
+
+    public boolean isStatusCreateNew() {
+        return binding.layPhone.getVisibility() == View.VISIBLE;
     }
 
     private void setEmailEditble(boolean editble) {

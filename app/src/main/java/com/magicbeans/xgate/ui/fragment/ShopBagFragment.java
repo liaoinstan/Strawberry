@@ -23,6 +23,7 @@ import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.common.TestBean;
+import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.data.db.AppDatabaseManager;
 import com.magicbeans.xgate.data.db.entity.ShopCart;
@@ -156,7 +157,8 @@ public class ShopBagFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
-        ProductDetailActivity.start(getActivity());
+        Product2 product2 = adapter.getResults().get(position);
+        ProductDetailActivity.start(getActivity(), product2.getProdID());
     }
 
     @Override

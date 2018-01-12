@@ -17,7 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
+            android:background="@color/st_pink"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <TextView
@@ -29,7 +29,7 @@
                 android:ellipsize="end"
                 android:maxEms="10"
                 android:text="资讯"
-                android:textColor="@color/com_text_dark_light"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_big" />
 
         </android.support.v7.widget.Toolbar>

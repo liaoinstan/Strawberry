@@ -95,7 +95,8 @@ public class ProductListContentController implements OnRecycleItemClickListener 
 
     @Override
     public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
-        ProductDetailActivity.start(context);
+        Product product = adapter.getResults().get(position);
+        ProductDetailActivity.start(context, product.getProdID());
     }
 
     public void setListMode() {

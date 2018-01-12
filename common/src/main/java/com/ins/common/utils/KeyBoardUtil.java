@@ -49,4 +49,15 @@ public class KeyBoardUtil {
             //imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+
+    public static void showKeybord(Context context) {
+        if (context instanceof Activity) {
+            showKeybord((Activity) context);
+        }
+    }
+    public static void hideKeybord(Context context) {
+        if (context instanceof Activity) {
+            hideKeybord((Activity) context);
+        }
+    }
 }

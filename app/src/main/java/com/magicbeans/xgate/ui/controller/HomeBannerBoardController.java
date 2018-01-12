@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import com.ins.common.entity.Image;
 import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.ToastUtil;
+import com.ins.common.utils.UrlUtil;
 import com.ins.common.view.BannerView2;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.banner.BannerWrap;
@@ -55,7 +56,7 @@ public class HomeBannerBoardController implements View.OnClickListener{
         binding.banner.setOnBannerClickListener(new BannerView2.OnBannerClickListener() {
             @Override
             public void onBannerClick(int position, Image image) {
-                WebActivity.start(context, image.getTitle(), image.getUrl());
+                WebActivity.start(context, "草莓网", image.getUrl());
             }
         });
         binding.btnBannerboardToday.setOnClickListener(this);
@@ -86,39 +87,25 @@ public class HomeBannerBoardController implements View.OnClickListener{
                 SaleActivity.start(context);
                 break;
             case R.id.btn_bannerboard_sale:
-                Platform plat = ShareSDK.getPlatform(QZone.NAME);
-                plat.SSOSetting(true);  //设置false表示使用SSO授权方式
-                plat.setPlatformActionListener(new PlatformActionListener() {
-                    @Override
-                    public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                        ToastUtil.showToastShort("onComplete");
-                    }
-
-                    @Override
-                    public void onError(Platform platform, int i, Throwable throwable) {
-                        ToastUtil.showToastShort("onError");
-                    }
-
-                    @Override
-                    public void onCancel(Platform platform, int i) {
-                        ToastUtil.showToastShort("onCancel");
-                    }
-                }); // 设置分享事件回调
-
-                plat.authorize();//单独授权
-                plat.showUser(null);//授权并获取用户信息
+                SaleActivity.start(context);
                 break;
             case R.id.btn_bannerboard_single:
+                SaleActivity.start(context);
                 break;
             case R.id.btn_bannerboard_new:
+                SaleActivity.start(context);
                 break;
             case R.id.btn_bannerboard_brandhot:
+
                 break;
             case R.id.btn_bannerboard_recommed:
+                SaleActivity.start(context);
                 break;
             case R.id.btn_bannerboard_clear:
+                SaleActivity.start(context);
                 break;
             case R.id.btn_bannerboard_selection:
+                SaleActivity.start(context);
                 break;
         }
     }

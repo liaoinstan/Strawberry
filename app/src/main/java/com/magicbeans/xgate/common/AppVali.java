@@ -10,6 +10,14 @@ import com.ins.common.utils.ValidateUtil;
 
 public class AppVali {
 
+    public static String email(String email) {
+        if (!ValidateUtil.Email(email)) {
+            return "请输入正确的邮箱";
+        } else {
+            return null;
+        }
+    }
+
     public static String login(String userName, String psw) {
         if (TextUtils.isEmpty(userName)) {
             return "请输入手机号";

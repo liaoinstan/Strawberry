@@ -21,7 +21,7 @@ public class DialogLoading extends Dialog {
     }
 
     public DialogLoading(Context context, String msg) {
-        super(context, R.style.MyDialog);
+        super(context, R.style.LoadingDialog);
         this.msg = msg;
         setLoadingDialog();
     }

@@ -3,6 +3,7 @@ package com.magicbeans.xgate.ui.adapter;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,10 +87,12 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
         holder.binding.includeCoutent.textName.setText(bean.getProdName());
         holder.binding.includeCoutent.textAttr.setText(bean.getSizeText());
         holder.binding.includeCoutent.textPrice.setText(AppHelper.getPriceSymbol("") + bean.getShopPrice());
-        holder.binding.includeCoutent.textPrice.setText(AppHelper.getPriceSymbol("") + bean.getWasPrice());
+        holder.binding.includeCoutent.textPriceOld.setText(AppHelper.getPriceSymbol("") + bean.getWasPrice());
+        holder.binding.includeCoutent.textPriceOld.setVisibility(!TextUtils.isEmpty(bean.getWasPrice()) ? View.VISIBLE : View.INVISIBLE);
         holder.binding.includeCoutent.countview.setCount(bean.getCount());
         holder.binding.includeCoutent.countview.setEdit(isEdit);
         holder.binding.slidmenu.close();
+
     }
 
     @Override

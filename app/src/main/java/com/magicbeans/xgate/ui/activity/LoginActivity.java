@@ -67,11 +67,13 @@ public class LoginActivity extends BaseAppCompatActivity {
         signupPlatformController.setSignupPlatCallback(new SignupPlatformController.SignupPlatCallback() {
             @Override
             public void onOpenIdExist(String openId, String accountID, String token) {
+                showLoadingDialog();
                 netGetUserProfile(accountID, token);
             }
 
             @Override
             public void onOpenIdInExist(String openId, String platform) {
+                dismissLoadingDialog();
                 signupContentController.setPlatform(platform);
                 signupContentController.setStatusEmailCheck();
 
@@ -93,9 +95,18 @@ public class LoginActivity extends BaseAppCompatActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_close:
-                signupPlatformController.show(true);
-                signupContentController.hide(true);
+                onBackPressed();
                 break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!signupPlatformController.isShow()) {
+            signupPlatformController.show(true);
+            signupContentController.hide(true);
+        } else {
+            super.onBackPressed();
         }
     }
 
@@ -110,11 +121,13 @@ public class LoginActivity extends BaseAppCompatActivity {
         NetApi.NI().getUserProfile(param).enqueue(new STCallback<User>(User.class) {
             @Override
             public void onSuccess(int status, User user, String msg) {
+                dismissLoadingDialog();
                 ToastUtil.showToastShort("XXXXXXX" + user.toString());
             }
 
             @Override
             public void onError(int status, String msg) {
+                dismissLoadingDialog();
                 ToastUtil.showToastShort(msg);
             }
         });

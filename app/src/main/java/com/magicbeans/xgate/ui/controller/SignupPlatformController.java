@@ -1,6 +1,5 @@
 package com.magicbeans.xgate.ui.controller;
 
-import android.content.Context;
 import android.os.Handler;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -10,9 +9,9 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.ins.common.common.SinpleShowInAnimatorListener;
 import com.ins.common.common.SinpleShowOutAnimatorListener;
+import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.user.User;
-import com.magicbeans.xgate.databinding.LaySignupContentBinding;
 import com.magicbeans.xgate.databinding.LaySignupPlatformBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
@@ -72,7 +71,14 @@ public class SignupPlatformController extends BaseController<LaySignupPlatformBi
                 textLog.append("\n获取openId成功:" + userInfo.getUserName() + ":" + userInfo.getUserId() + "\nheaderImg:" + userInfo.getUserIcon() + "\ngender:" + userInfo.getUserGender());
                 netCheckOpenidExist(platform, userInfo.getUserId());
             }
+
+            @Override
+            public void onFailed(String msg) {
+                //TODO:取消加载进度
+                dismissLoadingDialog();
+            }
         }).login(platName);
+        showLoadingDialog();
     }
 
     //检查服务器openId是否已经存在
@@ -94,11 +100,14 @@ public class SignupPlatformController extends BaseController<LaySignupPlatformBi
 
             @Override
             public void onError(int status, String msg) {
+                dismissLoadingDialog();
                 if (status == 201) {
                     //用户不存在（新用户）
                     textLog.append("\nopenId不存在，请输入email");
                     if (callback != null)
                         callback.onOpenIdInExist(openId, platform);
+                } else {
+                    ToastUtil.showToastShort(msg);
                 }
             }
         });
@@ -106,16 +115,8 @@ public class SignupPlatformController extends BaseController<LaySignupPlatformBi
 
 
     //########## 接口 ###########
-    private SignupPlatCallback callback;
-
-    public void setSignupPlatCallback(SignupPlatCallback signupPlatCallback) {
-        this.callback = signupPlatCallback;
-    }
-
-    public interface SignupPlatCallback {
-        void onOpenIdExist(String openId, String accountID, String token);
-
-        void onOpenIdInExist(String openId, String platform);
+    public boolean isShow() {
+        return binding.getRoot().getVisibility() == View.VISIBLE;
     }
 
     public void hide(boolean needAnim) {
@@ -145,6 +146,18 @@ public class SignupPlatformController extends BaseController<LaySignupPlatformBi
         } else {
             binding.getRoot().setVisibility(View.VISIBLE);
         }
+    }
+
+    private SignupPlatCallback callback;
+
+    public void setSignupPlatCallback(SignupPlatCallback signupPlatCallback) {
+        this.callback = signupPlatCallback;
+    }
+
+    public interface SignupPlatCallback {
+        void onOpenIdExist(String openId, String accountID, String token);
+
+        void onOpenIdInExist(String openId, String platform);
     }
 
     //########## 测试 ###########
