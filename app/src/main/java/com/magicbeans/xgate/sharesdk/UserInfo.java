@@ -1,5 +1,7 @@
 package com.magicbeans.xgate.sharesdk;
 
+import com.magicbeans.xgate.net.ParamHelper;
+
 import java.io.Serializable;
 
 /**
@@ -7,17 +9,37 @@ import java.io.Serializable;
  */
 
 public class UserInfo implements Serializable {
-    private String userId;
+    private String openId;
     private String userIcon;
     private String userName;
     private String userGender;
+    private String platform;
 
-    public String getUserId() {
-        return userId;
+    //////////////////////////////////////////
+    public int getOpenIDType() {
+        return ParamHelper.getOpenIDType(platform);
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public int getUserGenderInt() {
+        return "m".equals(userGender) ? 1 : 0;
+    }
+
+    //////////////////////////////////////////
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 
     public String getUserIcon() {
@@ -47,7 +69,7 @@ public class UserInfo implements Serializable {
     @Override
     public String toString() {
         return "UserInfo{" +
-                "userId='" + userId + '\'' +
+                "openId='" + openId + '\'' +
                 ", userIcon='" + userIcon + '\'' +
                 ", userName='" + userName + '\'' +
                 ", userGender='" + userGender + '\'' +

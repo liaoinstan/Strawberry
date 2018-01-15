@@ -1,48 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
-        android:orientation="horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/btn_qq"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/ic_share_qq"
-            android:gravity="center"
-            android:text="QQ"
-            android:textColor="@color/com_text_blank"
-            android:textSize="@dimen/text_nomal_small" />
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_height="20dp"/>
 
-        <TextView
-            android:id="@+id/btn_weixin"
-            android:layout_width="0dp"
+        <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/ic_share_wx"
-            android:gravity="center"
-            android:text="微信"
-            android:textColor="@color/com_text_blank"
-            android:textSize="@dimen/text_nomal_small" />
+            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/btn_weibo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/ic_share_sinaweibo"
-            android:gravity="center"
-            android:text="新浪微博"
-            android:textColor="@color/com_text_blank"
-            android:textSize="@dimen/text_nomal_small" />
+            <TextView
+                android:id="@+id/btn_qq"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_share_qq"
+                android:gravity="center"
+                android:text="QQ"
+                android:textColor="@color/com_text_blank"
+                android:textSize="@dimen/text_nomal_small" />
+
+            <TextView
+                android:id="@+id/btn_weixin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_share_wx"
+                android:gravity="center"
+                android:text="微信"
+                android:textColor="@color/com_text_blank"
+                android:textSize="@dimen/text_nomal_small" />
+
+            <TextView
+                android:id="@+id/btn_weibo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_share_sinaweibo"
+                android:gravity="center"
+                android:text="新浪微博"
+                android:textColor="@color/com_text_blank"
+                android:textSize="@dimen/text_nomal_small" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </layout>

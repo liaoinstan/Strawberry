@@ -1,5 +1,6 @@
 package com.magicbeans.xgate.net;
 
+import com.google.gson.Gson;
 import com.ins.common.utils.L;
 import com.ins.common.utils.StrUtil;
 
@@ -56,8 +57,8 @@ public class NetParam {
     }
 
     //构造一个RequestBody
-    public static RequestBody buildRequestBody(String value) {
-        return RequestBody.create(MediaType.parse("multipart/form-data"), value);
+    public static RequestBody buildJsonRequestBody(Object o) {
+        return RequestBody.create(MediaType.parse("application/json"), new Gson().toJson(o));
     }
 
     //测试方法，打印出参数

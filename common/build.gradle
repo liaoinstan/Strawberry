@@ -59,10 +59,10 @@ dependencies {
 //    compile 'jp.wasabeef:glide-transformations:2.0.1'
 
     //################# 网络请求框架 ##############
-    compile 'com.squareup.retrofit2:retrofit:2.2.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    compile 'com.squareup.retrofit2:retrofit-converters:2.0.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    compile 'com.squareup.retrofit2:retrofit-converters:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     //################# 动画 ##############
 //    compile 'com.nineoldandroids:library:2.4.0'

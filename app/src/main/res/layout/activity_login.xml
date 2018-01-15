@@ -16,10 +16,10 @@
 
             <ImageView
                 android:layout_width="150dp"
-                android:adjustViewBounds="true"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="80dp"
+                android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/logo" />
 
@@ -35,6 +35,16 @@
                     android:id="@+id/include_platform"
                     layout="@layout/lay_signup_platform" />
 
+                <EditText
+                    android:id="@+id/edit_test_openid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:text="4FCC239C61DC9B25A09D6A4B86FCB3DF1"
+                    android:textSize="@dimen/text_tiny" />
+
+
             </FrameLayout>
 
 
@@ -44,19 +54,11 @@
             android:id="@+id/btn_close"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:padding="18dp"
-            android:onClick="onClick"
             android:layout_gravity="right"
+            android:onClick="onClick"
+            android:padding="18dp"
             android:scaleType="fitCenter"
             android:src="@drawable/shape_cha" />
 
-        <TextView
-            android:id="@+id/text_log"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textColor="@color/red"
-            android:textSize="@dimen/text_tiny"
-            tools:text="很长很长的文字字很长很长的文字" />
     </FrameLayout>
 </layout>

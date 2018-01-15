@@ -72,9 +72,9 @@ MobSDK {
     ShareSDK {
         devInfo {
             SinaWeibo {
-                appKey "1067369245"
-                appSecret "4f5a16dce75684c794a09bf086768704"
-                callbackUri "https://cn.strawberrynet.com"
+                appKey "2869755556"
+                appSecret "949ca156db475ed2a775904ac056add1"
+                callbackUri "https://api.weibo.com/oauth2/default.html"
                 shareByAppClient true
             }
             Wechat {

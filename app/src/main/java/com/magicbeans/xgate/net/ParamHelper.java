@@ -31,9 +31,16 @@ public class ParamHelper {
         }
     }
 
-    public static Map<String, Object> getDeviceType() {
+    public static Map<String, Object> getDeviceTypeMap() {
         return new LinkedHashMap<String, Object>() {{
-            put("deviceType", "android");
+            put("deviceType", getDeviceType());
         }};
+    }
+
+    public static String getDeviceType() {
+        return "android";
+    }
+    public static String getLanguage() {
+        return "zh_CN";
     }
 }

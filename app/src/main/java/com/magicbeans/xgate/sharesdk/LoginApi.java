@@ -1,16 +1,11 @@
 package com.magicbeans.xgate.sharesdk;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Handler.Callback;
 import android.os.Looper;
 import android.os.Message;
-import android.text.TextUtils;
 import android.widget.Toast;
-
-import com.mob.MobApplication;
-import com.mob.MobSDK;
 
 import java.util.HashMap;
 
@@ -121,7 +116,7 @@ public class LoginApi implements Callback {
                 Platform plat = ShareSDK.getPlatform(platName);
                 if (loginListener != null) {
                     UserInfo userInfo = new UserInfo();
-                    userInfo.setUserId(plat.getDb().getUserId());
+                    userInfo.setOpenId(plat.getDb().getUserId());
                     userInfo.setUserIcon(plat.getDb().getUserIcon());
                     userInfo.setUserName(plat.getDb().getUserName());
                     userInfo.setUserGender(plat.getDb().getUserGender());

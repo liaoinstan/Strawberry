@@ -19,6 +19,7 @@ import com.magicbeans.xgate.net.ParamHelper;
 import com.magicbeans.xgate.net.STFormatCallback;
 import com.magicbeans.xgate.sharesdk.LoginApi;
 import com.magicbeans.xgate.sharesdk.UserInfo;
+import com.magicbeans.xgate.ui.activity.LoginActivity;
 
 import java.util.Map;
 
@@ -42,6 +43,7 @@ public class SignupPlatformController extends BaseController<LaySignupPlatformBi
         binding.btnQq.setOnClickListener(this);
         binding.btnWeixin.setOnClickListener(this);
         binding.btnWeibo.setOnClickListener(this);
+        binding.progress.setVisibility(View.INVISIBLE);
     }
 
     public void initData() {
@@ -68,44 +70,44 @@ public class SignupPlatformController extends BaseController<LaySignupPlatformBi
         LoginApi.with(context).setOnLoginListener(new LoginApi.OnLoginCallback() {
             @Override
             public void onLogin(String platform, UserInfo userInfo) {
-                textLog.append("\n获取openId成功:" + userInfo.getUserName() + ":" + userInfo.getUserId() + "\nheaderImg:" + userInfo.getUserIcon() + "\ngender:" + userInfo.getUserGender());
-                netCheckOpenidExist(platform, userInfo.getUserId());
+                //FIXME:这里生成一个假OpenId
+                userInfo.setOpenId(((LoginActivity) context).getTestOpenId());
+                userInfo.setPlatform(platform);
+                netCheckOpenidExist(userInfo);
             }
 
             @Override
             public void onFailed(String msg) {
-                //TODO:取消加载进度
-                dismissLoadingDialog();
+                hideProgress();
             }
         }).login(platName);
-        showLoadingDialog();
+        showProgress();
     }
 
     //检查服务器openId是否已经存在
-    private void netCheckOpenidExist(final String platform, final String openId) {
+    private void netCheckOpenidExist(final UserInfo userInfo) {
         Map<String, Object> param = new NetParam()
-                .put("openId", openId)
-                .put("openIDType", ParamHelper.getOpenIDType(platform))
+                .put("openId", userInfo.getOpenId())
+                .put("openIDType", userInfo.getOpenIDType())
                 .put("deviceId", "a12d5d9993241b00cf9a2070484f57ca")
-                .put(ParamHelper.getDeviceType())
+                .put(ParamHelper.getDeviceTypeMap())
                 .build();
         NetApi.NI().checkOpenidExist(param).enqueue(new STFormatCallback<User>(User.class) {
             @Override
             public void onSuccess(int status, User user, String msg) {
                 //用户已存在，直接进入登录流程
-                textLog.append("\nopenId已存在，直接进入登录流程");
+                hideProgress();
                 if (callback != null)
-                    callback.onOpenIdExist(openId, user.getAccountID(), user.getToken());
+                    callback.onOpenIdExist(userInfo, user.getAccountID(), user.getToken());
             }
 
             @Override
             public void onError(int status, String msg) {
-                dismissLoadingDialog();
+                hideProgress();
                 if (status == 201) {
                     //用户不存在（新用户）
-                    textLog.append("\nopenId不存在，请输入email");
                     if (callback != null)
-                        callback.onOpenIdInExist(openId, platform);
+                        callback.onOpenIdInExist(userInfo);
                 } else {
                     ToastUtil.showToastShort(msg);
                 }
@@ -148,6 +150,20 @@ public class SignupPlatformController extends BaseController<LaySignupPlatformBi
         }
     }
 
+    public void showProgress() {
+        binding.progress.setVisibility(View.VISIBLE);
+        binding.btnQq.setClickable(false);
+        binding.btnWeixin.setClickable(false);
+        binding.btnWeibo.setClickable(false);
+    }
+
+    public void hideProgress() {
+        binding.progress.setVisibility(View.INVISIBLE);
+        binding.btnQq.setClickable(true);
+        binding.btnWeixin.setClickable(true);
+        binding.btnWeibo.setClickable(true);
+    }
+
     private SignupPlatCallback callback;
 
     public void setSignupPlatCallback(SignupPlatCallback signupPlatCallback) {
@@ -155,15 +171,8 @@ public class SignupPlatformController extends BaseController<LaySignupPlatformBi
     }
 
     public interface SignupPlatCallback {
-        void onOpenIdExist(String openId, String accountID, String token);
+        void onOpenIdExist(UserInfo userInfo, String accountID, String token);
 
-        void onOpenIdInExist(String openId, String platform);
-    }
-
-    //########## 测试 ###########
-    private TextView textLog;
-
-    public void setLogTextView(TextView textLog) {
-        this.textLog = textLog;
+        void onOpenIdInExist(UserInfo userInfo);
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DevInfor>
-<SinaWeibo AppKey="1067369245" AppSecret="4f5a16dce75684c794a09bf086768704" ShareByAppClient="true" RedirectUrl="https://cn.strawberrynet.com" />
+<SinaWeibo AppKey="2869755556" AppSecret="949ca156db475ed2a775904ac056add1" ShareByAppClient="true" RedirectUrl="https://api.weibo.com/oauth2/default.html" />
 <TencentWeibo Enable="false" />
 <Douban Enable="false" />
 <QZone AppId="1106667604" AppKey="sZiCFt0eXdNzAWY5" ShareByAppClient="true" />

@@ -32,6 +32,8 @@ public class AppData {
             SharedPrefUtilV2.open(SHARENAME).remove(KEY_TOKEN);
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////
+
         public static void saveUser(User user) {
             SharedPrefUtilV2.open(SHARENAME).put(KEY_USER, user);
         }
@@ -44,12 +46,24 @@ public class AppData {
             SharedPrefUtilV2.open(SHARENAME).remove(KEY_USER);
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////
+
         public static String getLanguage() {
             return SharedPrefUtilV2.open(SHARENAME).getString(KEY_LANGUAGE);
         }
 
         public static void saveLanguage(String language) {
             SharedPrefUtilV2.open(SHARENAME).putString(KEY_LANGUAGE, language);
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+
+        public static String getTestOpenId() {
+            return SharedPrefUtilV2.open(SHARENAME).getString("TEST_OPENID");
+        }
+
+        public static void saveTestOpenId(String testOpenId) {
+            SharedPrefUtilV2.open(SHARENAME).putString("TEST_OPENID", testOpenId);
         }
     }
 

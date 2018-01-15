@@ -13,19 +13,29 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.ins.common.common.SinpleShowInAnimatorListener;
 import com.ins.common.utils.App;
+import com.ins.common.utils.L;
 import com.ins.common.utils.StatusBarTextUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.user.User;
+import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.databinding.ActivityLoginBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
+import com.magicbeans.xgate.sharesdk.UserInfo;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.controller.SignupContentController;
 import com.magicbeans.xgate.ui.controller.SignupPlatformController;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends BaseAppCompatActivity {
 
@@ -60,25 +70,27 @@ public class LoginActivity extends BaseAppCompatActivity {
     private void initBase() {
         signupContentController = new SignupContentController(binding.includeContent);
         signupPlatformController = new SignupPlatformController(binding.includePlatform);
-        signupContentController.setLogTextView(binding.textLog);
-        signupPlatformController.setLogTextView(binding.textLog);
         signupContentController.hide(false);
         signupPlatformController.show(false);
         signupPlatformController.setSignupPlatCallback(new SignupPlatformController.SignupPlatCallback() {
             @Override
-            public void onOpenIdExist(String openId, String accountID, String token) {
-                showLoadingDialog();
+            public void onOpenIdExist(UserInfo userInfo, final String accountID, final String token) {
                 netGetUserProfile(accountID, token);
             }
 
             @Override
-            public void onOpenIdInExist(String openId, String platform) {
-                dismissLoadingDialog();
-                signupContentController.setPlatform(platform);
+            public void onOpenIdInExist(UserInfo userInfo) {
+                signupContentController.setUserInfo(userInfo);
                 signupContentController.setStatusEmailCheck();
 
                 signupPlatformController.hide(true);
                 signupContentController.show(true);
+            }
+        });
+        signupContentController.setSignupContentCallback(new SignupContentController.SignupContentCallback() {
+            @Override
+            public void onAccountCreated(String accountID, String token) {
+                netGetUserProfile(accountID, token);
             }
         });
     }
@@ -110,19 +122,21 @@ public class LoginActivity extends BaseAppCompatActivity {
         }
     }
 
-    //TODO:该接口服务器500异常，等待反馈
     //获取用户信息
+    //FIXME:这个接口非常古怪，token参数必须拼接在url上，不能以参数的形式提交否则后台无法获取正确的token，应该是后台接口取参的BUG，需要和后台进行debug调试
     private void netGetUserProfile(String accountID, String token) {
+        String url = NetApi.getBaseUrl() + "app/apiUserProfile.aspx?token=" + token;
+        showLoadingDialog();
         Map<String, Object> param = new NetParam()
                 .put("accountID", accountID)
                 .put("action", "get")
-                .put("token", token)
                 .build();
-        NetApi.NI().getUserProfile(param).enqueue(new STCallback<User>(User.class) {
+        NetApi.NI().getUserProfile(url, param).enqueue(new STCallback<User>(User.class) {
             @Override
             public void onSuccess(int status, User user, String msg) {
                 dismissLoadingDialog();
-                ToastUtil.showToastShort("XXXXXXX" + user.toString());
+                ToastUtil.showToastShort(user.toString());
+                L.e(user.toString());
             }
 
             @Override
@@ -131,5 +145,10 @@ public class LoginActivity extends BaseAppCompatActivity {
                 ToastUtil.showToastShort(msg);
             }
         });
+    }
+
+    //########## 测试 ###########
+    public String getTestOpenId() {
+        return binding.editTestOpenid.getText().toString();
     }
 }

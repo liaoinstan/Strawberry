@@ -6,6 +6,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -13,6 +15,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 
@@ -52,15 +55,46 @@ public interface NetInterface {
     Call<ResponseBody> checkOpenidExist(@FieldMap Map<String, Object> param);
 
     /**
+     * 使用openId创建一个账户
+     * OpenId
+     * OpenIdType 1: WeChat 2: Weibo 3: QQ
+     * Email
+     * Mobile
+     * DeviceId
+     * deviceType : android
+     * DisplayName
+     * Language
+     * HeadImageURL
+     * Gender:0: Female 1: Male
+     */
+    @POST("/app/apiCreateAccount.aspx?ID=xGate")
+    Call<ResponseBody> createAccount(@Body RequestBody requestBody);
+
+    /**
+     * 合并已存在用户
+     * OpenId
+     * OpenIdType 1: WeChat 2: Weibo 3: QQ
+     * Email
+     * Password
+     * DeviceId
+     * deviceType : android
+     * DisplayName
+     * Language
+     * HeadImageURL
+     * Gender:0: Female 1: Male
+     */
+    @POST("/app/apiUpdateAccount.aspx?ID=xGate")
+    Call<ResponseBody> mergeAccount(@Body RequestBody requestBody);
+
+    /**
      * 获取用户信息
      * accountID
      * action
      * token
      */
-    @FormUrlEncoded
-    @POST("/app/apiUserProfile.aspx")
-    Call<ResponseBody> getUserProfile(@FieldMap Map<String, Object> param);
-
+//    @GET("/app/apiUserProfile.aspx")
+    @GET
+    Call<ResponseBody> getUserProfile(@Url String url, @QueryMap Map<String, Object> param);
 
     //##################################################################
     //#########               接口
