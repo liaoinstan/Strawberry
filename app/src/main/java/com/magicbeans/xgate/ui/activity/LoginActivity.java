@@ -131,6 +131,7 @@ public class LoginActivity extends BaseAppCompatActivity {
                 .put("accountID", accountID)
                 .put("action", "get")
                 .build();
+        L.e(url);
         NetApi.NI().getUserProfile(url, param).enqueue(new STCallback<User>(User.class) {
             @Override
             public void onSuccess(int status, User user, String msg) {
