@@ -3,6 +3,7 @@ package com.magicbeans.xgate.ui.adapter;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,9 @@ public class RecycleAdapterHomeBrand extends RecyclerView.Adapter<RecycleAdapter
 //        } else {
 //            holder.binding.viewLineV.setVisibility(View.VISIBLE);
 //        }
-        holder.binding.textBrandTitle.setText(brand.getBrandLangName());
+        //FIXME:部分品牌只有英文名，如果中文名不存在则显示英文名
+        holder.binding.textBrandTitle.setText(!TextUtils.isEmpty(brand.getBrandLangName()) ? brand.getBrandLangName() : brand.getBrandName());
+        holder.binding.textBrandTitleEn.setText(brand.getBrandName());
     }
 
     @Override

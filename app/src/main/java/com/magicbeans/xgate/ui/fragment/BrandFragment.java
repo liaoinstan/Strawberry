@@ -131,7 +131,7 @@ public class BrandFragment extends BaseFragment implements OnRecycleItemClickLis
     }
 
     //从联系人中获取tag标记的位置，如果未获取到，返回-1
-    public static int getPosByTag(List<Brand> results, String tag) {
+    private static int getPosByTag(List<Brand> results, String tag) {
         if (!StrUtil.isEmpty(results) || !StrUtil.isEmpty(tag)) {
             for (int i = 0; i < results.size(); i++) {
                 if (tag.equals(results.get(i).getIndexName())) {
@@ -155,6 +155,10 @@ public class BrandFragment extends BaseFragment implements OnRecycleItemClickLis
             }
         }
         return brandsAll;
+    }
+
+    public void scrollTop() {
+        recycler.smoothScrollToPosition(0);
     }
 
     private void setBrandData(List<Brand> brands) {

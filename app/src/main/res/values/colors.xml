@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/st_pink</color>
-    <color name="colorPrimaryDark">@color/st_pink</color>
+    <color name="colorPrimary">@color/st_red</color>
+    <color name="colorPrimaryDark">@color/st_red</color>
     <color name="colorAccent">@color/st_purple</color>
 
     <color name="st_bk">#f2f2f2</color>

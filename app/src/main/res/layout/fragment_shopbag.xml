@@ -1,112 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/st_bk"
-    android:fitsSystemWindows="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:rools="http://schemas.android.com/tools">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:elevation="0dp">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/st_pink"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-
-            <TextView
-                android:id="@+id/text_toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="购物袋"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_big" />
-
-            <TextView
-                android:id="@+id/btn_right"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:text="编辑"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_big_nomal" />
-
-        </android.support.v7.widget.Toolbar>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/com_line" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:background="@color/st_bk"
+        android:fitsSystemWindows="true">
 
-        <com.liaoinstan.springview.widget.SpringView
-            android:id="@+id/spring"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            app:type="follow">
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycle"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="45dp"
+                android:background="@color/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
 
-        </com.liaoinstan.springview.widget.SpringView>
+                <TextView
+                    android:id="@+id/text_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="购物车"
+                    android:drawablePadding="3dp"
+                    android:drawableRight="@drawable/ic_shopcart_location"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_big" />
+
+                <TextView
+                    android:id="@+id/btn_right"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="编辑"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_big_nomal" />
+
+            </android.support.v7.widget.Toolbar>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/com_line" />
+
+        </android.support.design.widget.AppBarLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <TextView
-                android:id="@+id/text_shopbag_checkall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:drawableLeft="@drawable/selector_check_shopbag"
-                android:drawablePadding="10dp"
-                android:text="全选"
-                android:textColor="@color/com_text_dark_light"
-                android:textSize="@dimen/text_nomal_small" />
+            <com.liaoinstan.springview.widget.SpringView
+                android:id="@+id/spring"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:type="follow">
 
-            <Space style="@style/Space_H" />
+                <android.support.v4.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true">
 
-            <TextView
-                android:id="@+id/text_shopbag_priceall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:text="总计：￥0.00"
-                android:textColor="@color/com_text_dark_light"
-                android:textSize="@dimen/text_nomal_small" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/btn_go"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:background="#cccccc"
-                android:gravity="center"
-                android:text="结算"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_nomal" />
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <include
+                            android:id="@+id/include_recomend"
+                            layout="@layout/lay_recommend" />
+
+                    </LinearLayout>
+
+                </android.support.v4.widget.NestedScrollView>
+
+            </com.liaoinstan.springview.widget.SpringView>
+
+            <include
+                android:id="@+id/include_bottombar"
+                layout="@layout/lay_shopcart_bottombar" />
 
         </LinearLayout>
 
-    </LinearLayout>
-
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

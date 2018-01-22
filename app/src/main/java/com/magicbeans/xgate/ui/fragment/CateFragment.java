@@ -3,6 +3,7 @@ package com.magicbeans.xgate.ui.fragment;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -11,12 +12,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.ins.common.common.ItemDecorationDivider;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.StatusBarTextUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.category.Cate1;
 import com.magicbeans.xgate.bean.category.Cate1Wrap;
 import com.magicbeans.xgate.bean.category.Cate2;
@@ -69,9 +72,20 @@ public class CateFragment extends BaseFragment implements OnRecycleItemClickList
 //    }
 
     @Override
+    public void onCommonEvent(EventBean event) {
+        if (event.getEvent() == EventBean.EVENT_JUMP_BRANDHOT) {
+            //跳转并选中到热门品牌页面，同时把页面滚动到顶部
+            showFragment(brandFragment);
+            brandFragment.scrollTop();
+            adapter.selectItem(0);
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.position = getArguments().getInt("position");
+        registEventBus();
     }
 
     @Nullable
@@ -121,6 +135,13 @@ public class CateFragment extends BaseFragment implements OnRecycleItemClickList
         binding.recycleTab.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         binding.recycleTab.addItemDecoration(new ItemDecorationDivider(getActivity()));
         binding.recycleTab.setAdapter(adapter);
+        //设置左侧Tab列表不随appbar滚动
+        binding.includeToobarHome.appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                binding.recycleTab.setTranslationY(Math.abs(verticalOffset));
+            }
+        });
     }
 
     @Override
@@ -146,4 +167,5 @@ public class CateFragment extends BaseFragment implements OnRecycleItemClickList
         }
         fragmentTransaction.commit();
     }
+
 }

@@ -18,6 +18,7 @@ import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.ui.activity.ProductActivity;
+import com.magicbeans.xgate.ui.activity.SaleActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterRecomment;
 
 import java.util.List;
@@ -57,7 +58,7 @@ public class HomeNewProductController implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_more:
-                ProductActivity.start(context);
+                SaleActivity.start(context, SaleActivity.TYPE_NEW);
                 break;
         }
     }

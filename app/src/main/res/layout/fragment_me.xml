@@ -22,7 +22,7 @@
                 android:layout_marginRight="10dp"
                 android:foreground="?attr/selectableItemBackground"
                 android:scaleType="center"
-                android:src="@drawable/ic_tab_home" />
+                android:src="@drawable/ic_me_msg" />
 
             <ImageView
                 android:id="@+id/btn_right_setting"
@@ -31,7 +31,7 @@
                 android:layout_gravity="right"
                 android:foreground="?attr/selectableItemBackground"
                 android:scaleType="center"
-                android:src="@drawable/ic_tab_home" />
+                android:src="@drawable/ic_me_setting" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -47,7 +47,8 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp">
+                    android:layout_height="150dp"
+                    android:background="@color/st_red">
 
                     <LinearLayout
                         android:id="@+id/lay_me_header"
@@ -62,7 +63,7 @@
                             android:id="@+id/img_me_header"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/default_header" />
+                            android:src="@drawable/header_default" />
 
                         <TextView
                             android:id="@+id/text_me_name"
@@ -70,7 +71,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:text="登录/注册"
-                            android:textColor="@color/com_text_dark_light"
+                            android:textColor="@color/white"
                             android:textSize="@dimen/text_nomal" />
 
                     </LinearLayout>
@@ -91,13 +92,13 @@
                         android:layout_marginLeft="20dp"
                         android:layout_weight="1"
                         android:checked="true"
-                        android:drawableTop="@drawable/ic_tab_home"
+                        android:drawableTop="@drawable/ic_me_order_unpay"
                         android:foreground="?attr/selectableItemBackground"
                         android:gravity="center"
                         android:paddingBottom="15dp"
                         android:paddingTop="20dp"
                         android:text="待付款"
-                        android:textColor="@color/com_text_dark_light"
+                        android:textColor="@color/com_text_blank"
                         android:textSize="@dimen/text_tiny" />
 
 
@@ -107,13 +108,13 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:checked="true"
-                        android:drawableTop="@drawable/ic_tab_home"
+                        android:drawableTop="@drawable/ic_me_order_unin"
                         android:foreground="?attr/selectableItemBackground"
                         android:gravity="center"
                         android:paddingBottom="15dp"
                         android:paddingTop="20dp"
                         android:text="待收货"
-                        android:textColor="@color/com_text_dark_light"
+                        android:textColor="@color/com_text_blank"
                         android:textSize="@dimen/text_tiny" />
 
 
@@ -123,13 +124,13 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:checked="true"
-                        android:drawableTop="@drawable/ic_tab_home"
+                        android:drawableTop="@drawable/ic_me_order_uneva"
                         android:foreground="?attr/selectableItemBackground"
                         android:gravity="center"
                         android:paddingBottom="15dp"
                         android:paddingTop="20dp"
                         android:text="待评价"
-                        android:textColor="@color/com_text_dark_light"
+                        android:textColor="@color/com_text_blank"
                         android:textSize="@dimen/text_tiny" />
 
                     <View
@@ -144,180 +145,87 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:checked="true"
-                        android:drawableTop="@drawable/ic_tab_home"
+                        android:drawableTop="@drawable/ic_me_order_all"
                         android:foreground="?attr/selectableItemBackground"
                         android:gravity="center"
                         android:paddingBottom="15dp"
                         android:paddingTop="20dp"
                         android:text="我的订单"
-                        android:textColor="@color/com_text_dark_light"
+                        android:textColor="@color/com_text_blank"
                         android:textSize="@dimen/text_tiny" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:id="@+id/lay_me_integral"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="30"
-                            android:textColor="@color/com_text_dark"
-                            android:textSize="@dimen/text_subig" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="我的积分"
-                            android:textColor="@color/com_text_dark_light"
-                            android:textSize="@dimen/text_tiny" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/lay_me_coupon"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="3"
-                            android:textColor="@color/com_text_dark"
-                            android:textSize="@dimen/text_subig" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="我的优惠券"
-                            android:textColor="@color/com_text_dark_light"
-                            android:textSize="@dimen/text_tiny" />
-
-                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/lay_me_favo"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center"
+                        android:gravity="bottom|center_horizontal"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="3"
-                            android:textColor="@color/com_text_dark"
+                            android:textColor="@color/com_text_blank"
                             android:textSize="@dimen/text_subig" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="3dp"
                             android:text="我的收藏"
-                            android:textColor="@color/com_text_dark_light"
-                            android:textSize="@dimen/text_tiny" />
+                            android:textColor="@color/com_text_blank"
+                            android:textSize="@dimen/text_small" />
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/lay_me_sign"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="3"
-                            android:textColor="@color/com_text_dark"
-                            android:textSize="@dimen/text_subig" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="我的签到"
-                            android:textColor="@color/com_text_dark_light"
-                            android:textSize="@dimen/text_tiny" />
-
-                    </LinearLayout>
+                    <View
+                        style="@style/Line_V"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/com_text_blank_deep" />
 
                     <LinearLayout
                         android:id="@+id/lay_me_history"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center"
+                        android:gravity="bottom|center_horizontal"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="3"
-                            android:textColor="@color/com_text_dark"
+                            android:textColor="@color/com_text_blank"
                             android:textSize="@dimen/text_subig" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="浏览记录"
-                            android:textColor="@color/com_text_dark_light"
-                            android:textSize="@dimen/text_tiny" />
+                            android:layout_marginTop="3dp"
+                            android:text="历史记录"
+                            android:textColor="@color/com_text_blank"
+                            android:textSize="@dimen/text_small" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/st_bk"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="#09000000"
-                        android:gravity="center"
-                        android:text="为您推荐"
-                        android:textColor="@color/com_text_dark"
-                        android:textSize="@dimen/text_nomal" />
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycle_recomment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:paddingBottom="10dp" />
-
-                </LinearLayout>
+                <include
+                    android:id="@+id/include_recommend"
+                    layout="@layout/lay_recommend" />
 
             </LinearLayout>
 

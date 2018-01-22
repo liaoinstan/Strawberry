@@ -83,7 +83,7 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
         productDetailAttrController = new ProductDetailAttrController(binding.includeAttr);
         productDetailEvaController = new ProductDetailEvaController(binding.includeEva, prodId);
         productDetailDescribeController = new ProductDetailDescribeController(binding.includeDescribe);
-        commonRecommendController = new CommonRecommendController(binding.includeRecomend);
+        commonRecommendController = new CommonRecommendController(binding.includeRecomend,4);
         productDetailBottombarController = new ProductDetailBottombarController(binding.includeBottombar);
         //设置商品品类选择监听
         productDetailAttrController.setOnSelectListenner(new DialogBottomProductAttr.OnSelectListenner() {

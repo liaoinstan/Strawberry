@@ -4,7 +4,7 @@
     <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/lay_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center_vertical"
@@ -15,7 +15,7 @@
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:scaleType="center"
-            android:src="@drawable/selector_check_shopbag" />
+            android:src="@drawable/selector_check" />
 
         <ImageView
             android:id="@+id/img_header"
@@ -26,7 +26,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:orientation="vertical">
 
@@ -34,9 +34,10 @@
                 android:id="@+id/text_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
                 android:layout_marginTop="7dp"
                 android:text="产品名称"
-                android:textColor="@color/com_text_dark_light"
+                android:textColor="@color/com_text_blank"
                 android:textSize="@dimen/text_nomal" />
 
             <TextView
@@ -48,10 +49,11 @@
                 android:textColor="@color/com_text_dark_light"
                 android:textSize="9sp" />
 
+            <Space style="@style/Space_V"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -60,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="￥89.00"
-                    android:textColor="@color/com_text_dark_light"
+                    android:textColor="@color/st_red"
                     android:textSize="@dimen/text_nomal_small" />
 
                 <TextView
@@ -83,6 +85,7 @@
 
                 <com.magicbeans.xgate.ui.view.CountView
                     android:id="@+id/countview"
+                    app:editble="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

@@ -24,15 +24,18 @@ import java.util.Map;
  * Created by Administrator on 2017/10/11.
  */
 
-public class CommonRecommendController {
+public class CommonRecommendController extends BaseController<LayRecommendBinding> {
 
-    private Context context;
-    private LayRecommendBinding binding;
     private RecycleAdapterRecomment adapter;
+    private int maxCount;
 
     public CommonRecommendController(LayRecommendBinding binding) {
-        this.binding = binding;
-        this.context = binding.getRoot().getContext();
+        this(binding, 0);
+    }
+
+    public CommonRecommendController(LayRecommendBinding binding, int maxCount) {
+        super(binding);
+        this.maxCount = maxCount;
         initCtrl();
         initData();
     }
@@ -56,7 +59,11 @@ public class CommonRecommendController {
             @Override
             public void onSuccess(int status, ProductWrap bean, String msg) {
                 adapter.getResults().clear();
-                adapter.getResults().addAll(ListUtil.getFirst(bean.getProductList(), 4));
+                if (maxCount != 0) {
+                    adapter.getResults().addAll(ListUtil.getFirst(bean.getProductList(), maxCount));
+                } else {
+                    adapter.getResults().addAll(bean.getProductList());
+                }
                 adapter.notifyDataSetChanged();
             }
 

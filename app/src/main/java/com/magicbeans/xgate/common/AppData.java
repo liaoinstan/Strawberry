@@ -1,6 +1,7 @@
 package com.magicbeans.xgate.common;
 
 import com.ins.common.utils.SharedPrefUtilV2;
+import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.bean.user.User;
 
 import java.util.ArrayList;
@@ -20,12 +21,12 @@ public class AppData {
         private static final String KEY_USER = "user";
         private static final String KEY_LANGUAGE = "language";
 
-        public static void saveToken(String token) {
-            SharedPrefUtilV2.open(SHARENAME).putString(KEY_TOKEN, token);
+        public static void saveToken(Token token) {
+            SharedPrefUtilV2.open(SHARENAME).put(KEY_TOKEN, token);
         }
 
-        public static String getToken() {
-            return SharedPrefUtilV2.open(SHARENAME).getString(KEY_TOKEN);
+        public static Token getToken() {
+            return (Token) SharedPrefUtilV2.open(SHARENAME).get(KEY_TOKEN);
         }
 
         public static void removeToken() {

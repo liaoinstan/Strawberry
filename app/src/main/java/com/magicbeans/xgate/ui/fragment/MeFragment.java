@@ -27,6 +27,7 @@ import com.magicbeans.xgate.ui.activity.SettingActivity;
 import com.magicbeans.xgate.ui.activity.SignActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterRecomment;
 import com.magicbeans.xgate.ui.base.BaseFragment;
+import com.magicbeans.xgate.ui.controller.CommonRecommendController;
 
 
 /**
@@ -34,11 +35,11 @@ import com.magicbeans.xgate.ui.base.BaseFragment;
  */
 public class MeFragment extends BaseFragment implements View.OnClickListener {
 
-    private FragmentMeBinding binding;
     private int position;
     private View rootView;
 
-    private RecycleAdapterRecomment adapter;
+    private FragmentMeBinding binding;
+    private CommonRecommendController commonRecommendController;
 
     public static Fragment newInstance(int position) {
         MeFragment fragment = new MeFragment();
@@ -65,7 +66,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setToolbar();
+        setToolbar(false);
         initBase();
         initView();
         initCtrl();
@@ -83,6 +84,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
 //    }
 
     private void initBase() {
+        commonRecommendController = new CommonRecommendController(binding.includeRecommend);
     }
 
     private void initView() {
@@ -96,24 +98,15 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         binding.textMeOrderUneva.setOnClickListener(this);
         binding.textMeOrderAll.setOnClickListener(this);
 
-        binding.layMeIntegral.setOnClickListener(this);
-        binding.layMeCoupon.setOnClickListener(this);
         binding.layMeFavo.setOnClickListener(this);
-        binding.layMeSign.setOnClickListener(this);
         binding.layMeHistory.setOnClickListener(this);
 
     }
 
     private void initData() {
-        adapter.netGetRecommend();
     }
 
     private void initCtrl() {
-        adapter = new RecycleAdapterRecomment(getContext());
-        binding.recycleRecomment.setNestedScrollingEnabled(false);
-        binding.recycleRecomment.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
-        binding.recycleRecomment.addItemDecoration(new GridSpacingItemDecoration(2, DensityUtil.dp2px(4), GridLayoutManager.VERTICAL, false));
-        binding.recycleRecomment.setAdapter(adapter);
     }
 
     @Override
@@ -140,15 +133,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.text_me_order_all:
                 OrderActivity.start(getActivity(), Order.STATUS_ALL);
                 break;
-            case R.id.lay_me_integral:
-                break;
-            case R.id.lay_me_coupon:
-                break;
             case R.id.lay_me_favo:
                 FavoActivity.start(getActivity());
-                break;
-            case R.id.lay_me_sign:
-                SignActivity.start(getActivity());
                 break;
             case R.id.lay_me_history:
                 break;

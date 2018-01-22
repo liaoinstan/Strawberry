@@ -109,10 +109,16 @@ public class CountView extends FrameLayout implements View.OnClickListener {
     public void setCount(int count) {
         //数量不能小于0
         if (count < MIN_COUNT) count = MIN_COUNT;
-        if (onCountChangeListenner != null) onCountChangeListenner.onCountChange(count, this.count);
+        if (onCountChangeListenner != null && count != this.count)
+            onCountChangeListenner.onCountChange(count, this.count);
         this.count = count;
         text_count.setText(count + "");
         text_count_show.setText("x" + count);
+        if (count <= 1) {
+            btn_sub.setEnabled(false);
+        } else {
+            btn_sub.setEnabled(true);
+        }
     }
 
     public void setEdit(boolean isEdit) {

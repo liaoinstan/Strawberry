@@ -75,16 +75,17 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/text_off_flag"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginRight="10dp"
                         android:background="@drawable/shape_product_tag_bk"
                         android:gravity="center"
                         android:rotation="-20"
-                        android:text="10%\nOFF"
                         android:textAppearance="@style/TextAppearance.Tag"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_small" />
+                        android:textSize="@dimen/text_small"
+                        tools:text="10%\nOFF" />
 
                 </LinearLayout>
 
@@ -115,10 +116,10 @@
                     <Space style="@style/Space_H" />
 
                     <TextView
-                        android:foreground="?attr/selectableItemBackground"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_rect_corner_red"
+                        android:foreground="?attr/selectableItemBackground"
                         android:paddingBottom="4dp"
                         android:paddingLeft="7dp"
                         android:paddingRight="7dp"

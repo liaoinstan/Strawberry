@@ -58,6 +58,14 @@ public class RecycleAdapterSale extends RecyclerView.Adapter<RecycleAdapterSale.
         holder.binding.textPriceOld.setVisibility(!TextUtils.isEmpty(product.getRefPrice()) ? View.VISIBLE : View.INVISIBLE);
         TextViewUtil.addDelLine(holder.binding.textPriceOld);
         FontUtils.boldText(holder.binding.textPrice);
+
+        //如果折扣字段为空或者为0，则隐藏
+        if (TextUtils.isEmpty(product.getSave()) || Integer.parseInt(product.getSave()) == 0) {
+            holder.binding.textOffFlag.setVisibility(View.GONE);
+        } else {
+            holder.binding.textOffFlag.setVisibility(View.VISIBLE);
+            holder.binding.textOffFlag.setText(product.getSave() + "%\nOFF");
+        }
     }
 
     @Override

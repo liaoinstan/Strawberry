@@ -31,7 +31,6 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
 
     private Context context;
     private List<Product2> results = new ArrayList<>();
-    private boolean isEdit = false;
 
     public List<Product2> getResults() {
         return results;
@@ -60,6 +59,17 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
             public void onClick(View v) {
                 bean.setSelect(!bean.isSelect());
                 notifyItemChanged(position);
+                if (onSelectChangeListenner != null) onSelectChangeListenner.onSelectChange();
+            }
+        });
+        holder.binding.includeCoutent.countview.setOnCountChangeListenner(new CountView.OnCountChangeListenner() {
+            @Override
+            public void onCountChange(int count, int lastCount) {
+                bean.setCount(count);
+                //TODO:这里请求服务器更新数量
+                if (bean.isSelect() && onSelectChangeListenner != null) {
+                    onSelectChangeListenner.onSelectChange();
+                }
             }
         });
         holder.binding.btnItemShopbagFavo.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +84,6 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
                 DialogSure.showDialog(context, "确定要删除该商品？", new DialogSure.CallBack() {
                     @Override
                     public void onSure() {
-//                        AppDatabaseManager.getInstance().deleteShopCart(ShopCart.convertProduct2ToShopcart(bean));
                         AppDatabaseManager.getInstance().deleteShopCartTable(bean);
                         results.remove(bean);
                         notifyItemRemoved(position);
@@ -90,9 +99,8 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
         holder.binding.includeCoutent.textPriceOld.setText(AppHelper.getPriceSymbol("") + bean.getWasPrice());
         holder.binding.includeCoutent.textPriceOld.setVisibility(!TextUtils.isEmpty(bean.getWasPrice()) ? View.VISIBLE : View.INVISIBLE);
         holder.binding.includeCoutent.countview.setCount(bean.getCount());
-        holder.binding.includeCoutent.countview.setEdit(isEdit);
+        holder.binding.includeCoutent.countview.setEdit(true);
         holder.binding.slidmenu.close();
-
     }
 
     @Override
@@ -109,29 +117,37 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
         }
     }
 
-    private OnRecycleItemClickListener listener;
+    //############## 对外方法 ################
 
-    public void setOnItemClickListener(OnRecycleItemClickListener listener) {
-        this.listener = listener;
+    public List<Product2> getSelectBeans() {
+        return SelectHelper.getSelectBeans(results);
     }
 
     public void selectAll(boolean isSelect) {
         SelectHelper.selectAllSelectBeans(results, isSelect);
         notifyDataSetChanged();
+        if (onSelectChangeListenner != null) onSelectChangeListenner.onSelectChange();
     }
 
     public boolean isSelectAll() {
         return SelectHelper.isSelectAll(results);
     }
 
-    //##############  get & set ###############
+    //############## 对外接口 ################
 
-    public boolean isEdit() {
-        return isEdit;
+    private OnRecycleItemClickListener listener;
+
+    public void setOnItemClickListener(OnRecycleItemClickListener listener) {
+        this.listener = listener;
     }
 
-    public void setEdit(boolean edit) {
-        isEdit = edit;
-        notifyDataSetChanged();
+    private OnSelectChangeListenner onSelectChangeListenner;
+
+    public void setOnSelectChangeListenner(OnSelectChangeListenner onSelectChangeListenner) {
+        this.onSelectChangeListenner = onSelectChangeListenner;
+    }
+
+    public interface OnSelectChangeListenner {
+        void onSelectChange();
     }
 }

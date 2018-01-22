@@ -11,6 +11,7 @@ import com.ins.common.utils.DensityUtil;
 import com.ins.common.utils.ListUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.brand.Brand;
 import com.magicbeans.xgate.bean.brand.BrandHotWrap;
 import com.magicbeans.xgate.bean.product.Product;
@@ -25,6 +26,8 @@ import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
 import com.magicbeans.xgate.ui.activity.SectionActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeBrand;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeSingle;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
@@ -72,7 +75,7 @@ public class HomeBrandController implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_more:
-                SectionActivity.start(context);
+                EventBus.getDefault().post(new EventBean(EventBean.EVENT_JUMP_BRANDHOT));
                 break;
         }
     }

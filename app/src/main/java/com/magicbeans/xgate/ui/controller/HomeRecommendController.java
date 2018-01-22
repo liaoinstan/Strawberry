@@ -18,6 +18,7 @@ import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.ui.activity.ProductActivity;
 import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
+import com.magicbeans.xgate.ui.activity.SaleActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterRecomment;
 
 import java.util.Map;
@@ -56,7 +57,7 @@ public class HomeRecommendController implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_more:
-                ProductActivity.start(context);
+                SaleActivity.start(context, SaleActivity.TYPE_RECOMMED);
                 break;
         }
     }

@@ -107,12 +107,6 @@ public interface NetInterface {
     Call<ResponseBody> netHomeBanner(@QueryMap Map<String, Object> param);
 
     /**
-     * 首页获取今日秒杀
-     */
-    @GET("/app/promotionList.aspx?OthCatgId=90")
-    Call<ResponseBody> netHomeSaleList(@QueryMap Map<String, Object> param);
-
-    /**
      * 首页获取今日秒杀时限
      */
     @GET("/ajaxDailySpecials.aspx")
@@ -200,10 +194,16 @@ public interface NetInterface {
     //##################################################################
 
     /**
-     * 首页获取品牌好货
+     * 首页获取今日秒杀
      */
-    @GET("/app/promotionList.aspx?OthCatgId=17")
-    Call<ResponseBody> netHomePromotionList(@QueryMap Map<String, Object> param);
+    @GET("/app/promotionList.aspx?OthCatgId=90")
+    Call<ResponseBody> netHomeTodayList(@QueryMap Map<String, Object> param);
+
+    /**
+     * 首页获取今日秒杀
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=19")
+    Call<ResponseBody> netHomeSaleList(@QueryMap Map<String, Object> param);
 
     /**
      * 首页获取王牌单品
@@ -228,6 +228,12 @@ public interface NetInterface {
      */
     @GET("/app/promotionList.aspx?OthCatgId=89")
     Call<ResponseBody> netHomeClearList(@QueryMap Map<String, Object> param);
+
+    /**
+     * 首页获取每日精选
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=89")
+    Call<ResponseBody> netHomeSelectList(@QueryMap Map<String, Object> param);
 
     /**
      * 对评论点赞

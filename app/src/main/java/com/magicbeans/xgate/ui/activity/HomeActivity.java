@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.RadioGroup;
 
 import com.ins.common.utils.L;
@@ -38,6 +39,9 @@ public class HomeActivity extends BaseAppCompatActivity {
     public void onCommonEvent(EventBean event) {
         if (event.getEvent() == EventBean.EVENT_LANGUAGE_CHANGE) {
             recreate();
+        } else if (event.getEvent() == EventBean.EVENT_JUMP_BRANDHOT) {
+            //跳转到热门品牌页面
+            group_tab.check(tabsId[1]);
         }
     }
 
@@ -95,13 +99,13 @@ public class HomeActivity extends BaseAppCompatActivity {
                 group_tab.check(tabsId[position]);
                 switch (position) {
                     case 0:
-                        StatusBarTextUtil.StatusBarLightMode(HomeActivity.this);
+                        StatusBarTextUtil.StatusBarDarkMode(HomeActivity.this);
                         break;
                     case 1:
-                        StatusBarTextUtil.StatusBarLightMode(HomeActivity.this);
+                        StatusBarTextUtil.StatusBarDarkMode(HomeActivity.this);
                         break;
                     case 2:
-                        StatusBarTextUtil.StatusBarLightMode(HomeActivity.this);
+                        StatusBarTextUtil.StatusBarDarkMode(HomeActivity.this);
                         break;
                     case 3:
                         StatusBarTextUtil.StatusBarDarkMode(HomeActivity.this);

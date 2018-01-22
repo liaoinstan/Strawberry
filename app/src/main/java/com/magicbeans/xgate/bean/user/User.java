@@ -50,7 +50,6 @@ public class User implements Serializable {
     private String LastName;
 
     //本地字段
-    private UserInfo userInfo;
 
     public String getAccountID() {
         return accountID;
@@ -172,14 +171,6 @@ public class User implements Serializable {
         LastName = lastName;
     }
 
-    public UserInfo getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -198,7 +189,6 @@ public class User implements Serializable {
                 ", token='" + token + '\'' +
                 ", Mobile='" + Mobile + '\'' +
                 ", LastName='" + LastName + '\'' +
-                ", userInfo=" + userInfo +
                 '}';
     }
 }

@@ -12,6 +12,7 @@ import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.UrlUtil;
 import com.ins.common.view.BannerView2;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.banner.BannerWrap;
 import com.magicbeans.xgate.bean.product.ProductWrap;
 import com.magicbeans.xgate.databinding.LayHomeBannerboardBinding;
@@ -20,6 +21,8 @@ import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.ui.activity.SaleActivity;
 import com.magicbeans.xgate.ui.activity.WebActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +42,7 @@ import cn.sharesdk.wechat.friends.Wechat;
  * Created by Administrator on 2017/10/11.
  */
 
-public class HomeBannerBoardController implements View.OnClickListener{
+public class HomeBannerBoardController implements View.OnClickListener {
 
     private Context context;
     private LayHomeBannerboardBinding binding;
@@ -82,30 +85,30 @@ public class HomeBannerBoardController implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_bannerboard_today:
-                SaleActivity.start(context);
+                SaleActivity.start(context, SaleActivity.TYPE_TODAY);
                 break;
             case R.id.btn_bannerboard_sale:
-                SaleActivity.start(context);
+                SaleActivity.start(context, SaleActivity.TYPE_SALE);
                 break;
             case R.id.btn_bannerboard_single:
-                SaleActivity.start(context);
+                SaleActivity.start(context, SaleActivity.TYPE_SINGLE);
                 break;
             case R.id.btn_bannerboard_new:
-                SaleActivity.start(context);
+                SaleActivity.start(context, SaleActivity.TYPE_NEW);
                 break;
             case R.id.btn_bannerboard_brandhot:
-
+                EventBus.getDefault().post(new EventBean(EventBean.EVENT_JUMP_BRANDHOT));
                 break;
             case R.id.btn_bannerboard_recommed:
-                SaleActivity.start(context);
+                SaleActivity.start(context, SaleActivity.TYPE_RECOMMED);
                 break;
             case R.id.btn_bannerboard_clear:
-                SaleActivity.start(context);
+                SaleActivity.start(context, SaleActivity.TYPE_CLEAR);
                 break;
             case R.id.btn_bannerboard_selection:
-                SaleActivity.start(context);
+                SaleActivity.start(context, SaleActivity.TYPE_SELECT);
                 break;
         }
     }

@@ -17,12 +17,14 @@ import com.ins.common.utils.L;
 import com.ins.common.utils.StatusBarTextUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.bean.user.User;
 import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.databinding.ActivityLoginBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
+import com.magicbeans.xgate.net.nethelper.NetTokenHelper;
 import com.magicbeans.xgate.sharesdk.UserInfo;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.controller.SignupContentController;
@@ -122,22 +124,18 @@ public class LoginActivity extends BaseAppCompatActivity {
         }
     }
 
-    //获取用户信息
-    //FIXME:这个接口非常古怪，token参数必须拼接在url上，不能以参数的形式提交否则后台无法获取正确的token，应该是后台接口取参的BUG，需要和后台进行debug调试
+    //使用token获取用户信息
     private void netGetUserProfile(String accountID, String token) {
-        String url = NetApi.getBaseUrl() + "app/apiUserProfile.aspx?token=" + token;
         showLoadingDialog();
-        Map<String, Object> param = new NetParam()
-                .put("accountID", accountID)
-                .put("action", "get")
-                .build();
-        L.e(url);
-        NetApi.NI().getUserProfile(url, param).enqueue(new STCallback<User>(User.class) {
+        NetTokenHelper.getInstance().netGetUserProfile(accountID, token, new NetTokenHelper.UserProfileCallback() {
             @Override
             public void onSuccess(int status, User user, String msg) {
                 dismissLoadingDialog();
-                ToastUtil.showToastShort(user.toString());
-                L.e(user.toString());
+                //持久化Token和User到本地
+                AppData.App.saveToken(new Token(user.getAccountID(), user.getToken()));
+                AppData.App.saveUser(user);
+                //跳转首页
+                HomeActivity.start(LoginActivity.this);
             }
 
             @Override
