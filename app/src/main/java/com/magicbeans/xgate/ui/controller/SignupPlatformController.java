@@ -116,7 +116,8 @@ public class SignupPlatformController extends BaseController<LaySignupPlatformBi
     }
 
 
-    //########## 接口 ###########
+    //########## 对外方法 ###########
+
     public boolean isShow() {
         return binding.getRoot().getVisibility() == View.VISIBLE;
     }
@@ -163,6 +164,8 @@ public class SignupPlatformController extends BaseController<LaySignupPlatformBi
         binding.btnWeixin.setClickable(true);
         binding.btnWeibo.setClickable(true);
     }
+
+    //########## 对外接口 ###########
 
     private SignupPlatCallback callback;
 

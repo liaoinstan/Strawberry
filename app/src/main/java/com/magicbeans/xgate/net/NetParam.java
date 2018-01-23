@@ -3,6 +3,8 @@ package com.magicbeans.xgate.net;
 import com.google.gson.Gson;
 import com.ins.common.utils.L;
 import com.ins.common.utils.StrUtil;
+import com.ins.common.utils.UriUtil;
+import com.ins.common.utils.UrlUtil;
 
 import java.io.File;
 import java.util.LinkedHashMap;
@@ -48,6 +50,8 @@ public class NetParam {
         return paramMap;
     }
 
+    //################  工具类方法  #################
+
     //构造一个上传文件的Bodypart
     public static MultipartBody.Part buildFileBodyPart(String partName, String path) {
         File file = new File(path);
@@ -66,5 +70,9 @@ public class NetParam {
         for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
             L.e(entry.getKey() + ":" + entry.getValue().toString());
         }
+    }
+
+    public static String createUrl(String url, Map<String, Object> map) {
+        return UrlUtil.addParams(url, map);
     }
 }

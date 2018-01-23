@@ -2,22 +2,23 @@ package com.magicbeans.xgate.ui.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.FontUtils;
 import com.ins.common.utils.GlideUtil;
+import com.ins.common.utils.SpannableStringUtil;
 import com.ins.common.utils.viewutils.TextViewUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.product.Product;
-import com.magicbeans.xgate.databinding.ItemHomeSaleBinding;
 import com.magicbeans.xgate.databinding.ItemSaleProductListBinding;
+import com.ins.common.helper.TypeFaceHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,12 @@ public class RecycleAdapterSale extends RecyclerView.Adapter<RecycleAdapterSale.
             holder.binding.textOffFlag.setVisibility(View.GONE);
         } else {
             holder.binding.textOffFlag.setVisibility(View.VISIBLE);
-            holder.binding.textOffFlag.setText(product.getSave() + "%\nOFF");
+//            holder.binding.textOffFlag.setText(product.getSave() + "%\nOFF");
+
+            Typeface typeface1 = TypeFaceHelper.with(context).getTypeFace("fonts/brlnsr.ttf");
+            Typeface typeface2 = TypeFaceHelper.with(context).getTypeFace("fonts/brlnsb.ttf");
+            SpannableString span = SpannableStringUtil.createTypeFaceStr(new String[]{product.getSave() + "%", "\nOFF"}, new Typeface[]{typeface1, typeface2});
+            holder.binding.textOffFlag.setText(span);
         }
     }
 

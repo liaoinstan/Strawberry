@@ -102,11 +102,12 @@
     <style name="TabLayoutTextBig">
         <item name="android:textSize">@dimen/text_big</item>
     </style>
+
     <style name="TabLayoutTextBigNomal">
         <item name="android:textSize">@dimen/text_big_nomal</item>
     </style>
 
     <style name="TextAppearance.Tag" parent="android:TextAppearance">
-        <item name="fontPath">fonts/Oswald-Stencbab.ttf</item>
+        <item name="fontPath">fonts/brlnsb.ttf</item>
     </style>
 </resources>

@@ -2,6 +2,8 @@ package com.magicbeans.xgate.bean.user;
 
 import android.text.TextUtils;
 
+import com.magicbeans.xgate.common.AppData;
+
 import java.io.Serializable;
 
 /**
@@ -29,6 +31,26 @@ public class Token implements Serializable {
             return false;
         } else {
             return true;
+        }
+    }
+
+    //从本地获取Token，失败返回""
+    public static String getLocalToken() {
+        Token token = AppData.App.getToken();
+        if (token != null && !TextUtils.isEmpty(token.getToken())) {
+            return token.getToken();
+        } else {
+            return "";
+        }
+    }
+
+    //accountID，失败返回""
+    public static String getLocalAccountId() {
+        Token token = AppData.App.getToken();
+        if (token != null && !TextUtils.isEmpty(token.getAccountID())) {
+            return token.getAccountID();
+        } else {
+            return "";
         }
     }
 

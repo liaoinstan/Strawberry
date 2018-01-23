@@ -22,6 +22,7 @@ import com.magicbeans.xgate.data.db.entity.ShopCart;
 import com.magicbeans.xgate.data.db.entity.ShopCartTable;
 import com.magicbeans.xgate.databinding.LayProductdetailBottombarBinding;
 import com.magicbeans.xgate.databinding.LayProductdetailDescribeBinding;
+import com.magicbeans.xgate.net.nethelper.NetShopCartHelper;
 
 import java.util.List;
 
@@ -62,25 +63,17 @@ public class ProductDetailBottombarController implements View.OnClickListener {
             case R.id.text_shopbag:
                 break;
             case R.id.text_favo:
+                NetShopCartHelper.getInstance().netGetShopCartList();
                 break;
             case R.id.text_add:
                 if (productDetail != null) {
                     Product2 product2 = productDetail.getSelectProduct(productDetail.getProdID());
                     if (product2 != null) {
-                        //###### 添加到数据库 ######
-//                        AppDatabaseManager.getInstance().insertShopCart(ShopCart.convertProduct2ToShopcart(product2));
-                        AppDatabaseManager.getInstance().insertShopCartTable(product2);
-//                        LiveData<List<Product2>> productsLiveData = AppDatabaseManager.getInstance().queryShopCartTables();
-//                        productsLiveData.observeForever(new Observer<List<Product2>>() {
-//                            @Override
-//                            public void onChanged(@Nullable List<Product2> product2s) {
-//                                for (Product2 product2:product2s){
-//                                    L.e(product2.getProdID());
-//                                }
-//                            }
-//                        });
-                        //###### 添加到数据库 ######
-                        ToastUtil.showToastLong("测试：\nid：" + product2.getProdID() + "\n类别:" + product2.getSizeText() + "\n数量：" + product2.getCount() + "\n添加成功");
+                        //###### 添加到本地数据库 ######
+                        //AppDatabaseManager.getInstance().insertShopCartTable(product2);
+                        //ToastUtil.showToastLong("测试：\nid：" + product2.getProdID() + "\n类别:" + product2.getSizeText() + "\n数量：" + product2.getCount() + "\n添加成功");
+                        //###### 添加到服务器 ######
+                        NetShopCartHelper.getInstance().netAddShopCart(product2.getProdID());
                     }
                 }
                 break;

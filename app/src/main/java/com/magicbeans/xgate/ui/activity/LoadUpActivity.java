@@ -66,15 +66,16 @@ public class LoadUpActivity extends BaseAppCompatActivity {
 
 
     //使用token获取用户信息
-    private void netGetUserProfile(Token token) {
+    private void netGetUserProfile(final Token token) {
         NetTokenHelper.getInstance().netGetUserProfile(token.getAccountID(), token.getToken(), new NetTokenHelper.UserProfileCallback() {
             @Override
             public void onSuccess(int status, User user, String msg) {
-                //持久化Token和User到本地
-                AppData.App.saveToken(new Token(user.getAccountID(), user.getToken()));
+                //持久化User到本地
+                user.setToken(token.getToken());
                 AppData.App.saveUser(user);
                 //跳转首页
                 checkTimeGoHomeActivity();
+                ToastUtil.showToastShort("登录成功");
             }
 
             @Override

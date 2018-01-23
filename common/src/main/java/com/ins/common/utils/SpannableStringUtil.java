@@ -1,26 +1,23 @@
 package com.ins.common.utils;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextPaint;
-import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
-import android.widget.TextView;
 
 import com.ins.common.common.ConerBkSpan;
+import com.ins.common.common.MyTypefaceSpan;
 
 /**
  * Created by liaoinstan
@@ -129,6 +126,21 @@ public class SpannableStringUtil {
         ConerBkSpan roundedBackgroundSpan = new ConerBkSpan(colorBk, colorText);
         spannableString.setSpan(roundedBackgroundSpan, 0, title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
+    }
+
+    public static SpannableString createTypeFaceStr(String[] strs, Typeface[] typefaces) {
+        String strall = "";
+        for (String str : strs) {
+            strall += str;
+        }
+        SpannableString strSpan = new SpannableString(strall);
+        int end = 0;
+        for (int i = 0; i < strs.length; i++) {
+            int start = end;
+            end += strs[i].length();
+            strSpan.setSpan(new MyTypefaceSpan(typefaces[i]), start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        }
+        return strSpan;
     }
 
     //要使点击事件生效必须给TextView设置如下属性：

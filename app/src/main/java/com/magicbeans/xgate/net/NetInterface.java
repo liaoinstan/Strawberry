@@ -38,6 +38,12 @@ public interface NetInterface {
     @POST
     Call<ResponseBody> uploadFile(@Url String url, @Part MultipartBody.Part file);
 
+    /**
+     * 通用请求方法
+     */
+    @GET
+    Call<ResponseBody> commonNetwork(@Url String url);
+
     //////////////////////////////////////////
     //////////////////////////////////////////
     //////////////////////////////////////////
@@ -94,7 +100,7 @@ public interface NetInterface {
      */
 //    @GET("/app/apiUserProfile.aspx")
     @GET
-    Call<ResponseBody> getUserProfile(@Url String url, @QueryMap Map<String, Object> param);
+    Call<ResponseBody> getUserProfile(@Url String url);
 
     //##################################################################
     //#########               接口
@@ -188,7 +194,6 @@ public interface NetInterface {
     @GET("https://demo2017.strawberrynet.com/app/apiSubCategories.aspx")
     Call<ResponseBody> netSubCategory(@QueryMap Map<String, Object> param);
 
-
     //##################################################################
     //#########               2017/12/13 首页模块变更接口
     //##################################################################
@@ -242,4 +247,24 @@ public interface NetInterface {
      */
     @GET("/ajaxProdReviewFB.aspx")
     Call<ResponseBody> netZanRecomment(@QueryMap Map<String, Object> param);
+
+    //##################################################################
+    //#########               2018/1/23 购物车
+    //##################################################################
+
+    /**
+     * 添加购物车
+     * ProdId
+     * token
+     */
+//    @GET("http://xxx.strawberrynet2.com/app/apiShopcart.aspx?ID=xGate&act=additem")
+    @GET("/app/apiShopcart.aspx?ID=xGate&act=additem")
+    Call<ResponseBody> netAddShopCart(@QueryMap Map<String, Object> param);
+
+    /**
+     * 获取购物车
+     * token
+     */
+    @GET("/app/apiShopcart.aspx?ID=xGate")
+    Call<ResponseBody> netGetShopCartList(@QueryMap Map<String, Object> param);
 }

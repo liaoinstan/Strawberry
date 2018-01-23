@@ -16,6 +16,7 @@ import com.ins.common.utils.App;
 import com.ins.common.utils.L;
 import com.ins.common.utils.StatusBarTextUtil;
 import com.ins.common.utils.ToastUtil;
+import com.ins.common.utils.viewutils.AppUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.bean.user.User;
@@ -125,17 +126,20 @@ public class LoginActivity extends BaseAppCompatActivity {
     }
 
     //使用token获取用户信息
-    private void netGetUserProfile(String accountID, String token) {
+    private void netGetUserProfile(String accountID, final String token) {
         showLoadingDialog();
         NetTokenHelper.getInstance().netGetUserProfile(accountID, token, new NetTokenHelper.UserProfileCallback() {
             @Override
             public void onSuccess(int status, User user, String msg) {
                 dismissLoadingDialog();
                 //持久化Token和User到本地
-                AppData.App.saveToken(new Token(user.getAccountID(), user.getToken()));
+                user.setToken(token);
+                AppData.App.saveToken(new Token(user.getAccountID(), token));
                 AppData.App.saveUser(user);
                 //跳转首页
                 HomeActivity.start(LoginActivity.this);
+                //FIXME:测试内容，把token复制到剪切板
+                AppUtil.copyText(LoginActivity.this, token);
             }
 
             @Override

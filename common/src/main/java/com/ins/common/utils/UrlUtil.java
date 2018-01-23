@@ -70,12 +70,12 @@ public class UrlUtil {
     /**
      * 上面方法的批处理{@link #addParam(String, String, String)}
      */
-    public static String addParams(String url, Map<String, String> paramMap) {
+    public static String addParams(String url, Map<String, Object> paramMap) {
         if (StrUtil.isEmpty(paramMap) || StrUtil.isEmpty(url)) return url;
         String urlNo = cutParam(url);
         Map<String, String> map = getParamMap(url);
-        for (Map.Entry<String, String> keyValue : paramMap.entrySet()) {
-            map.put(keyValue.getKey(), keyValue.getValue());
+        for (Map.Entry<String, Object> keyValue : paramMap.entrySet()) {
+            map.put(keyValue.getKey(), keyValue.getValue().toString());
         }
         String urlnew = buildParamStr(urlNo, map);
         return urlnew;

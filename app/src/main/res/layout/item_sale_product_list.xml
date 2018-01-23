@@ -82,10 +82,10 @@
                         android:background="@drawable/shape_product_tag_bk"
                         android:gravity="center"
                         android:rotation="-20"
-                        android:textAppearance="@style/TextAppearance.Tag"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_small"
                         tools:text="10%\nOFF" />
+                        <!--android:textAppearance="@style/TextAppearance.Tag"-->
 
                 </LinearLayout>
 
