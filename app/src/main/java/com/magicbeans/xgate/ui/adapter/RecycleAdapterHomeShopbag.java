@@ -14,7 +14,9 @@ import com.ins.common.helper.SelectHelper;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.GlideUtil;
+import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
+import com.ins.common.view.LoadingLayout;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.common.TestBean;
 import com.magicbeans.xgate.bean.product.Product2;
@@ -31,6 +33,7 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
 
     private Context context;
     private List<Product2> results = new ArrayList<>();
+    private LoadingLayout loadingLayout;
 
     public List<Product2> getResults() {
         return results;
@@ -86,7 +89,9 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
                     public void onSure() {
                         AppDatabaseManager.getInstance().deleteShopCartTable(bean);
                         results.remove(bean);
-                        notifyItemRemoved(position);
+//                        notifyItemRemoved(position);
+//                        notifyItemRangeChanged();
+                        freshDataSet();
                     }
                 });
             }
@@ -119,6 +124,17 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
 
     //############## 对外方法 ################
 
+    public void freshDataSet() {
+        notifyDataSetChanged();
+        if (loadingLayout != null) {
+            if (!StrUtil.isEmpty(results)){
+                loadingLayout.showOut();
+            }else {
+                loadingLayout.showLackView();
+            }
+        }
+    }
+
     public List<Product2> getSelectBeans() {
         return SelectHelper.getSelectBeans(results);
     }
@@ -149,5 +165,11 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
 
     public interface OnSelectChangeListenner {
         void onSelectChange();
+    }
+
+    //############## get & set ################
+
+    public void setLoadingLayout(LoadingLayout loadingLayout) {
+        this.loadingLayout = loadingLayout;
     }
 }

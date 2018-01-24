@@ -41,12 +41,12 @@ public class NetShopCartHelper {
         NetApi.NI().commonNetwork(url).enqueue(new STFormatCallback<CommonEntity>(CommonEntity.class) {
             @Override
             public void onSuccess(int status, CommonEntity com, String msg) {
-                ToastUtil.showToastShort(msg);
+                ToastUtil.showToastShort("添加成功");
             }
 
             @Override
             public void onError(int status, String msg) {
-                ToastUtil.showToastShort(msg);
+                ToastUtil.showToastShort("添加失败");
             }
         });
     }

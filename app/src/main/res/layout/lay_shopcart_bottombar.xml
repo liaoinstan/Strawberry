@@ -11,10 +11,11 @@
         <TextView
             android:id="@+id/text_shopbag_checkall"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:drawableLeft="@drawable/selector_check"
             android:drawablePadding="10dp"
+            android:gravity="center_vertical"
             android:text="全选"
             android:textColor="@color/com_text_blank"
             android:textSize="@dimen/text_nomal_small" />
@@ -28,6 +29,7 @@
                 android:id="@+id/lay_unedit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -66,6 +68,7 @@
                 <Space style="@style/Space_H" />
 
                 <TextView
+                    android:id="@+id/btn_share"
                     android:layout_width="wrap_content"
                     android:layout_height="33dp"
                     android:background="@drawable/shape_rect_corner_none_line_blank"
@@ -78,6 +81,7 @@
                     android:textSize="@dimen/text_big_nomal" />
 
                 <TextView
+                    android:id="@+id/btn_favo"
                     android:layout_width="wrap_content"
                     android:layout_height="33dp"
                     android:layout_marginLeft="10dp"
@@ -91,6 +95,7 @@
                     android:textSize="@dimen/text_big_nomal" />
 
                 <TextView
+                    android:id="@+id/btn_del"
                     android:layout_width="wrap_content"
                     android:layout_height="33dp"
                     android:layout_marginLeft="10dp"

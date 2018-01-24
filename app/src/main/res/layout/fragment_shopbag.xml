@@ -26,10 +26,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="购物车"
                     android:drawablePadding="3dp"
                     android:drawableRight="@drawable/ic_shopcart_location"
+                    android:gravity="center"
+                    android:text="购物车"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_big" />
 
@@ -76,10 +76,20 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/recycle"
+                        <com.ins.common.view.LoadingLayout
+                            android:id="@+id/loadingLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            app:layout_fail="@layout/layout_fail"
+                            app:layout_lack="@layout/layout_lack_shopcart"
+                            app:layout_loading="@layout/layout_loading">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/recycle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </com.ins.common.view.LoadingLayout>
 
                         <include
                             android:id="@+id/include_recomend"

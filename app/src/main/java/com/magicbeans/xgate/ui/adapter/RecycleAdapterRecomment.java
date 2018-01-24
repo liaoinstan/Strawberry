@@ -8,9 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ins.common.interfaces.OnRecycleItemClickListener;
+import com.ins.common.helper.ShopAnimHelper;
 import com.ins.common.utils.GlideUtil;
-import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.viewutils.TextViewUtil;
 import com.magicbeans.xgate.R;
@@ -51,6 +50,18 @@ public class RecycleAdapterRecomment extends RecyclerView.Adapter<RecycleAdapter
             @Override
             public void onClick(View v) {
                 ProductDetailActivity.start(context, product.getProdID());
+            }
+        });
+        holder.binding.btnAddShopcart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //###### 添加到本地数据库 ######
+//                AppDatabaseManager.getInstance().insertShopCartTable(product2);
+//                EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART));
+                //###### 添加到服务器 ######
+//                NetShopCartHelper.getInstance().netAddShopCart(product2.getProdID());
+                //###### 飞入动画 ######
+                ShopAnimHelper.newInstance().quickStart(holder.binding.imgHeader, holder.binding.btnAddShopcart, (ViewGroup) holder.itemView, product.getProductImages().getImg350Src());
             }
         });
         GlideUtil.loadImg(holder.binding.imgHeader, R.drawable.default_bk_img, product.getProductImages().getImg350Src());

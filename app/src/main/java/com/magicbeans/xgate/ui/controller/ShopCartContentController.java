@@ -31,6 +31,7 @@ import com.magicbeans.xgate.databinding.LayRecommendBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
+import com.magicbeans.xgate.sharesdk.ShareDialog;
 import com.magicbeans.xgate.ui.activity.OrderAddActivity;
 import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeShopbag;
@@ -56,7 +57,11 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
     private void initCtrl() {
         binding.includeBottombar.btnGo.setOnClickListener(this);
         binding.includeBottombar.textShopbagCheckall.setOnClickListener(this);
+        binding.includeBottombar.btnShare.setOnClickListener(this);
+        binding.includeBottombar.btnFavo.setOnClickListener(this);
+        binding.includeBottombar.btnDel.setOnClickListener(this);
         adapter = new RecycleAdapterHomeShopbag(context);
+        adapter.setLoadingLayout(binding.loadingLayout);
         adapter.setOnItemClickListener(this);
         binding.recycle.setNestedScrollingEnabled(false);
         binding.recycle.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
@@ -83,15 +88,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
         adapter.setOnSelectChangeListenner(new RecycleAdapterHomeShopbag.OnSelectChangeListenner() {
             @Override
             public void onSelectChange() {
-                List<Product2> selectProduct2s = adapter.getSelectBeans();
-                if (!StrUtil.isEmpty(selectProduct2s)) {
-                    binding.includeBottombar.btnGo.setText("去结算(" + selectProduct2s.size() + ")");
-                    float totalPrice = 0;
-                    for (Product2 product2 : selectProduct2s) {
-                        totalPrice += Float.parseFloat(product2.getShopPrice());
-                    }
-                    binding.includeBottombar.textShopbagPriceall.setText("合计：￥" + totalPrice);
-                }
+                calcuPrice();
             }
         });
     }
@@ -103,7 +100,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
             public void onChanged(@Nullable List<Product2> product2s) {
                 adapter.getResults().clear();
                 adapter.getResults().addAll(product2s);
-                adapter.notifyDataSetChanged();
+                adapter.freshDataSet();
                 binding.spring.onFinishFreshAndLoad();
             }
         });
@@ -128,25 +125,38 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
                 }
                 break;
             case R.id.btn_go:
-                if (isEdit()) {
-                    DialogSure.showDialog(context, "确定要删除这些商品？", new DialogSure.CallBack() {
-                        @Override
-                        public void onSure() {
-                        }
-                    });
-                } else {
-                    DialogSure.showDialog(context, "确定要下单？", new DialogSure.CallBack() {
-                        @Override
-                        public void onSure() {
-                            OrderAddActivity.start(context);
-                        }
-                    });
-                }
+                DialogSure.showDialog(context, "确定要下单？", new DialogSure.CallBack() {
+                    @Override
+                    public void onSure() {
+                        OrderAddActivity.start(context);
+                    }
+                });
+                break;
+            case R.id.btn_share:
+                new ShareDialog(context).show();
+                break;
+            case R.id.btn_favo:
+                ToastUtil.showToastShort("开发中");
+                break;
+            case R.id.btn_del:
+                DialogSure.showDialog(context, "确定要删除这些商品？", new DialogSure.CallBack() {
+                    @Override
+                    public void onSure() {
+                        List<Product2> selectBeans = adapter.getSelectBeans();
+                        AppDatabaseManager.getInstance().deleteShopCartTable(selectBeans.toArray(new Product2[]{}));
+                        adapter.getResults().removeAll(selectBeans);
+                        adapter.freshDataSet();
+                    }
+                });
                 break;
         }
     }
 
     //#################  对外方法 ##################
+
+    public void refreshData() {
+        initData();
+    }
 
     public void setEditModel(boolean isEdit) {
         if (isEdit) {
@@ -156,6 +166,16 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
             binding.includeBottombar.layEdit.setVisibility(View.GONE);
             binding.includeBottombar.layUnedit.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void calcuPrice() {
+        List<Product2> selectProduct2s = adapter.getSelectBeans();
+        binding.includeBottombar.btnGo.setText("去结算(" + selectProduct2s.size() + ")");
+        float totalPrice = 0;
+        for (Product2 product2 : selectProduct2s) {
+            totalPrice += Float.parseFloat(product2.getShopPrice()) * product2.getCount();
+        }
+        binding.includeBottombar.textShopbagPriceall.setText("合计：￥" + totalPrice);
     }
 
     public boolean isEdit() {

@@ -22,6 +22,8 @@ import com.magicbeans.xgate.ui.adapter.PagerAdapterHome;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.shelwee.update.UpdateHelper;
 
+import org.greenrobot.eventbus.EventBus;
+
 public class HomeActivity extends BaseAppCompatActivity {
 
     private UpdateHelper updateHelper;
@@ -106,6 +108,7 @@ public class HomeActivity extends BaseAppCompatActivity {
                         break;
                     case 2:
                         StatusBarTextUtil.StatusBarDarkMode(HomeActivity.this);
+                        EventBus.getDefault().post(new EventBean(EventBean.EVENT_IN_SHOPCART));
                         break;
                     case 3:
                         StatusBarTextUtil.StatusBarDarkMode(HomeActivity.this);

@@ -123,4 +123,21 @@ public class CreateAccountPost implements Serializable {
     public void setGender(int gender) {
         Gender = gender;
     }
+
+    @Override
+    public String toString() {
+        return "CreateAccountPost{" +
+                "OpenId='" + OpenId + '\'' +
+                ", OpenIdType=" + OpenIdType +
+                ", Email='" + Email + '\'' +
+                ", Mobile='" + Mobile + '\'' +
+                ", Password='" + Password + '\'' +
+                ", DeviceId='" + DeviceId + '\'' +
+                ", DisplayName='" + DisplayName + '\'' +
+                ", HeadImageURL='" + HeadImageURL + '\'' +
+                ", Gender=" + Gender +
+                ", Language='" + Language + '\'' +
+                ", deviceType='" + deviceType + '\'' +
+                '}';
+    }
 }

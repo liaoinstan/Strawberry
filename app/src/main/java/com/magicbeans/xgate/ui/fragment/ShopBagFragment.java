@@ -18,11 +18,13 @@ import android.widget.TextView;
 import com.ins.common.common.ItemDecorationDivider;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.ui.dialog.DialogSure;
+import com.ins.common.utils.FocusUtil;
 import com.ins.common.utils.StatusBarTextUtil;
 import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.common.TestBean;
 import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.bean.product.Product2;
@@ -70,10 +72,26 @@ public class ShopBagFragment extends BaseFragment {
 //        }
 //    }
 
+
+    @Override
+    public void onCommonEvent(EventBean event) {
+        switch (event.getEvent()) {
+            case EventBean.EVENT_IN_SHOPCART:
+                //用户进入购物车，这里做数据刷新等操作
+                shopCartContentController.calcuPrice();
+                break;
+            case EventBean.EVENT_REFRESH_SHOPCART:
+                //商品有变动，刷新购物车
+                shopCartContentController.refreshData();
+                break;
+        }
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.position = getArguments().getInt("position");
+        registEventBus();
     }
 
     @Nullable
@@ -91,6 +109,7 @@ public class ShopBagFragment extends BaseFragment {
         initView();
         initCtrl();
         initData();
+        FocusUtil.focusToTop(binding.getRoot());
     }
 
     private void initBase() {

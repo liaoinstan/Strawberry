@@ -14,6 +14,7 @@ import com.ins.common.common.SinpleShowInAnimatorListener;
 import com.ins.common.common.SinpleShowOutAnimatorListener;
 import com.ins.common.helper.ValiHelper;
 import com.ins.common.utils.KeyBoardUtil;
+import com.ins.common.utils.L;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.others.AnimUtil;
 import com.ins.common.utils.viewutils.EditTextUtil;
@@ -161,6 +162,8 @@ public class SignupContentController extends BaseController<LaySignupContentBind
         post.setDisplayName(displayName);
         post.setHeadImageURL(headImageURL);
         post.setGender(gender);
+
+        L.e(post.toString());
 
         RequestBody requestBody = NetParam.buildJsonRequestBody(post);
         NetApi.NI().createAccount(requestBody).enqueue(new STFormatCallback<User>(User.class) {

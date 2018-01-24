@@ -18,6 +18,7 @@ import com.ins.common.utils.StatusBarTextUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.viewutils.AppUtil;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.bean.user.User;
 import com.magicbeans.xgate.common.AppData;
@@ -30,6 +31,8 @@ import com.magicbeans.xgate.sharesdk.UserInfo;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.controller.SignupContentController;
 import com.magicbeans.xgate.ui.controller.SignupPlatformController;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -126,7 +129,7 @@ public class LoginActivity extends BaseAppCompatActivity {
     }
 
     //使用token获取用户信息
-    private void netGetUserProfile(String accountID, final String token) {
+    private void netGetUserProfile(final String accountID, final String token) {
         showLoadingDialog();
         NetTokenHelper.getInstance().netGetUserProfile(accountID, token, new NetTokenHelper.UserProfileCallback() {
             @Override
@@ -136,10 +139,13 @@ public class LoginActivity extends BaseAppCompatActivity {
                 user.setToken(token);
                 AppData.App.saveToken(new Token(user.getAccountID(), token));
                 AppData.App.saveUser(user);
+                //post登录消息
+                EventBus.getDefault().post(new EventBean(EventBean.EVENT_LOGIN));
                 //跳转首页
                 HomeActivity.start(LoginActivity.this);
+                ToastUtil.showToastShort("登录成功");
                 //FIXME:测试内容，把token复制到剪切板
-                AppUtil.copyText(LoginActivity.this, token);
+                AppUtil.copyText(LoginActivity.this, "accountID:" + accountID + "\ntoken:" + token);
             }
 
             @Override

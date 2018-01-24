@@ -127,13 +127,11 @@ public class CountView extends FrameLayout implements View.OnClickListener {
     }
 
     public void add() {
-        count++;
-        setCount(count);
+        setCount(count + 1);
     }
 
     public void sub() {
-        count--;
-        setCount(count);
+        setCount(count - 1);
     }
 
     //############# 对外监听 ##############

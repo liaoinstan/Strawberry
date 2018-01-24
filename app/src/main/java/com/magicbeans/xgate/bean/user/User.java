@@ -50,6 +50,7 @@ public class User implements Serializable {
     private String LastName;
 
     //本地字段
+    private String avator;
 
     public String getAccountID() {
         return accountID;
@@ -65,6 +66,14 @@ public class User implements Serializable {
 
     public void setFirstName(String firstName) {
         FirstName = firstName;
+    }
+
+    public String getAvator() {
+        return avator;
+    }
+
+    public void setAvator(String avator) {
+        this.avator = avator;
     }
 
     public String getSurname() {

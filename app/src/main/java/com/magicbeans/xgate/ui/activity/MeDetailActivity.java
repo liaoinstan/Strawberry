@@ -20,6 +20,7 @@ import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.databinding.ActivityMedetailBinding;
+import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.view.DayPicker;
 import com.shelwee.update.utils.VersionUtil;
@@ -33,8 +34,12 @@ public class MeDetailActivity extends BaseAppCompatActivity implements CropHelpe
     private ActivityMedetailBinding binding;
 
     public static void start(Context context) {
-        Intent intent = new Intent(context, MeDetailActivity.class);
-        context.startActivity(intent);
+        if (!AppHelper.User.isLogin()) {
+            LoginActivity.start(context);
+        } else {
+            Intent intent = new Intent(context, MeDetailActivity.class);
+            context.startActivity(intent);
+        }
     }
 
     @Override

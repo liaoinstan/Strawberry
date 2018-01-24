@@ -10,6 +10,7 @@
     <color name="st_purple">#652d90</color>
     <color name="st_pink">#FF08D9</color>
     <color name="st_red">#FE3461</color>
+    <color name="st_red_none">#00FE3461</color>
     <color name="st_red_login">#fe3561</color>
     <color name="st_red_login_hint">#44fe3561</color>
 </resources>
