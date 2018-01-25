@@ -1,13 +1,13 @@
 package com.magicbeans.xgate.bean.product;
 
 import android.text.TextUtils;
-import android.util.EventLogTags;
 
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.Gson;
 import com.ins.common.entity.BaseSelectBean;
 import com.ins.common.utils.StrUtil;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +35,9 @@ public class Product2 extends BaseSelectBean implements Serializable {
     private boolean isSale;
     private List<ProductImages> ProductImages;
     private List<String> Description;
+
+    //新增字段
+    private int count = 1; //购买数量，默认1，无法为0
 
     // ###########  逻辑方法  ################
 
@@ -67,6 +70,44 @@ public class Product2 extends BaseSelectBean implements Serializable {
         } else {
             return null;
         }
+    }
+
+    //设置商品头像（第一张详情图）
+    public void setHeaderImg(String url) {
+        if (!StrUtil.isEmpty(ProductImages)) {
+            ProductImages.get(0).setImg700Src(url);
+        }
+    }
+
+    //获取商品品类信息
+    public String getAttrText() {
+        return "已选 " + count + "件 " + SizeText;
+    }
+
+    public static Product2 transByProduct(Product product) {
+        Product2 product2 = new Product2();
+        product2.setProdID(product.getProdID());
+        product2.setProdName(product.getProdLangName());
+        product2.setSizeText(product.getProdLangSize());
+        product2.setShopPrice(product.getShopprice());
+        product2.setWasPrice(product.getWasPrice());
+        //保存商品图片 start
+        final ProductImages productImage = new ProductImages();
+        productImage.setImg700Src(product.getProductImages().getImg700Src());
+        productImage.setImg350Src(product.getProductImages().getImg350Src());
+        productImage.setImgSrc(product.getProductImages().getImgSrc());
+        ArrayList<ProductImages> productImages = new ArrayList<ProductImages>() {{
+            add(productImage);
+        }};
+        product2.setProductImages(productImages);
+        //保存商品图片 end
+        return product2;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Gson gson = new Gson();
+        return gson.toJson(this).equals(gson.toJson(obj));
     }
 
     // ###########  逻辑方法  ################
@@ -191,11 +232,11 @@ public class Product2 extends BaseSelectBean implements Serializable {
         isSale = sale;
     }
 
-    public List<com.magicbeans.xgate.bean.product.ProductImages> getProductImages() {
+    public List<ProductImages> getProductImages() {
         return ProductImages;
     }
 
-    public void setProductImages(List<com.magicbeans.xgate.bean.product.ProductImages> productImages) {
+    public void setProductImages(List<ProductImages> productImages) {
         ProductImages = productImages;
     }
 
@@ -205,5 +246,13 @@ public class Product2 extends BaseSelectBean implements Serializable {
 
     public void setDescription(List<String> description) {
         Description = description;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }

@@ -1,25 +1,19 @@
 package com.magicbeans.xgate.ui.controller;
 
 import android.content.Context;
-import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.ins.common.common.ItemDecorationDivider;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
-import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.PopBean;
 import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.bean.product.ProductWrap;
 import com.magicbeans.xgate.databinding.LayProductlistContentBinding;
-import com.magicbeans.xgate.databinding.LayProductlistSortBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
@@ -28,7 +22,6 @@ import com.magicbeans.xgate.ui.adapter.RecycleAdapterProduct;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.dialog.MyGridPopupWindow;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -102,7 +95,8 @@ public class ProductListContentController implements OnRecycleItemClickListener 
 
     @Override
     public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
-        ProductDetailActivity.start(context);
+        Product product = adapter.getResults().get(position);
+        ProductDetailActivity.start(context, product.getProdID());
     }
 
     public void setListMode() {
@@ -144,14 +138,14 @@ public class ProductListContentController implements OnRecycleItemClickListener 
                     adapter.notifyDataSetChanged();
                 } else {
                 }
-                if (showLoading) ((BaseAppCompatActivity) context).hideLoadingDialog();
+                if (showLoading) ((BaseAppCompatActivity) context).dismissLoadingDialog();
                 binding.spring.onFinishFreshAndLoad();
             }
 
             @Override
             public void onError(int status, String msg) {
                 ToastUtil.showToastShort(msg);
-                if (showLoading) ((BaseAppCompatActivity) context).hideLoadingDialog();
+                if (showLoading) ((BaseAppCompatActivity) context).dismissLoadingDialog();
                 binding.spring.onFinishFreshAndLoad();
             }
         });

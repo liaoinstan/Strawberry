@@ -5,20 +5,11 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ins.common.entity.BaseSelectBean;
-import com.ins.common.helper.SelectHelper;
-import com.ins.common.utils.FontUtils;
-import com.ins.common.utils.StrUtil;
-import com.ins.common.view.ListViewLinearLayout;
 import com.magicbeans.xgate.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by liaoinstan on 2017/7/19.
@@ -35,6 +26,7 @@ public class CountView extends FrameLayout implements View.OnClickListener {
 
     private boolean editble;
     private int count;
+    private int MIN_COUNT = 1;//最小为1
 
     public CountView(Context context) {
         this(context, null);
@@ -107,10 +99,17 @@ public class CountView extends FrameLayout implements View.OnClickListener {
 
     public void setCount(int count) {
         //数量不能小于0
-        if (count < 0) count = 0;
+        if (count < MIN_COUNT) count = MIN_COUNT;
+        if (onCountChangeListenner != null && count != this.count)
+            onCountChangeListenner.onCountChange(count, this.count);
         this.count = count;
         text_count.setText(count + "");
         text_count_show.setText("x" + count);
+        if (count <= 1) {
+            btn_sub.setEnabled(false);
+        } else {
+            btn_sub.setEnabled(true);
+        }
     }
 
     public void setEdit(boolean isEdit) {
@@ -119,12 +118,22 @@ public class CountView extends FrameLayout implements View.OnClickListener {
     }
 
     public void add() {
-        count++;
-        setCount(count);
+        setCount(count + 1);
     }
 
     public void sub() {
-        count--;
-        setCount(count);
+        setCount(count - 1);
+    }
+
+    //############# 对外监听 ##############
+
+    private OnCountChangeListenner onCountChangeListenner;
+
+    public void setOnCountChangeListenner(OnCountChangeListenner onCountChangeListenner) {
+        this.onCountChangeListenner = onCountChangeListenner;
+    }
+
+    public interface OnCountChangeListenner {
+        void onCountChange(int count, int lastCount);
     }
 }

@@ -2,11 +2,9 @@ package com.magicbeans.xgate.ui.controller;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.ins.common.common.GridSpacingItemDecoration;
-import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.DensityUtil;
 import com.ins.common.utils.ListUtil;
 import com.ins.common.utils.ToastUtil;
@@ -16,8 +14,7 @@ import com.magicbeans.xgate.databinding.LayHomeRecommendBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
-import com.magicbeans.xgate.ui.activity.ProductActivity;
-import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
+import com.magicbeans.xgate.ui.activity.SaleActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterRecomment;
 
 import java.util.Map;
@@ -56,7 +53,7 @@ public class HomeRecommendController implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_more:
-                ProductActivity.start(context);
+                SaleActivity.start(context, SaleActivity.TYPE_RECOMMED);
                 break;
         }
     }

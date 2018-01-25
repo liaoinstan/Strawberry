@@ -1,21 +1,30 @@
 package com.magicbeans.xgate.ui.adapter;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.ins.common.helper.SelectHelper;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.GlideUtil;
+import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
+import com.ins.common.view.LoadingLayout;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.common.TestBean;
+import com.magicbeans.xgate.bean.EventBean;
+import com.magicbeans.xgate.bean.product.Product2;
+import com.magicbeans.xgate.data.db.manager.ShopcartTableManager;
+import com.magicbeans.xgate.databinding.ItemShopbagBinding;
+import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.view.CountView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +32,10 @@ import java.util.List;
 public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapterHomeShopbag.Holder> {
 
     private Context context;
-    private List<TestBean> results = new ArrayList<>();
-    private boolean isEdit = false;
+    private List<Product2> results = new ArrayList<>();
+    private LoadingLayout loadingLayout;
 
-    public List<TestBean> getResults() {
+    public List<Product2> getResults() {
         return results;
     }
 
@@ -36,45 +45,69 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
 
     @Override
     public RecycleAdapterHomeShopbag.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_shopbag, parent, false));
+        return new Holder((ItemShopbagBinding) DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_shopbag, parent, false));
     }
 
     @Override
     public void onBindViewHolder(final RecycleAdapterHomeShopbag.Holder holder, final int position) {
-        final TestBean bean = results.get(position);
-        holder.lay_content.setOnClickListener(new View.OnClickListener() {
+        Product2 bean = results.get(position);
+        holder.binding.includeCoutent.layContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) listener.onItemClick(holder, position);
             }
         });
-        holder.img_shopbag_check.setOnClickListener(new View.OnClickListener() {
+        holder.binding.includeCoutent.imgShopbagCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Product2 bean = results.get(holder.getLayoutPosition());
                 bean.setSelect(!bean.isSelect());
-                notifyItemChanged(position);
+                ShopcartTableManager.getInstance().update(bean);
+                notifyItemChanged(holder.getLayoutPosition());
+                if (onSelectChangeListenner != null) onSelectChangeListenner.onSelectChange();
             }
         });
-        holder.btn_item_shopbag_favo.setOnClickListener(new View.OnClickListener() {
+        holder.binding.includeCoutent.countview.setOnCountChangeListenner(new CountView.OnCountChangeListenner() {
+            @Override
+            public void onCountChange(int count, int lastCount) {
+                Product2 bean = results.get(holder.getLayoutPosition());
+                bean.setCount(count);
+                ShopcartTableManager.getInstance().update(bean);
+                //TODO:这里请求服务器更新数量
+                if (bean.isSelect() && onSelectChangeListenner != null) {
+                    onSelectChangeListenner.onSelectChange();
+                }
+            }
+        });
+        holder.binding.btnItemShopbagFavo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ToastUtil.showToastShort("收藏");
             }
         });
-        holder.btn_item_shopbag_del.setOnClickListener(new View.OnClickListener() {
+        holder.binding.btnItemShopbagDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogSure.showDialog(context, "确定要删除该商品？", new DialogSure.CallBack() {
                     @Override
                     public void onSure() {
+                        Product2 bean = results.get(holder.getLayoutPosition());
+                        ShopcartTableManager.getInstance().delete(bean);
+                        EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART));
                     }
                 });
             }
         });
-        holder.img_shopbag_check.setSelected(bean.isSelect());
-        GlideUtil.loadImgTestByPosition(holder.img_header, position);
-        holder.countview.setCount(1);
-        holder.countview.setEdit(isEdit);
+        holder.binding.includeCoutent.imgShopbagCheck.setSelected(bean.isSelect());
+        GlideUtil.loadImg(holder.binding.includeCoutent.imgHeader, R.drawable.default_bk_img, bean.getHeaderImg());
+        holder.binding.includeCoutent.textName.setText(bean.getProdName());
+        holder.binding.includeCoutent.textAttr.setText(bean.getSizeText());
+        holder.binding.includeCoutent.textPrice.setText(AppHelper.getPriceSymbol("") + bean.getShopPrice());
+        holder.binding.includeCoutent.textPriceOld.setText(AppHelper.getPriceSymbol("") + bean.getWasPrice());
+        holder.binding.includeCoutent.textPriceOld.setVisibility(!TextUtils.isEmpty(bean.getWasPrice()) ? View.VISIBLE : View.INVISIBLE);
+        holder.binding.includeCoutent.countview.setCount(bean.getCount());
+        holder.binding.includeCoutent.countview.setEdit(true);
+        holder.binding.slidmenu.close();
     }
 
     @Override
@@ -83,24 +116,47 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
     }
 
     public class Holder extends RecyclerView.ViewHolder {
+        ItemShopbagBinding binding;
 
-        private View lay_content;
-        private ImageView img_header;
-        private ImageView img_shopbag_check;
-        private CountView countview;
-        private TextView btn_item_shopbag_favo;
-        private TextView btn_item_shopbag_del;
-
-        public Holder(View itemView) {
-            super(itemView);
-            lay_content = itemView.findViewById(R.id.lay_content);
-            img_header = (ImageView) itemView.findViewById(R.id.img_header);
-            img_shopbag_check = (ImageView) itemView.findViewById(R.id.img_shopbag_check);
-            countview = (CountView) itemView.findViewById(R.id.countview);
-            btn_item_shopbag_favo = (TextView) itemView.findViewById(R.id.btn_item_shopbag_favo);
-            btn_item_shopbag_del = (TextView) itemView.findViewById(R.id.btn_item_shopbag_del);
+        public Holder(ItemShopbagBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
+
+    //############## 对外方法 ################
+
+    //这个方法代替notifyDataSetChanged()方法，主要区别在于item的添加和移除动画，该方法使用v7.DiffUtil计算数据集差异动态更新UI
+    public void notifyDataSetChanged(List<Product2> product2List) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffCallBack(getResults(), product2List), true);
+        diffResult.dispatchUpdatesTo(this);
+        getResults().clear();
+        getResults().addAll(product2List);
+        //数据集为空时展示空页面
+        if (loadingLayout != null) {
+            if (!StrUtil.isEmpty(results)){
+                loadingLayout.showOut();
+            }else {
+                loadingLayout.showLackView();
+            }
+        }
+    }
+
+    public List<Product2> getSelectBeans() {
+        return SelectHelper.getSelectBeans(results);
+    }
+
+    public void selectAll(boolean isSelect) {
+        SelectHelper.selectAllSelectBeans(results, isSelect);
+        notifyDataSetChanged();
+        if (onSelectChangeListenner != null) onSelectChangeListenner.onSelectChange();
+    }
+
+    public boolean isSelectAll() {
+        return SelectHelper.isSelectAll(results);
+    }
+
+    //############## 对外接口 ################
 
     private OnRecycleItemClickListener listener;
 
@@ -108,23 +164,19 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
         this.listener = listener;
     }
 
-    public void selectAll(boolean isSelect) {
-        SelectHelper.selectAllSelectBeans(results, isSelect);
-        notifyDataSetChanged();
+    private OnSelectChangeListenner onSelectChangeListenner;
+
+    public void setOnSelectChangeListenner(OnSelectChangeListenner onSelectChangeListenner) {
+        this.onSelectChangeListenner = onSelectChangeListenner;
     }
 
-    public boolean isSelectAll() {
-        return SelectHelper.isSelectAll(results);
+    public interface OnSelectChangeListenner {
+        void onSelectChange();
     }
 
-    //##############  get & set ###############
+    //############## get & set ################
 
-    public boolean isEdit() {
-        return isEdit;
-    }
-
-    public void setEdit(boolean edit) {
-        isEdit = edit;
-        notifyDataSetChanged();
+    public void setLoadingLayout(LoadingLayout loadingLayout) {
+        this.loadingLayout = loadingLayout;
     }
 }

@@ -2,6 +2,7 @@
 <resources>
     <!--通用文字颜色-->
     <!--所有APP都可以使用的不变的颜色，经过大量实践使用这些颜色往往可以让布局更加美观-->
+    <color name="com_text_hint">#dddddd</color>
     <color name="com_text_light">#cccccc</color>
     <color name="com_text_dark_light">#aaaaaa</color>
     <color name="com_text_dark">#999999</color>

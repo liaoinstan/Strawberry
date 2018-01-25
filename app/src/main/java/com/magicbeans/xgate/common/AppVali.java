@@ -10,6 +10,41 @@ import com.ins.common.utils.ValidateUtil;
 
 public class AppVali {
 
+    public static String email(String email) {
+        if (!ValidateUtil.Email(email)) {
+            return "请输入正确的邮箱";
+        } else {
+            return null;
+        }
+    }
+
+    public static String createAccount(String openId, String email, String mobile) {
+        if (TextUtils.isEmpty(openId)) {
+            return "没有openId，请退出重试";
+        } else if (!ValidateUtil.Email(email)) {
+            return "请输入正确的邮箱";
+        } else if (!ValidateUtil.Mobile(mobile)) {
+            return "请输入正确的手机号";
+        } else {
+            return null;
+        }
+    }
+
+    public static String mergeAccount(String openId, String email, String psw) {
+        if (TextUtils.isEmpty(openId)) {
+            return "没有openId，请退出重试";
+        } else if (!ValidateUtil.Email(email)) {
+            return "请输入正确的邮箱";
+        } else if (!length(psw, 6, 32)) {
+            return "请输入6-32位密码";
+        } else {
+            return null;
+        }
+    }
+
+    /////////////////////////////////////
+
+
     public static String login(String userName, String psw) {
         if (TextUtils.isEmpty(userName)) {
             return "请输入手机号";

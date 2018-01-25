@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ins.common.common.GridSpacingItemDecoration;
+import com.ins.common.helper.SelectHelper;
 import com.ins.common.utils.DensityUtil;
 import com.ins.common.view.singlepopview.BaseRecyclePopupWindow;
 import com.magicbeans.xgate.R;
@@ -38,11 +39,27 @@ public class MyGridPopupWindow extends BaseRecyclePopupWindow<PopBean, MyGridPop
     @Override
     public void setData(Holder holder, PopBean popBean, int position) {
         holder.text_item_singpop_name.setText(popBean.getName());
+        holder.text_item_singpop_name.setSelected(popBean.isSelect());
+    }
+
+    public void selectItemById(String itemId) {
+        PopBean popBean = PopBean.findById(adapter.getResults(), itemId);
+        if (popBean != null) {
+            selectItem(popBean);
+        }
+    }
+
+    public void selectItem(PopBean popBean) {
+        SelectHelper.selectAllSelectBeans(adapter.getResults(), false);
+        popBean.setSelect(true);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     protected void onPopItemClick(PopBean popBean, int position) {
         if (onGridPopItemClick != null) onGridPopItemClick.onItemClick(this, popBean, position);
+        //更新选中状态
+        selectItem(popBean);
     }
 
     public class Holder extends RecyclerView.ViewHolder {
@@ -55,6 +72,7 @@ public class MyGridPopupWindow extends BaseRecyclePopupWindow<PopBean, MyGridPop
         }
     }
 
+    /////////////////// 监听接口 //////////////
 
     private OnGridPopItemClick onGridPopItemClick;
 

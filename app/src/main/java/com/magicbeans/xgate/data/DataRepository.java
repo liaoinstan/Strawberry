@@ -1,12 +1,6 @@
 package com.magicbeans.xgate.data;
 
-import android.app.Application;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.support.annotation.NonNull;
-
 import com.ins.common.utils.StrUtil;
-import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.bean.eva.Eva;
 import com.magicbeans.xgate.bean.eva.EvaWrap;
 import com.magicbeans.xgate.net.NetApi;
@@ -36,15 +30,14 @@ public class DataRepository {
         return INSTANCE;
     }
 
-    public void queryResults(String prodId, int page, int pageSize, final DataCallback callback) {
+    public void queryResults(String prodId, int page, final DataCallback callback) {
         //发起网络请求，请求评论数据
         Map<String, Object> param = new NetParam()
                 .put("page", page)
-                .put("pageSize", pageSize)
                 .put("prodId", prodId)
                 .build();
         if (callback != null) callback.onStart();
-        NetApi.NI().netProductReview(NetParam.newInstance().put(param).build()).enqueue(new STCallback<EvaWrap>(EvaWrap.class) {
+        NetApi.NI().netProductReview(param).enqueue(new STCallback<EvaWrap>(EvaWrap.class) {
             @Override
             public void onSuccess(int status, EvaWrap bean, String msg) {
                 List<Eva> evas = bean.getProducts();

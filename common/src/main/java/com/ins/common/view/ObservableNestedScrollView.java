@@ -3,7 +3,6 @@ package com.ins.common.view;
 import android.content.Context;
 import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
-import android.widget.GridView;
 
 /**
  * NestedScrollView 在外部无法检测其滚动监听，没有类似于scrollView.setOnScrollChangedListener类似的方法

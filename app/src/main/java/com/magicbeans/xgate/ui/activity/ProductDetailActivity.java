@@ -1,59 +1,38 @@
 package com.magicbeans.xgate.ui.activity;
 
-import android.animation.ArgbEvaluator;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.webkit.WebView;
-import android.widget.ImageView;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.ins.common.common.ItemDecorationDivider;
-import com.ins.common.entity.Image;
 import com.ins.common.helper.ToobarTansColorHelper;
 import com.ins.common.utils.DensityUtil;
-import com.ins.common.utils.GlideUtil;
-import com.ins.common.utils.L;
 import com.ins.common.utils.StatusBarTextUtil;
-import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.viewutils.ScrollViewUtil;
-import com.ins.common.utils.viewutils.WebViewUtil;
-import com.ins.common.view.BannerView;
-import com.ins.common.view.BannerView2;
 import com.ins.common.view.ObservableNestedScrollView;
-import com.ins.common.view.bundleimgview.BundleImgEntity;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.eva.Eva;
-import com.magicbeans.xgate.bean.common.KeyValue;
-import com.magicbeans.xgate.bean.product.Product;
+import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.product.ProductDetail;
-import com.magicbeans.xgate.bean.product.ProductWrap;
+import com.magicbeans.xgate.data.db.manager.HistoryTableManager;
 import com.magicbeans.xgate.databinding.ActivityProductdetailBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterEva;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterProductAttr;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.controller.CommonRecommendController;
 import com.magicbeans.xgate.ui.controller.ProductDetailAttrController;
+import com.magicbeans.xgate.ui.controller.ProductDetailBottombarController;
 import com.magicbeans.xgate.ui.controller.ProductDetailDescribeController;
 import com.magicbeans.xgate.ui.controller.ProductDetailEvaController;
 import com.magicbeans.xgate.ui.controller.ProductDetailNameBoradController;
 import com.magicbeans.xgate.ui.controller.ToolbarProdDetailController;
 import com.magicbeans.xgate.ui.dialog.DialogBottomProductAttr;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class ProductDetailActivity extends BaseAppCompatActivity {
@@ -66,8 +45,10 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
     private ProductDetailEvaController productDetailEvaController;
     private ProductDetailDescribeController productDetailDescribeController;
     private CommonRecommendController commonRecommendController;
+    private ProductDetailBottombarController productDetailBottombarController;
 
     private String prodId;
+    private ProductDetail productDetail;
 
     //测试启动
     public static void start(Context context) {
@@ -97,23 +78,33 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
     private void initBase() {
         prodId = getIntent().getStringExtra("prodId");
 
+        //初始化各部分控制器
         toolbarProdDetailController = new ToolbarProdDetailController(binding.includeToobbarProductdetail);
         productDetailNameBoradController = new ProductDetailNameBoradController(binding.includeNameboard);
         productDetailAttrController = new ProductDetailAttrController(binding.includeAttr);
         productDetailEvaController = new ProductDetailEvaController(binding.includeEva, prodId);
         productDetailDescribeController = new ProductDetailDescribeController(binding.includeDescribe);
-        commonRecommendController = new CommonRecommendController(binding.includeRecomend);
-
-
+        commonRecommendController = new CommonRecommendController(binding.includeRecomend, 4);
+        productDetailBottombarController = new ProductDetailBottombarController(binding.includeBottombar, binding.getRoot());
+        //设置商品品类选择监听
+        productDetailAttrController.setOnSelectListenner(new DialogBottomProductAttr.OnSelectListenner() {
+            @Override
+            public void onSelect(Product2 product2) {
+                productDetail.setProdID(product2.getProdID());
+                setData(productDetail);
+            }
+        });
+        //设置tab点击事件
         toolbarProdDetailController.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (!radioGroup.findViewById(i).isPressed()) return;
                 switch (i) {
                     case R.id.radio_product:
                         ScrollViewUtil.scrollToTop(binding.scrollView);
                         break;
                     case R.id.radio_recommend:
-                        ScrollViewUtil.scrollTo(binding.scrollView, productDetailEvaController.getRootView(), -toolbarProdDetailController.getHeight());
+                        ScrollViewUtil.scrollTo(binding.scrollView, getTopHightInScroll(productDetailEvaController.getRootView()));
                         break;
                 }
             }
@@ -124,6 +115,7 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
     }
 
     private void initCtrl() {
+        //设置scrollView滚动监听
         binding.scrollView.setOnScrollChangedListener(new ObservableNestedScrollView.OnScrollChangedListener() {
             @Override
             public void onScrollChanged(int x, int y, int oldx, int oldy) {
@@ -131,16 +123,31 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
                 binding.includeNameboard.banner.setTranslationY(y / 2);
                 //toolbar动态透明渐变
                 ToobarTansColorHelper.with(binding.includeToobbarProductdetail.toolbar)
-                        .initMaxHeight(DensityUtil.dp2px(200))
+                        .initMaxHeight(DensityUtil.dp2px(300))
                         .initColorStart(Color.parseColor("#00ffffff"))
                         .initColorEnd(ContextCompat.getColor(ProductDetailActivity.this, R.color.white))
                         .start(y);
+                //根据滚动位置反向设置tab切换
+                int hightRecommend = getTopHightInScroll(productDetailEvaController.getRootView());
+                toolbarProdDetailController.setTabByScrollHeight(hightRecommend, y, oldy);
             }
         });
     }
 
     private void initData() {
         netProductDetail();
+    }
+
+    private void setData(ProductDetail productDetail) {
+        productDetailNameBoradController.setData(productDetail);
+        productDetailAttrController.setData(productDetail);
+        productDetailDescribeController.setData(productDetail);
+        productDetailBottombarController.setData(productDetail);
+    }
+
+    //获取某个在scrollView内部的View距离顶部的距离，用于切换tab进行滚动跳转
+    private int getTopHightInScroll(View viewin) {
+        return ScrollViewUtil.cacuHightByView(binding.scrollView, viewin) - toolbarProdDetailController.getHeight();
     }
 
     private void netProductDetail() {
@@ -153,16 +160,17 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
             @Override
             public void onSuccess(int status, ProductDetail productDetail, String msg) {
                 productDetail.setProdID(prodId);
-                productDetailNameBoradController.setData(productDetail);
-                productDetailAttrController.setData(productDetail);
-                productDetailDescribeController.setData(productDetail);
-                hideLoadingDialog();
+                ProductDetailActivity.this.productDetail = productDetail;
+                setData(productDetail);
+                //获取到商品详情，即表示该商品已经浏览过了，加入浏览记录中
+                HistoryTableManager.getInstance().insert(productDetail.trans2Product());
+                dismissLoadingDialog();
             }
 
             @Override
             public void onError(int status, String msg) {
                 ToastUtil.showToastShort(msg);
-                hideLoadingDialog();
+                dismissLoadingDialog();
             }
         });
     }

@@ -17,8 +17,8 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/white"
+                android:layout_height="45dp"
+                android:background="@color/colorPrimary"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
@@ -36,17 +36,19 @@
                         android:layout_height="match_parent"
                         android:onClick="onClick"
                         android:scaleType="center"
-                        android:src="@drawable/ic_back" />
+                        android:src="@drawable/ic_back_light" />
 
                     <EditText
                         android:layout_width="0dp"
-                        android:layout_height="35dp"
+                        android:layout_height="30dp"
                         android:layout_weight="1"
-                        android:background="@drawable/shape_rect_cornerfull_dark"
-                        android:gravity="center"
-                        android:hint="Search"
-                        android:textColor="@color/com_text_dark_light"
-                        android:textColorHint="@color/com_text_dark_light"
+                        android:background="@drawable/shape_rect_cornerfull_white"
+                        android:gravity="center_vertical"
+                        android:hint="@string/home_search"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:textColor="@color/com_text_dark"
+                        android:textColorHint="@color/com_text_hint"
                         android:textSize="@dimen/text_nomal" />
 
                     <ImageView
@@ -55,7 +57,7 @@
                         android:layout_height="match_parent"
                         android:onClick="onClick"
                         android:scaleType="center"
-                        android:src="@drawable/ic_tab_home" />
+                        android:src="@drawable/selector_check_productlist_switch" />
 
                 </LinearLayout>
 

@@ -7,20 +7,16 @@ import android.view.View;
 import com.ins.common.common.GridSpacingItemDecoration;
 import com.ins.common.utils.DensityUtil;
 import com.ins.common.utils.ListUtil;
-import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.bean.product.ProductWrap;
 import com.magicbeans.xgate.databinding.LayHomeNewproductBinding;
-import com.magicbeans.xgate.databinding.LayHomeRecommendBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
-import com.magicbeans.xgate.ui.activity.ProductActivity;
+import com.magicbeans.xgate.ui.activity.SaleActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterRecomment;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -57,7 +53,7 @@ public class HomeNewProductController implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_more:
-                ProductActivity.start(context);
+                SaleActivity.start(context, SaleActivity.TYPE_NEW);
                 break;
         }
     }

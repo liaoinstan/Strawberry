@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
-import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.category.Cate1;
@@ -78,7 +77,6 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
     }
 
     private void initView() {
-        GlideUtil.loadImg(binding.imgPop, R.drawable.default_bk_img, "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513231176137&di=8962c6a63f455e0e7da0e092bc39377d&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01016457a01a840000012e7e03ff55.jpg");
     }
 
     private void initData() {
@@ -99,7 +97,7 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
         adapter = new RecycleAdapterCateIn(getContext());
         adapter.setOnItemClickListener(this);
         binding.recycle.setNestedScrollingEnabled(false);
-        binding.recycle.setLayoutManager(new GridLayoutManager(getContext(), 4, GridLayoutManager.VERTICAL, false));
+        binding.recycle.setLayoutManager(new GridLayoutManager(getContext(), 3, GridLayoutManager.VERTICAL, false));
         binding.recycle.setAdapter(adapter);
 
         binding.imgPop.setOnClickListener(this);
@@ -110,7 +108,7 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
         adapter.getResults().clear();
         adapter.getResults().addAll(cate2Wrap.formatToCate3List());
         adapter.notifyDataSetChanged();
-        binding.textPop.setText("所有" + cate2Wrap.getProdCatgName() + "商品 >");
+        binding.textPop.setText("所有" + cate2Wrap.getProdCatgName() + "商品");
     }
 
     @Override
@@ -123,8 +121,10 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_pop:
-                Cate1 cate1 = new Cate1(cate2Wrap.getProdCatgName(), cate2Wrap.getProdCatgId());
-                ProductActivity.startCategroy(getActivity(), cate1);
+                if (cate2Wrap != null) {
+                    Cate1 cate1 = new Cate1(cate2Wrap.getProdCatgName(), cate2Wrap.getProdCatgId());
+                    ProductActivity.startCategroy(getActivity(), cate1);
+                }
                 break;
         }
     }
@@ -138,7 +138,7 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
         NetApi.NI().netSubCategory(param).enqueue(new STCallback<Cate2Wrap>(Cate2Wrap.class) {
             @Override
             public void onSuccess(int status, Cate2Wrap bean, String msg) {
-                ((BaseAppCompatActivity) getActivity()).hideLoadingDialog();
+                ((BaseAppCompatActivity) getActivity()).dismissLoadingDialog();
                 cate2Wrap = bean;
                 setData(bean);
                 //添加运行时缓存
@@ -148,7 +148,7 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
             @Override
             public void onError(int status, String msg) {
                 ToastUtil.showToastShort(msg);
-                ((BaseAppCompatActivity) getActivity()).hideLoadingDialog();
+                ((BaseAppCompatActivity) getActivity()).dismissLoadingDialog();
             }
         });
     }

@@ -1,46 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ins.common.view.SlidingMenu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="90dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <com.ins.common.view.SlidingMenu
+        android:id="@+id/slidmenu"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <include layout="@layout/lay_shopbag_item_content" />
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/btn_item_shopbag_favo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/st_bk"
-                android:gravity="center"
-                android:text="加入\n收藏"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_nomal" />
+            <include
+                android:id="@+id/include_coutent"
+                layout="@layout/lay_shopbag_item_content" />
 
-            <TextView
-                android:id="@+id/btn_item_shopbag_del"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:background="@color/wj_red"
-                android:gravity="center"
-                android:text="删除"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_nomal" />
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/btn_item_shopbag_favo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:text="加入\n收藏"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_nomal" />
+
+                <TextView
+                    android:id="@+id/btn_item_shopbag_del"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@color/wj_red"
+                    android:drawableTop="@drawable/ic_shopcart_del"
+                    android:gravity="center"
+                    android:paddingTop="15dp"
+                    android:text="删除"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_nomal" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
-
-</com.ins.common.view.SlidingMenu>
+    </com.ins.common.view.SlidingMenu>
+</layout>

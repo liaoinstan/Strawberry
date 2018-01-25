@@ -8,14 +8,10 @@ import android.view.View;
 
 import com.ins.common.helper.ValiHelper;
 import com.ins.common.ui.dialog.DialogSure;
-import com.ins.common.utils.App;
 import com.ins.common.utils.StatusBarTextUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.common.CommonEntity;
-import com.magicbeans.xgate.bean.product.ProductWrap;
 import com.magicbeans.xgate.bean.user.SignUpWrap;
-import com.magicbeans.xgate.databinding.ActivityLoginBinding;
 import com.magicbeans.xgate.databinding.ActivitySignupBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;

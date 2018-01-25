@@ -16,9 +16,8 @@ import com.magicbeans.xgate.databinding.LayHomeClearBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
-import com.magicbeans.xgate.ui.activity.ProductActivity;
 import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
-import com.magicbeans.xgate.ui.activity.SectionActivity;
+import com.magicbeans.xgate.ui.activity.SaleActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeSingle;
 
 import java.util.Map;
@@ -27,7 +26,7 @@ import java.util.Map;
  * Created by Administrator on 2017/10/11.
  */
 
-public class HomeClearController implements View.OnClickListener{
+public class HomeClearController implements View.OnClickListener {
 
     private Context context;
     private LayHomeClearBinding binding;
@@ -67,7 +66,7 @@ public class HomeClearController implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_more:
-                ProductActivity.start(context);
+                SaleActivity.start(context, SaleActivity.TYPE_CLEAR);
                 break;
         }
     }

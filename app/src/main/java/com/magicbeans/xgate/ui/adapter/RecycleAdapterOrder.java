@@ -5,10 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
-import com.ins.common.utils.GlideUtil;
 import com.ins.common.view.ListViewLinearLayout;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Order;

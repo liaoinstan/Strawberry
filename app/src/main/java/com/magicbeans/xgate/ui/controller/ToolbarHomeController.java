@@ -2,25 +2,12 @@ package com.magicbeans.xgate.ui.controller;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.ins.common.entity.Image;
-import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.ToastUtil;
-import com.ins.common.view.BannerView2;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.banner.BannerWrap;
-import com.magicbeans.xgate.databinding.LayHomeBannerboardBinding;
 import com.magicbeans.xgate.databinding.LayToobbarHomeBinding;
-import com.magicbeans.xgate.net.NetApi;
-import com.magicbeans.xgate.net.NetParam;
-import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.ui.activity.ScanActivity;
 import com.magicbeans.xgate.ui.activity.SearchActivity;
-import com.magicbeans.xgate.ui.activity.WebActivity;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Administrator on 2017/10/11.

@@ -3,18 +3,12 @@ package com.magicbeans.xgate.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.common.AppData;
-import com.magicbeans.xgate.common.AppVali;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
-
-import java.util.Map;
 
 public class SuggestActivity extends BaseAppCompatActivity implements View.OnClickListener {
 

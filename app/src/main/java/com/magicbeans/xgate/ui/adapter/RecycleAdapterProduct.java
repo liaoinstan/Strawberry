@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
+import com.ins.common.utils.FontUtils;
 import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.viewutils.TextViewUtil;
 import com.magicbeans.xgate.R;
@@ -54,10 +55,11 @@ public class RecycleAdapterProduct extends RecyclerView.Adapter<RecycleAdapterPr
         holder.text_name.setText(product.getProdLangName());
         holder.text_intro.setText(product.getProdLangSize());
         holder.text_price.setText("¥" + product.getShopprice());
-        holder.text_price_old.setText("¥" + product.getRefPrice());
-        holder.text_price_old.setVisibility(!TextUtils.isEmpty(product.getRefPrice()) ? View.VISIBLE : View.INVISIBLE);
-        holder.text_rating.setText(product.getRatingCount() + "条评论");
+        holder.text_price_old.setText("¥" + product.getWasPrice());
+        holder.text_price_old.setVisibility(!TextUtils.isEmpty(product.getWasPrice()) ? View.VISIBLE : View.INVISIBLE);
+        holder.text_rating.setText("评论次数：" + product.getRatingCount() + "次");
         TextViewUtil.addDelLine(holder.text_price_old);
+        FontUtils.boldText(holder.text_price);
     }
 
     @Override

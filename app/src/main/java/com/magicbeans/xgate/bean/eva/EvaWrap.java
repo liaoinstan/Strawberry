@@ -1,7 +1,5 @@
 package com.magicbeans.xgate.bean.eva;
 
-import com.magicbeans.xgate.bean.*;
-
 import java.util.List;
 
 /**

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:padding="1px">
+
+        <!--android 7.1系统使用圆角背景的控件如果和父控件边框紧靠的话，会留下1px的边缘残影，增加1px的边距即可解决，这应该是android 的bug，有待后期观察-->
+
+        <com.ins.common.view.EmojiEditText
+            android:id="@+id/edit_email"
+            style="@style/EditLogin"
+            android:hint="请输入邮箱"
+            android:inputType="textEmailSubject"
+            android:maxLength="32" />
+
+        <TextView
+            android:id="@+id/text_valinote"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/st_red_login"
+            android:textSize="10sp"
+            tools:text="验证码错误，请重新输入" />
+
+        <com.ins.common.view.EmojiEditText
+            android:id="@+id/edit_psw"
+            style="@style/EditLogin"
+            android:layout_marginBottom="12dp"
+            android:hint="请输入密码"
+            android:inputType="textPassword"
+            android:maxLength="32" />
+
+        <LinearLayout
+            android:id="@+id/lay_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.ins.common.view.EmojiEditText
+                    android:id="@+id/edit_phone"
+                    style="@style/EditLogin"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:hint="请输入手机号码"
+                    android:inputType="numberSigned"
+                    android:maxLength="11" />
+
+                <TextView
+                    android:id="@+id/text_vali"
+                    android:layout_width="80dp"
+                    android:layout_height="28dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="@drawable/shape_rect_cornerfull_none_line_red"
+                    android:gravity="center"
+                    android:text="发送验证码"
+                    android:textColor="@color/st_red_login"
+                    android:textSize="@dimen/text_tiny" />
+
+            </LinearLayout>
+
+            <com.ins.common.view.EmojiEditText
+                android:id="@+id/edit_vali"
+                style="@style/EditLogin"
+                android:layout_marginTop="12dp"
+                android:hint="请输入验证码"
+                android:inputType="numberSigned"
+                android:maxLength="6" />
+
+        </LinearLayout>
+
+        <com.dd.CircularProgressButton
+            android:id="@+id/btn_go"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="150dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:background="#00000000"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_big"
+            app:cpb_colorIndicator="@color/st_red_login"
+            app:cpb_colorIndicatorBackground="@color/st_red_login_hint"
+            app:cpb_colorProgress="#00000000"
+            app:cpb_cornerRadius="30dp"
+            app:cpb_iconComplete="@drawable/ic_action_accept"
+            app:cpb_iconError="@drawable/ic_action_cancel"
+            app:cpb_selectorIdle="@drawable/idle_state_selector"
+            app:cpb_textIdle="登录" />
+
+    </LinearLayout>
+</layout>

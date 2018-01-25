@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
-import com.ins.common.utils.L;
 import com.ins.common.utils.ScreenUtil;
 
 /**
@@ -80,5 +79,13 @@ public class SlidingMenu extends HorizontalScrollView {
                 return true;
         }
         return super.onTouchEvent(ev);
+    }
+
+    public void open(){
+        this.smoothScrollTo(mMenuWidth, 0);
+    }
+
+    public void close(){
+        this.smoothScrollTo(0, 0);
     }
 }

@@ -1,7 +1,9 @@
 package com.magicbeans.xgate.net;
 
+import com.google.gson.Gson;
 import com.ins.common.utils.L;
 import com.ins.common.utils.StrUtil;
+import com.ins.common.utils.UrlUtil;
 
 import java.io.File;
 import java.util.LinkedHashMap;
@@ -30,7 +32,7 @@ public class NetParam {
     //添加参数
     public NetParam put(String key, Object value) {
         //如果参数值为null或者""则不放进参数map
-        if (value == null || StrUtil.isEmpty(value))
+        if (value == null || StrUtil.isEmpty(value, false))
             return this;
         paramMap.put(key, value);
         return this;
@@ -43,9 +45,11 @@ public class NetParam {
 
     //构建参数集合
     public Map<String, Object> build() {
-        pritParam();
+        //pritParam();
         return paramMap;
     }
+
+    //################  工具类方法  #################
 
     //构造一个上传文件的Bodypart
     public static MultipartBody.Part buildFileBodyPart(String partName, String path) {
@@ -56,8 +60,8 @@ public class NetParam {
     }
 
     //构造一个RequestBody
-    public static RequestBody buildRequestBody(String value) {
-        return RequestBody.create(MediaType.parse("multipart/form-data"), value);
+    public static RequestBody buildJsonRequestBody(Object o) {
+        return RequestBody.create(MediaType.parse("application/json"), new Gson().toJson(o));
     }
 
     //测试方法，打印出参数
@@ -65,5 +69,9 @@ public class NetParam {
         for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
             L.e(entry.getKey() + ":" + entry.getValue().toString());
         }
+    }
+
+    public static String createUrl(String url, Map<String, Object> map) {
+        return UrlUtil.addParams(url, map);
     }
 }

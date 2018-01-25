@@ -4,17 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
 
+import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.user.Token;
+import com.magicbeans.xgate.bean.user.User;
+import com.magicbeans.xgate.common.AppData;
+import com.magicbeans.xgate.net.nethelper.NetTokenHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
-import java.util.Map;
-
+//应用启动页面，这个页面可以展示广告，同时检查用户是否已留下token，如果有则进行自动登录
 public class LoadUpActivity extends BaseAppCompatActivity {
 
     private long lasttime;
-    private String token;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, LoadUpActivity.class);
@@ -28,13 +30,18 @@ public class LoadUpActivity extends BaseAppCompatActivity {
 
         lasttime = System.currentTimeMillis();
 
-        //TODO:这里进行自动登录和数据初始化，如果没有token的情况下2秒后跳转首页，目前没有API借口对接，所以直接跳转
-        //等待2秒 去首页
-        checkTimeGoHomeActivity();
+        Token token = AppData.App.getToken();
+        if (Token.isEmpty(token)) {
+            //token为空，等待2秒跳转到首页
+            checkTimeGoHomeActivity();
+        } else {
+            //发起获取用户信息请求
+            netGetUserProfile(token);
+        }
     }
 
     private void goHomeActivity() {
-        HomeActivity.start(LoadUpActivity.this);
+        HomeActivity.start(this);
         finish();
     }
 
@@ -51,6 +58,29 @@ public class LoadUpActivity extends BaseAppCompatActivity {
         } else {
             goHomeActivity();
         }
+    }
+
+
+    //使用token获取用户信息
+    private void netGetUserProfile(final Token token) {
+        NetTokenHelper.getInstance().netGetUserProfile(token.getAccountID(), token.getToken(), new NetTokenHelper.UserProfileCallback() {
+            @Override
+            public void onSuccess(int status, User user, String msg) {
+                //持久化User到本地
+                user.setToken(token.getToken());
+                AppData.App.saveUser(user);
+                //跳转首页
+                checkTimeGoHomeActivity();
+                ToastUtil.showToastShort("登录成功");
+            }
+
+            @Override
+            public void onError(int status, String msg) {
+                ToastUtil.showToastShort(msg);
+                AppData.App.removeUser();
+                checkTimeGoHomeActivity();
+            }
+        });
     }
 
 }

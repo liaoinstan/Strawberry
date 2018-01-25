@@ -3,20 +3,22 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/shape_rect_corner_white"
+    android:background="@drawable/shape_rect_corner_dark_trans"
     android:gravity="center"
     android:minHeight="60dp"
-    android:minWidth="180dp"
+    android:minWidth="100dp"
     android:orientation="vertical"
     android:padding="10dp" >
 
     <ProgressBar
         android:id="@+id/img"
+        style="@style/MyProgressBar"
         android:layout_width="60dp"
         android:layout_height="60dp"/>
 
     <TextView
         android:id="@+id/tipTextView"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"

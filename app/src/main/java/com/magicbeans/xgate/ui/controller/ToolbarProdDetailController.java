@@ -5,15 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioGroup;
 
-import com.ins.common.utils.FontUtils;
-import com.ins.common.utils.ToastUtil;
-import com.ins.common.utils.viewutils.TabLayoutUtil;
-import com.ins.common.utils.viewutils.TextViewUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.databinding.LayToobbarHomeBinding;
 import com.magicbeans.xgate.databinding.LayToobbarProductdetailBinding;
-import com.magicbeans.xgate.ui.activity.ScanActivity;
-import com.magicbeans.xgate.ui.activity.SearchActivity;
+import com.magicbeans.xgate.sharesdk.ShareDialog;
 
 /**
  * Created by Administrator on 2017/10/11.
@@ -37,6 +31,12 @@ public class ToolbarProdDetailController {
         binding.toolbar.setTitle("");
         ((AppCompatActivity) context).setSupportActionBar(binding.toolbar);
         ((AppCompatActivity) context).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        binding.btnRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ShareDialog(context).show();
+            }
+        });
     }
 
     public void initData() {
@@ -48,7 +48,17 @@ public class ToolbarProdDetailController {
         binding.radiogroupHeader.setOnCheckedChangeListener(listener);
     }
 
-    public int getHeight(){
+    public int getHeight() {
         return binding.getRoot().getHeight();
+    }
+
+    //根据滚动位置反向设置tab的切换
+    public void setTabByScrollHeight(int hightLimit, int scrollY, int oldScrollY) {
+        //根据滚动位置反向设置tab切换
+        if (scrollY > hightLimit && oldScrollY < hightLimit) {
+            binding.radiogroupHeader.check(R.id.radio_recommend);
+        } else if (scrollY < hightLimit && oldScrollY > hightLimit) {
+            binding.radiogroupHeader.check(R.id.radio_product);
+        }
     }
 }

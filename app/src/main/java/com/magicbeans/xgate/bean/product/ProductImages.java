@@ -11,6 +11,9 @@ public class ProductImages implements Serializable{
     private String img350Src;
     private String img700Src;
 
+    public ProductImages() {
+    }
+
     public String getImgSrc() {
         return imgSrc;
     }

@@ -2,7 +2,6 @@ package com.magicbeans.xgate.ui.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,14 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ins.common.utils.FocusUtil;
-import com.liaoinstan.springview.container.AliFooter;
-import com.liaoinstan.springview.container.AliHeader;
-import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.databinding.FragmentHomeBinding;
 import com.magicbeans.xgate.helper.SpringViewHelper;
-import com.magicbeans.xgate.ui.activity.ScanActivity;
-import com.magicbeans.xgate.ui.activity.SearchActivity;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.ui.controller.HomeBannerBoardController;
 import com.magicbeans.xgate.ui.controller.HomeBrandController;
@@ -38,7 +32,7 @@ public class HomeFragment extends BaseFragment {
     private int position;
     private View rootView;
 
-    //各个子模块控制器，各控制器相互独立，各种处理自己模块的业务逻辑
+    //各个子模块控制器，各控制器相互独立，各自处理自己模块的业务逻辑
     private ToolbarHomeController toolbarHomeController;
     private HomeBannerBoardController homeBannerBoardController;
     private HomeSingleController homeSingleController;
@@ -54,6 +48,15 @@ public class HomeFragment extends BaseFragment {
         fragment.setArguments(bundle);
         return fragment;
     }
+
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (isVisibleToUser) {
+////            if (getActivity() != null) StatusBarTextUtil.transBarBackground(getActivity(), ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+////            if (getActivity() != null) StatusBarTextUtil.StatusBarDarkMode(getActivity());
+//        }
+//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

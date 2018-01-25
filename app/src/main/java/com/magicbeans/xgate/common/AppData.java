@@ -1,10 +1,8 @@
 package com.magicbeans.xgate.common;
 
 import com.ins.common.utils.SharedPrefUtilV2;
-import com.magicbeans.xgate.bean.User;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.magicbeans.xgate.bean.user.Token;
+import com.magicbeans.xgate.bean.user.User;
 
 /**
  * Created by Administrator on 2017/7/17.
@@ -20,17 +18,19 @@ public class AppData {
         private static final String KEY_USER = "user";
         private static final String KEY_LANGUAGE = "language";
 
-        public static void saveToken(String token) {
-            SharedPrefUtilV2.open(SHARENAME).putString(KEY_TOKEN, token);
+        public static void saveToken(Token token) {
+            SharedPrefUtilV2.open(SHARENAME).put(KEY_TOKEN, token);
         }
 
-        public static String getToken() {
-            return SharedPrefUtilV2.open(SHARENAME).getString(KEY_TOKEN);
+        public static Token getToken() {
+            return (Token) SharedPrefUtilV2.open(SHARENAME).get(KEY_TOKEN);
         }
 
         public static void removeToken() {
             SharedPrefUtilV2.open(SHARENAME).remove(KEY_TOKEN);
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////
 
         public static void saveUser(User user) {
             SharedPrefUtilV2.open(SHARENAME).put(KEY_USER, user);
@@ -44,12 +44,24 @@ public class AppData {
             SharedPrefUtilV2.open(SHARENAME).remove(KEY_USER);
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////
+
         public static String getLanguage() {
             return SharedPrefUtilV2.open(SHARENAME).getString(KEY_LANGUAGE);
         }
 
         public static void saveLanguage(String language) {
             SharedPrefUtilV2.open(SHARENAME).putString(KEY_LANGUAGE, language);
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+
+        public static String getTestOpenId() {
+            return SharedPrefUtilV2.open(SHARENAME).getString("TEST_OPENID");
+        }
+
+        public static void saveTestOpenId(String testOpenId) {
+            SharedPrefUtilV2.open(SHARENAME).putString("TEST_OPENID", testOpenId);
         }
     }
 
@@ -65,7 +77,7 @@ public class AppData {
     }
 
     /**
-     * 记录了app中所有的请求连接地址
+     * 记录了app中的请求连接地址
      */
     public static class Url {
 
@@ -78,16 +90,6 @@ public class AppData {
          * 接口请求地址
          */
         public static String version = "http://7xnfyf.com1.z0.glb.clouddn.com/version.json";                                   //客户端检查更新
-        public static String upload = "images/res/upload";                                                 //上传文件
-
-        public static String bannerInfo = "api/page/app/bannerInfo";                                            //banner详情?bannerId=1
-        public static String newsInfo = "api/page/app/newsInfo";                                                //资讯详情?newsId=2
-
-        public static String quelity = "api/page/aptitude";                     //资质
-        public static String about = "api/page/aboutUs";                        //关于我们
-        public static String netpoint = "api/page/branch";                      //网点
-        public static String safe = "api/page/polling";                         //安全巡检
-        public static String clause = "api/page/app/agreement";                //使用条款
 
     }
 }

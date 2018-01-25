@@ -3,11 +3,8 @@ package com.ins.common.helper;
 import android.animation.ArgbEvaluator;
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import com.ins.common.R;
 import com.ins.common.utils.DensityUtil;
 
 /**
@@ -70,7 +67,6 @@ public class ToobarTansColorHelper {
      */
     private float caculAlpha(int scroll) {
         float lv;
-        int heightMax = DensityUtil.dp2px(200);
         if (scroll <= 0) {
             lv = 0;
         } else if (scroll >= heightMax) {

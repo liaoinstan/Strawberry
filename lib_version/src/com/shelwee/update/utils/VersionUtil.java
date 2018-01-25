@@ -3,7 +3,6 @@ package com.shelwee.update.utils;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.widget.TextView;
 
 /**
  * Created by Administrator on 2016/6/23 0023.

@@ -6,10 +6,10 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -35,30 +35,59 @@ public interface NetInterface {
     @POST
     Call<ResponseBody> uploadFile(@Url String url, @Part MultipartBody.Part file);
 
+    /**
+     * 通用请求方法
+     */
+    @GET
+    Call<ResponseBody> commonNetwork(@Url String url);
+
     //////////////////////////////////////////
     //////////////////////////////////////////
     //////////////////////////////////////////
 
 
     //##################################################################
-    //#########               登录注册个人中心
+    //#########               登录及其注册流程
     //##################################################################
 
     /**
-     * 登录
-     * java.lang.String phone, java.lang.String password, java.lang.Integer deviceType, java.lang.Integer deviceToken, java.lang.Integer isWechat
+     * 检查OpenId是否存在，存在则会登录并返回用户token
      */
     @FormUrlEncoded
-    @POST("/api/user/login")
-    Call<ResponseBody> login(@FieldMap Map<String, Object> param);
+    @POST("/app/apiCheckAccountExist.aspx?ID=xGate")
+    Call<ResponseBody> checkOpenidExist(@FieldMap Map<String, Object> param);
 
     /**
-     * 更新用户信息
-     * java.lang.String showName, java.lang.String avatar, java.lang.Integer cityId, java.lang.Integer definition
+     * 使用openId创建一个账户
+     * OpenId
+     * OpenIdType 1: WeChat 2: Weibo 3: QQ
+     * Email
+     * Mobile
+     * DeviceId
+     * deviceType : android
+     * DisplayName
+     * Language
+     * HeadImageURL
+     * Gender:0: Female 1: Male
      */
-    @FormUrlEncoded
-    @POST("/api/user/updateUser")
-    Call<ResponseBody> updateUserWithToken(@Header("token") String token, @FieldMap Map<String, Object> param);
+    @POST("/app/apiCreateAccount.aspx?ID=xGate")
+    Call<ResponseBody> createAccount(@Body RequestBody requestBody);
+
+    /**
+     * 合并已存在用户
+     * OpenId
+     * OpenIdType 1: WeChat 2: Weibo 3: QQ
+     * Email
+     * Password
+     * DeviceId
+     * deviceType : android
+     * DisplayName
+     * Language
+     * HeadImageURL
+     * Gender:0: Female 1: Male
+     */
+    @POST("/app/apiUpdateAccount.aspx?ID=xGate")
+    Call<ResponseBody> mergeAccount(@Body RequestBody requestBody);
 
     //##################################################################
     //#########               接口
@@ -69,12 +98,6 @@ public interface NetInterface {
      */
     @GET("/app/RotationBanner.aspx")
     Call<ResponseBody> netHomeBanner(@QueryMap Map<String, Object> param);
-
-    /**
-     * 首页获取今日秒杀
-     */
-    @GET("/app/promotionList.aspx?OthCatgId=90")
-    Call<ResponseBody> netHomeSaleList(@QueryMap Map<String, Object> param);
 
     /**
      * 首页获取今日秒杀时限
@@ -158,16 +181,21 @@ public interface NetInterface {
     @GET("https://demo2017.strawberrynet.com/app/apiSubCategories.aspx")
     Call<ResponseBody> netSubCategory(@QueryMap Map<String, Object> param);
 
-
     //##################################################################
     //#########               2017/12/13 首页模块变更接口
     //##################################################################
 
     /**
-     * 首页获取品牌好货
+     * 首页获取今日秒杀
      */
-    @GET("/app/promotionList.aspx?OthCatgId=17")
-    Call<ResponseBody> netHomePromotionList(@QueryMap Map<String, Object> param);
+    @GET("/app/promotionList.aspx?OthCatgId=90")
+    Call<ResponseBody> netHomeTodayList(@QueryMap Map<String, Object> param);
+
+    /**
+     * 首页获取今日秒杀
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=19")
+    Call<ResponseBody> netHomeSaleList(@QueryMap Map<String, Object> param);
 
     /**
      * 首页获取王牌单品
@@ -192,4 +220,54 @@ public interface NetInterface {
      */
     @GET("/app/promotionList.aspx?OthCatgId=89")
     Call<ResponseBody> netHomeClearList(@QueryMap Map<String, Object> param);
+
+    /**
+     * 首页获取每日精选
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=89")
+    Call<ResponseBody> netHomeSelectList(@QueryMap Map<String, Object> param);
+
+    /**
+     * 对评论点赞
+     * CommentID
+     * type 0：踩   1：赞
+     */
+    @GET("/ajaxProdReviewFB.aspx")
+    Call<ResponseBody> netZanRecomment(@QueryMap Map<String, Object> param);
+
+    //##################################################################
+    //#########             不允许进行参数编码的API
+    //##################################################################
+
+    //##################################################################
+    //#########                     用户相关
+    //##################################################################
+
+    /**
+     * 获取用户信息
+     * accountID
+     * action
+     * token
+     */
+    @GET("/app/apiUserProfile.aspx")
+    Call<ResponseBody> getUserProfile(@QueryMap(encoded = true) Map<String, Object> param);
+
+    //##################################################################
+    //#########               2018/1/23 购物车
+    //##################################################################
+
+    /**
+     * 添加购物车
+     * ProdId
+     * token
+     */
+    @GET("/app/apiShopcart.aspx?ID=xGate&act=additem")
+    Call<ResponseBody> netAddShopCart(@QueryMap(encoded = true) Map<String, Object> param);
+
+    /**
+     * 获取购物车
+     * token
+     */
+    @GET("/app/apiShopcart.aspx?ID=xGate")
+    Call<ResponseBody> netGetShopCartList(@QueryMap(encoded = true) Map<String, Object> param);
 }

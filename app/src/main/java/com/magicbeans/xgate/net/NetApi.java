@@ -1,6 +1,8 @@
 package com.magicbeans.xgate.net;
 
 import com.ins.common.utils.L;
+import com.magicbeans.xgate.net.interceptor.LoggingInterceptor;
+import com.magicbeans.xgate.net.interceptor.NetInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -40,8 +42,9 @@ public class NetApi {
         httpLoggingInterceptor.setLevel(debug ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addNetworkInterceptor(httpLoggingInterceptor)
-//                .addInterceptor(new NetInterceptor())
+                //.addNetworkInterceptor(httpLoggingInterceptor)//FIXME:魅族手机上使用这个类无法打印日志，使用下面的自定义拦截器代替
+                .addInterceptor(new LoggingInterceptor())
+                .addInterceptor(new NetInterceptor())
                 .readTimeout(20, TimeUnit.SECONDS)
                 .connectTimeout(20, TimeUnit.SECONDS)
                 .build();

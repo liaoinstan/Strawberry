@@ -1,7 +1,5 @@
 package com.ins.common.utils;
 
-import com.ins.common.entity.BaseSelectBean;
-
 import java.util.List;
 
 /**

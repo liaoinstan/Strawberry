@@ -1,15 +1,6 @@
 package com.magicbeans.xgate.net;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.ins.common.utils.L;
-import com.ins.common.utils.UnicodeUtil;
-import com.magicbeans.xgate.bean.EventBean;
-import com.magicbeans.xgate.common.AppData;
-
-import org.greenrobot.eventbus.EventBus;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.lang.reflect.Type;
 
@@ -44,7 +35,6 @@ public abstract class STCallback<T> implements Callback<ResponseBody> {
                 return;
             }
             String data = body.string();
-            L.e(data);
             T t;
             if (data != null && !data.equals("")) {
                 t = gson.fromJson(data, type);

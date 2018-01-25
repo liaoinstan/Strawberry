@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.ins.common.utils.GlideUtil;
 import com.ins.common.view.bundleimgview.BundleImgEntity;

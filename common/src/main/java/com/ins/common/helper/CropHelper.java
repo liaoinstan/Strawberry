@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 
 import com.ins.common.utils.BitmapUtil;
 import com.ins.common.utils.FileUtil;

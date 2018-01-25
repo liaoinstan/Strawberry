@@ -11,9 +11,19 @@ import java.util.Map;
 public class EventBean implements Serializable {
 
     //语言切换
-    public static final int EVENT_LANGUAGE_CHANGE = 0xffa102;
+    public static final int EVENT_LANGUAGE_CHANGE = 0xffa101;
     //未登录
-    public static final int EVENT_NOLOGIN = 0xffa101;
+    public static final int EVENT_NOLOGIN = 0xffa102;
+    //首页跳转到热门品牌页面
+    public static final int EVENT_JUMP_BRANDHOT = 0xffa103;
+    //用户切换到购物车时，发送一条消息
+    public static final int EVENT_IN_SHOPCART = 0xffa104;
+    //商品有变动，刷新购物车
+    public static final int EVENT_REFRESH_SHOPCART = 0xffa105;
+    //登录
+    public static final int EVENT_LOGIN = 0xffa106;
+    //注销
+    public static final int EVENT_LOGOUT = 0xffa107;
 
     private int event;
     private Map<String, Object> map = new HashMap<>();

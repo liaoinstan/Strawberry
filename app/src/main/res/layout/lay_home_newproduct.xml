@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -16,7 +16,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="新品上市"
-                android:textColor="@color/com_text_dark"
+                android:drawablePadding="10dp"
+                android:textColor="@color/st_pink"
+                android:drawableLeft="@drawable/ic_home_title_new_left"
+                android:drawableRight="@drawable/ic_home_title_new_right"
                 android:textSize="18sp" />
 
             <TextView
@@ -28,8 +31,10 @@
                 android:gravity="center"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:text="更多 >"
-                android:textColor="@color/com_text_dark_light"
+                android:text="更多"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_home_title_next"
+                android:textColor="@color/am_blue"
                 android:textSize="@dimen/text_nomal_small" />
 
         </FrameLayout>

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/white</color>
-    <color name="colorPrimaryDark">@color/white</color>
+    <color name="colorPrimary">@color/st_red</color>
+    <color name="colorPrimaryDark">@color/st_red</color>
     <color name="colorAccent">@color/st_purple</color>
 
     <color name="st_bk">#f2f2f2</color>
     <color name="st_bk_light">#fafafa</color>
     <color name="st_default_bk">#f2f2f2</color>
     <color name="st_purple">#652d90</color>
+    <color name="st_pink">#FF08D9</color>
+    <color name="st_red">#FE3461</color>
+    <color name="st_red_none">#00FE3461</color>
+    <color name="st_red_login">#fe3561</color>
+    <color name="st_red_login_hint">#44fe3561</color>
 </resources>

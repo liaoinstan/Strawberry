@@ -1,6 +1,7 @@
 package com.ins.common.utils;
 
 import android.net.Uri;
+import android.text.TextUtils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -8,7 +9,7 @@ import java.util.Map;
 /**
  * url 工具类
  * 处理 url 字符串，提供添加、获取、修改参数，拼接键值对等方法
- *
+ * <p>
  * 常用：
  * getParam 获取参数
  * addParam & addParams 添加或修改单个参数或参数集合
@@ -58,6 +59,7 @@ public class UrlUtil {
      * 给url添加一个参数，如参数已存在那么修改参数的值为添加后的值，如果不存在则新增一个参数
      */
     public static String addParam(String url, String key, String value) {
+        if (TextUtils.isEmpty(url)) return url;
         String urlNo = cutParam(url);
         Map<String, String> map = getParamMap(url);
         map.put(key, value);
@@ -68,12 +70,12 @@ public class UrlUtil {
     /**
      * 上面方法的批处理{@link #addParam(String, String, String)}
      */
-    public static String addParams(String url, Map<String, String> paramMap) {
+    public static String addParams(String url, Map<String, Object> paramMap) {
         if (StrUtil.isEmpty(paramMap) || StrUtil.isEmpty(url)) return url;
         String urlNo = cutParam(url);
         Map<String, String> map = getParamMap(url);
-        for (Map.Entry<String, String> keyValue : paramMap.entrySet()) {
-            map.put(keyValue.getKey(), keyValue.getValue());
+        for (Map.Entry<String, Object> keyValue : paramMap.entrySet()) {
+            map.put(keyValue.getKey(), keyValue.getValue().toString());
         }
         String urlnew = buildParamStr(urlNo, map);
         return urlnew;

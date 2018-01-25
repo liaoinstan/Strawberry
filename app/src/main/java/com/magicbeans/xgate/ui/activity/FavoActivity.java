@@ -2,6 +2,7 @@ package com.magicbeans.xgate.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,14 +15,14 @@ import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.common.TestBean;
+import com.magicbeans.xgate.databinding.ActivityFavoBinding;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterFavo;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
 public class FavoActivity extends BaseAppCompatActivity {
 
-    private LoadingLayout loadingLayout;
-    private SpringView springView;
-    private RecyclerView recycler;
+    private ActivityFavoBinding binding;
+
     private RecycleAdapterFavo adapter;
 
     public static void start(Context context) {
@@ -32,7 +33,7 @@ public class FavoActivity extends BaseAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favo);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_favo);
         setToolbar();
         initBase();
         initView();
@@ -44,24 +45,21 @@ public class FavoActivity extends BaseAppCompatActivity {
     }
 
     private void initView() {
-        loadingLayout = (LoadingLayout) findViewById(R.id.loadingview);
-        recycler = (RecyclerView) findViewById(R.id.recycler);
-        springView = (SpringView) findViewById(R.id.spring);
     }
 
     private void initCtrl() {
         adapter = new RecycleAdapterFavo(this);
-        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recycler.setAdapter(adapter);
-        springView.setHeader(new AliHeader(this, false));
-        springView.setFooter(new AliFooter(this, false));
-        springView.setListener(new SpringView.OnFreshListener() {
+        binding.recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        binding.recycler.setAdapter(adapter);
+        binding.spring.setHeader(new AliHeader(this, false));
+        binding.spring.setFooter(new AliFooter(this, false));
+        binding.spring.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        springView.onFinishFreshAndLoad();
+                        binding.spring.onFinishFreshAndLoad();
                     }
                 }, 1000);
             }
@@ -71,12 +69,12 @@ public class FavoActivity extends BaseAppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        springView.onFinishFreshAndLoad();
+                        binding.spring.onFinishFreshAndLoad();
                     }
                 }, 1000);
             }
         });
-        loadingLayout.setOnRefreshListener(new View.OnClickListener() {
+        binding.loadingview.setOnRefreshListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             }

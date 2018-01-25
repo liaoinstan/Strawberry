@@ -37,19 +37,19 @@
             <RadioButton
                 android:id="@+id/tab_2"
                 style="@style/RadioHomeTab"
-                android:drawableTop="@drawable/selector_check_tab_home"
+                android:drawableTop="@drawable/selector_check_tab_cate"
                 android:text="@string/home_tab_cate" />
 
             <RadioButton
                 android:id="@+id/tab_3"
                 style="@style/RadioHomeTab"
-                android:drawableTop="@drawable/selector_check_tab_home"
+                android:drawableTop="@drawable/selector_check_tab_shopcar"
                 android:text="@string/home_tab_shopbag" />
 
             <RadioButton
                 android:id="@+id/tab_4"
                 style="@style/RadioHomeTab"
-                android:drawableTop="@drawable/selector_check_tab_home"
+                android:drawableTop="@drawable/selector_check_tab_me"
                 android:text="@string/home_tab_me" />
 
         </RadioGroup>

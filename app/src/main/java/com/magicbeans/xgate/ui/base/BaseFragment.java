@@ -41,7 +41,13 @@ public class BaseFragment extends Fragment {
         toolbar = (Toolbar) root.findViewById(R.id.toolbar);
         if (toolbar != null) {
             if (toolbar.getNavigationIcon() == null && needback) {
-                toolbar.setNavigationIcon(R.drawable.ic_back);
+                toolbar.setNavigationIcon(R.drawable.ic_back_light);
+                toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        getActivity().onBackPressed();
+                    }
+                });
             }
             toolbar.setTitle("");
             //设置toobar居中文字

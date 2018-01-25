@@ -1,9 +1,7 @@
 package com.ins.common.utils;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 
 import java.io.File;

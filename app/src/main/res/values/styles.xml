@@ -87,11 +87,27 @@
         <item name="android:background">@color/none</item>
     </style>
 
+    <style name="EditLogin">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">38dp</item>
+        <item name="android:textSize">@dimen/text_nomal</item>
+        <item name="android:background">@drawable/shape_rect_cornerfull_none_line_red</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:textColor">@color/st_red_login</item>
+        <item name="android:textColorHint">@color/st_red_login_hint</item>
+    </style>
+
     <!--tablayout字体大小只能通过style来设置-->
     <style name="TabLayoutTextBig">
         <item name="android:textSize">@dimen/text_big</item>
     </style>
+
     <style name="TabLayoutTextBigNomal">
         <item name="android:textSize">@dimen/text_big_nomal</item>
+    </style>
+
+    <style name="TextAppearance.Tag" parent="android:TextAppearance">
+        <item name="fontPath">fonts/brlnsb.ttf</item>
     </style>
 </resources>

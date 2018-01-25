@@ -15,6 +15,8 @@ import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.shelwee.update.utils.VersionUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 public class SettingActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
     private TextView text_setting_catchsize;
@@ -114,7 +116,10 @@ public class SettingActivity extends BaseAppCompatActivity implements View.OnCli
                 DialogSure.showDialog(this, "确定要退出登录？", new DialogSure.CallBack() {
                     @Override
                     public void onSure() {
-                        LoginActivity.start(SettingActivity.this);
+                        AppData.App.removeToken();
+                        AppData.App.removeUser();
+                        EventBus.getDefault().post(new EventBean(EventBean.EVENT_LOGOUT));
+                        HomeActivity.start(SettingActivity.this);
                     }
                 });
                 break;

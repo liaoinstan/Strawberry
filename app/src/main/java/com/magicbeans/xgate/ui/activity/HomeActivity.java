@@ -6,20 +6,18 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.RadioGroup;
 
-import com.ins.common.utils.L;
 import com.ins.common.utils.PermissionsUtil;
 import com.ins.common.utils.StatusBarTextUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.common.AppData;
-import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.ui.adapter.PagerAdapterHome;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.shelwee.update.UpdateHelper;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class HomeActivity extends BaseAppCompatActivity {
 
@@ -38,6 +36,9 @@ public class HomeActivity extends BaseAppCompatActivity {
     public void onCommonEvent(EventBean event) {
         if (event.getEvent() == EventBean.EVENT_LANGUAGE_CHANGE) {
             recreate();
+        } else if (event.getEvent() == EventBean.EVENT_JUMP_BRANDHOT) {
+            //跳转到热门品牌页面
+            group_tab.check(tabsId[1]);
         }
     }
 
@@ -58,7 +59,7 @@ public class HomeActivity extends BaseAppCompatActivity {
 
 //        StatusBarTextUtil.transparencyBar(HomeActivity.this);
         StatusBarTextUtil.transBarBackground(this, ContextCompat.getColor(this, R.color.colorPrimaryDark));
-        StatusBarTextUtil.StatusBarLightMode(HomeActivity.this);
+        StatusBarTextUtil.StatusBarDarkMode(HomeActivity.this);
 
         initBase();
         initView();
@@ -95,13 +96,14 @@ public class HomeActivity extends BaseAppCompatActivity {
                 group_tab.check(tabsId[position]);
                 switch (position) {
                     case 0:
-                        StatusBarTextUtil.StatusBarLightMode(HomeActivity.this);
+                        StatusBarTextUtil.StatusBarDarkMode(HomeActivity.this);
                         break;
                     case 1:
-                        StatusBarTextUtil.StatusBarLightMode(HomeActivity.this);
+                        StatusBarTextUtil.StatusBarDarkMode(HomeActivity.this);
                         break;
                     case 2:
-                        StatusBarTextUtil.StatusBarLightMode(HomeActivity.this);
+                        StatusBarTextUtil.StatusBarDarkMode(HomeActivity.this);
+                        EventBus.getDefault().post(new EventBean(EventBean.EVENT_IN_SHOPCART));
                         break;
                     case 3:
                         StatusBarTextUtil.StatusBarDarkMode(HomeActivity.this);
@@ -119,7 +121,7 @@ public class HomeActivity extends BaseAppCompatActivity {
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 for (int i = 0; i < tabsId.length; i++) {
                     if (tabsId[i] == checkedId) {
-                        pager.setCurrentItem(i, false);
+                        pager.setCurrentItem(i, true);
                     }
                 }
             }

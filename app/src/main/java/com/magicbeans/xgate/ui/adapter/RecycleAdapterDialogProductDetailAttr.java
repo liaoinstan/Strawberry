@@ -4,20 +4,16 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.ins.common.helper.SelectHelper;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.StrUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.common.KeyValue;
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.databinding.ItemDialogProductdetailAttrBinding;
-import com.magicbeans.xgate.databinding.ItemHomeBrandSelectBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,13 +60,16 @@ public class RecycleAdapterDialogProductDetailAttr extends RecyclerView.Adapter<
         holder.binding.textAttr.setSelected(product2.isSelect());
     }
 
-    public Product2 selectItem(String prodId) {
+    public void selectItem(String prodId) {
         Product2 product2 = Product2.findProduct2ById(results, prodId);
         if (product2 != null) {
             SelectHelper.selectAllSelectBeans(results, false);
             product2.setSelect(true);
         }
-        return product2;
+    }
+
+    public Product2 getSelectProduct(){
+        return SelectHelper.getSelectBean(results);
     }
 
     @Override

@@ -5,22 +5,31 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
-import com.ins.common.helper.ValiHelper;
-import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.App;
 import com.ins.common.utils.StatusBarTextUtil;
 import com.ins.common.utils.ToastUtil;
+import com.ins.common.utils.viewutils.AppUtil;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.EventBean;
+import com.magicbeans.xgate.bean.user.Token;
+import com.magicbeans.xgate.bean.user.User;
+import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.databinding.ActivityLoginBinding;
+import com.magicbeans.xgate.net.nethelper.NetTokenHelper;
+import com.magicbeans.xgate.sharesdk.UserInfo;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
+import com.magicbeans.xgate.ui.controller.SignupContentController;
+import com.magicbeans.xgate.ui.controller.SignupPlatformController;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class LoginActivity extends BaseAppCompatActivity {
 
     private ActivityLoginBinding binding;
 
-    private ValiHelper valiHelper;
+    private SignupContentController signupContentController;
+    private SignupPlatformController signupPlatformController;
 
     public static void start() {
         Intent intent = new Intent(App.getContext(), LoginActivity.class);
@@ -46,10 +55,34 @@ public class LoginActivity extends BaseAppCompatActivity {
     }
 
     private void initBase() {
+        signupContentController = new SignupContentController(binding.includeContent);
+        signupPlatformController = new SignupPlatformController(binding.includePlatform);
+        signupContentController.hide(false);
+        signupPlatformController.show(false);
+        signupPlatformController.setSignupPlatCallback(new SignupPlatformController.SignupPlatCallback() {
+            @Override
+            public void onOpenIdExist(UserInfo userInfo, final String accountID, final String token) {
+                netGetUserProfile(accountID, token);
+            }
+
+            @Override
+            public void onOpenIdInExist(UserInfo userInfo) {
+                signupContentController.setUserInfo(userInfo);
+                signupContentController.setStatusEmailCheck();
+
+                signupPlatformController.hide(true);
+                signupContentController.show(true);
+            }
+        });
+        signupContentController.setSignupContentCallback(new SignupContentController.SignupContentCallback() {
+            @Override
+            public void onAccountCreated(String accountID, String token) {
+                netGetUserProfile(accountID, token);
+            }
+        });
     }
 
     private void initView() {
-        valiHelper = new ValiHelper(binding.textVali);
     }
 
     private void initCtrl() {
@@ -58,46 +91,54 @@ public class LoginActivity extends BaseAppCompatActivity {
     private void initData() {
     }
 
-
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_close:
-                finish();
-                break;
-            case R.id.btn_toregist:
-                SignUpActivity.start(this);
-                finish();
-                break;
-            case R.id.text_vali:
-                valiHelper.start();
-                break;
-            case R.id.btn_go:
-                binding.textValinote.setText("验证码错误，请重新输入");
-                break;
-            case R.id.btn_qq:
-                DialogSure.showDialog(this, "\"草莓网\"想要打开QQ并登陆？", new DialogSure.CallBack() {
-                    @Override
-                    public void onSure() {
-                        ToastUtil.showToastShort("建设中...");
-                    }
-                });
-                break;
-            case R.id.btn_weixin:
-                DialogSure.showDialog(this, "\"草莓网\"想要打开微信并登陆？", new DialogSure.CallBack() {
-                    @Override
-                    public void onSure() {
-                        ToastUtil.showToastShort("建设中...");
-                    }
-                });
-                break;
-            case R.id.btn_weibo:
-                DialogSure.showDialog(this, "\"草莓网\"想要打开微博并登陆？", new DialogSure.CallBack() {
-                    @Override
-                    public void onSure() {
-                        ToastUtil.showToastShort("建设中...");
-                    }
-                });
+                onBackPressed();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!signupPlatformController.isShow()) {
+            signupPlatformController.show(true);
+            signupContentController.hide(true);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    //使用token获取用户信息
+    private void netGetUserProfile(final String accountID, final String token) {
+        showLoadingDialog();
+        NetTokenHelper.getInstance().netGetUserProfile(accountID, token, new NetTokenHelper.UserProfileCallback() {
+            @Override
+            public void onSuccess(int status, User user, String msg) {
+                dismissLoadingDialog();
+                //持久化Token和User到本地
+                user.setToken(token);
+                AppData.App.saveToken(new Token(user.getAccountID(), token));
+                AppData.App.saveUser(user);
+                //post登录消息
+                EventBus.getDefault().post(new EventBean(EventBean.EVENT_LOGIN));
+                //跳转首页
+                HomeActivity.start(LoginActivity.this);
+                ToastUtil.showToastShort("登录成功");
+                //FIXME:测试内容，把token复制到剪切板
+                AppUtil.copyText(LoginActivity.this, "accountID:" + accountID + "\ntoken:" + token);
+            }
+
+            @Override
+            public void onError(int status, String msg) {
+                dismissLoadingDialog();
+                ToastUtil.showToastShort(msg);
+            }
+        });
+    }
+
+    //########## 测试 ###########
+    public String getTestOpenId() {
+        return binding.editTestOpenid.getText().toString();
     }
 }

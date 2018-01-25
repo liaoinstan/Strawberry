@@ -11,9 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
-import com.ins.common.ui.dialog.DialogSure;
-import com.ins.common.utils.StrUtil;
-import com.ins.common.utils.ToastUtil;
 import com.ins.common.view.LoadingLayout;
 import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
@@ -24,12 +21,7 @@ import com.magicbeans.xgate.bean.Order;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterOrder;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by liaoinstan

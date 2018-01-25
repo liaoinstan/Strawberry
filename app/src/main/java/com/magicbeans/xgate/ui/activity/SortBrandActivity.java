@@ -1,27 +1,10 @@
 package com.magicbeans.xgate.ui.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
-import com.ins.common.common.ItemDecorationSortStickTop;
-import com.ins.common.utils.FocusUtil;
-import com.ins.common.view.IndexBar;
-import com.ins.common.view.LoadingLayout;
-import com.ins.common.view.SideBar;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.brand.Brand;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterSortBrand;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
-import com.magicbeans.xgate.utils.ColorUtil;
-import com.magicbeans.xgate.utils.SortUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 //FIXME：弃用的类
 public class SortBrandActivity extends BaseAppCompatActivity {

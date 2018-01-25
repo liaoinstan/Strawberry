@@ -14,7 +14,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="品牌"
-        android:textColor="@color/com_text_dark_light"
+        android:textColor="@color/select_home_text"
         android:textSize="@dimen/text_nomal" />
 
 </layout>
