@@ -150,6 +150,24 @@ public class AppDatabaseManager {
         }.execute();
     }
 
+    public void updateShopCartTable(final Product2... product2s) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                AppDataBase.getInstance().beginTransaction();
+                try {
+                    AppDataBase.getInstance().shopCartTableDao().updateAll(ShopCartTable.contents2wraps(product2s));
+                    AppDataBase.getInstance().setTransactionSuccessful();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    AppDataBase.getInstance().endTransaction();
+                }
+                return null;
+            }
+        }.execute();
+    }
+
     public void deleteShopCartTable(final Product2... product2s) {
         new AsyncTask<Void, Void, Void>() {
             @Override

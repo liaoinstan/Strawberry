@@ -33,6 +33,7 @@ import com.magicbeans.xgate.data.db.entity.ShopCart;
 import com.magicbeans.xgate.databinding.FragmentShopbagBinding;
 import com.magicbeans.xgate.ui.activity.OrderAddActivity;
 import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
+import com.magicbeans.xgate.ui.activity.ShopcartActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeShopbag;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.ui.controller.CommonRecommendController;
@@ -77,11 +78,10 @@ public class ShopBagFragment extends BaseFragment {
     public void onCommonEvent(EventBean event) {
         switch (event.getEvent()) {
             case EventBean.EVENT_IN_SHOPCART:
-                //用户进入购物车，这里做数据刷新等操作
-                shopCartContentController.calcuPrice();
+                //用户进入购物车，会进入这个case，这里做一些特殊操作
                 break;
             case EventBean.EVENT_REFRESH_SHOPCART:
-                //商品有变动，刷新购物车
+                //收到刷新购物车的消息
                 shopCartContentController.refreshData();
                 break;
         }
@@ -113,6 +113,11 @@ public class ShopBagFragment extends BaseFragment {
     }
 
     private void initBase() {
+        //该fragment有两处使用，一处是首页的购物车tab，一处是ShopcartActivity，两处业务逻辑完全一样
+        //特殊处理，如果该fragment在ShopcartActivity中使用，则需要显示左上角的返回按钮
+        if (getActivity() instanceof ShopcartActivity){
+            setToolbar(true);
+        }
         shopCartContentController = new ShopCartContentController(binding);
         commonRecommendController = new CommonRecommendController(binding.includeRecomend, 4);
     }

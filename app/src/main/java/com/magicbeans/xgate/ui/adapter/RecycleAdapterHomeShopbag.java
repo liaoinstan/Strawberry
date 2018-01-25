@@ -2,13 +2,12 @@ package com.magicbeans.xgate.ui.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.ins.common.helper.SelectHelper;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
@@ -18,13 +17,14 @@ import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.view.LoadingLayout;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.common.TestBean;
+import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.data.db.AppDatabaseManager;
-import com.magicbeans.xgate.data.db.entity.ShopCart;
 import com.magicbeans.xgate.databinding.ItemShopbagBinding;
 import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.view.CountView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,7 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
 
     @Override
     public void onBindViewHolder(final RecycleAdapterHomeShopbag.Holder holder, final int position) {
-        final Product2 bean = results.get(position);
+        Product2 bean = results.get(position);
         holder.binding.includeCoutent.layContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,15 +60,19 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
         holder.binding.includeCoutent.imgShopbagCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Product2 bean = results.get(holder.getLayoutPosition());
                 bean.setSelect(!bean.isSelect());
-                notifyItemChanged(position);
+                AppDatabaseManager.getInstance().updateShopCartTable(bean);
+                notifyItemChanged(holder.getLayoutPosition());
                 if (onSelectChangeListenner != null) onSelectChangeListenner.onSelectChange();
             }
         });
         holder.binding.includeCoutent.countview.setOnCountChangeListenner(new CountView.OnCountChangeListenner() {
             @Override
             public void onCountChange(int count, int lastCount) {
+                Product2 bean = results.get(holder.getLayoutPosition());
                 bean.setCount(count);
+                AppDatabaseManager.getInstance().updateShopCartTable(bean);
                 //TODO:这里请求服务器更新数量
                 if (bean.isSelect() && onSelectChangeListenner != null) {
                     onSelectChangeListenner.onSelectChange();
@@ -87,11 +91,9 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
                 DialogSure.showDialog(context, "确定要删除该商品？", new DialogSure.CallBack() {
                     @Override
                     public void onSure() {
+                        Product2 bean = results.get(holder.getLayoutPosition());
                         AppDatabaseManager.getInstance().deleteShopCartTable(bean);
-                        results.remove(bean);
-//                        notifyItemRemoved(position);
-//                        notifyItemRangeChanged();
-                        freshDataSet();
+                        EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART));
                     }
                 });
             }
@@ -124,8 +126,13 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
 
     //############## 对外方法 ################
 
-    public void freshDataSet() {
-        notifyDataSetChanged();
+    //这个方法代替notifyDataSetChanged()方法，主要区别在于item的添加和移除动画，该方法使用v7.DiffUtil计算数据集差异动态更新UI
+    public void notifyDataSetChanged(List<Product2> product2List) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffCallBack(getResults(), product2List), true);
+        diffResult.dispatchUpdatesTo(this);
+        getResults().clear();
+        getResults().addAll(product2List);
+        //数据集为空时展示空页面
         if (loadingLayout != null) {
             if (!StrUtil.isEmpty(results)){
                 loadingLayout.showOut();

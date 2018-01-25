@@ -73,6 +73,7 @@
         <activity android:name=".ui.activity.EvaListActivity" />
         <activity android:name=".ui.activity.ScanActivity" />
         <activity android:name=".ui.activity.SaleActivity" />
+        <activity android:name=".ui.activity.ShopcartActivity" />
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.magicbeans.xgate.bean.product;
 
 import com.google.gson.annotations.SerializedName;
+import com.ins.common.utils.StrUtil;
 
 import java.io.Serializable;
 import java.util.List;

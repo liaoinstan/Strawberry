@@ -3,9 +3,11 @@ package com.magicbeans.xgate.ui.base;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 
@@ -41,7 +43,13 @@ public class BaseFragment extends Fragment {
         toolbar = (Toolbar) root.findViewById(R.id.toolbar);
         if (toolbar != null) {
             if (toolbar.getNavigationIcon() == null && needback) {
-                toolbar.setNavigationIcon(R.drawable.ic_back);
+                toolbar.setNavigationIcon(R.drawable.ic_back_light);
+                toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        getActivity().onBackPressed();
+                    }
+                });
             }
             toolbar.setTitle("");
             //设置toobar居中文字

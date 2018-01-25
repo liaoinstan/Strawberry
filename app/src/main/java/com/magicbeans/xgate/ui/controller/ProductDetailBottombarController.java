@@ -14,6 +14,7 @@ import com.magicbeans.xgate.bean.product.ProductDetail;
 import com.magicbeans.xgate.data.db.AppDatabaseManager;
 import com.magicbeans.xgate.databinding.LayProductdetailBottombarBinding;
 import com.magicbeans.xgate.net.nethelper.NetShopCartHelper;
+import com.magicbeans.xgate.ui.activity.ShopcartActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -54,6 +55,7 @@ public class ProductDetailBottombarController implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.text_shopbag:
+                ShopcartActivity.start(context);
                 break;
             case R.id.text_favo:
                 NetShopCartHelper.getInstance().netGetShopCartList();

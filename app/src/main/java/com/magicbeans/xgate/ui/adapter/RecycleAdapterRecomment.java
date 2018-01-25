@@ -13,13 +13,18 @@ import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.viewutils.TextViewUtil;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.product.Product;
+import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.product.ProductWrap;
+import com.magicbeans.xgate.data.db.AppDatabaseManager;
 import com.magicbeans.xgate.databinding.ItemRecommentGridBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,8 +61,8 @@ public class RecycleAdapterRecomment extends RecyclerView.Adapter<RecycleAdapter
             @Override
             public void onClick(View view) {
                 //###### 添加到本地数据库 ######
-//                AppDatabaseManager.getInstance().insertShopCartTable(product2);
-//                EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART));
+                AppDatabaseManager.getInstance().insertShopCartTable(Product2.transByProduct(product));
+                EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART));
                 //###### 添加到服务器 ######
 //                NetShopCartHelper.getInstance().netAddShopCart(product2.getProdID());
                 //###### 飞入动画 ######
