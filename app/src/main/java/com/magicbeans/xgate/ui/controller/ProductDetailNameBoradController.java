@@ -49,7 +49,7 @@ public class ProductDetailNameBoradController {
         //设置banner数据
         List<Image> imgs = productDetail.getImgs();
         binding.banner.setDatas(imgs);
-        Product2 product = productDetail.getSelectProduct( productDetail.getProdID());
+        Product2 product = productDetail.getSelectProduct(productDetail.getProdID());
         //设置姓名版数据
         if (product != null) {
             binding.textName.setText(productDetail.getBrandName() + " " + product.getProdName() + " " + product.getSize());

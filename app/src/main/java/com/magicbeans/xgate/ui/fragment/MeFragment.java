@@ -22,6 +22,7 @@ import com.magicbeans.xgate.bean.user.User;
 import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.databinding.FragmentMeBinding;
 import com.magicbeans.xgate.ui.activity.FavoActivity;
+import com.magicbeans.xgate.ui.activity.HistoryActivity;
 import com.magicbeans.xgate.ui.activity.MeDetailActivity;
 import com.magicbeans.xgate.ui.activity.MsgSettingActivity;
 import com.magicbeans.xgate.ui.activity.OrderActivity;
@@ -176,6 +177,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 FavoActivity.start(getActivity());
                 break;
             case R.id.lay_me_history:
+                HistoryActivity.start(getActivity());
                 break;
         }
     }

@@ -9,14 +9,14 @@ import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.product.ProductDetail;
-import com.magicbeans.xgate.data.db.AppDatabaseManager;
+import com.magicbeans.xgate.data.db.manager.ShopcartTableManager;
 import com.magicbeans.xgate.databinding.LayProductdetailBottombarBinding;
 import com.magicbeans.xgate.net.nethelper.NetShopCartHelper;
 import com.magicbeans.xgate.ui.activity.ShopcartActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
-//import com.magicbeans.xgate.data.db.AppDatabaseManager;
+//import com.magicbeans.xgate.data.db.ShopcartTableManager;
 //import com.magicbeans.xgate.data.db.entity.ShopCart;
 
 /**
@@ -66,7 +66,7 @@ public class ProductDetailBottombarController implements View.OnClickListener {
                     Product2 product2 = productDetail.getSelectProduct(productDetail.getProdID());
                     if (product2 != null) {
                         //###### 添加到本地数据库 ######
-                        AppDatabaseManager.getInstance().insertShopCartTable(product2);
+                        ShopcartTableManager.getInstance().insert(product2);
 //                        ToastUtil.showToastLong("测试：\nid：" + product2.getProdID() + "\n类别:" + product2.getSizeText() + "\n数量：" + product2.getCount() + "\n添加成功");
                         EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART));
                         //###### 添加到服务器 ######

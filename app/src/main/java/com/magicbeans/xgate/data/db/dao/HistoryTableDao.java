@@ -7,7 +7,7 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.magicbeans.xgate.data.db.entity.ShopCart;
+import com.magicbeans.xgate.data.db.entity.HistoryTable;
 
 import java.util.List;
 
@@ -16,20 +16,20 @@ import java.util.List;
  */
 
 @Dao
-public interface ShopCartDao {
-    @Query("SELECT * FROM ShopCart")
-    List<ShopCart> querryAll();
+public interface HistoryTableDao {
+    @Query("SELECT * FROM HistoryTable")
+    List<HistoryTable> querryAll();
 
-    @Query("SELECT * FROM ShopCart WHERE ProdID IN (:ProdIDs)")
-    List<ShopCart> queryById(int[] ProdIDs);
+    @Query("SELECT * FROM HistoryTable WHERE id IN (:ids)")
+    List<HistoryTable> queryById(int[] ids);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(ShopCart... shopCarts);
+    void insertAll(HistoryTable... historyTables);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateAll(ShopCart... shopCarts);
+    void updateAll(HistoryTable... historyTables);
 
     @Delete
-    void deleteAll(ShopCart... shopCarts);
+    void deleteAll(HistoryTable... historyTables);
 
 }

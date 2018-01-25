@@ -50,8 +50,8 @@ public class RecycleAdapterHomeSingle extends RecyclerView.Adapter<RecycleAdapte
         holder.binding.textName.setText(product.getProdLangName());
         holder.binding.textIntro.setText(product.getProdLangSize());
         holder.binding.textPrice.setText("¥" + product.getShopprice());
-        holder.binding.textPriceOld.setText("¥" + product.getRefPrice());
-        holder.binding.textPriceOld.setVisibility(!TextUtils.isEmpty(product.getRefPrice()) ? View.VISIBLE : View.INVISIBLE);
+        holder.binding.textPriceOld.setText("¥" + product.getWasPrice());
+        holder.binding.textPriceOld.setVisibility(!TextUtils.isEmpty(product.getWasPrice()) ? View.VISIBLE : View.INVISIBLE);
         TextViewUtil.addDelLine(holder.binding.textPriceOld);
     }
 

@@ -74,6 +74,7 @@
         <activity android:name=".ui.activity.ScanActivity" />
         <activity android:name=".ui.activity.SaleActivity" />
         <activity android:name=".ui.activity.ShopcartActivity" />
+        <activity android:name=".ui.activity.HistoryActivity" />
     </application>
 
 </manifest>

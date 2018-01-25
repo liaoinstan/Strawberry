@@ -17,7 +17,7 @@ import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.product.ProductWrap;
-import com.magicbeans.xgate.data.db.AppDatabaseManager;
+import com.magicbeans.xgate.data.db.manager.ShopcartTableManager;
 import com.magicbeans.xgate.databinding.ItemRecommentGridBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
@@ -61,7 +61,7 @@ public class RecycleAdapterRecomment extends RecyclerView.Adapter<RecycleAdapter
             @Override
             public void onClick(View view) {
                 //###### 添加到本地数据库 ######
-                AppDatabaseManager.getInstance().insertShopCartTable(Product2.transByProduct(product));
+                ShopcartTableManager.getInstance().insert(Product2.transByProduct(product));
                 EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART));
                 //###### 添加到服务器 ######
 //                NetShopCartHelper.getInstance().netAddShopCart(product2.getProdID());
@@ -73,8 +73,8 @@ public class RecycleAdapterRecomment extends RecyclerView.Adapter<RecycleAdapter
         holder.binding.textName.setText(product.getProdLangName());
         holder.binding.textIntro.setText(product.getProdLangSize());
         holder.binding.textPrice.setText("¥" + product.getShopprice());
-        holder.binding.textPriceOld.setText("¥" + product.getRefPrice());
-        holder.binding.textPriceOld.setVisibility(!TextUtils.isEmpty(product.getRefPrice()) ? View.VISIBLE : View.INVISIBLE);
+        holder.binding.textPriceOld.setText("¥" + product.getWasPrice());
+        holder.binding.textPriceOld.setVisibility(!TextUtils.isEmpty(product.getWasPrice()) ? View.VISIBLE : View.INVISIBLE);
         TextViewUtil.addDelLine(holder.binding.textPriceOld);
     }
 

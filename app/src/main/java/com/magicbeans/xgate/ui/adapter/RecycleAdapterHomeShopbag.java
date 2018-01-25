@@ -19,7 +19,7 @@ import com.ins.common.view.LoadingLayout;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.product.Product2;
-import com.magicbeans.xgate.data.db.AppDatabaseManager;
+import com.magicbeans.xgate.data.db.manager.ShopcartTableManager;
 import com.magicbeans.xgate.databinding.ItemShopbagBinding;
 import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.view.CountView;
@@ -62,7 +62,7 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
             public void onClick(View v) {
                 Product2 bean = results.get(holder.getLayoutPosition());
                 bean.setSelect(!bean.isSelect());
-                AppDatabaseManager.getInstance().updateShopCartTable(bean);
+                ShopcartTableManager.getInstance().update(bean);
                 notifyItemChanged(holder.getLayoutPosition());
                 if (onSelectChangeListenner != null) onSelectChangeListenner.onSelectChange();
             }
@@ -72,7 +72,7 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
             public void onCountChange(int count, int lastCount) {
                 Product2 bean = results.get(holder.getLayoutPosition());
                 bean.setCount(count);
-                AppDatabaseManager.getInstance().updateShopCartTable(bean);
+                ShopcartTableManager.getInstance().update(bean);
                 //TODO:这里请求服务器更新数量
                 if (bean.isSelect() && onSelectChangeListenner != null) {
                     onSelectChangeListenner.onSelectChange();
@@ -92,7 +92,7 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
                     @Override
                     public void onSure() {
                         Product2 bean = results.get(holder.getLayoutPosition());
-                        AppDatabaseManager.getInstance().deleteShopCartTable(bean);
+                        ShopcartTableManager.getInstance().delete(bean);
                         EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART));
                     }
                 });

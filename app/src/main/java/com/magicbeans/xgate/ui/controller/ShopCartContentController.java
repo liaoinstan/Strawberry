@@ -18,7 +18,7 @@ import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.product.Product2;
-import com.magicbeans.xgate.data.db.AppDatabaseManager;
+import com.magicbeans.xgate.data.db.manager.ShopcartTableManager;
 import com.magicbeans.xgate.databinding.FragmentShopbagBinding;
 import com.magicbeans.xgate.sharesdk.ShareDialog;
 import com.magicbeans.xgate.ui.activity.OrderAddActivity;
@@ -83,7 +83,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
     }
 
     private void initData() {
-        LiveData<List<Product2>> product2sLiveData = AppDatabaseManager.getInstance().queryShopCartTables();
+        LiveData<List<Product2>> product2sLiveData = ShopcartTableManager.getInstance().queryAll();
         product2sLiveData.observeForever(new Observer<List<Product2>>() {
             @Override
             public void onChanged(@Nullable List<Product2> product2s) {
@@ -132,13 +132,13 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
                     @Override
                     public void onSure() {
                         List<Product2> selectBeans = adapter.getSelectBeans();
-//                        AppDatabaseManager.getInstance().deleteShopCartTable(selectBeans.toArray(new Product2[]{}));
+//                        ShopcartTableManager.getInstance().delete(selectBeans.toArray(new Product2[]{}));
 //                        adapter.getResults().removeAll(selectBeans);
 //                        adapter.freshDataSet();
 
-                        AppDatabaseManager.getInstance().deleteShopCartTable(selectBeans.toArray(new Product2[]{}));
+                        ShopcartTableManager.getInstance().delete(selectBeans.toArray(new Product2[]{}));
                         EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART));
-//                        LiveData<List<Product2>> newResults = AppDatabaseManager.getInstance().queryShopCartTables();
+//                        LiveData<List<Product2>> newResults = ShopcartTableManager.getInstance().queryAll();
 //                        newResults.observeForever(new Observer<List<Product2>>() {
 //                            @Override
 //                            public void onChanged(@Nullable List<Product2> product2s) {

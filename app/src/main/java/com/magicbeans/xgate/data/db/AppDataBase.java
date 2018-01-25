@@ -7,16 +7,16 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 import com.magicbeans.xgate.data.db.converter.Converters;
-import com.magicbeans.xgate.data.db.dao.ShopCartDao;
+import com.magicbeans.xgate.data.db.dao.HistoryTableDao;
 import com.magicbeans.xgate.data.db.dao.ShopCartTableDao;
-import com.magicbeans.xgate.data.db.entity.ShopCart;
+import com.magicbeans.xgate.data.db.entity.HistoryTable;
 import com.magicbeans.xgate.data.db.entity.ShopCartTable;
 
 /**
  * Created by Administrator on 2018/1/3.
  */
 
-@Database(entities = {ShopCart.class, ShopCartTable.class}, version = 1, exportSchema = false)
+@Database(entities = {ShopCartTable.class, HistoryTable.class}, version = 2, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDataBase extends RoomDatabase {
 
@@ -30,10 +30,11 @@ public abstract class AppDataBase extends RoomDatabase {
 
     public static void createDataBase(Context context) {
         if (INSTANCE == null) {
-            INSTANCE = Room.databaseBuilder(context, AppDataBase.class, DATABASE_NAME).build();
+            INSTANCE = Room.databaseBuilder(context, AppDataBase.class, DATABASE_NAME).fallbackToDestructiveMigration().build();
         }
     }
 
-    public abstract ShopCartDao shopCartDao();
     public abstract ShopCartTableDao shopCartTableDao();
+
+    public abstract HistoryTableDao historyTableDao();
 }

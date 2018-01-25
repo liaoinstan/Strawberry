@@ -59,6 +59,20 @@ public class ProductDetail implements Serializable {
         }
         return imgs;
     }
+
+    public Product trans2Product() {
+        Product product = new Product();
+        product.setProdID(ProdID);
+        Product2 product2 = getSelectProduct(ProdID);
+        if (product2!=null) {
+            product.setProdLangName(product2.getProdName());
+            product.setProdLangSize(product2.getSizeText());
+            product.setShopprice(product2.getShopPrice());
+            product.setWasPrice(product2.getWasPrice());
+            product.setProductImages(product2.getProductImages().get(0));
+        }
+        return product;
+    }
     // ###########  逻辑方法  ################
 
     public boolean isIsOutOfStock() {

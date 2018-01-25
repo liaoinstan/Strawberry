@@ -49,8 +49,8 @@ public class RecycleAdapterHomeSale extends RecyclerView.Adapter<RecycleAdapterH
         GlideUtil.loadImg(holder.binding.imgHeader, R.drawable.default_bk_img, product.getProductImages().getImg350Src());
         holder.binding.textName.setText(product.getProdLangName());
         holder.binding.textPrice.setText("¥" + product.getShopprice());
-        holder.binding.textPriceOld.setText("¥" + product.getRefPrice());
-        holder.binding.textPriceOld.setVisibility(!TextUtils.isEmpty(product.getRefPrice()) ? View.VISIBLE : View.INVISIBLE);
+        holder.binding.textPriceOld.setText("¥" + product.getWasPrice());
+        holder.binding.textPriceOld.setVisibility(!TextUtils.isEmpty(product.getWasPrice()) ? View.VISIBLE : View.INVISIBLE);
         TextViewUtil.addDelLine(holder.binding.textPriceOld);
     }
 

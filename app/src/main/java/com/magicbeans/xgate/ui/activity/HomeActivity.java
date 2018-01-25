@@ -121,7 +121,7 @@ public class HomeActivity extends BaseAppCompatActivity {
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 for (int i = 0; i < tabsId.length; i++) {
                     if (tabsId[i] == checkedId) {
-                        pager.setCurrentItem(i, false);
+                        pager.setCurrentItem(i, true);
                     }
                 }
             }

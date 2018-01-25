@@ -18,6 +18,7 @@ import com.ins.common.view.ObservableNestedScrollView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.product.ProductDetail;
+import com.magicbeans.xgate.data.db.manager.HistoryTableManager;
 import com.magicbeans.xgate.databinding.ActivityProductdetailBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
@@ -161,6 +162,8 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
                 productDetail.setProdID(prodId);
                 ProductDetailActivity.this.productDetail = productDetail;
                 setData(productDetail);
+                //获取到商品详情，即表示该商品已经浏览过了，加入浏览记录中
+                HistoryTableManager.getInstance().insert(productDetail.trans2Product());
                 dismissLoadingDialog();
             }
 

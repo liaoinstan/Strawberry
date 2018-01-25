@@ -90,7 +90,7 @@ public class Product2 extends BaseSelectBean implements Serializable {
         product2.setProdName(product.getProdLangName());
         product2.setSizeText(product.getProdLangSize());
         product2.setShopPrice(product.getShopprice());
-        product2.setWasPrice(product.getRefPrice());
+        product2.setWasPrice(product.getWasPrice());
         //保存商品图片 start
         final ProductImages productImage = new ProductImages();
         productImage.setImg700Src(product.getProductImages().getImg700Src());
