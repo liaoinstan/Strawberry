@@ -1,14 +1,14 @@
 package com.shelwee.update.utils;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.json.JSONObject;
-
 import android.util.Log;
 
 import com.shelwee.update.pojo.UpdateInfo;
+
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by ShelWee on 14-5-8.

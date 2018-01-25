@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.ins.common.helper.SelectHelper;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
@@ -15,10 +14,8 @@ import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.category.Cate1;
 import com.magicbeans.xgate.bean.category.Cate1Wrap;
-import com.magicbeans.xgate.bean.common.TestBean;
 import com.magicbeans.xgate.data.cache.RuntimeCache;
 import com.magicbeans.xgate.databinding.ItemCateTabBinding;
-import com.magicbeans.xgate.databinding.ItemHomeBrandSelectBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;

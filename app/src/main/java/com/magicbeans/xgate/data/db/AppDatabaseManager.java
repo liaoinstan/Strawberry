@@ -3,10 +3,7 @@ package com.magicbeans.xgate.data.db;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.persistence.room.Room;
-import android.content.Context;
 import android.os.AsyncTask;
-
 
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.data.db.entity.ShopCart;

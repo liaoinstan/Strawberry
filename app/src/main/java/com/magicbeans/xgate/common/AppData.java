@@ -3,10 +3,6 @@ package com.magicbeans.xgate.common;
 import com.ins.common.utils.SharedPrefUtilV2;
 import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.bean.user.User;
-import com.magicbeans.xgate.net.NetApi;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Administrator on 2017/7/17.
@@ -95,25 +91,5 @@ public class AppData {
          */
         public static String version = "http://7xnfyf.com1.z0.glb.clouddn.com/version.json";                                   //客户端检查更新
 
-        public static String apiUserProfile() {
-            return NetApi.getBaseUrl() + "app/apiUserProfile.aspx";
-        }
-
-        /**
-         * 添加购物车
-         * ProdId
-         * token
-         */
-        public static String apiAddShopCart() {
-            return NetApi.getBaseUrl() + "app/apiShopcart.aspx?ID=xGate&act=additem";
-        }
-
-        /**
-         * 获取购物车
-         * token
-         */
-        public static String apiGetShopCartList() {
-            return NetApi.getBaseUrl() + "app/apiShopcart.aspx?ID=xGate";
-        }
     }
 }

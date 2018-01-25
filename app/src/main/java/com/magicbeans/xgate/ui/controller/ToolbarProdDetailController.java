@@ -3,19 +3,11 @@ package com.magicbeans.xgate.ui.controller;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 
-import com.ins.common.utils.FontUtils;
-import com.ins.common.utils.ToastUtil;
-import com.ins.common.utils.viewutils.TabLayoutUtil;
-import com.ins.common.utils.viewutils.TextViewUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.databinding.LayToobbarHomeBinding;
 import com.magicbeans.xgate.databinding.LayToobbarProductdetailBinding;
 import com.magicbeans.xgate.sharesdk.ShareDialog;
-import com.magicbeans.xgate.ui.activity.ScanActivity;
-import com.magicbeans.xgate.ui.activity.SearchActivity;
 
 /**
  * Created by Administrator on 2017/10/11.

@@ -3,27 +3,19 @@ package com.magicbeans.xgate.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bigkoo.pickerview.TimePickerView;
 import com.ins.common.helper.CropHelper;
 import com.ins.common.helper.CropHelperEx;
-import com.ins.common.ui.dialog.DialogSure;
-import com.ins.common.utils.ClearCacheUtil;
 import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.TimeUtil;
-import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.databinding.ActivityMedetailBinding;
 import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.view.DayPicker;
-import com.shelwee.update.utils.VersionUtil;
 
 import java.util.Date;
 

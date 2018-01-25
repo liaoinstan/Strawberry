@@ -1,6 +1,5 @@
 package com.magicbeans.xgate.net;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

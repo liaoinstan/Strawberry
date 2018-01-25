@@ -2,18 +2,11 @@ package com.magicbeans.xgate.ui.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
-import android.support.annotation.IntDef;
-import android.support.annotation.Nullable;
-import android.util.Log;
 
-import com.ins.common.utils.StrUtil;
 import com.magicbeans.xgate.bean.eva.Eva;
 import com.magicbeans.xgate.data.DataRepository;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 
 /**

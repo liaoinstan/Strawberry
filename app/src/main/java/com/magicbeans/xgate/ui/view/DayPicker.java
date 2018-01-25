@@ -5,11 +5,9 @@ import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 
 import com.bigkoo.pickerview.TimePickerView;
-import com.ins.common.utils.TimeUtil;
 import com.magicbeans.xgate.R;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class DayPicker {
     private TimePickerView timePickerView;

@@ -1,7 +1,5 @@
 package com.magicbeans.xgate.bean.brand;
 
-import com.magicbeans.xgate.bean.common.SortBean;
-
 import java.io.Serializable;
 
 /**

@@ -3,11 +3,8 @@ package com.ins.common.helper;
 import android.animation.ArgbEvaluator;
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import com.ins.common.R;
 import com.ins.common.utils.DensityUtil;
 
 /**

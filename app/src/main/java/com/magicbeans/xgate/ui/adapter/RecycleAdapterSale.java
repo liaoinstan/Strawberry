@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ins.common.helper.TypeFaceHelper;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.FontUtils;
 import com.ins.common.utils.GlideUtil;
@@ -18,7 +19,6 @@ import com.ins.common.utils.viewutils.TextViewUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.databinding.ItemSaleProductListBinding;
-import com.ins.common.helper.TypeFaceHelper;
 
 import java.util.ArrayList;
 import java.util.List;

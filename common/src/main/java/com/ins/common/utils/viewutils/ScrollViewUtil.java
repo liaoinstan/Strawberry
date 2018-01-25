@@ -1,13 +1,9 @@
 package com.ins.common.utils.viewutils;
 
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.view.ViewParent;
 import android.widget.ScrollView;
-
-import com.ins.common.utils.L;
 
 /**
  * Created by Administrator on 2017/12/20.

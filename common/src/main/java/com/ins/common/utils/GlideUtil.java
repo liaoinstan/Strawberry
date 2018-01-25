@@ -7,19 +7,15 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.ins.common.R;
-import com.ins.common.common.CircularBitmapImageViewTarget;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
-
-import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 /**
  * Created by liaoinstan on 2016/10/27.

@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.common.AppData;
-import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.shelwee.update.UpdateHelper;
 import com.shelwee.update.utils.VersionUtil;

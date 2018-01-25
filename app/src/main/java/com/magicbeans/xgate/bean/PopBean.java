@@ -4,7 +4,6 @@ import com.ins.common.entity.BaseSelectBean;
 import com.ins.common.utils.StrUtil;
 import com.magicbeans.xgate.bean.brand.Brand;
 import com.magicbeans.xgate.bean.category.Cate1;
-import com.magicbeans.xgate.data.cache.RuntimeCache;
 
 import java.io.Serializable;
 import java.util.ArrayList;

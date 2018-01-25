@@ -6,18 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 import android.widget.RadioGroup;
 
-import com.ins.common.utils.L;
 import com.ins.common.utils.PermissionsUtil;
 import com.ins.common.utils.StatusBarTextUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.common.AppData;
-import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.ui.adapter.PagerAdapterHome;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.shelwee.update.UpdateHelper;

@@ -2,23 +2,15 @@ package com.magicbeans.xgate.ui.controller;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
-import android.content.Context;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.util.DiffUtil;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.ins.common.common.GridSpacingItemDecoration;
 import com.ins.common.common.ItemDecorationDivider;
-import com.ins.common.helper.SelectHelper;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.ui.dialog.DialogSure;
-import com.ins.common.utils.DensityUtil;
-import com.ins.common.utils.ListUtil;
-import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
@@ -26,24 +18,16 @@ import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.product.Product2;
-import com.magicbeans.xgate.bean.product.ProductWrap;
 import com.magicbeans.xgate.data.db.AppDatabaseManager;
 import com.magicbeans.xgate.databinding.FragmentShopbagBinding;
-import com.magicbeans.xgate.databinding.LayRecommendBinding;
-import com.magicbeans.xgate.net.NetApi;
-import com.magicbeans.xgate.net.NetParam;
-import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.sharesdk.ShareDialog;
 import com.magicbeans.xgate.ui.activity.OrderAddActivity;
 import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
-import com.magicbeans.xgate.ui.adapter.DiffCallBack;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeShopbag;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterRecomment;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Administrator on 2017/10/11.

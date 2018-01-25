@@ -23,7 +23,6 @@ import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.product.ProductDetail;
 import com.magicbeans.xgate.databinding.DialogProductattrBinding;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterDialogProductDetailAttr;
-import com.magicbeans.xgate.ui.view.CountView;
 
 /**
  * liaoinstan

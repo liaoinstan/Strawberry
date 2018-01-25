@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ins.common.helper.SelectHelper;
-import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Address;
 

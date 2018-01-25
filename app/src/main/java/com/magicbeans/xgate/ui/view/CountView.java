@@ -5,20 +5,11 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ins.common.entity.BaseSelectBean;
-import com.ins.common.helper.SelectHelper;
-import com.ins.common.utils.FontUtils;
-import com.ins.common.utils.StrUtil;
-import com.ins.common.view.ListViewLinearLayout;
 import com.magicbeans.xgate.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by liaoinstan on 2017/7/19.

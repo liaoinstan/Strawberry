@@ -1,6 +1,5 @@
 package com.magicbeans.xgate.bean.eva;
 
-import com.ins.common.entity.BaseSelectBean;
 import com.ins.common.view.bundleimgview.BundleImgEntity;
 
 import java.io.Serializable;

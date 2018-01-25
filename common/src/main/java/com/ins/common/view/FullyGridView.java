@@ -3,7 +3,6 @@ package com.ins.common.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.GridView;
-import android.widget.ListView;
 
 /**
  * 不推荐使用，这种重写会导致getView方法被多次调用，影响性能，虽然在UI上看不出变化

@@ -4,16 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 
-import com.ins.common.utils.GlideUtil;
-import com.ins.common.view.bundleimgview.BundleImgEntity;
-import com.ins.common.view.bundleimgview.BundleImgView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.databinding.ActivityAddressaddBinding;
-import com.magicbeans.xgate.databinding.ActivityOrderaddBinding;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
 import java.util.ArrayList;

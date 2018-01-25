@@ -1,14 +1,11 @@
 package com.magicbeans.xgate.ui.activity;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.ins.common.ui.dialog.DialogSure;
-import com.ins.common.utils.PermissionsUtil;
 import com.ins.common.utils.StatusBarTextUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.VibratorUtil;

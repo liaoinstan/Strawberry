@@ -3,7 +3,6 @@ package com.magicbeans.xgate.ui.adapter;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.GlideUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.category.Cate3;
-import com.magicbeans.xgate.bean.common.TestBean;
 
 import java.util.ArrayList;
 import java.util.List;

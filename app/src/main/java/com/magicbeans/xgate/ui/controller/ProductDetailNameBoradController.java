@@ -1,30 +1,18 @@
 package com.magicbeans.xgate.ui.controller;
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.ins.common.common.ItemDecorationDivider;
 import com.ins.common.entity.Image;
 import com.ins.common.utils.FontUtils;
 import com.ins.common.utils.GlideUtil;
-import com.ins.common.utils.StrUtil;
-import com.ins.common.view.BannerView;
 import com.ins.common.view.BannerView2;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.common.KeyValue;
-import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.product.ProductDetail;
-import com.magicbeans.xgate.bean.product.ProductImages;
-import com.magicbeans.xgate.databinding.LayProductdetailAttrBinding;
 import com.magicbeans.xgate.databinding.LayProductdetailNameboardBinding;
 import com.magicbeans.xgate.helper.AppHelper;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterProductAttr;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

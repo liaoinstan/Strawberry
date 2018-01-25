@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
 
-import com.ins.common.utils.L;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.user.Token;
@@ -14,8 +12,6 @@ import com.magicbeans.xgate.bean.user.User;
 import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.net.nethelper.NetTokenHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
-
-import java.util.Map;
 
 //应用启动页面，这个页面可以展示广告，同时检查用户是否已留下token，如果有则进行自动登录
 public class LoadUpActivity extends BaseAppCompatActivity {

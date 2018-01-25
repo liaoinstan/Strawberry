@@ -7,8 +7,6 @@ import android.widget.Toast;
 
 import com.ins.common.common.ActivityCollector;
 
-import org.greenrobot.eventbus.EventBus;
-
 /**
  * 现在创建的Activity都继承自AppCompatActivity了，这里列出一些基础的公共方法作为基类
  * 不要在BaseXXX里封装过多的东西，但是可以封装一些非功能性的"无关紧要"的东西

@@ -5,10 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
-import com.magicbeans.xgate.ui.activity.EvaActivity;
-import com.magicbeans.xgate.ui.fragment.BuildingFragment;
 import com.magicbeans.xgate.ui.fragment.EvaFragment;
-import com.magicbeans.xgate.ui.fragment.OrderFragment;
 
 /**
  * Created by Administrator on 2017/7/7.

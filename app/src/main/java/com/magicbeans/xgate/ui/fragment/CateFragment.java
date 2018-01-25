@@ -6,37 +6,21 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.ins.common.common.ItemDecorationDivider;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
-import com.ins.common.utils.StatusBarTextUtil;
-import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.category.Cate1;
-import com.magicbeans.xgate.bean.category.Cate1Wrap;
-import com.magicbeans.xgate.bean.category.Cate2;
-import com.magicbeans.xgate.bean.category.Cate2Wrap;
-import com.magicbeans.xgate.bean.category.Cate3;
-import com.magicbeans.xgate.bean.common.TestBean;
 import com.magicbeans.xgate.databinding.FragmentCateBinding;
-import com.magicbeans.xgate.net.NetApi;
-import com.magicbeans.xgate.net.NetParam;
-import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterCateTab;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.ui.controller.ToolbarHomeController;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 
 /**

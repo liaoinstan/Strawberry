@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.fragment.ShopBagFragment;
 

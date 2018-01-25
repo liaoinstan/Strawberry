@@ -1,45 +1,21 @@
 package com.magicbeans.xgate.ui.fragment;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.ins.common.common.ItemDecorationDivider;
-import com.ins.common.interfaces.OnRecycleItemClickListener;
-import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.FocusUtil;
-import com.ins.common.utils.StatusBarTextUtil;
-import com.liaoinstan.springview.container.AliFooter;
-import com.liaoinstan.springview.container.AliHeader;
-import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
-import com.magicbeans.xgate.bean.common.TestBean;
-import com.magicbeans.xgate.bean.product.Product;
-import com.magicbeans.xgate.bean.product.Product2;
-import com.magicbeans.xgate.data.db.AppDatabaseManager;
-import com.magicbeans.xgate.data.db.entity.ShopCart;
 import com.magicbeans.xgate.databinding.FragmentShopbagBinding;
-import com.magicbeans.xgate.ui.activity.OrderAddActivity;
-import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
 import com.magicbeans.xgate.ui.activity.ShopcartActivity;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeShopbag;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.ui.controller.CommonRecommendController;
 import com.magicbeans.xgate.ui.controller.ShopCartContentController;
-
-import java.util.List;
 
 
 /**

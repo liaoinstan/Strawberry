@@ -1,8 +1,6 @@
 package com.magicbeans.xgate.bean.user;
 
 import com.google.gson.annotations.SerializedName;
-import com.magicbeans.xgate.net.ParamHelper;
-import com.magicbeans.xgate.sharesdk.UserInfo;
 
 import java.io.Serializable;
 

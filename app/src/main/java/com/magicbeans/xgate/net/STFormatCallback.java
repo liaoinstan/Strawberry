@@ -1,11 +1,7 @@
 package com.magicbeans.xgate.net;
 
 import com.google.gson.Gson;
-import com.ins.common.utils.L;
-import com.magicbeans.xgate.bean.EventBean;
-import com.magicbeans.xgate.common.AppData;
 
-import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -42,7 +38,6 @@ public abstract class STFormatCallback<T> implements Callback<ResponseBody> {
                 return;
             }
             String res = body.string();
-            L.e(res);
             JSONTokener jsonParser = new JSONTokener(res);
             JSONObject root = (JSONObject) jsonParser.nextValue();
             int status = 0;

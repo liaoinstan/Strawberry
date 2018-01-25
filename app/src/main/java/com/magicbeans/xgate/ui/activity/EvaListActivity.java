@@ -5,31 +5,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.ins.common.common.ItemDecorationDivider;
-import com.ins.common.utils.StrUtil;
-import com.ins.common.utils.ToastUtil;
 import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.eva.Eva;
-import com.magicbeans.xgate.bean.eva.EvaWrap;
-import com.magicbeans.xgate.data.DataRepository;
 import com.magicbeans.xgate.databinding.ActivityEvalistBinding;
-import com.magicbeans.xgate.net.NetApi;
-import com.magicbeans.xgate.net.NetParam;
-import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterEva;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.viewmodel.EvaListViewModel;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 该页面Activity完全使用 MVVM + databinding + lifecycle 架构实现

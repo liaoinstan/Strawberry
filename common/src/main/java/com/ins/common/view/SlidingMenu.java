@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
-import com.ins.common.utils.L;
 import com.ins.common.utils.ScreenUtil;
 
 /**

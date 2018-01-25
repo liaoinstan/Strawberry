@@ -1,16 +1,11 @@
 package com.magicbeans.xgate.ui.controller;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
-import com.ins.common.common.ItemDecorationDivider;
-import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.common.KeyValue;
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.product.ProductDetail;
 import com.magicbeans.xgate.databinding.LayProductdetailAttrBinding;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterProductAttr;
 import com.magicbeans.xgate.ui.dialog.DialogBottomProductAttr;
 
 /**

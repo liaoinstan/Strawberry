@@ -1,4 +1,4 @@
-package com.magicbeans.xgate.net;
+package com.magicbeans.xgate.net.interceptor;
 
 import java.io.IOException;
 

@@ -5,11 +5,9 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.google.gson.Gson;
 import com.ins.common.common.SinpleShowInAnimatorListener;
 import com.ins.common.common.SinpleShowOutAnimatorListener;
 import com.ins.common.helper.ValiHelper;
@@ -33,9 +31,6 @@ import com.magicbeans.xgate.utils.CipherUtil;
 
 import java.util.Map;
 
-import cn.sharesdk.framework.PlatformDb;
-import cn.sharesdk.framework.ShareSDK;
-import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 /**

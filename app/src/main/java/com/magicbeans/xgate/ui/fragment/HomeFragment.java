@@ -2,24 +2,16 @@ package com.magicbeans.xgate.ui.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ins.common.utils.FocusUtil;
-import com.ins.common.utils.StatusBarTextUtil;
-import com.liaoinstan.springview.container.AliFooter;
-import com.liaoinstan.springview.container.AliHeader;
-import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.databinding.FragmentHomeBinding;
 import com.magicbeans.xgate.helper.SpringViewHelper;
-import com.magicbeans.xgate.ui.activity.ScanActivity;
-import com.magicbeans.xgate.ui.activity.SearchActivity;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.ui.controller.HomeBannerBoardController;
 import com.magicbeans.xgate.ui.controller.HomeBrandController;

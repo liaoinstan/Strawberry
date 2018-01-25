@@ -6,17 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
-import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.ToastUtil;
-import com.ins.common.view.bundleimgview.BundleImgView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.eva.Eva;
-import com.magicbeans.xgate.bean.product.ProductWrap;
 import com.magicbeans.xgate.databinding.ItemEvaBinding;
-import com.magicbeans.xgate.databinding.ItemHomeSaleBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;

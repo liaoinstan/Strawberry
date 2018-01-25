@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Order;
-import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.ui.adapter.PagerAdapterOrder;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 

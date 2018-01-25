@@ -7,15 +7,12 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 
@@ -91,16 +88,6 @@ public interface NetInterface {
      */
     @POST("/app/apiUpdateAccount.aspx?ID=xGate")
     Call<ResponseBody> mergeAccount(@Body RequestBody requestBody);
-
-    /**
-     * 获取用户信息
-     * accountID
-     * action
-     * token
-     */
-//    @GET("/app/apiUserProfile.aspx")
-    @GET
-    Call<ResponseBody> getUserProfile(@Url String url);
 
     //##################################################################
     //#########               接口
@@ -249,6 +236,23 @@ public interface NetInterface {
     Call<ResponseBody> netZanRecomment(@QueryMap Map<String, Object> param);
 
     //##################################################################
+    //#########             不允许进行参数编码的API
+    //##################################################################
+
+    //##################################################################
+    //#########                     用户相关
+    //##################################################################
+
+    /**
+     * 获取用户信息
+     * accountID
+     * action
+     * token
+     */
+    @GET("/app/apiUserProfile.aspx")
+    Call<ResponseBody> getUserProfile(@QueryMap(encoded = true) Map<String, Object> param);
+
+    //##################################################################
     //#########               2018/1/23 购物车
     //##################################################################
 
@@ -257,14 +261,13 @@ public interface NetInterface {
      * ProdId
      * token
      */
-//    @GET("http://xxx.strawberrynet2.com/app/apiShopcart.aspx?ID=xGate&act=additem")
     @GET("/app/apiShopcart.aspx?ID=xGate&act=additem")
-    Call<ResponseBody> netAddShopCart(@QueryMap Map<String, Object> param);
+    Call<ResponseBody> netAddShopCart(@QueryMap(encoded = true) Map<String, Object> param);
 
     /**
      * 获取购物车
      * token
      */
     @GET("/app/apiShopcart.aspx?ID=xGate")
-    Call<ResponseBody> netGetShopCartList(@QueryMap Map<String, Object> param);
+    Call<ResponseBody> netGetShopCartList(@QueryMap(encoded = true) Map<String, Object> param);
 }

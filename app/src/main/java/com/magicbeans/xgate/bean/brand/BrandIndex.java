@@ -1,7 +1,5 @@
 package com.magicbeans.xgate.bean.brand;
 
-import com.magicbeans.xgate.bean.*;
-
 import java.io.Serializable;
 import java.util.List;
 

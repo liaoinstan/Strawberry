@@ -2,10 +2,6 @@ package com.magicbeans.xgate.helper;
 
 import com.magicbeans.xgate.common.AppData;
 
-import cn.sharesdk.sina.weibo.SinaWeibo;
-import cn.sharesdk.tencent.qq.QQ;
-import cn.sharesdk.wechat.friends.Wechat;
-
 /**
  * Created by SEELE on 2017/10/12.
  */

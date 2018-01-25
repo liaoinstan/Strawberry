@@ -2,13 +2,6 @@ package com.magicbeans.xgate.sharesdk;
 
 import android.content.Context;
 
-import com.ins.common.utils.L;
-import com.ins.common.utils.ToastUtil;
-
-import java.util.HashMap;
-
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.sina.weibo.SinaWeibo;

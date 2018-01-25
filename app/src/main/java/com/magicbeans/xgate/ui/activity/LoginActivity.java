@@ -1,19 +1,12 @@
 package com.magicbeans.xgate.ui.activity;
 
-import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import com.ins.common.common.SinpleShowInAnimatorListener;
 import com.ins.common.utils.App;
-import com.ins.common.utils.L;
 import com.ins.common.utils.StatusBarTextUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.viewutils.AppUtil;
@@ -23,9 +16,6 @@ import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.bean.user.User;
 import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.databinding.ActivityLoginBinding;
-import com.magicbeans.xgate.net.NetApi;
-import com.magicbeans.xgate.net.NetParam;
-import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.net.nethelper.NetTokenHelper;
 import com.magicbeans.xgate.sharesdk.UserInfo;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
@@ -33,15 +23,6 @@ import com.magicbeans.xgate.ui.controller.SignupContentController;
 import com.magicbeans.xgate.ui.controller.SignupPlatformController;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LoginActivity extends BaseAppCompatActivity {
 

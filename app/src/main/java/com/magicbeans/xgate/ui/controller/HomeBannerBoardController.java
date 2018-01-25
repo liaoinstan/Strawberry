@@ -1,20 +1,16 @@
 package com.magicbeans.xgate.ui.controller;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.ins.common.entity.Image;
 import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.ToastUtil;
-import com.ins.common.utils.UrlUtil;
 import com.ins.common.view.BannerView2;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.banner.BannerWrap;
-import com.magicbeans.xgate.bean.product.ProductWrap;
 import com.magicbeans.xgate.databinding.LayHomeBannerboardBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
@@ -24,19 +20,8 @@ import com.magicbeans.xgate.ui.activity.WebActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.onekeyshare.OnekeyShare;
-import cn.sharesdk.sina.weibo.SinaWeibo;
-import cn.sharesdk.tencent.qq.QQ;
-import cn.sharesdk.tencent.qzone.QZone;
-import cn.sharesdk.wechat.friends.Wechat;
 
 /**
  * Created by Administrator on 2017/10/11.

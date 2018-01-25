@@ -5,17 +5,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.RadioGroup;
 
-import com.ins.common.utils.StrUtil;
 import com.ins.common.view.singlepopview.BaseRecyclePopupWindow;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.PopBean;
-import com.magicbeans.xgate.bean.brand.Brand;
-import com.magicbeans.xgate.bean.category.Cate1;
 import com.magicbeans.xgate.data.cache.RuntimeCache;
 import com.magicbeans.xgate.databinding.LayProductlistSortBinding;
 import com.magicbeans.xgate.ui.dialog.MyGridPopupWindow;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

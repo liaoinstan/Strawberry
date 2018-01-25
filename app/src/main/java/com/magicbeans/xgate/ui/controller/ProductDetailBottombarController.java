@@ -9,14 +9,15 @@ import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.product.ProductDetail;
-//import com.magicbeans.xgate.data.db.AppDatabaseManager;
-//import com.magicbeans.xgate.data.db.entity.ShopCart;
 import com.magicbeans.xgate.data.db.AppDatabaseManager;
 import com.magicbeans.xgate.databinding.LayProductdetailBottombarBinding;
 import com.magicbeans.xgate.net.nethelper.NetShopCartHelper;
 import com.magicbeans.xgate.ui.activity.ShopcartActivity;
 
 import org.greenrobot.eventbus.EventBus;
+
+//import com.magicbeans.xgate.data.db.AppDatabaseManager;
+//import com.magicbeans.xgate.data.db.entity.ShopCart;
 
 /**
  * Created by Administrator on 2017/10/11.

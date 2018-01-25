@@ -2,9 +2,7 @@ package com.magicbeans.xgate.ui.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import com.magicbeans.xgate.R;
 

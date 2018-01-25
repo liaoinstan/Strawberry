@@ -6,10 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.ins.common.utils.GlideUtil;
-import com.ins.common.utils.TimeUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Goods;
 

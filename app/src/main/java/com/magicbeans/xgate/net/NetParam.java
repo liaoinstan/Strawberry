@@ -3,7 +3,6 @@ package com.magicbeans.xgate.net;
 import com.google.gson.Gson;
 import com.ins.common.utils.L;
 import com.ins.common.utils.StrUtil;
-import com.ins.common.utils.UriUtil;
 import com.ins.common.utils.UrlUtil;
 
 import java.io.File;
@@ -46,7 +45,7 @@ public class NetParam {
 
     //构建参数集合
     public Map<String, Object> build() {
-        pritParam();
+        //pritParam();
         return paramMap;
     }
 

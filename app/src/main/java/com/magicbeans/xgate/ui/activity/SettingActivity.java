@@ -11,7 +11,6 @@ import com.ins.common.utils.ClearCacheUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
-import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.shelwee.update.utils.VersionUtil;
 

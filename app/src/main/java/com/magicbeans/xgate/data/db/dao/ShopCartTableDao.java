@@ -7,7 +7,6 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.magicbeans.xgate.data.db.entity.ShopCart;
 import com.magicbeans.xgate.data.db.entity.ShopCartTable;
 
 import java.util.List;

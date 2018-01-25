@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 
 import com.ins.common.utils.StrUtil;
 import com.magicbeans.xgate.bean.product.Product2;
-import com.magicbeans.xgate.bean.product.ProductImages;
 
 import java.util.ArrayList;
 import java.util.List;

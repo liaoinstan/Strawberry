@@ -1,13 +1,11 @@
 package com.ins.common.view.singlepopview;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ins.common.R;
-import com.ins.common.interfaces.OnRecycleItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;

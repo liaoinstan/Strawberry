@@ -1,12 +1,6 @@
 package com.magicbeans.xgate.data;
 
-import android.app.Application;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.support.annotation.NonNull;
-
 import com.ins.common.utils.StrUtil;
-import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.bean.eva.Eva;
 import com.magicbeans.xgate.bean.eva.EvaWrap;
 import com.magicbeans.xgate.net.NetApi;

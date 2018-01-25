@@ -1,24 +1,19 @@
 package com.magicbeans.xgate.ui.fragment;
 
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ins.common.common.GridSpacingItemDecoration;
 import com.ins.common.helper.ToobarTansColorHelper;
 import com.ins.common.utils.DensityUtil;
 import com.ins.common.utils.FocusUtil;
 import com.ins.common.utils.GlideUtil;
-import com.ins.common.utils.StatusBarTextUtil;
-import com.ins.common.utils.ToastUtil;
 import com.ins.common.view.ObservableNestedScrollView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
@@ -27,14 +22,10 @@ import com.magicbeans.xgate.bean.user.User;
 import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.databinding.FragmentMeBinding;
 import com.magicbeans.xgate.ui.activity.FavoActivity;
-import com.magicbeans.xgate.ui.activity.LoginActivity;
 import com.magicbeans.xgate.ui.activity.MeDetailActivity;
 import com.magicbeans.xgate.ui.activity.MsgSettingActivity;
 import com.magicbeans.xgate.ui.activity.OrderActivity;
-import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
 import com.magicbeans.xgate.ui.activity.SettingActivity;
-import com.magicbeans.xgate.ui.activity.SignActivity;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterRecomment;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.ui.controller.CommonRecommendController;
 
