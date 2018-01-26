@@ -5,6 +5,7 @@ import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
 
+import com.ins.common.helper.SelectHelper;
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.data.db.AppDataBase;
 import com.magicbeans.xgate.data.db.AppDataBaseInterface;
@@ -67,6 +68,7 @@ public class ShopcartTableManager implements AppDataBaseInterface<Product2> {
 
     @Override
     public void insert(final Product2... product2s) {
+        SelectHelper.selectAllSelectBeans(product2s, false);
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -120,5 +122,51 @@ public class ShopcartTableManager implements AppDataBaseInterface<Product2> {
                 return null;
             }
         }.execute();
+    }
+
+    @Override
+    public void delete() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                AppDataBase.getInstance().beginTransaction();
+                try {
+                    AppDataBase.getInstance().shopCartTableDao().delete();
+                    AppDataBase.getInstance().setTransactionSuccessful();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    AppDataBase.getInstance().endTransaction();
+                }
+                return null;
+            }
+        }.execute();
+    }
+
+    public MutableLiveData<Integer> count() {
+        final MutableLiveData<Integer> resultsLiveData = new MediatorLiveData<>();
+        new AsyncTask<Void, Void, Integer>() {
+            @Override
+            protected Integer doInBackground(Void... voids) {
+                int count = 0;
+                AppDataBase.getInstance().beginTransaction();
+                try {
+                    count = AppDataBase.getInstance().shopCartTableDao().count();
+                    AppDataBase.getInstance().setTransactionSuccessful();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    AppDataBase.getInstance().endTransaction();
+                }
+                return count;
+            }
+
+            @Override
+            protected void onPostExecute(Integer count) {
+                super.onPostExecute(count);
+                resultsLiveData.setValue(count);
+            }
+        }.execute();
+        return resultsLiveData;
     }
 }

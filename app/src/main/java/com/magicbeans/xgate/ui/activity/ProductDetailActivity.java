@@ -16,6 +16,7 @@ import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.viewutils.ScrollViewUtil;
 import com.ins.common.view.ObservableNestedScrollView;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.product.ProductDetail;
 import com.magicbeans.xgate.data.db.manager.HistoryTableManager;
@@ -64,11 +65,22 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
     }
 
     @Override
+    public void onCommonEvent(EventBean event) {
+        switch (event.getEvent()) {
+            case EventBean.EVENT_REFRESH_SHOPCART:
+                //收到刷新购物车的消息
+                productDetailBottombarController.refreshShopCount();
+                break;
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_productdetail);
         StatusBarTextUtil.transparencyBar(this);
         StatusBarTextUtil.StatusBarLightMode(this);
+        registEventBus();
         initBase();
         initView();
         initCtrl();
@@ -84,7 +96,7 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
         productDetailAttrController = new ProductDetailAttrController(binding.includeAttr);
         productDetailEvaController = new ProductDetailEvaController(binding.includeEva, prodId);
         productDetailDescribeController = new ProductDetailDescribeController(binding.includeDescribe);
-        commonRecommendController = new CommonRecommendController(binding.includeRecomend, 4);
+        commonRecommendController = new CommonRecommendController(binding.includeRecomend, 6);
         productDetailBottombarController = new ProductDetailBottombarController(binding.includeBottombar, binding.getRoot());
         //设置商品品类选择监听
         productDetailAttrController.setOnSelectListenner(new DialogBottomProductAttr.OnSelectListenner() {

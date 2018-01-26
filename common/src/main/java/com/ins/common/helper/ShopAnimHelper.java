@@ -115,8 +115,9 @@ public class ShopAnimHelper {
 
     AnimListener listener;
 
-    public void setOnAnimListener(AnimListener listener) {
+    public ShopAnimHelper setOnAnimListener(AnimListener listener) {
         this.listener = listener;
+        return this;
     }
 
     public interface AnimListener {

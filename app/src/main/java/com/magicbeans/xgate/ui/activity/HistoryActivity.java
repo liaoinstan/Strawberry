@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,24 +17,22 @@ import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.common.TestBean;
 import com.magicbeans.xgate.bean.product.Product;
-import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.data.db.manager.HistoryTableManager;
-import com.magicbeans.xgate.databinding.ActivityFavoBinding;
 import com.magicbeans.xgate.databinding.ActivityHistoryBinding;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterFavo;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHistory;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
-import java.util.Collections;
 import java.util.List;
 
 public class HistoryActivity extends BaseAppCompatActivity implements OnRecycleItemClickListener {
 
     private ActivityHistoryBinding binding;
-
     private RecycleAdapterHistory adapter;
+
+    //分页查询参数
+    private int page = 1;
+    private int pageCount = 30;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, HistoryActivity.class);
@@ -69,22 +66,12 @@ public class HistoryActivity extends BaseAppCompatActivity implements OnRecycleI
         binding.spring.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.spring.onFinishFreshAndLoad();
-                    }
-                }, 1000);
+                querryData(true);
             }
 
             @Override
             public void onLoadmore() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.spring.onFinishFreshAndLoad();
-                    }
-                }, 1000);
+                querryData(false);
             }
         });
         binding.loadingview.setOnRefreshListener(new View.OnClickListener() {
@@ -96,20 +83,29 @@ public class HistoryActivity extends BaseAppCompatActivity implements OnRecycleI
     }
 
     private void initData() {
-        LiveData<List<Product>> productsLiveData = HistoryTableManager.getInstance().queryAll();
+        querryData(true);
+    }
+
+    private void querryData(final boolean isReFresh) {
+        //下拉刷新回到第一页，上拉加载不断叠加页码
+        page = isReFresh ? 1 : page + 1;
+        LiveData<List<Product>> productsLiveData = HistoryTableManager.getInstance().querryLimit(page, pageCount);
         productsLiveData.observeForever(new Observer<List<Product>>() {
             @Override
             public void onChanged(@Nullable List<Product> products) {
                 if (!StrUtil.isEmpty(products)) {
-                    //将集合倒叙排列，因为最新插入的浏览记录应该显示在第一条
-                    Collections.reverse(products);
-                    adapter.getResults().clear();
-                    adapter.getResults().addAll(products);
+                    if (isReFresh) {
+                        adapter.getResults().clear();
+                        adapter.getResults().addAll(products);
+                    } else {
+                        adapter.getResults().addAll(products);
+                    }
                     adapter.notifyDataSetChanged();
-                    binding.loadingview.showOut();
+                    if (isReFresh) binding.loadingview.showOut();
                 } else {
-                    binding.loadingview.showLackView();
+                    if (isReFresh) binding.loadingview.showLackView();
                 }
+                binding.spring.onFinishFreshAndLoad();
             }
         });
     }

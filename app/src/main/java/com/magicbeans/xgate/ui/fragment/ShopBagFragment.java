@@ -95,7 +95,7 @@ public class ShopBagFragment extends BaseFragment {
             setToolbar(true);
         }
         shopCartContentController = new ShopCartContentController(binding);
-        commonRecommendController = new CommonRecommendController(binding.includeRecomend, 4);
+        commonRecommendController = new CommonRecommendController(binding.includeRecomend, 6);
     }
 
     private void initView() {

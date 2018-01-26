@@ -37,6 +37,33 @@ public class HistoryTableManager implements AppDataBaseInterface<Product> {
         return INSTANCE;
     }
 
+    public LiveData<List<Product>> querryLimit(final int page, final int count) {
+        final MutableLiveData<List<Product>> resultsLiveData = new MediatorLiveData<>();
+        new AsyncTask<Void, Void, List<HistoryTable>>() {
+            @Override
+            protected List<HistoryTable> doInBackground(Void... voids) {
+                List<HistoryTable> results = new ArrayList<>();
+                AppDataBase.getInstance().beginTransaction();
+                try {
+                    results.addAll(AppDataBase.getInstance().historyTableDao().querryLimit(page, count));
+                    AppDataBase.getInstance().setTransactionSuccessful();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    AppDataBase.getInstance().endTransaction();
+                }
+                return results;
+            }
+
+            @Override
+            protected void onPostExecute(List<HistoryTable> shopCartTables) {
+                super.onPostExecute(shopCartTables);
+                resultsLiveData.setValue(HistoryTable.wraps2beans(shopCartTables));
+            }
+        }.execute();
+        return resultsLiveData;
+    }
+
     @Override
     public LiveData<List<Product>> queryAll() {
         final MutableLiveData<List<Product>> resultsLiveData = new MediatorLiveData<>();
@@ -111,6 +138,25 @@ public class HistoryTableManager implements AppDataBaseInterface<Product> {
                 AppDataBase.getInstance().beginTransaction();
                 try {
                     AppDataBase.getInstance().historyTableDao().deleteAll(HistoryTable.beans2wraps(products));
+                    AppDataBase.getInstance().setTransactionSuccessful();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    AppDataBase.getInstance().endTransaction();
+                }
+                return null;
+            }
+        }.execute();
+    }
+
+    @Override
+    public void delete() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                AppDataBase.getInstance().beginTransaction();
+                try {
+                    AppDataBase.getInstance().historyTableDao().delete();
                     AppDataBase.getInstance().setTransactionSuccessful();
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -32,4 +32,9 @@ public interface ShopCartTableDao {
     @Delete
     void deleteAll(ShopCartTable... shopCartTables);
 
+    @Query("DELETE FROM ShopCartTable")
+    void delete();
+
+    @Query("SELECT count(1) FROM ShopCartTable")
+    int count();
 }
