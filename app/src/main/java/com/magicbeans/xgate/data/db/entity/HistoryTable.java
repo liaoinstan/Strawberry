@@ -21,11 +21,14 @@ public class HistoryTable {
     @PrimaryKey
     @ColumnInfo(name = "id")
     private String id;
+    @ColumnInfo(name = "timestamp")
+    private long timestamp;
     @ColumnInfo(name = "bean")
     private Product bean;
 
     public HistoryTable(Product bean) {
         this.id = bean.getProdID();
+        this.timestamp = System.currentTimeMillis();
         this.bean = bean;
     }
 
@@ -67,5 +70,13 @@ public class HistoryTable {
 
     public void setBean(Product bean) {
         this.bean = bean;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }

@@ -17,6 +17,9 @@ import java.util.List;
 
 @Dao
 public interface HistoryTableDao {
+    @Query("SELECT * FROM HistoryTable ORDER BY timestamp DESC LIMIT :size OFFSET (:page-1)*:size")
+    List<HistoryTable> querryLimit(int page, int size);
+
     @Query("SELECT * FROM HistoryTable")
     List<HistoryTable> querryAll();
 
@@ -32,4 +35,6 @@ public interface HistoryTableDao {
     @Delete
     void deleteAll(HistoryTable... historyTables);
 
+    @Query("DELETE FROM HistoryTable")
+    void delete();
 }

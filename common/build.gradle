@@ -51,13 +51,13 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
 
     //################# 图片加载框架 ##############
-//    compile 'com.github.bumptech.glide:glide:3.7.0'
 //    compile 'com.github.bumptech.glide:glide:4.1.1'
 //    annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
     implementation 'com.github.bumptech.glide:glide:4.5.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
     //glide裁剪库
-    compile 'jp.wasabeef:glide-transformations:3.0.1'
+    implementation 'jp.wasabeef:glide-transformations:3.1.0'
+//    compile 'jp.wasabeef:glide-transformations:3.0.1'
 //    compile 'jp.wasabeef:glide-transformations:2.0.1'
 
     //################# 网络请求框架 ##############

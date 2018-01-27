@@ -8,8 +8,8 @@ android {
         applicationId "com.magicbeans.xgate"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 8
-        versionName "1.0.1.6"
+        versionCode 9
+        versionName "1.0.1.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //使用矢量图兼容库
         vectorDrawables.useSupportLibrary = true
@@ -126,6 +126,7 @@ dependencies {
     compile project(':common')
     compile project(':lib_domain')
     compile project(':lib_version')
+    implementation project(':lib_progressbutton')
     //Lifecycle
     compile 'android.arch.lifecycle:runtime:1.0.3'
     compile 'android.arch.lifecycle:extensions:1.0.0'
@@ -137,5 +138,7 @@ dependencies {
     compile 'com.google.zxing:core:3.3.0'
     compile 'cn.bingoogolapple:bga-qrcodecore:1.1.9@aar'
     compile 'cn.bingoogolapple:bga-zxing:1.1.9@aar'
-    implementation project(':lib_progressbutton')
+    //RxJava & RxAndroid
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.8'
 }
