@@ -3,11 +3,12 @@ package com.magicbeans.xgate.data.db.manager;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 
 import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.data.db.AppDataBase;
-import com.magicbeans.xgate.data.db.AppDataBaseInterface;
 import com.magicbeans.xgate.data.db.entity.HistoryTable;
 
 import java.util.ArrayList;
@@ -16,14 +17,14 @@ import java.util.List;
 /**
  * ShopcartTableManager.java
  * <p>
- * Created by lijiankun on 17/7/5.
  */
 
-public class HistoryTableManager implements AppDataBaseInterface<Product> {
+public class HistoryTableManager extends BaseTableManager<HistoryTable> {
 
     private static HistoryTableManager INSTANCE;
 
     private HistoryTableManager() {
+        super();
     }
 
     public static HistoryTableManager getInstance() {
@@ -64,107 +65,27 @@ public class HistoryTableManager implements AppDataBaseInterface<Product> {
         return resultsLiveData;
     }
 
-    @Override
-    public LiveData<List<Product>> queryAll() {
-        final MutableLiveData<List<Product>> resultsLiveData = new MediatorLiveData<>();
-        new AsyncTask<Void, Void, List<HistoryTable>>() {
+    public LiveData<List<Product>> queryAllBeans() {
+        final MutableLiveData<List<Product>> beansLiveData = new MediatorLiveData<>();
+        LiveData<List<HistoryTable>> tablesLiveData = queryAll();
+        tablesLiveData.observeForever(new Observer<List<HistoryTable>>() {
             @Override
-            protected List<HistoryTable> doInBackground(Void... voids) {
-                List<HistoryTable> results = new ArrayList<>();
-                AppDataBase.getInstance().beginTransaction();
-                try {
-                    results.addAll(AppDataBase.getInstance().historyTableDao().querryAll());
-                    AppDataBase.getInstance().setTransactionSuccessful();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    AppDataBase.getInstance().endTransaction();
-                }
-                return results;
+            public void onChanged(@Nullable List<HistoryTable> tables) {
+                beansLiveData.setValue(HistoryTable.wraps2beans(tables));
             }
-
-            @Override
-            protected void onPostExecute(List<HistoryTable> shopCartTables) {
-                super.onPostExecute(shopCartTables);
-                resultsLiveData.setValue(HistoryTable.wraps2beans(shopCartTables));
-            }
-        }.execute();
-        return resultsLiveData;
+        });
+        return beansLiveData;
     }
 
-    @Override
-    public void insert(final Product... products) {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                AppDataBase.getInstance().beginTransaction();
-                try {
-                    AppDataBase.getInstance().historyTableDao().insertAll(HistoryTable.beans2wraps(products));
-                    AppDataBase.getInstance().setTransactionSuccessful();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    AppDataBase.getInstance().endTransaction();
-                }
-                return null;
-            }
-        }.execute();
+    public void insert(final Product... beans) {
+        insert(HistoryTable.beans2wraps(beans));
     }
 
-    @Override
-    public void update(final Product... products) {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                AppDataBase.getInstance().beginTransaction();
-                try {
-                    AppDataBase.getInstance().historyTableDao().updateAll(HistoryTable.beans2wraps(products));
-                    AppDataBase.getInstance().setTransactionSuccessful();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    AppDataBase.getInstance().endTransaction();
-                }
-                return null;
-            }
-        }.execute();
+    public void update(final Product... beans) {
+        update(HistoryTable.beans2wraps(beans));
     }
 
-    @Override
-    public void delete(final Product... products) {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                AppDataBase.getInstance().beginTransaction();
-                try {
-                    AppDataBase.getInstance().historyTableDao().deleteAll(HistoryTable.beans2wraps(products));
-                    AppDataBase.getInstance().setTransactionSuccessful();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    AppDataBase.getInstance().endTransaction();
-                }
-                return null;
-            }
-        }.execute();
-    }
-
-    @Override
-    public void delete() {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                AppDataBase.getInstance().beginTransaction();
-                try {
-                    AppDataBase.getInstance().historyTableDao().delete();
-                    AppDataBase.getInstance().setTransactionSuccessful();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    AppDataBase.getInstance().endTransaction();
-                }
-                return null;
-            }
-        }.execute();
+    public void delete(final Product... beans) {
+        delete(HistoryTable.beans2wraps(beans));
     }
 }

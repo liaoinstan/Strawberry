@@ -90,6 +90,7 @@ public class HistoryActivity extends BaseAppCompatActivity implements OnRecycleI
         //下拉刷新回到第一页，上拉加载不断叠加页码
         page = isReFresh ? 1 : page + 1;
         LiveData<List<Product>> productsLiveData = HistoryTableManager.getInstance().querryLimit(page, pageCount);
+//        LiveData<List<Product>> productsLiveData = HistoryTableManager.getInstance().queryAllBeans();
         productsLiveData.observeForever(new Observer<List<Product>>() {
             @Override
             public void onChanged(@Nullable List<Product> products) {

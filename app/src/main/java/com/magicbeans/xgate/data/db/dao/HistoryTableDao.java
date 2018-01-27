@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @Dao
-public interface HistoryTableDao {
+public interface HistoryTableDao extends BaseTableDao<HistoryTable>{
     @Query("SELECT * FROM HistoryTable ORDER BY timestamp DESC LIMIT :size OFFSET (:page-1)*:size")
     List<HistoryTable> querryLimit(int page, int size);
 
@@ -27,14 +27,14 @@ public interface HistoryTableDao {
     List<HistoryTable> queryById(int[] ids);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(HistoryTable... historyTables);
+    void insert(HistoryTable... historyTables);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateAll(HistoryTable... historyTables);
+    void update(HistoryTable... historyTables);
 
     @Delete
-    void deleteAll(HistoryTable... historyTables);
+    void delete(HistoryTable... historyTables);
 
     @Query("DELETE FROM HistoryTable")
-    void delete();
+    void deleteAll();
 }

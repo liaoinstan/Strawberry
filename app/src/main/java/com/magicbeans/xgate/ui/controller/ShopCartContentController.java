@@ -83,7 +83,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
     }
 
     private void initData() {
-        LiveData<List<Product2>> product2sLiveData = ShopcartTableManager.getInstance().queryAll();
+        LiveData<List<Product2>> product2sLiveData = ShopcartTableManager.getInstance().queryAllBeans();
         product2sLiveData.observeForever(new Observer<List<Product2>>() {
             @Override
             public void onChanged(@Nullable List<Product2> product2s) {

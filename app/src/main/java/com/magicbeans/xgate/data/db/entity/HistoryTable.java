@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Administrator on 2018/1/3.
  */
 @Entity(tableName = "HistoryTable")
-public class HistoryTable {
+public class HistoryTable{
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "id")

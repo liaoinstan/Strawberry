@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @Dao
-public interface ShopCartTableDao {
+public interface ShopCartTableDao extends BaseTableDao<ShopCartTable>{
     @Query("SELECT * FROM ShopCartTable")
     List<ShopCartTable> querryAll();
 
@@ -24,16 +24,16 @@ public interface ShopCartTableDao {
     List<ShopCartTable> queryById(int[] ids);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(ShopCartTable... shopCartTables);
+    void insert(ShopCartTable... shopCartTables);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateAll(ShopCartTable... shopCartTables);
+    void update(ShopCartTable... shopCartTables);
 
     @Delete
-    void deleteAll(ShopCartTable... shopCartTables);
+    void delete(ShopCartTable... shopCartTables);
 
     @Query("DELETE FROM ShopCartTable")
-    void delete();
+    void deleteAll();
 
     @Query("SELECT count(1) FROM ShopCartTable")
     int count();

@@ -21,26 +21,26 @@ public class ShopCartTable {
     @ColumnInfo(name = "id")
     private String id;
     @ColumnInfo(name = "product")
-    private Product2 product2;
+    private Product2 bean;
 
-    public ShopCartTable(Product2 product2) {
-        this.id = product2.getProdID();
-        this.product2 = product2;
+    public ShopCartTable(Product2 bean) {
+        this.id = bean.getProdID();
+        this.bean = bean;
     }
 
     //############  业务方法  ###########
 
-    public static List<Product2> wraps2contents(List<ShopCartTable> shopCartTables) {
+    public static List<Product2> wraps2beans(List<ShopCartTable> shopCartTables) {
         ArrayList<Product2> results = new ArrayList<>();
         if (!StrUtil.isEmpty(shopCartTables)) {
             for (ShopCartTable shopCartTable : shopCartTables) {
-                results.add(shopCartTable.getProduct2());
+                results.add(shopCartTable.getBean());
             }
         }
         return results;
     }
 
-    public static ShopCartTable[] contents2wraps(Product2[] product2s) {
+    public static ShopCartTable[] beans2wraps(Product2[] product2s) {
         ArrayList<ShopCartTable> shopCartTables = new ArrayList<>();
         for (Product2 product2 : product2s) {
             shopCartTables.add(new ShopCartTable(product2));
@@ -60,11 +60,11 @@ public class ShopCartTable {
         this.id = id;
     }
 
-    public Product2 getProduct2() {
-        return product2;
+    public Product2 getBean() {
+        return bean;
     }
 
-    public void setProduct2(Product2 product2) {
-        this.product2 = product2;
+    public void setBean(Product2 bean) {
+        this.bean = bean;
     }
 }
