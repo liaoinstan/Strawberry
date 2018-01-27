@@ -23,31 +23,18 @@ import java.util.List;
 public class BaseTableManager<T> implements BaseTableManagerInterface<T> {
 
     private BaseTableDao baseTableDao;
-//    private HistoryTableDao historyTableDao;
-//    private ShopCartTableDao shopCartTableDao;
 
     public BaseTableManager() {
-//        historyTableDao = AppDataBase.getInstance().historyTableDao();
-//        shopCartTableDao = AppDataBase.getInstance().shopCartTableDao();
         initBaseTableDao();
     }
 
+    //利用反射为baseTableDao赋相应的实体，要求AppDataBase的获取dao方法shopCartTableDao()与实体类命名保持一致ShopCartTable ：shopCartTableDao() -> ShopCartTable
+    //混淆的时候注意不要混淆该类
     private void initBaseTableDao() {
         ParameterizedType type = (ParameterizedType) this.getClass().getGenericSuperclass();
         Class clazz = (Class) type.getActualTypeArguments()[0];
         String tName = clazz.getSimpleName();  //tName=HistoryTable
         String tDao = tName.substring(0, 1).toLowerCase() + tName.substring(1) + "Dao"; // historyTableDao
-        // 根据 名称获取相应的Field字段
-//        try {
-//            Field tField = this.getClass().getSuperclass().getDeclaredField(tDao);  //Field historyTableDao
-//            Field baseField = this.getClass().getSuperclass().getDeclaredField("baseTableDao");  //Field baseDao
-//            // 把当前对象的 tField中的值,赋给当前对象的baseFile字段
-//            Object val = tField.get(this);  // 获取当前this对象  tField字段的值
-//            baseField.set(this, val);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-
         try {
             AppDataBase instance = AppDataBase.getInstance();
             Method method = AppDataBase.class.getMethod(tDao);
