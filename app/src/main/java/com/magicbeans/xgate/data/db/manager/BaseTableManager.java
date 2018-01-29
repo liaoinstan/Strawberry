@@ -5,16 +5,26 @@ import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
 
+import com.ins.common.utils.StrUtil;
+import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.data.db.AppDataBase;
 import com.magicbeans.xgate.data.db.dao.BaseTableDao;
 import com.magicbeans.xgate.data.db.dao.HistoryTableDao;
 import com.magicbeans.xgate.data.db.dao.ShopCartTableDao;
+import com.magicbeans.xgate.data.db.entity.HistoryTable;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * BaseTableManager
@@ -46,105 +56,128 @@ public class BaseTableManager<T> implements BaseTableManagerInterface<T> {
 
     @Override
     public LiveData<List<T>> queryAll() {
-        final MutableLiveData<List<T>> resultsLiveData = new MediatorLiveData<>();
-        new AsyncTask<Void, Void, List<T>>() {
-            @Override
-            protected List<T> doInBackground(Void... voids) {
-                List<T> results = new ArrayList<>();
-                AppDataBase.getInstance().beginTransaction();
-                try {
-                    results.addAll(baseTableDao.querryAll());
-                    AppDataBase.getInstance().setTransactionSuccessful();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    AppDataBase.getInstance().endTransaction();
-                }
-                return results;
-            }
+//        这是使用AsyncTask的写法，由于使用匿名AsyncTask会造成内层泄露导致activity无法释放，重新采用rxjava进行重构代码，该代码注释保留
+//        final MutableLiveData<List<T>> resultsLiveData = new MediatorLiveData<>();
+//        new AsyncTask<Void, Void, List<T>>() {
+//            @Override
+//            protected List<T> doInBackground(Void... voids) {
+//                List<T> results = new ArrayList<>();
+//                AppDataBase.getInstance().beginTransaction();
+//                try {
+//                    results.addAll(baseTableDao.querryAll());
+//                    AppDataBase.getInstance().setTransactionSuccessful();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                } finally {
+//                    AppDataBase.getInstance().endTransaction();
+//                }
+//                return results;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(List<T> tables) {
+//                super.onPostExecute(tables);
+//                resultsLiveData.setValue(tables);
+//            }
+//        }.execute();
+//        return resultsLiveData;
 
+//        rxjava写法，其他地方一律使用rxjava进行操作，不再保留AsyncTask的注释
+        final MutableLiveData<List<T>> resultsLiveData = new MediatorLiveData<>();
+        Observable.create(new ObservableOnSubscribe<List<T>>() {
             @Override
-            protected void onPostExecute(List<T> tables) {
-                super.onPostExecute(tables);
-                resultsLiveData.setValue(tables);
+            public void subscribe(ObservableEmitter<List<T>> e) throws Exception {
+                List<T> results = baseTableDao.querryAll();
+                e.onNext(results);
             }
-        }.execute();
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<T>>() {
+                    @Override
+                    public void accept(List<T> results) throws Exception {
+                        resultsLiveData.setValue(results);
+                    }
+                });
         return resultsLiveData;
     }
 
     @Override
-    public void insert(final T... tables) {
-        new AsyncTask<Void, Void, Void>() {
+    public LiveData<Integer> insert(final T... tables) {
+        final MutableLiveData<Integer> resultsLiveData = new MediatorLiveData<>();
+        Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            protected Void doInBackground(Void... voids) {
-                AppDataBase.getInstance().beginTransaction();
-                try {
-                    baseTableDao.insert(tables);
-                    AppDataBase.getInstance().setTransactionSuccessful();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    AppDataBase.getInstance().endTransaction();
-                }
-                return null;
+            public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                baseTableDao.insert(tables);
+                e.onNext(tables.length);
             }
-        }.execute();
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer results) throws Exception {
+                        resultsLiveData.setValue(results);
+                    }
+                });
+        return resultsLiveData;
     }
 
     @Override
-    public void update(final T... tables) {
-        new AsyncTask<Void, Void, Void>() {
+    public LiveData<Integer> update(final T... tables) {
+        final MutableLiveData<Integer> resultsLiveData = new MediatorLiveData<>();
+        Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            protected Void doInBackground(Void... voids) {
-                AppDataBase.getInstance().beginTransaction();
-                try {
-                    baseTableDao.update(tables);
-                    AppDataBase.getInstance().setTransactionSuccessful();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    AppDataBase.getInstance().endTransaction();
-                }
-                return null;
+            public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                baseTableDao.update(tables);
+                e.onNext(tables.length);
             }
-        }.execute();
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer results) throws Exception {
+                        resultsLiveData.setValue(results);
+                    }
+                });
+        return resultsLiveData;
     }
 
     @Override
-    public void delete(final T... tables) {
-        new AsyncTask<Void, Void, Void>() {
+    public LiveData<Integer> delete(final T... tables) {
+        final MutableLiveData<Integer> resultsLiveData = new MediatorLiveData<>();
+        Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            protected Void doInBackground(Void... voids) {
-                AppDataBase.getInstance().beginTransaction();
-                try {
-                    baseTableDao.delete(tables);
-                    AppDataBase.getInstance().setTransactionSuccessful();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    AppDataBase.getInstance().endTransaction();
-                }
-                return null;
+            public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                baseTableDao.delete(tables);
+                e.onNext(tables.length);
             }
-        }.execute();
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer results) throws Exception {
+                        resultsLiveData.setValue(results);
+                    }
+                });
+        return resultsLiveData;
     }
 
     @Override
-    public void deleteAll() {
-        new AsyncTask<Void, Void, Void>() {
+    public LiveData<Integer> deleteAll() {
+        final MutableLiveData<Integer> resultsLiveData = new MediatorLiveData<>();
+        Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            protected Void doInBackground(Void... voids) {
-                AppDataBase.getInstance().beginTransaction();
-                try {
-                    baseTableDao.deleteAll();
-                    AppDataBase.getInstance().setTransactionSuccessful();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    AppDataBase.getInstance().endTransaction();
-                }
-                return null;
+            public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                baseTableDao.deleteAll();
+                e.onNext(1);
             }
-        }.execute();
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer results) throws Exception {
+                        resultsLiveData.setValue(results);
+                    }
+                });
+        return resultsLiveData;
     }
 }

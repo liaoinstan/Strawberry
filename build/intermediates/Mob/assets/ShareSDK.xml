@@ -40,4 +40,5 @@
 <Dingding Enable="false" />
 <Youtube Enable="false" />
 <Meipai Enable="false" />
+<Telegram Enable="false" />
 </DevInfor>

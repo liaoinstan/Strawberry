@@ -6,13 +6,23 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.data.db.AppDataBase;
 import com.magicbeans.xgate.data.db.entity.HistoryTable;
 
+import org.reactivestreams.Subscriber;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * ShopcartTableManager.java
@@ -40,28 +50,20 @@ public class HistoryTableManager extends BaseTableManager<HistoryTable> {
 
     public LiveData<List<Product>> querryLimit(final int page, final int count) {
         final MutableLiveData<List<Product>> resultsLiveData = new MediatorLiveData<>();
-        new AsyncTask<Void, Void, List<HistoryTable>>() {
+        Observable.create(new ObservableOnSubscribe<List<HistoryTable>>() {
             @Override
-            protected List<HistoryTable> doInBackground(Void... voids) {
-                List<HistoryTable> results = new ArrayList<>();
-                AppDataBase.getInstance().beginTransaction();
-                try {
-                    results.addAll(AppDataBase.getInstance().historyTableDao().querryLimit(page, count));
-                    AppDataBase.getInstance().setTransactionSuccessful();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    AppDataBase.getInstance().endTransaction();
-                }
-                return results;
+            public void subscribe(ObservableEmitter<List<HistoryTable>> e) throws Exception {
+                List<HistoryTable> results = AppDataBase.getInstance().historyTableDao().querryLimit(page, count);
+                e.onNext(results);
             }
-
-            @Override
-            protected void onPostExecute(List<HistoryTable> shopCartTables) {
-                super.onPostExecute(shopCartTables);
-                resultsLiveData.setValue(HistoryTable.wraps2beans(shopCartTables));
-            }
-        }.execute();
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<HistoryTable>>() {
+                    @Override
+                    public void accept(List<HistoryTable> results) throws Exception {
+                        resultsLiveData.setValue(HistoryTable.wraps2beans(results));
+                    }
+                });
         return resultsLiveData;
     }
 

@@ -17,6 +17,13 @@ import com.magicbeans.xgate.data.db.entity.ShopCartTable;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
 /**
  * ShopcartTableManager.java
  * <p>
@@ -66,28 +73,20 @@ public class ShopcartTableManager extends BaseTableManager<ShopCartTable> {
 
     public MutableLiveData<Integer> count() {
         final MutableLiveData<Integer> resultsLiveData = new MediatorLiveData<>();
-        new AsyncTask<Void, Void, Integer>() {
+        Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            protected Integer doInBackground(Void... voids) {
-                int count = 0;
-                AppDataBase.getInstance().beginTransaction();
-                try {
-                    count = AppDataBase.getInstance().shopCartTableDao().count();
-                    AppDataBase.getInstance().setTransactionSuccessful();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    AppDataBase.getInstance().endTransaction();
-                }
-                return count;
+            public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                int count = AppDataBase.getInstance().shopCartTableDao().count();
+                e.onNext(count);
             }
-
-            @Override
-            protected void onPostExecute(Integer count) {
-                super.onPostExecute(count);
-                resultsLiveData.setValue(count);
-            }
-        }.execute();
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer results) throws Exception {
+                        resultsLiveData.setValue(results);
+                    }
+                });
         return resultsLiveData;
     }
 }

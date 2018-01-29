@@ -12,8 +12,8 @@ import java.util.List;
 
 public interface BaseTableManagerInterface<T>{
     LiveData<List<T>> queryAll();
-    void insert(T... t);
-    void update(T... t);
-    void delete(T... t);
-    void deleteAll();
+    LiveData<Integer> insert(T... t);
+    LiveData<Integer> update(T... t);
+    LiveData<Integer> delete(T... t);
+    LiveData<Integer> deleteAll();
 }
