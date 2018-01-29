@@ -18,8 +18,8 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/white"
+                android:layout_height="45dp"
+                android:background="@color/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
                 <TextView
@@ -28,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="新增地址"
-                    android:textColor="@color/com_text_dark_light"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/text_big" />
 
             </android.support.v7.widget.Toolbar>
@@ -90,9 +90,9 @@
 
                     <Spinner
                         android:id="@+id/spinner_district"
-                        android:layout_marginLeft="10dp"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/shape_rect_corner_none_line_dark" />
 
@@ -117,18 +117,31 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
-                <CheckBox
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:button="@null"
-                    android:drawableRight="@drawable/selector_check_shopbag"
-                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_height="50dp"
                     android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="15dp"
-                    android:text="设置为默认地址"
-                    android:textColor="@color/com_text_dark"
-                    android:textSize="@dimen/text_nomal_small" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="设置为默认地址"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/com_text_blank"
+                        android:textSize="@dimen/text_nomal_small" />
+
+                    <Space style="@style/Space_H"/>
+
+                    <com.kyleduo.switchbutton.SwitchButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        app:kswBackColor="@color/select_text_dark_green_check"
+                        app:kswThumbColor="@color/white" />
+
+                </LinearLayout>
+
 
                 <View
                     style="@style/Line_H"
@@ -140,7 +153,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="60dp"
-                    android:background="@drawable/shape_rect_cornersmall_darklight"
+                    android:background="@drawable/shape_rect_cornersmall_red"
                     android:gravity="center"
                     android:text="保存"
                     android:textColor="@color/white" />

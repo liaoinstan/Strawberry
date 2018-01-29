@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.databinding.ActivityAddressaddBinding;
+import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
 import java.util.ArrayList;
@@ -20,14 +21,12 @@ public class AddressAddActivity extends BaseAppCompatActivity {
     private ArrayAdapter adapterDistrict;
 
     public static void start(Context context) {
-        Intent intent = new Intent(context, AddressAddActivity.class);
-        context.startActivity(intent);
-//        if (AppData.App.getUser() != null) {
-//            Intent intent = new Intent(context, SuggestActivity.class);
-//            context.startActivity(intent);
-//        } else {
-//            LoginActivity.start(context);
-//        }
+        if (AppHelper.User.isLogin()) {
+            Intent intent = new Intent(context, AddressAddActivity.class);
+            context.startActivity(intent);
+        } else {
+            LoginActivity.start(context);
+        }
     }
 
     @Override

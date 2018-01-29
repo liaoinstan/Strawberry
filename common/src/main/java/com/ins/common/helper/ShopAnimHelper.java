@@ -85,7 +85,7 @@ public class ShopAnimHelper {
                 view.setY(pointF.y);
             }
         });
-        valueAnimator.setDuration(400);
+        valueAnimator.setDuration(500);
         valueAnimator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {

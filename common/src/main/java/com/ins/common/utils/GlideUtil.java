@@ -65,6 +65,11 @@ public class GlideUtil {
                 .into(imageView);
     }
 
+    //上面方法的重载
+    public static void loadCircleImg(ImageView imageView, String url) {
+        loadCircleImg(imageView, R.drawable.default_bk_img, url);
+    }
+
     public static void loadImg(ImageView imageView, int errorSrc, String url) {
         url = getRealImgPath(url);
         RequestOptions myOptions = new RequestOptions()
@@ -75,6 +80,11 @@ public class GlideUtil {
                 .apply(myOptions)
                 .transition(new DrawableTransitionOptions().crossFade(200))
                 .into(imageView);
+    }
+
+    //上面方法的重载
+    public static void loadImg(ImageView imageView, String url) {
+        loadImg(imageView, R.drawable.default_bk_img, url);
     }
 
     public static void loadCircleImg(ImageView imageView, int src) {

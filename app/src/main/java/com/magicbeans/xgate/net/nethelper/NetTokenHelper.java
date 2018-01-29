@@ -1,5 +1,7 @@
 package com.magicbeans.xgate.net.nethelper;
 
+import android.text.TextUtils;
+
 import com.magicbeans.xgate.bean.user.User;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
@@ -35,7 +37,13 @@ public class NetTokenHelper {
         NetApi.NI().getUserProfile(param).enqueue(new STCallback<User>(User.class) {
             @Override
             public void onSuccess(int status, User user, String msg) {
-                if (callback != null) callback.onSuccess(status, user, msg);
+                if (callback != null) {
+                    if (TextUtils.isEmpty(user.getResponseCode())) {
+                        callback.onSuccess(status, user, msg);
+                    }else {
+                        callback.onError(status, user.getResponseCode());
+                    }
+                }
             }
 
             @Override

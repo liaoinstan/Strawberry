@@ -14,6 +14,7 @@ import com.ins.common.helper.ToobarTansColorHelper;
 import com.ins.common.utils.DensityUtil;
 import com.ins.common.utils.FocusUtil;
 import com.ins.common.utils.GlideUtil;
+import com.ins.common.utils.L;
 import com.ins.common.view.ObservableNestedScrollView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
@@ -29,6 +30,7 @@ import com.magicbeans.xgate.ui.activity.OrderActivity;
 import com.magicbeans.xgate.ui.activity.SettingActivity;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.ui.controller.CommonRecommendController;
+import com.magicbeans.xgate.utils.CipherUtil;
 
 
 /**

@@ -1,5 +1,6 @@
 package com.ins.common.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +31,19 @@ public class ListUtil {
             return list;
         } else {
             return list.subList(0, n);
+        }
+    }
+
+    //把一个List列表转换为ArrayList
+    public static <T> ArrayList<T> transArrayList(List<T> fromList){
+        if (fromList instanceof ArrayList){
+            return (ArrayList<T>) fromList;
+        }else {
+            ArrayList<T> toList = new ArrayList<>();
+            for (T t:fromList){
+                toList.add(t);
+            }
+            return toList;
         }
     }
 }

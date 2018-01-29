@@ -34,7 +34,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="7dp"
                 android:text="四川省成都市高新西区环球中心W3区1320室"
-                android:textColor="@color/com_text_dark_light"
+                android:textColor="@color/com_text_dark"
                 android:textSize="@dimen/text_small" />
         </LinearLayout>
 
@@ -48,7 +48,7 @@
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:scaleType="center"
-            android:src="@drawable/ic_tab_home" />
+            android:src="@drawable/ic_me_order_uneva" />
 
     </LinearLayout>
 
@@ -63,13 +63,13 @@
             android:id="@+id/check_item_address_default"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:drawableLeft="@drawable/selector_check_shopbag"
+            android:drawableLeft="@drawable/selector_check"
             android:drawablePadding="10dp"
             android:gravity="center"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="默认地址"
-            android:textColor="@color/com_text_dark_light"
+            android:textColor="@color/com_text_blank"
             android:textSize="@dimen/text_nomal_small" />
 
         <Space style="@style/Space_H" />
@@ -83,7 +83,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="删除"
-            android:textColor="@color/com_text_light"
+            android:textColor="@color/com_text_blank"
             android:textSize="@dimen/text_nomal_small" />
 
     </LinearLayout>

@@ -270,4 +270,16 @@ public interface NetInterface {
      */
     @GET("/app/apiShopcart.aspx?ID=xGate")
     Call<ResponseBody> netGetShopCartList(@QueryMap(encoded = true) Map<String, Object> param);
+
+
+    //##################################################################
+    //#########               2018/1/23 购物车
+    //##################################################################
+
+    /**
+     * 获取购物车
+     * token
+     */
+    @POST("/app/apiCheckout.aspx?ID=xGate")
+    Call<ResponseBody> netCheckout(@Body RequestBody requestBody);
 }

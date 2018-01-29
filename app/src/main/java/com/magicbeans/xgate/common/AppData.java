@@ -15,6 +15,7 @@ public class AppData {
 
         private static final String SHARENAME = "app_config";
         private static final String KEY_TOKEN = "token";
+        private static final String KEY_OPENID = "openid";
         private static final String KEY_USER = "user";
         private static final String KEY_LANGUAGE = "language";
 
@@ -29,6 +30,21 @@ public class AppData {
         public static void removeToken() {
             SharedPrefUtilV2.open(SHARENAME).remove(KEY_TOKEN);
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+
+        public static String getOpenId() {
+            return SharedPrefUtilV2.open(SHARENAME).getString(KEY_OPENID);
+        }
+
+        public static void saveOpenId(String openId) {
+            SharedPrefUtilV2.open(SHARENAME).putString(KEY_OPENID, openId);
+        }
+
+        public static void removeOpenId() {
+            SharedPrefUtilV2.open(SHARENAME).remove(KEY_OPENID);
+        }
+
 
         ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -54,15 +70,7 @@ public class AppData {
             SharedPrefUtilV2.open(SHARENAME).putString(KEY_LANGUAGE, language);
         }
 
-        ////////////////////////////////////////////////////////////////////////////////////////
 
-        public static String getTestOpenId() {
-            return SharedPrefUtilV2.open(SHARENAME).getString("TEST_OPENID");
-        }
-
-        public static void saveTestOpenId(String testOpenId) {
-            SharedPrefUtilV2.open(SHARENAME).putString("TEST_OPENID", testOpenId);
-        }
     }
 
     /**

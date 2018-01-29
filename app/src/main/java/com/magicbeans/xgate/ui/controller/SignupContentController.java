@@ -145,7 +145,7 @@ public class SignupContentController extends BaseController<LaySignupContentBind
     }
 
     //使用openId创建账户
-    private void netCreateAccount(String openId, String email, String mobile, String displayName, String headImageURL, int gender) {
+    private void netCreateAccount(final String openId, String email, String mobile, String displayName, String headImageURL, int gender) {
         binding.btnGo.setProgress(50);
 
         CreateAccountPost post = new CreateAccountPost();
@@ -158,8 +158,6 @@ public class SignupContentController extends BaseController<LaySignupContentBind
         post.setHeadImageURL(headImageURL);
         post.setGender(gender);
 
-        L.e(post.toString());
-
         RequestBody requestBody = NetParam.buildJsonRequestBody(post);
         NetApi.NI().createAccount(requestBody).enqueue(new STFormatCallback<User>(User.class) {
             @Override
@@ -168,7 +166,7 @@ public class SignupContentController extends BaseController<LaySignupContentBind
                     @Override
                     public void callback() {
                         if (callback != null)
-                            callback.onAccountCreated(user.getAccountID(), user.getToken());
+                            callback.onAccountCreated(user.getAccountID(), user.getToken(), openId);
                     }
                 });
             }
@@ -182,7 +180,7 @@ public class SignupContentController extends BaseController<LaySignupContentBind
     }
 
     //合并已存在账户
-    private void netMergeAccount(String openId, String email, String psw, String displayName, String headImageURL, int gender) {
+    private void netMergeAccount(final String openId, String email, String psw, String displayName, String headImageURL, int gender) {
         binding.btnGo.setProgress(50);
 
         CreateAccountPost post = new CreateAccountPost();
@@ -203,7 +201,7 @@ public class SignupContentController extends BaseController<LaySignupContentBind
                     @Override
                     public void callback() {
                         if (callback != null)
-                            callback.onAccountCreated(user.getAccountID(), user.getToken());
+                            callback.onAccountCreated(user.getAccountID(), user.getToken(), openId);
                     }
                 });
             }
@@ -313,7 +311,7 @@ public class SignupContentController extends BaseController<LaySignupContentBind
     }
 
     public interface SignupContentCallback {
-        void onAccountCreated(String accountID, String token);
+        void onAccountCreated(String accountID, String token, String openId);
     }
 
     //########## get & set ###########

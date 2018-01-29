@@ -11,6 +11,7 @@ import android.view.View;
 import com.ins.common.common.ItemDecorationDivider;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.ui.dialog.DialogSure;
+import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
@@ -113,41 +114,41 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
                     adapter.selectAll(true);
                 }
                 break;
-            case R.id.btn_go:
-                DialogSure.showDialog(context, "确定要下单？", new DialogSure.CallBack() {
-                    @Override
-                    public void onSure() {
-                        OrderAddActivity.start(context);
-                    }
-                });
+            case R.id.btn_go: {
+                final List<Product2> selectBeans = adapter.getSelectBeans();
+                if (!StrUtil.isEmpty(selectBeans)) {
+                    DialogSure.showDialog(context, "确定要下单？", new DialogSure.CallBack() {
+                        @Override
+                        public void onSure() {
+                            OrderAddActivity.start(context, selectBeans);
+                        }
+                    });
+                } else {
+                    ToastUtil.showToastShort("请先选择要购买的商品");
+                }
                 break;
+            }
             case R.id.btn_share:
                 new ShareDialog(context).show();
                 break;
             case R.id.btn_favo:
                 ToastUtil.showToastShort("开发中");
                 break;
-            case R.id.btn_del:
-                DialogSure.showDialog(context, "确定要删除这些商品？", new DialogSure.CallBack() {
-                    @Override
-                    public void onSure() {
-                        List<Product2> selectBeans = adapter.getSelectBeans();
-//                        ShopcartTableManager.getInstance().delete(selectBeans.toArray(new Product2[]{}));
-//                        adapter.getResults().removeAll(selectBeans);
-//                        adapter.freshDataSet();
-
-                        ShopcartTableManager.getInstance().delete(selectBeans.toArray(new Product2[]{}));
-                        EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART));
-//                        LiveData<List<Product2>> newResults = ShopcartTableManager.getInstance().queryAll();
-//                        newResults.observeForever(new Observer<List<Product2>>() {
-//                            @Override
-//                            public void onChanged(@Nullable List<Product2> product2s) {
-//                                adapter.notifyDataSetChanged(product2s);
-//                            }
-//                        });
-                    }
-                });
+            case R.id.btn_del: {
+                final List<Product2> selectBeans = adapter.getSelectBeans();
+                if (!StrUtil.isEmpty(selectBeans)) {
+                    DialogSure.showDialog(context, "确定要删除这些商品？", new DialogSure.CallBack() {
+                        @Override
+                        public void onSure() {
+                            ShopcartTableManager.getInstance().delete(selectBeans.toArray(new Product2[]{}));
+                            EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART));
+                        }
+                    });
+                } else {
+                    ToastUtil.showToastShort("请先选择要删除的商品");
+                }
                 break;
+            }
         }
     }
 
@@ -170,11 +171,17 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
     public void calcuPrice() {
         List<Product2> selectProduct2s = adapter.getSelectBeans();
         binding.includeBottombar.btnGo.setText("去结算(" + selectProduct2s.size() + ")");
+        float totalPrice = calcuPrice(selectProduct2s);
+        binding.includeBottombar.textShopbagPriceall.setText("合计：￥" + totalPrice);
+    }
+
+    //计算商品总价，这个方法作为工具类方法APP通用，目前的逻辑只是把商品价格全加起来
+    public static float calcuPrice(List<Product2> product2s) {
         float totalPrice = 0;
-        for (Product2 product2 : selectProduct2s) {
+        for (Product2 product2 : product2s) {
             totalPrice += Float.parseFloat(product2.getShopPrice()) * product2.getCount();
         }
-        binding.includeBottombar.textShopbagPriceall.setText("合计：￥" + totalPrice);
+        return totalPrice;
     }
 
     public boolean isEdit() {

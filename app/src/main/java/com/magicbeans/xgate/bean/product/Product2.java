@@ -84,6 +84,7 @@ public class Product2 extends BaseSelectBean implements Serializable {
         return "已选 " + count + "件 " + SizeText;
     }
 
+    //转换为Product
     public static Product2 transByProduct(Product product) {
         Product2 product2 = new Product2();
         product2.setProdID(product.getProdID());

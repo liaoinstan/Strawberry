@@ -49,6 +49,8 @@ public class User implements Serializable {
 
     //本地字段
     private String avator;
+    //请求失败改字段会返回错误码
+    private String responseCode;
 
     public String getAccountID() {
         return accountID;
@@ -176,6 +178,14 @@ public class User implements Serializable {
 
     public void setLastName(String lastName) {
         LastName = lastName;
+    }
+
+    public String getResponseCode() {
+        return responseCode;
+    }
+
+    public void setResponseCode(String responseCode) {
+        this.responseCode = responseCode;
     }
 
     @Override

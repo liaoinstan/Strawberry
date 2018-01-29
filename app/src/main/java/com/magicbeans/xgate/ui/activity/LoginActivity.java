@@ -62,7 +62,7 @@ public class LoginActivity extends BaseAppCompatActivity {
         signupPlatformController.setSignupPlatCallback(new SignupPlatformController.SignupPlatCallback() {
             @Override
             public void onOpenIdExist(UserInfo userInfo, final String accountID, final String token) {
-                netGetUserProfile(accountID, token);
+                netGetUserProfile(accountID, token, userInfo.getOpenId());
             }
 
             @Override
@@ -76,8 +76,8 @@ public class LoginActivity extends BaseAppCompatActivity {
         });
         signupContentController.setSignupContentCallback(new SignupContentController.SignupContentCallback() {
             @Override
-            public void onAccountCreated(String accountID, String token) {
-                netGetUserProfile(accountID, token);
+            public void onAccountCreated(String accountID, String token, String openId) {
+                netGetUserProfile(accountID, token, openId);
             }
         });
     }
@@ -110,7 +110,7 @@ public class LoginActivity extends BaseAppCompatActivity {
     }
 
     //使用token获取用户信息
-    private void netGetUserProfile(final String accountID, final String token) {
+    private void netGetUserProfile(final String accountID, final String token, final String openId) {
         showLoadingDialog();
         NetTokenHelper.getInstance().netGetUserProfile(accountID, token, new NetTokenHelper.UserProfileCallback() {
             @Override
@@ -120,6 +120,8 @@ public class LoginActivity extends BaseAppCompatActivity {
                 user.setToken(token);
                 AppData.App.saveToken(new Token(user.getAccountID(), token));
                 AppData.App.saveUser(user);
+                //存储OpenId
+                AppData.App.saveOpenId(openId);
                 //post登录消息
                 EventBus.getDefault().post(new EventBean(EventBean.EVENT_LOGIN));
                 //跳转首页
