@@ -17,6 +17,18 @@ import java.util.List;
  */
 
 public class Product2 extends BaseSelectBean implements Serializable {
+    /**
+     "BrandId": "510",
+     "BrandName": "爱琪美  Academie",
+     "ProductNum": "10031521321",
+     "Price": "&#165;283.50",
+     "SubTotal": "&#165;283.50",
+     "Qty": 1,
+     "ErrorMsg": "",
+     "isLowInStock": "",
+     "SalesQtyByYear": "",
+     "BagAddedPriceDifference": -283.5
+     */
 
     private String ProdID;
     private String ProdName;

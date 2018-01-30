@@ -53,9 +53,9 @@ public interface NetInterface {
     /**
      * 检查OpenId是否存在，存在则会登录并返回用户token
      */
-    @FormUrlEncoded
-    @POST("/app/apiCheckAccountExist.aspx?ID=xGate")
-    Call<ResponseBody> checkOpenidExist(@FieldMap Map<String, Object> param);
+//    @FormUrlEncoded
+    @GET("/app/apiCheckAccountExist.aspx?ID=xGate")
+    Call<ResponseBody> checkOpenidExist(@QueryMap(encoded = true) Map<String, Object> param);
 
     /**
      * 使用openId创建一个账户
@@ -260,9 +260,27 @@ public interface NetInterface {
      * 添加购物车
      * ProdId
      * token
+     * qty
      */
     @GET("/app/apiShopcart.aspx?ID=xGate&act=additem")
     Call<ResponseBody> netAddShopCart(@QueryMap(encoded = true) Map<String, Object> param);
+
+    /**
+     * 更新购物车 （数量）
+     * ProdId
+     * token
+     * qty
+     */
+    @GET("/app/apiShopcart.aspx?ID=xGate&act=updatecart")
+    Call<ResponseBody> netUpdateShopCart(@QueryMap(encoded = true) Map<String, Object> param);
+
+    /**
+     * 删除购物车商品
+     * ProdId
+     * token
+     */
+    @GET("/app/apiShopcart.aspx?ID=xGate&act=remove")
+    Call<ResponseBody> netRemoveShopCart(@QueryMap(encoded = true) Map<String, Object> param);
 
     /**
      * 获取购物车

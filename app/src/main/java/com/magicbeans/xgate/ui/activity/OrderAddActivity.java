@@ -126,8 +126,8 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
         Customer customer = new Customer();
         customer.setEmail("liaoinstan@qq.com");
         customer.setIDCardNumber("511322199211044654");
-//        customer.setToken(Token.getLocalToken());
-//        customer.setOpenId(AppData.App.getOpenId());
+        customer.setToken(Token.getLocalToken());
+        customer.setOpenId(AppData.App.getOpenId());
         //Customer -> BillAddr & ShipAddr
         Addr addr = new Addr();
         addr.setFirstName("albert");
