@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import com.ins.common.utils.StrUtil;
 import com.magicbeans.xgate.bean.product.Product2;
+import com.magicbeans.xgate.bean.shopcart.ShopCart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,18 +21,18 @@ public class ShopCartTable {
     @PrimaryKey
     @ColumnInfo(name = "id")
     private String id;
-    @ColumnInfo(name = "product")
-    private Product2 bean;
+    @ColumnInfo(name = "bean")
+    private ShopCart bean;
 
-    public ShopCartTable(Product2 bean) {
+    public ShopCartTable(ShopCart bean) {
         this.id = bean.getProdID();
         this.bean = bean;
     }
 
     //############  业务方法  ###########
 
-    public static List<Product2> wraps2beans(List<ShopCartTable> shopCartTables) {
-        ArrayList<Product2> results = new ArrayList<>();
+    public static List<ShopCart> wraps2beans(List<ShopCartTable> shopCartTables) {
+        ArrayList<ShopCart> results = new ArrayList<>();
         if (!StrUtil.isEmpty(shopCartTables)) {
             for (ShopCartTable shopCartTable : shopCartTables) {
                 results.add(shopCartTable.getBean());
@@ -40,10 +41,10 @@ public class ShopCartTable {
         return results;
     }
 
-    public static ShopCartTable[] beans2wraps(Product2[] product2s) {
+    public static ShopCartTable[] beans2wraps(ShopCart[] beans) {
         ArrayList<ShopCartTable> shopCartTables = new ArrayList<>();
-        for (Product2 product2 : product2s) {
-            shopCartTables.add(new ShopCartTable(product2));
+        for (ShopCart bean : beans) {
+            shopCartTables.add(new ShopCartTable(bean));
         }
         return shopCartTables.toArray(new ShopCartTable[]{});
     }
@@ -60,11 +61,11 @@ public class ShopCartTable {
         this.id = id;
     }
 
-    public Product2 getBean() {
+    public ShopCart getBean() {
         return bean;
     }
 
-    public void setBean(Product2 bean) {
+    public void setBean(ShopCart bean) {
         this.bean = bean;
     }
 }

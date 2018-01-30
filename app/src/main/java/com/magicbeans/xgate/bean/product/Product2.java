@@ -117,12 +117,6 @@ public class Product2 extends BaseSelectBean implements Serializable {
         return product2;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        Gson gson = new Gson();
-        return gson.toJson(this).equals(gson.toJson(obj));
-    }
-
     // ###########  逻辑方法  ################
 
     public String getProdID() {

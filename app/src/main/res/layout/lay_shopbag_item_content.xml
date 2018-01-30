@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/lay_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,9 +37,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="7dp"
-                android:text="产品名称"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:textColor="@color/com_text_blank"
-                android:textSize="@dimen/text_nomal" />
+                android:textSize="@dimen/text_nomal"
+                tools:text="产品名称非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常的长" />
 
             <TextView
                 android:id="@+id/text_attr"
@@ -49,7 +52,7 @@
                 android:textColor="@color/com_text_dark_light"
                 android:textSize="9sp" />
 
-            <Space style="@style/Space_V"/>
+            <Space style="@style/Space_V" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -85,9 +88,9 @@
 
                 <com.magicbeans.xgate.ui.view.CountView
                     android:id="@+id/countview"
-                    app:editble="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    app:editble="true" />
 
             </LinearLayout>
         </LinearLayout>

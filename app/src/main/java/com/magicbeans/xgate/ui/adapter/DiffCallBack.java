@@ -3,6 +3,7 @@ package com.magicbeans.xgate.ui.adapter;
 import android.support.v7.util.DiffUtil;
 
 import com.magicbeans.xgate.bean.product.Product2;
+import com.magicbeans.xgate.bean.shopcart.ShopCart;
 
 import java.util.List;
 
@@ -11,9 +12,9 @@ import java.util.List;
  */
 
 public class DiffCallBack extends DiffUtil.Callback {
-    private List<Product2> resultsOld, resultsNew;//看名字
+    private List<ShopCart> resultsOld, resultsNew;//看名字
 
-    public DiffCallBack(List<Product2> resultsOld, List<Product2> resultsNew) {
+    public DiffCallBack(List<ShopCart> resultsOld, List<ShopCart> resultsNew) {
         this.resultsOld = resultsOld;
         this.resultsNew = resultsNew;
     }
@@ -69,8 +70,8 @@ public class DiffCallBack extends DiffUtil.Callback {
      */
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-        Product2 beanOld = resultsOld.get(oldItemPosition);
-        Product2 beanNew = resultsNew.get(newItemPosition);
+        ShopCart beanOld = resultsOld.get(oldItemPosition);
+        ShopCart beanNew = resultsNew.get(newItemPosition);
         return beanOld.equals(beanNew);
     }
 }

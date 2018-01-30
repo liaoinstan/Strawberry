@@ -4,7 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +17,12 @@ import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.view.LoadingLayout;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.EventBean;
-import com.magicbeans.xgate.bean.product.Product2;
-import com.magicbeans.xgate.data.db.manager.ShopcartTableManager;
+import com.magicbeans.xgate.bean.shopcart.ShopCart;
+import com.magicbeans.xgate.data.db.manager.ShopCartTableManager;
 import com.magicbeans.xgate.databinding.ItemShopbagBinding;
 import com.magicbeans.xgate.helper.AppHelper;
+import com.magicbeans.xgate.net.nethelper.NetShopCartHelper;
 import com.magicbeans.xgate.ui.view.CountView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +30,10 @@ import java.util.List;
 public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapterHomeShopbag.Holder> {
 
     private Context context;
-    private List<Product2> results = new ArrayList<>();
+    private List<ShopCart> results = new ArrayList<>();
     private LoadingLayout loadingLayout;
 
-    public List<Product2> getResults() {
+    public List<ShopCart> getResults() {
         return results;
     }
 
@@ -50,7 +48,7 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
 
     @Override
     public void onBindViewHolder(final RecycleAdapterHomeShopbag.Holder holder, final int position) {
-        Product2 bean = results.get(position);
+        ShopCart bean = results.get(position);
         holder.binding.includeCoutent.layContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,22 +58,24 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
         holder.binding.includeCoutent.imgShopbagCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Product2 bean = results.get(holder.getLayoutPosition());
+                ShopCart bean = results.get(holder.getLayoutPosition());
                 bean.setSelect(!bean.isSelect());
-                ShopcartTableManager.getInstance().update(bean);
+                ShopCartTableManager.getInstance().update(bean);
                 notifyItemChanged(holder.getLayoutPosition());
                 if (onSelectChangeListenner != null) onSelectChangeListenner.onSelectChange();
             }
         });
         holder.binding.includeCoutent.countview.setOnCountChangeListenner(new CountView.OnCountChangeListenner() {
             @Override
-            public void onCountChange(int count, int lastCount) {
-                Product2 bean = results.get(holder.getLayoutPosition());
-                bean.setCount(count);
-                ShopcartTableManager.getInstance().update(bean);
-                //TODO:这里请求服务器更新数量
-                if (bean.isSelect() && onSelectChangeListenner != null) {
-                    onSelectChangeListenner.onSelectChange();
+            public boolean onCountChange(boolean byUser, int count, int lastCount) {
+                if (byUser) {
+                    ShopCart bean = results.get(holder.getLayoutPosition());
+                    bean.setQty(count);
+                    NetShopCartHelper.getInstance().netUpdateShopCart(context, bean.getProdID(), count);
+                    return false;
+                }else {
+                    //拦截数据变化，在服务器成功更新后再改变数量
+                    return true;
                 }
             }
         });
@@ -91,21 +91,21 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
                 DialogSure.showDialog(context, "确定要删除该商品？", new DialogSure.CallBack() {
                     @Override
                     public void onSure() {
-                        Product2 bean = results.get(holder.getLayoutPosition());
-                        ShopcartTableManager.getInstance().delete(bean);
-                        EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART));
+                        ShopCart bean = results.get(holder.getLayoutPosition());
+                        //######### 从服务器及本地数据库移除 ############
+                        NetShopCartHelper.getInstance().netRemoveShopCart(context, bean.getProdID());
                     }
                 });
             }
         });
         holder.binding.includeCoutent.imgShopbagCheck.setSelected(bean.isSelect());
-        GlideUtil.loadImg(holder.binding.includeCoutent.imgHeader, R.drawable.default_bk_img, bean.getHeaderImg());
-        holder.binding.includeCoutent.textName.setText(bean.getProdName());
-        holder.binding.includeCoutent.textAttr.setText(bean.getSizeText());
-        holder.binding.includeCoutent.textPrice.setText(AppHelper.getPriceSymbol("") + bean.getShopPrice());
-        holder.binding.includeCoutent.textPriceOld.setText(AppHelper.getPriceSymbol("") + bean.getWasPrice());
-        holder.binding.includeCoutent.textPriceOld.setVisibility(!TextUtils.isEmpty(bean.getWasPrice()) ? View.VISIBLE : View.INVISIBLE);
-        holder.binding.includeCoutent.countview.setCount(bean.getCount());
+        GlideUtil.loadImg(holder.binding.includeCoutent.imgHeader, bean.getHeaderImg());
+        holder.binding.includeCoutent.textName.setText(Html.fromHtml(bean.getProdName()).toString());
+        holder.binding.includeCoutent.textAttr.setText(bean.getSize());
+        holder.binding.includeCoutent.textPrice.setText(AppHelper.getPriceSymbol("") + bean.getPriceFloat());
+        holder.binding.includeCoutent.textPriceOld.setText(AppHelper.getPriceSymbol("") + bean.getBagAddedPriceDifference());
+        holder.binding.includeCoutent.textPriceOld.setVisibility(bean.getBagAddedPriceDifference() != 0 ? View.VISIBLE : View.INVISIBLE);
+        holder.binding.includeCoutent.countview.setCount(bean.getQty());
         holder.binding.includeCoutent.countview.setEdit(true);
         holder.binding.slidmenu.close();
     }
@@ -127,22 +127,22 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
     //############## 对外方法 ################
 
     //这个方法代替notifyDataSetChanged()方法，主要区别在于item的添加和移除动画，该方法使用v7.DiffUtil计算数据集差异动态更新UI
-    public void notifyDataSetChanged(List<Product2> product2List) {
+    public void notifyDataSetChanged(List<ShopCart> product2List) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffCallBack(getResults(), product2List), true);
         diffResult.dispatchUpdatesTo(this);
         getResults().clear();
         getResults().addAll(product2List);
         //数据集为空时展示空页面
         if (loadingLayout != null) {
-            if (!StrUtil.isEmpty(results)){
+            if (!StrUtil.isEmpty(results)) {
                 loadingLayout.showOut();
-            }else {
+            } else {
                 loadingLayout.showLackView();
             }
         }
     }
 
-    public List<Product2> getSelectBeans() {
+    public List<ShopCart> getSelectBeans() {
         return SelectHelper.getSelectBeans(results);
     }
 

@@ -11,11 +11,14 @@ import android.view.ViewGroup;
 import com.ins.common.utils.FocusUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
+import com.magicbeans.xgate.bean.shopcart.ShopCart;
 import com.magicbeans.xgate.databinding.FragmentShopbagBinding;
 import com.magicbeans.xgate.ui.activity.ShopcartActivity;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.ui.controller.CommonRecommendController;
 import com.magicbeans.xgate.ui.controller.ShopCartContentController;
+
+import java.util.List;
 
 
 /**

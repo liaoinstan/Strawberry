@@ -82,13 +82,17 @@ public class CountView extends FrameLayout implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_sub:
+                byUser = true;
                 sub();
                 break;
             case R.id.btn_add:
+                byUser = true;
                 add();
                 break;
         }
     }
+
+    private boolean byUser = false;
 
     //############ 对外方法 ###########
 
@@ -100,8 +104,14 @@ public class CountView extends FrameLayout implements View.OnClickListener {
     public void setCount(int count) {
         //数量不能小于0
         if (count < MIN_COUNT) count = MIN_COUNT;
-        if (onCountChangeListenner != null && count != this.count)
-            onCountChangeListenner.onCountChange(count, this.count);
+        if (onCountChangeListenner != null && count != this.count) {
+            //如果接口返回false，表示该次更新数据无效，直接返回
+            if (!onCountChangeListenner.onCountChange(byUser, count, this.count)) {
+                byUser = false;
+                return;
+            }
+            byUser = false;
+        }
         this.count = count;
         text_count.setText(count + "");
         text_count_show.setText("x" + count);
@@ -134,6 +144,7 @@ public class CountView extends FrameLayout implements View.OnClickListener {
     }
 
     public interface OnCountChangeListenner {
-        void onCountChange(int count, int lastCount);
+        //在数据变化前执行，返回true有效，false则不会产生变化
+        boolean onCountChange(boolean byUser, int count, int lastCount);
     }
 }

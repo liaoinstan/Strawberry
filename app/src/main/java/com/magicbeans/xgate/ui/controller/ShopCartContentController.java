@@ -17,16 +17,13 @@ import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.EventBean;
-import com.magicbeans.xgate.bean.product.Product2;
-import com.magicbeans.xgate.data.db.manager.ShopcartTableManager;
+import com.magicbeans.xgate.bean.shopcart.ShopCart;
+import com.magicbeans.xgate.data.db.manager.ShopCartTableManager;
 import com.magicbeans.xgate.databinding.FragmentShopbagBinding;
+import com.magicbeans.xgate.net.nethelper.NetShopCartHelper;
 import com.magicbeans.xgate.sharesdk.ShareDialog;
-import com.magicbeans.xgate.ui.activity.OrderAddActivity;
 import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeShopbag;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -78,28 +75,28 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
         adapter.setOnSelectChangeListenner(new RecycleAdapterHomeShopbag.OnSelectChangeListenner() {
             @Override
             public void onSelectChange() {
-                calcuPrice();
+                setPriceAndCount();
             }
         });
     }
 
     private void initData() {
-        LiveData<List<Product2>> product2sLiveData = ShopcartTableManager.getInstance().queryAllBeans();
-        product2sLiveData.observeForever(new Observer<List<Product2>>() {
+        LiveData<List<ShopCart>> shopCartsLiveData = NetShopCartHelper.getInstance().netGetShopCartList();
+        shopCartsLiveData.observeForever(new Observer<List<ShopCart>>() {
             @Override
-            public void onChanged(@Nullable List<Product2> product2s) {
-                adapter.notifyDataSetChanged(product2s);
+            public void onChanged(@Nullable List<ShopCart> shopCarts) {
+                adapter.notifyDataSetChanged(shopCarts);
                 binding.spring.onFinishFreshAndLoad();
                 //计算价格
-                calcuPrice();
+                setPriceAndCount();
             }
         });
     }
 
     @Override
     public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
-        Product2 product2 = adapter.getResults().get(viewHolder.getLayoutPosition());
-        ProductDetailActivity.start(context, product2.getProdID());
+        ShopCart shopCart = adapter.getResults().get(viewHolder.getLayoutPosition());
+        ProductDetailActivity.start(context, shopCart.getProdID());
     }
 
     @Override
@@ -115,12 +112,12 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
                 }
                 break;
             case R.id.btn_go: {
-                final List<Product2> selectBeans = adapter.getSelectBeans();
+                final List<ShopCart> selectBeans = adapter.getSelectBeans();
                 if (!StrUtil.isEmpty(selectBeans)) {
                     DialogSure.showDialog(context, "确定要下单？", new DialogSure.CallBack() {
                         @Override
                         public void onSure() {
-                            OrderAddActivity.start(context, selectBeans);
+//                            OrderAddActivity.start(context, selectBeans);
                         }
                     });
                 } else {
@@ -135,13 +132,13 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
                 ToastUtil.showToastShort("开发中");
                 break;
             case R.id.btn_del: {
-                final List<Product2> selectBeans = adapter.getSelectBeans();
+                final List<ShopCart> selectBeans = adapter.getSelectBeans();
                 if (!StrUtil.isEmpty(selectBeans)) {
                     DialogSure.showDialog(context, "确定要删除这些商品？", new DialogSure.CallBack() {
                         @Override
                         public void onSure() {
-                            ShopcartTableManager.getInstance().delete(selectBeans.toArray(new Product2[]{}));
-                            EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART));
+//                            ShopCartTableManager.getInstance().delete(selectBeans.toArray(new ShopCart[]{}));
+//                            EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART));
                         }
                     });
                 } else {
@@ -155,7 +152,16 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
     //#################  对外方法 ##################
 
     public void refreshData() {
-        initData();
+        LiveData<List<ShopCart>> product2sLiveData = ShopCartTableManager.getInstance().queryAllBeans();
+        product2sLiveData.observeForever(new Observer<List<ShopCart>>() {
+            @Override
+            public void onChanged(@Nullable List<ShopCart> shopCarts) {
+                adapter.notifyDataSetChanged(shopCarts);
+                binding.spring.onFinishFreshAndLoad();
+                //计算价格
+                setPriceAndCount();
+            }
+        });
     }
 
     public void setEditModel(boolean isEdit) {
@@ -168,20 +174,29 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
         }
     }
 
-    public void calcuPrice() {
-        List<Product2> selectProduct2s = adapter.getSelectBeans();
-        binding.includeBottombar.btnGo.setText("去结算(" + selectProduct2s.size() + ")");
+    public void setPriceAndCount() {
+        List<ShopCart> selectProduct2s = adapter.getSelectBeans();
+        binding.includeBottombar.btnGo.setText("去结算(" + calcuCount(selectProduct2s) + ")");
         float totalPrice = calcuPrice(selectProduct2s);
         binding.includeBottombar.textShopbagPriceall.setText("合计：￥" + totalPrice);
     }
 
     //计算商品总价，这个方法作为工具类方法APP通用，目前的逻辑只是把商品价格全加起来
-    public static float calcuPrice(List<Product2> product2s) {
+    public static float calcuPrice(List<ShopCart> shopCarts) {
         float totalPrice = 0;
-        for (Product2 product2 : product2s) {
-            totalPrice += Float.parseFloat(product2.getShopPrice()) * product2.getCount();
+        for (ShopCart shopCart : shopCarts) {
+            totalPrice += shopCart.getPriceFloat() * shopCart.getQty();
         }
         return totalPrice;
+    }
+
+    //计算商品数量
+    public static int calcuCount(List<ShopCart> shopCarts) {
+        int count = 0;
+        for (ShopCart shopCart : shopCarts) {
+            count += shopCart.getQty();
+        }
+        return count;
     }
 
     public boolean isEdit() {

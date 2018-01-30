@@ -84,10 +84,10 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
             }
         });
         binding.textCount.setText("总计：" + goods.size());
-        binding.textTotalPrice.setText(AppHelper.getPriceSymbol(null) + ShopCartContentController.calcuPrice(goods));
+//        binding.textTotalPrice.setText(AppHelper.getPriceSymbol(null) + ShopCartContentController.calcuPrice(goods));
         binding.textTransPrice.setText(AppHelper.getPriceSymbol(null) + "0.00");
         binding.textGradeDeprice.setText(AppHelper.getPriceSymbol(null) + "-0.00");
-        binding.textPayPrice.setText("应付：" + AppHelper.getPriceSymbol(null) + ShopCartContentController.calcuPrice(goods));
+//        binding.textPayPrice.setText("应付：" + AppHelper.getPriceSymbol(null) + ShopCartContentController.calcuPrice(goods));
     }
 
     private void initData() {

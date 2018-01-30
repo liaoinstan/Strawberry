@@ -16,7 +16,7 @@ import com.magicbeans.xgate.data.db.entity.ShopCartTable;
  * Created by Administrator on 2018/1/3.
  */
 
-@Database(entities = {ShopCartTable.class, HistoryTable.class}, version = 3, exportSchema = false)
+@Database(entities = {ShopCartTable.class, HistoryTable.class}, version = 4, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDataBase extends RoomDatabase {
 

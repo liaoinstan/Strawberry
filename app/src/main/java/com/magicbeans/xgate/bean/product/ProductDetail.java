@@ -19,7 +19,7 @@ public class ProductDetail implements Serializable {
     private String CanonicalURL;
     private String BrandURL;
     private String BrandName;
-    private int BrandId;
+    private String BrandId;
     private String CurSymbol;
     private int CurSymbolPosition;
     private String CurrName;
@@ -111,6 +111,14 @@ public class ProductDetail implements Serializable {
         return BrandURL;
     }
 
+    public String getBrandId() {
+        return BrandId;
+    }
+
+    public void setBrandId(String brandId) {
+        BrandId = brandId;
+    }
+
     public void setBrandURL(String BrandURL) {
         this.BrandURL = BrandURL;
     }
@@ -121,14 +129,6 @@ public class ProductDetail implements Serializable {
 
     public void setBrandName(String BrandName) {
         this.BrandName = BrandName;
-    }
-
-    public int getBrandId() {
-        return BrandId;
-    }
-
-    public void setBrandId(int BrandId) {
-        this.BrandId = BrandId;
     }
 
     public String getCurSymbol() {
