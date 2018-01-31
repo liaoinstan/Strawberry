@@ -1,6 +1,7 @@
 package com.magicbeans.xgate.bean.postbean;
 
 import com.magicbeans.xgate.bean.product.Product2;
+import com.magicbeans.xgate.bean.shopcart.ShopCart;
 
 import java.io.Serializable;
 
@@ -15,9 +16,9 @@ public class Prod implements Serializable {
     public Prod() {
     }
 
-    public Prod(Product2 product2) {
-        ProdId = product2.getProdID();
-        Qty = product2.getCount();
+    public Prod(ShopCart shopCart) {
+        ProdId = shopCart.getProdID();
+        Qty = shopCart.getQty();
     }
 
 

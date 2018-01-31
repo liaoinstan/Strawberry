@@ -276,6 +276,14 @@ public interface NetInterface {
     Call<ResponseBody> netUpdateShopCart(@QueryMap(encoded = true) Map<String, Object> param);
 
     /**
+     * 批量更新购物车 （数量）
+     * AppProds ：185255_3,187916_1,210939_1
+     * token
+     */
+    @GET("/app/apiShopcart.aspx?ID=xGate")
+    Call<ResponseBody> netBatchUpdateShopCart(@QueryMap(encoded = true) Map<String, Object> param);
+
+    /**
      * 删除购物车商品
      * ProdId
      * token
@@ -292,12 +300,10 @@ public interface NetInterface {
 
 
     //##################################################################
-    //#########               2018/1/23 购物车
+    //#########               2018/1/23 下单
     //##################################################################
 
     /**
-     * 获取购物车
-     * token
      */
     @POST("/app/apiCheckout.aspx?ID=xGate")
     Call<ResponseBody> netCheckout(@Body RequestBody requestBody);

@@ -2,6 +2,7 @@ package com.magicbeans.xgate.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -12,6 +13,8 @@ import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.common.AppData;
+import com.magicbeans.xgate.databinding.ActivitySettingBinding;
+import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.shelwee.update.utils.VersionUtil;
 
@@ -19,9 +22,7 @@ import org.greenrobot.eventbus.EventBus;
 
 public class SettingActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
-    private TextView text_setting_catchsize;
-    private TextView text_setting_version_name;
-    private View lay_setting_logout;
+    private ActivitySettingBinding binding;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, SettingActivity.class);
@@ -38,7 +39,7 @@ public class SettingActivity extends BaseAppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_setting);
         registEventBus();
         setToolbar();
         initBase();
@@ -51,20 +52,12 @@ public class SettingActivity extends BaseAppCompatActivity implements View.OnCli
     }
 
     private void initView() {
-        text_setting_catchsize = (TextView) findViewById(R.id.text_setting_catchsize);
-        text_setting_version_name = (TextView) findViewById(R.id.text_setting_version_name);
-        lay_setting_logout = findViewById(R.id.lay_setting_logout);
     }
 
     private void initCtrl() {
-        text_setting_catchsize.setText(ClearCacheUtil.getAppCacheSize(this));
-        text_setting_version_name.setText(VersionUtil.getVersion(this));
-        //TODO:登录功能未完成，暂时还不需要隐藏
-//        if (AppData.App.getUser() == null) {
-//            lay_setting_logout.setVisibility(View.GONE);
-//        } else {
-//            lay_setting_logout.setVisibility(View.VISIBLE);
-//        }
+        binding.textSettingCatchsize.setText(ClearCacheUtil.getAppCacheSize(this));
+        binding.textSettingVersionName.setText(VersionUtil.getVersion(this));
+        binding.laySettingLogout.setVisibility(AppHelper.User.isLogin() ? View.VISIBLE : View.GONE);
     }
 
     private void initData() {
@@ -108,7 +101,7 @@ public class SettingActivity extends BaseAppCompatActivity implements View.OnCli
                     @Override
                     public void onSure() {
                         ClearCacheUtil.clearAPPCache(SettingActivity.this);
-                        text_setting_catchsize.setText(ClearCacheUtil.getAppCacheSize(SettingActivity.this));
+                        binding.textSettingCatchsize.setText(ClearCacheUtil.getAppCacheSize(SettingActivity.this));
                     }
                 });
                 break;

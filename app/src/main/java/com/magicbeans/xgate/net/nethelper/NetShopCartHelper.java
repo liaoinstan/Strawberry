@@ -8,6 +8,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.shopcart.ShopCart;
@@ -65,10 +66,6 @@ public class NetShopCartHelper {
         });
     }
 
-    public void netUpdateShopCart(String ProdId, int count) {
-        netUpdateShopCart(null, ProdId, count);
-    }
-
     //修改购物车商品
     //conetxt只用于显示进度弹窗，如果不需要显示进度可以传null
     public void netUpdateShopCart(final Context context, final String ProdId, int count) {
@@ -102,8 +99,35 @@ public class NetShopCartHelper {
         });
     }
 
-    public void netRemoveShopCart(String ProdId) {
-        netRemoveShopCart(null, ProdId);
+
+    //批量修改购物车商品（可用于删除）
+    //conetxt只用于显示进度弹窗，如果不需要显示进度可以传null
+    public void netBatchUpdateShopCart(final Context context, List<ShopCart> shopCarts) {
+        if (context != null && context instanceof BaseAppCompatActivity) {
+            ((BaseAppCompatActivity) context).showLoadingDialog();
+        }
+        Map<String, Object> param = new NetParam()
+                .put("AppProds", ShopCart.getBatchUpdateIds(shopCarts))
+                .put("token", Token.getLocalToken())
+                .build();
+        NetApi.NI().netBatchUpdateShopCart(param).enqueue(new STFormatCallback<ShopCartWrap>(ShopCartWrap.class) {
+            @Override
+            public void onSuccess(int status, ShopCartWrap shopCartWrap, String msg) {
+                List<ShopCart> shopCarts = shopCartWrap.getProdList();
+                updateDataBaseSendFreshMsg(shopCarts);
+                if (context != null && context instanceof BaseAppCompatActivity) {
+                    ((BaseAppCompatActivity) context).hideLoadingDialog();
+                }
+            }
+
+            @Override
+            public void onError(int status, String msg) {
+                ToastUtil.showToastShort(msg);
+                if (context != null && context instanceof BaseAppCompatActivity) {
+                    ((BaseAppCompatActivity) context).hideLoadingDialog();
+                }
+            }
+        });
     }
 
     //删除购物车商品
@@ -156,6 +180,31 @@ public class NetShopCartHelper {
             }
         });
         return liveData;
+    }
+
+
+    public void netUpdateShopCart(String ProdId, int count) {
+        netUpdateShopCart(null, ProdId, count);
+    }
+
+    public void netRemoveShopCart(String ProdId) {
+        netRemoveShopCart(null, ProdId);
+    }
+
+    public void netBatchUpdateShopCart(List<ShopCart> shopCarts) {
+        netBatchUpdateShopCart(null, shopCarts);
+    }
+
+    public void netBatchDeleteShopCart(List<ShopCart> shopCarts) {
+        netBatchDeleteShopCart(null, shopCarts);
+    }
+
+    public void netBatchDeleteShopCart(Context context, List<ShopCart> shopCarts) {
+        if (StrUtil.isEmpty(shopCarts)) return;
+        for (ShopCart shopCart : shopCarts) {
+            shopCart.setQty(0);
+        }
+        netBatchUpdateShopCart(context, shopCarts);
     }
 
     //################ 业务逻辑 ######################

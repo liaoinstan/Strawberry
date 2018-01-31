@@ -2,11 +2,13 @@ package com.magicbeans.xgate.bean.shopcart;
 
 import com.google.gson.Gson;
 import com.ins.common.entity.BaseSelectBean;
+import com.ins.common.utils.StrUtil;
 import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.product.ProductDetail;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/1/30.
@@ -66,6 +68,16 @@ public class ShopCart extends BaseSelectBean implements Serializable {
 
     public float getPriceFloat() {
         return Float.parseFloat(Price.substring(Price.indexOf(";") + 1));
+    }
+
+    //从一个购物车列表获取批量修改ids字符串参数
+    public static String getBatchUpdateIds(List<ShopCart> shopCarts) {
+        if (StrUtil.isEmpty(shopCarts)) return "";
+        String ids = "";
+        for (ShopCart shopCart : shopCarts) {
+            ids += shopCart.getProdID() + "_" + shopCart.getQty() + ",";
+        }
+        return StrUtil.subLastChart(ids, ",");
     }
 
     //////////////////////业务方法///////////////////////

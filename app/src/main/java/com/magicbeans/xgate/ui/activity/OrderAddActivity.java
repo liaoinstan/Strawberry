@@ -24,7 +24,7 @@ import com.magicbeans.xgate.bean.postbean.FreeGift;
 import com.magicbeans.xgate.bean.postbean.Payment;
 import com.magicbeans.xgate.bean.postbean.Promotion;
 import com.magicbeans.xgate.bean.postbean.SelectedShipment;
-import com.magicbeans.xgate.bean.product.Product2;
+import com.magicbeans.xgate.bean.shopcart.ShopCart;
 import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.databinding.ActivityOrderaddBinding;
@@ -45,9 +45,9 @@ import okhttp3.RequestBody;
 public class OrderAddActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
     private ActivityOrderaddBinding binding;
-    private List<Product2> goods;
+    private List<ShopCart> goods;
 
-    public static void start(Context context, List<Product2> goods) {
+    public static void start(Context context, List<ShopCart> goods) {
         if (AppHelper.User.isLogin()) {
             Intent intent = new Intent(context, OrderAddActivity.class);
             intent.putExtra("goods", ListUtil.transArrayList(goods));
@@ -70,7 +70,7 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
     }
 
     private void initBase() {
-        goods = (List<Product2>) getIntent().getSerializableExtra("goods");
+        goods = (List<ShopCart>) getIntent().getSerializableExtra("goods");
     }
 
     private void initView() {
@@ -93,7 +93,7 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
     private void initData() {
         //设置商品图片列表数据
         ArrayList<BundleImgEntity> bundles = new ArrayList<>();
-        for (Product2 good : goods) {
+        for (ShopCart good : goods) {
             bundles.add(new BundleImgEntity(good.getHeaderImg()));
         }
         binding.bundleview.setPhotos(bundles);

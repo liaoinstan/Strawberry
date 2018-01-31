@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.adyen.core.PaymentRequest;
 import com.adyen.core.interfaces.HttpResponseCallback;
@@ -28,7 +30,9 @@ import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import okhttp3.MediaType;
@@ -70,13 +74,19 @@ public class PayTestActivity extends BaseAppCompatActivity implements View.OnCli
             case R.id.text_test_pay:
                 testPay();
                 break;
+            case R.id.text_url1:
+            case R.id.text_url2:
+                String url = ((TextView) v).getText().toString();
+                WebActivity.start(this, "adyen 集成文档", url);
+                break;
         }
     }
 
-//    private final String APIKEY = "AQErhmfuXNWTK0Qc+iSDhnY5sOaeWplUA5ZeADEO0AoKGDN5BwUMunpetRCcsRDBXVsNvuR83LVYjEgiTGAH-8dXLRbeP42zvEfVycOGHPAMHBryZCRDSyIjyTESmfuU=-Rk9ukaRxLqxBe2KF";
-    private final String x_demo_server_api_key = "0101448667EE5CD5932B441CFA2483867639B0E69E5A995403965E00310E8B6CAE8D7206ADD36411D16303257317FEFDD7AFBAB07B4E5F0910ED62C78A5C6AA387F587EE1BDC2010C15D5B0DBEE47CDCB5588C48224C6007";
-    private final String url = "https://checkoutshopper-test.adyen.com/checkoutshopper/demoserver/";
     private static final String SETUP = "setup";
+    private static final String VERIFY = "verify";
+    private String merchantServerUrl = "https://checkoutshopper-test.adyen.com/checkoutshopper/demoserver/";
+    private String merchantApiSecretKey = "0101448667EE5CD5932B441CFA2483867639B0E69E5A995403965E00310E8B6CAE8D7206ADD36411D16303257317FEFDD7AFBAB07B4E5F0910ED62C78A5C6AA387F587EE1BDC2010C15D5B0DBEE47CDCB5588C48224C6007";
+    private String merchantApiHeaderKeyForApiSecretKey = "x-demo-server-api-key";
 
     private void testPay() {
         PaymentRequest paymentRequest = new PaymentRequest(this, new PaymentRequestListener() {
@@ -86,7 +96,7 @@ public class PayTestActivity extends BaseAppCompatActivity implements View.OnCli
                 headers.put("Content-Type", "application/json; charset=UTF-8");
 
                 // Provide this data to identify your app against the server; implement your own protocol (e.g. OAuth 2.0) to use your own server.
-                headers.put("x-demo-server-api-key", x_demo_server_api_key); // Replace with your own Checkout Demo API key.
+                headers.put(merchantApiHeaderKeyForApiSecretKey, merchantApiSecretKey); // Replace with your own Checkout Demo API key.
 
                 final JSONObject jsonObject = new JSONObject();
                 try {
@@ -98,7 +108,7 @@ public class PayTestActivity extends BaseAppCompatActivity implements View.OnCli
                     jsonObject.put("countryCode", "NL");
                     jsonObject.put("shopperLocale", "nl_NL");
                     final JSONObject amount = new JSONObject();
-                    amount.put("value", 100);
+                    amount.put("value", 1);
                     amount.put("currency", "EUR");
                     jsonObject.put("amount", amount);
                     jsonObject.put("shopperReference", "example.merchant@adyen.com");
@@ -107,16 +117,14 @@ public class PayTestActivity extends BaseAppCompatActivity implements View.OnCli
                 } catch (final JSONException jsonException) {
                     Log.e("Unexpected error", "Setup failed");
                 }
-                AsyncHttpClient.post(url + SETUP, headers, jsonObject.toString(), new HttpResponseCallback() { // Use https://checkoutshopper-test.adyen.com/checkoutshopper/demoserver/setup
+                AsyncHttpClient.post(merchantServerUrl + SETUP, headers, jsonObject.toString(), new HttpResponseCallback() { // Use https://checkoutshopper-test.adyen.com/checkoutshopper/demoserver/setup
                     @Override
                     public void onSuccess(final byte[] response) {
-                        ToastUtil.showToastShort("onPaymentDataRequested onSuccess");
                         callback.completionWithPaymentData(response);
                     }
 
                     @Override
                     public void onFailure(final Throwable e) {
-                        ToastUtil.showToastShort("onPaymentDataRequested onFailure");
                         e.printStackTrace();
                         paymentRequest.cancel();
                     }
@@ -129,6 +137,7 @@ public class PayTestActivity extends BaseAppCompatActivity implements View.OnCli
                         paymentRequestResult.getPayment().getPaymentStatus() == Payment.PaymentStatus.AUTHORISED
                                 || paymentRequestResult.getPayment().getPaymentStatus() == Payment.PaymentStatus.RECEIVED)) {
                     ToastUtil.showToastShort("onPaymentResult onSuccess");
+                    verifyPayment(paymentRequestResult.getPayment());
                 } else {
                     ToastUtil.showToastShort("onPaymentResult onFailure");
                     paymentRequestResult.getError().printStackTrace();
@@ -136,5 +145,48 @@ public class PayTestActivity extends BaseAppCompatActivity implements View.OnCli
             }
         });
         paymentRequest.start();
+    }
+
+    //验证支付结果
+    private void verifyPayment(final Payment payment) {
+        final JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("payload", payment.getPayload());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Failed to verify payment.", Toast.LENGTH_LONG).show();
+            return;
+        }
+        String verifyString = jsonObject.toString();
+
+        final Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json; charset=UTF-8");
+        headers.put(merchantApiHeaderKeyForApiSecretKey, merchantApiSecretKey);
+
+        AsyncHttpClient.post(merchantServerUrl + VERIFY, headers, verifyString, new HttpResponseCallback() {
+            String resultString = "";
+
+            @Override
+            public void onSuccess(final byte[] response) {
+                try {
+                    JSONObject jsonVerifyResponse = new JSONObject(new String(response, Charset.forName("UTF-8")));
+                    String authResponse = jsonVerifyResponse.getString("authResponse");
+                    if (authResponse.equalsIgnoreCase(payment.getPaymentStatus().toString())) {
+                        resultString = "Payment is " + payment.getPaymentStatus().toString().toLowerCase(Locale.getDefault()) + " and verified.";
+                    } else {
+                        resultString = "Failed to verify payment.";
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    resultString = "Failed to verify payment.";
+                }
+                Toast.makeText(PayTestActivity.this, resultString, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(final Throwable e) {
+                Toast.makeText(PayTestActivity.this, resultString, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

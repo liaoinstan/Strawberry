@@ -22,6 +22,7 @@ import com.magicbeans.xgate.data.db.manager.ShopCartTableManager;
 import com.magicbeans.xgate.databinding.FragmentShopbagBinding;
 import com.magicbeans.xgate.net.nethelper.NetShopCartHelper;
 import com.magicbeans.xgate.sharesdk.ShareDialog;
+import com.magicbeans.xgate.ui.activity.OrderAddActivity;
 import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeShopbag;
 
@@ -117,7 +118,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
                     DialogSure.showDialog(context, "确定要下单？", new DialogSure.CallBack() {
                         @Override
                         public void onSure() {
-//                            OrderAddActivity.start(context, selectBeans);
+                            OrderAddActivity.start(context, selectBeans);
                         }
                     });
                 } else {
@@ -137,8 +138,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
                     DialogSure.showDialog(context, "确定要删除这些商品？", new DialogSure.CallBack() {
                         @Override
                         public void onSure() {
-//                            ShopCartTableManager.getInstance().delete(selectBeans.toArray(new ShopCart[]{}));
-//                            EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART));
+//                            NetShopCartHelper.getInstance().netBatchDeleteShopCart(context, selectBeans);
                         }
                     });
                 } else {
