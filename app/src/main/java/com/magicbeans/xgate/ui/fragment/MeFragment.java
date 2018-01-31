@@ -27,6 +27,7 @@ import com.magicbeans.xgate.ui.activity.HistoryActivity;
 import com.magicbeans.xgate.ui.activity.MeDetailActivity;
 import com.magicbeans.xgate.ui.activity.MsgSettingActivity;
 import com.magicbeans.xgate.ui.activity.OrderActivity;
+import com.magicbeans.xgate.ui.activity.PayTestActivity;
 import com.magicbeans.xgate.ui.activity.SettingActivity;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.ui.controller.CommonRecommendController;

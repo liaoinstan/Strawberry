@@ -123,6 +123,9 @@ public class SettingActivity extends BaseAppCompatActivity implements View.OnCli
                     }
                 });
                 break;
+            case R.id.text_test_adyen:
+                PayTestActivity.start(this);
+                break;
         }
     }
 }

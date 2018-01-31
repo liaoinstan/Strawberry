@@ -237,6 +237,15 @@
                     android:onClick="onClick"
                     android:text="@string/setting_about" />
 
+                <View
+                    style="@style/Line_H"
+                    android:layout_marginLeft="10dp" />
+
+                <TextView
+                    android:id="@+id/text_test_adyen"
+                    style="@style/TextMeItem"
+                    android:onClick="onClick"
+                    android:text="adyen集成测试" />
 
                 <View style="@style/Line_H" />
 
