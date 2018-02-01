@@ -85,7 +85,8 @@ public class PayTestActivity extends BaseAppCompatActivity implements View.OnCli
     private static final String SETUP = "setup";
     private static final String VERIFY = "verify";
     private String merchantServerUrl = "https://checkoutshopper-test.adyen.com/checkoutshopper/demoserver/";
-    private String merchantApiSecretKey = "0101448667EE5CD5932B441CFA2483867639B0E69E5A995403965E00310E8B6CAE8D7206ADD36411D16303257317FEFDD7AFBAB07B4E5F0910ED62C78A5C6AA387F587EE1BDC2010C15D5B0DBEE47CDCB5588C48224C6007";
+//    private String merchantApiSecretKey = "0101448667EE5CD5932B441CFA2483867639B0E69E5A995403965E00310E8B6CAE8D7206ADD36411D16303257317FEFDD7AFBAB07B4E5F0910ED62C78A5C6AA387F587EE1BDC2010C15D5B0DBEE47CDCB5588C48224C6007";
+    private String merchantApiSecretKey = "0101408667EE5CD5932B441CFA2483867639B0E69E5A995423965E7B6A5B8B6CAE8D7206ADD36411D16303257317FEFDD7A4BE2403A31C396DE18F6C0898682F20228C10C15D5B0DBEE47CDCB5588C48224C6007";
     private String merchantApiHeaderKeyForApiSecretKey = "x-demo-server-api-key";
 
     private void testPay() {
@@ -140,7 +141,9 @@ public class PayTestActivity extends BaseAppCompatActivity implements View.OnCli
                     verifyPayment(paymentRequestResult.getPayment());
                 } else {
                     ToastUtil.showToastShort("onPaymentResult onFailure");
-                    paymentRequestResult.getError().printStackTrace();
+                    if (paymentRequestResult.getError() != null) {
+                        paymentRequestResult.getError().printStackTrace();
+                    }
                 }
             }
         });
