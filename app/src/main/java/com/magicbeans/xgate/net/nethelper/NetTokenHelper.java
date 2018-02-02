@@ -41,7 +41,8 @@ public class NetTokenHelper {
                     if (TextUtils.isEmpty(user.getResponseCode())) {
                         callback.onSuccess(status, user, msg);
                     }else {
-                        callback.onError(status, user.getResponseCode());
+                        callback.onError(Integer.parseInt(user.getResponseCode()), user.getResponseMsg());
+                        //TODO:如果getResponseCode是102代表token失效。这时应该刷新token再重新调用接口
                     }
                 }
             }

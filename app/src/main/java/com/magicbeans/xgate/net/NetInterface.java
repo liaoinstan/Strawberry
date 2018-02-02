@@ -300,11 +300,61 @@ public interface NetInterface {
 
 
     //##################################################################
+    //#########               2018/2/2 地址管理
+    //##################################################################
+
+    /**
+     * 获取地址列表
+     * AccountID
+     * token
+     * addrtype 1: Billing Address 2: Delivery Address
+     */
+    @GET("/app/apiAddressBook.aspx?ID=xGate&action=get")
+    Call<ResponseBody> netGetAddressList(@QueryMap(encoded = true) Map<String, Object> param);
+
+    /**
+     * 添加地址
+     * AccountID
+     * token
+     * addrtype 1: Billing Address 2: Delivery Address
+     * ...
+     */
+    @GET("/app/apiAddressBook.aspx?ID=xGate&action=add")
+    Call<ResponseBody> netAddAddress(@QueryMap(encoded = true) Map<String, Object> param);
+
+    /**
+     * 删除地址
+     * AccountID
+     * token
+     * AddId
+     */
+    @GET("/app/apiAddressBook.aspx?ID=xGate&action=delete")
+    Call<ResponseBody> netDeleteAddress(@QueryMap(encoded = true) Map<String, Object> param);
+
+    /**
+     * 设置默认地址
+     * AccountID
+     * token
+     * AddId
+     * addrtype 1: Billing Address 2: Delivery Address
+     * action ：1 SETDEFS : Set default shipping address 2 SETDEFB : Set default billing address
+     */
+    @GET("/app/apiAddressBook.aspx?ID=xGate")
+    Call<ResponseBody> netSetDefaultAddress(@QueryMap(encoded = true) Map<String, Object> param);
+
+    //##################################################################
     //#########               2018/1/23 下单
     //##################################################################
 
     /**
+     * checkout
      */
     @POST("/app/apiCheckout.aspx?ID=xGate")
     Call<ResponseBody> netCheckout(@Body RequestBody requestBody);
+
+    /**
+     * 下单
+     */
+    @POST("/app/apiPlaceOrder.aspx?ID=xGate")
+    Call<ResponseBody> netAddOrder(@Body RequestBody requestBody);
 }

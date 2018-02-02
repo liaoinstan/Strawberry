@@ -51,6 +51,8 @@ public class User implements Serializable {
     private String avator;
     //请求失败改字段会返回错误码
     private String responseCode;
+    //请求失败改字段会返回错误msg
+    private String responseMsg;
 
     public String getAccountID() {
         return accountID;
@@ -62,6 +64,14 @@ public class User implements Serializable {
 
     public String getFirstName() {
         return FirstName;
+    }
+
+    public String getResponseMsg() {
+        return responseMsg;
+    }
+
+    public void setResponseMsg(String responseMsg) {
+        this.responseMsg = responseMsg;
     }
 
     public void setFirstName(String firstName) {

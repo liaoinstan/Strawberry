@@ -42,6 +42,26 @@ public class AppVali {
         }
     }
 
+    public static String addAddress(String addrNickname, String tel, String province, String city, String district, String address) {
+        if (TextUtils.isEmpty(addrNickname)) {
+            return "请输入收货人";
+        } else if (TextUtils.isEmpty(tel)) {
+            return "请输入收货人手机号";
+        } else if (!ValidateUtil.Mobile(tel)) {
+            return "请输入正确的手机号";
+        } else if (TextUtils.isEmpty(province)) {
+            return "请选择省份";
+        } else if (TextUtils.isEmpty(city)) {
+            return "请选择城市";
+        } else if (TextUtils.isEmpty(district)) {
+            return "请选择城区";
+        } else if (TextUtils.isEmpty(address)) {
+            return "请输入详细地址";
+        } else {
+            return null;
+        }
+    }
+
     /////////////////////////////////////
 
 

@@ -51,6 +51,7 @@
                 android:padding="10dp">
 
                 <com.ins.common.view.EmojiEditText
+                    android:id="@+id/edit_name"
                     style="@style/EditLineItem"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -59,12 +60,14 @@
                     android:maxLines="1" />
 
                 <com.ins.common.view.EmojiEditText
+                    android:id="@+id/edit_phone"
                     style="@style/EditLineItem"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:hint="手机号码"
-                    android:inputType="text"
+                    android:inputType="numberSigned"
+                    android:maxLength="11"
                     android:maxLines="1" />
 
                 <LinearLayout
@@ -99,13 +102,15 @@
                 </LinearLayout>
 
                 <com.ins.common.view.EmojiEditText
+                    android:id="@+id/edit_address"
                     style="@style/EditLineItem"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:hint="详细地址"
                     android:inputType="text"
-                    android:maxLines="1" />
+                    android:maxLines="5"
+                    android:minHeight="40dp" />
 
             </LinearLayout>
 
@@ -126,14 +131,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="设置为默认地址"
                         android:layout_marginLeft="10dp"
+                        android:text="设置为默认地址"
                         android:textColor="@color/com_text_blank"
                         android:textSize="@dimen/text_nomal_small" />
 
-                    <Space style="@style/Space_H"/>
+                    <Space style="@style/Space_H" />
 
                     <com.kyleduo.switchbutton.SwitchButton
+                        android:id="@+id/swich_default"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="15dp"
@@ -148,6 +154,7 @@
                     android:layout_marginLeft="10dp" />
 
                 <TextView
+                    android:id="@+id/btn_go"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginLeft="15dp"

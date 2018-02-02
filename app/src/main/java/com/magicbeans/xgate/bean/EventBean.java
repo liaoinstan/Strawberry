@@ -24,6 +24,8 @@ public class EventBean implements Serializable {
     public static final int EVENT_LOGIN = 0xffa106;
     //注销
     public static final int EVENT_LOGOUT = 0xffa107;
+    //刷新地址管理列表
+    public static final int EVENT_REFRESH_ADDRESSLIST = 0xffa108;
 
     private int event;
     private Map<String, Object> map = new HashMap<>();

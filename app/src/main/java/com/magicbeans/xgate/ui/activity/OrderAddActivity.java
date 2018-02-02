@@ -107,16 +107,15 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
                 break;
             case R.id.btn_go:
 //                PayActivity.start(this);
-                netCheckout();
+                CreateOrderPost orderPost = createOrderPost();
+                netCheckout(orderPost);
                 break;
         }
     }
 
     /////////////////////////////////
 
-    //checkout test
-    public void netCheckout() {
-
+    private CreateOrderPost createOrderPost() {
         //创建Post对象，进行赋值
         CreateOrderPost post = new CreateOrderPost();
         post.setCart(new Cart(CreateOrderPost.tansProdList(goods)));
@@ -128,47 +127,50 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
         customer.setIDCardNumber("511322199211044654");
         customer.setToken(Token.getLocalToken());
         customer.setOpenId(AppData.App.getOpenId());
-        //Customer -> BillAddr & ShipAddr
-        Addr addr = new Addr();
-        addr.setFirstName("albert");
-        addr.setLastName("liaoinstan");
-        addr.setAddr1("test");
-        addr.setCountry("中国");
-        addr.setCity("成都");
-        addr.setTown("成华区");
-        addr.setState("test state");
-        addr.setPostcode("610010");
-        addr.setTel("18065478888");
-        addr.setMobile("18065478888");
-        customer.setBillAddr(addr);
-        customer.setShipAddr(addr);
+        //Customer
+        customer.setBillAddr(Addr.getDefaulAddr());
+        customer.setShipAddr(Addr.getDefaulAddr());
         post.setCustomer(customer);
-        //Promotion
-        Promotion promotion = new Promotion();
-        promotion.setCouponCode("test1312");
-        promotion.setSelectedFreeGift(new ArrayList<FreeGift>() {{
-            add(new FreeGift("123", "123123"));
-        }});
-        post.setPromotion(promotion);
         //Payment
         post.setPayment(new Payment("Wechat AY"));
-        //SelectedShipment
-        post.setSelectedShipment(new SelectedShipment(0, 1));
-        post.setGift(false);
-        post.setInstruction(false);
 
-        //构建requestBody
+        return post;
+    }
+
+
+    //checkout
+    private void netCheckout(final CreateOrderPost post) {
+        showLoadingDialog();
         RequestBody requestBody = NetParam.buildJsonRequestBody(post);
-
         NetApi.NI().netCheckout(requestBody).enqueue(new STFormatCallback<CommonEntity>(CommonEntity.class) {
             @Override
             public void onSuccess(int status, CommonEntity com, String msg) {
                 ToastUtil.showToastShort("check out 成功");
+                netAddOrder(post);
             }
 
             @Override
             public void onError(int status, String msg) {
-                ToastUtil.showToastShort("check out 失败");
+                ToastUtil.showToastShort("check out 失败：" + msg);
+                dismissLoadingDialog();
+            }
+        });
+    }
+
+    //下单
+    private void netAddOrder(CreateOrderPost post) {
+        RequestBody requestBody = NetParam.buildJsonRequestBody(post);
+        NetApi.NI().netAddOrder(requestBody).enqueue(new STFormatCallback<CommonEntity>(CommonEntity.class) {
+            @Override
+            public void onSuccess(int status, CommonEntity com, String msg) {
+                ToastUtil.showToastShort("下单成功");
+                dismissLoadingDialog();
+            }
+
+            @Override
+            public void onError(int status, String msg) {
+                ToastUtil.showToastShort("下单失败：" + msg);
+                dismissLoadingDialog();
             }
         });
     }

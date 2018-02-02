@@ -47,7 +47,6 @@ public class ShopCart extends BaseSelectBean implements Serializable {
     private double BagAddedPriceDifference;
 
     //本地字段
-    private String headerImg;
 
     public ShopCart() {
     }
@@ -80,20 +79,16 @@ public class ShopCart extends BaseSelectBean implements Serializable {
         return StrUtil.subLastChart(ids, ",");
     }
 
+    public String getHeaderImg() {
+        return "https://c.cdnsbn.com/images/products/" + ProductNum + ".jpg";
+    }
+
     //////////////////////业务方法///////////////////////
 
     @Override
     public boolean equals(Object obj) {
         Gson gson = new Gson();
         return gson.toJson(this).equals(gson.toJson(obj));
-    }
-
-    public String getHeaderImg() {
-        return headerImg;
-    }
-
-    public void setHeaderImg(String headerImg) {
-        this.headerImg = headerImg;
     }
 
     public String getProdID() {

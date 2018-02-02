@@ -6,19 +6,35 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.ins.common.ui.dialog.DialogSure;
+import com.ins.common.utils.ToastUtil;
 import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.Address;
+import com.magicbeans.xgate.bean.EventBean;
+import com.magicbeans.xgate.bean.address.Address;
+import com.magicbeans.xgate.bean.address.AddressWrap;
+import com.magicbeans.xgate.bean.common.CommonEntity;
+import com.magicbeans.xgate.bean.shopcart.ShopCart;
+import com.magicbeans.xgate.bean.shopcart.ShopCartWrap;
+import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.databinding.ActivityAddressBinding;
+import com.magicbeans.xgate.helper.SpringViewHelper;
+import com.magicbeans.xgate.net.NetApi;
+import com.magicbeans.xgate.net.NetParam;
+import com.magicbeans.xgate.net.STCallback;
+import com.magicbeans.xgate.net.STFormatCallback;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterAddress;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
-public class AddressActivity extends BaseAppCompatActivity implements RecycleAdapterAddress.OnAddressBtnClickListener {
+import java.util.List;
+import java.util.Map;
+
+public class AddressActivity extends BaseAppCompatActivity {
 
 
     private ActivityAddressBinding binding;
@@ -30,10 +46,20 @@ public class AddressActivity extends BaseAppCompatActivity implements RecycleAda
     }
 
     @Override
+    public void onCommonEvent(EventBean event) {
+        switch (event.getEvent()){
+            case EventBean.EVENT_REFRESH_ADDRESSLIST:
+                adapter.netGetAddressList(true,true);
+                break;
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_address);
         setToolbar();
+        registEventBus();
         initBase();
         initView();
         initCtrl();
@@ -48,7 +74,8 @@ public class AddressActivity extends BaseAppCompatActivity implements RecycleAda
 
     private void initCtrl() {
         adapter = new RecycleAdapterAddress(this);
-        adapter.setOnAddressBtnClickListener(this);
+        adapter.setLoadingLayout(binding.loadingview);
+        adapter.setSpringView(binding.spring);
         binding.recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         binding.recycler.setAdapter(adapter);
         binding.spring.setHeader(new AliHeader(this, false));
@@ -56,12 +83,7 @@ public class AddressActivity extends BaseAppCompatActivity implements RecycleAda
         binding.spring.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.spring.onFinishFreshAndLoad();
-                    }
-                }, 1000);
+                adapter.netGetAddressList(true, false);
             }
 
             @Override
@@ -77,15 +99,13 @@ public class AddressActivity extends BaseAppCompatActivity implements RecycleAda
         binding.loadingview.setOnRefreshListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                adapter.netGetAddressList(true, true);
             }
         });
     }
 
     private void initData() {
-        adapter.getResults().clear();
-        adapter.getResults().add(new Address());
-        adapter.getResults().add(new Address());
-        adapter.getResults().add(new Address());
+        adapter.netGetAddressList(true, true);
     }
 
     public void onClick(View v) {
@@ -94,19 +114,5 @@ public class AddressActivity extends BaseAppCompatActivity implements RecycleAda
                 AddressAddActivity.start(this);
                 break;
         }
-    }
-
-    @Override
-    public void onDelClick(RecycleAdapterAddress.Holder holder) {
-        DialogSure.showDialog(this, "确认要删除该地址？", new DialogSure.CallBack() {
-            @Override
-            public void onSure() {
-            }
-        });
-    }
-
-    @Override
-    public void onEditClick(RecycleAdapterAddress.Holder holder) {
-
     }
 }

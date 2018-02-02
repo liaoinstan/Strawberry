@@ -22,6 +22,26 @@ public class Addr implements Serializable{
     private String Mobile;
     private String Fax;
 
+    //############# 业务方法 ##############
+
+    //获取一个默认地址，用于测试
+    public static Addr getDefaulAddr(){
+        Addr addr = new Addr();
+        addr.setFirstName("albert");
+        addr.setLastName("liaoinstan");
+        addr.setAddr1("test");
+        addr.setCountry("中国");
+        addr.setCity("成都");
+        addr.setTown("成华区");
+        addr.setState("test state");
+        addr.setPostcode("610100");
+        addr.setTel("18276174445");
+        addr.setMobile("18276174445");
+        return addr;
+    }
+
+    //############# 业务方法 ##############
+
     public String getFirstName() {
         return FirstName;
     }

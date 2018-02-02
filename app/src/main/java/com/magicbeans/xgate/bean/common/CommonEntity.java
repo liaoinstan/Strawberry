@@ -7,4 +7,13 @@ import java.io.Serializable;
  */
 
 public class CommonEntity implements Serializable{
+    private int reponseCode;
+
+    public int getReponseCode() {
+        return reponseCode;
+    }
+
+    public void setReponseCode(int reponseCode) {
+        this.reponseCode = reponseCode;
+    }
 }
