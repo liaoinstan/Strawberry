@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ins.common.view.LoadingLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/loadingLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    app:layout_fail="@layout/layout_fail"
-    app:layout_lack="@layout/layout_lack"
-    app:layout_loading="@layout/layout_loading">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.liaoinstan.springview.widget.SpringView
-        android:id="@+id/spring"
+    <com.ins.common.view.LoadingLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/loadingLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:type="follow">
+        android:background="@color/st_bk"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_fail="@layout/layout_fail"
+        app:layout_lack="@layout/layout_lack"
+        app:layout_loading="@layout/layout_loading">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler"
+        <com.liaoinstan.springview.widget.SpringView
+            android:id="@+id/spring"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingBottom="10dp" />
+            app:type="follow">
 
-    </com.liaoinstan.springview.widget.SpringView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="10dp" />
 
-</com.ins.common.view.LoadingLayout>
+        </com.liaoinstan.springview.widget.SpringView>
+
+    </com.ins.common.view.LoadingLayout>
+</layout>

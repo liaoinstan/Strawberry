@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 public class CommonEntity implements Serializable{
     private int reponseCode;
+    private String token;
 
     public int getReponseCode() {
         return reponseCode;
@@ -15,5 +16,13 @@ public class CommonEntity implements Serializable{
 
     public void setReponseCode(int reponseCode) {
         this.reponseCode = reponseCode;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

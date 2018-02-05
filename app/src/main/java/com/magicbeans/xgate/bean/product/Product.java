@@ -25,6 +25,9 @@ public class Product implements Serializable {
     private float AverageRating;
     private int RatingCount;
 
+    public Product() {
+    }
+
     public String getProdID() {
         return ProdID;
     }

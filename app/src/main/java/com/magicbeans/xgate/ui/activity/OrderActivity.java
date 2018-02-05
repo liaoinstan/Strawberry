@@ -2,31 +2,31 @@ package com.magicbeans.xgate.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Order;
+import com.magicbeans.xgate.databinding.ActivityOrderBinding;
+import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.adapter.PagerAdapterOrder;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
 public class OrderActivity extends BaseAppCompatActivity {
 
-    private TabLayout tab;
-    private ViewPager pager;
+    private ActivityOrderBinding binding;
     private PagerAdapterOrder adapterPager;
 
     private int position;
     private String[] titles = new String[]{"全部", "待付款", "待发货", "待收货", "待评价"};
 
     public static void start(Context context, int status) {
-//        if (AppData.App.getUser() != null) {
-//            Intent intent = new Intent(context, OrderActivity.class);
-//            context.startActivity(intent);
-//        } else {
-//            LoginActivity.start(context);
-//        }
+        if (!AppHelper.User.isLogin()) {
+            LoginActivity.start(context);
+            return;
+        }
         int position = 0;
         switch (status) {
             case Order.STATUS_ALL:
@@ -53,7 +53,7 @@ public class OrderActivity extends BaseAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_order);
         setToolbar();
         initBase();
         initView();
@@ -62,22 +62,20 @@ public class OrderActivity extends BaseAppCompatActivity {
     }
 
     private void initBase() {
-        if (getIntent().hasExtra("position")){
-            position = getIntent().getIntExtra("position",0);
+        if (getIntent().hasExtra("position")) {
+            position = getIntent().getIntExtra("position", 0);
         }
     }
 
     private void initView() {
-        tab = (TabLayout) findViewById(R.id.tab);
-        pager = (ViewPager) findViewById(R.id.pager);
     }
 
     private void initCtrl() {
         adapterPager = new PagerAdapterOrder(getSupportFragmentManager(), titles);
-        pager.setAdapter(adapterPager);
-        tab.setupWithViewPager(pager);
+        binding.pager.setAdapter(adapterPager);
+        binding.tab.setupWithViewPager(binding.pager);
 
-        pager.setCurrentItem(position, false);
+        binding.pager.setCurrentItem(position, false);
     }
 
     private void initData() {

@@ -8,10 +8,13 @@ import android.widget.TextView;
 
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
+import com.magicbeans.xgate.ui.dialog.DialogLoading;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.lang.ref.WeakReference;
 
 
 /**
@@ -75,5 +78,17 @@ public class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         if (eventBusSurppot) EventBus.getDefault().unregister(this);
+    }
+
+    public final void showLoadingDialog() {
+        if (getActivity() != null && getActivity() instanceof BaseAppCompatActivity) {
+            ((BaseAppCompatActivity) getActivity()).showLoadingDialog();
+        }
+    }
+
+    public final void dismissLoadingDialog() {
+        if (getActivity() != null && getActivity() instanceof BaseAppCompatActivity) {
+            ((BaseAppCompatActivity) getActivity()).dismissLoadingDialog();
+        }
     }
 }

@@ -82,12 +82,14 @@ public class AddressAddActivity extends BaseAppCompatActivity implements View.On
         adapterProvince.clear();
         adapterProvince.add("四川省");
         adapterProvince.add("福建省");
+        adapterProvince.add("guangdong");
         adapterProvince.notifyDataSetChanged();
 
         adapterCity.clear();
         adapterCity.add("成都市");
         adapterCity.add("宜宾市");
         adapterCity.add("绵阳市");
+        adapterCity.add("guangzhou");
         adapterCity.notifyDataSetChanged();
 
         adapterDistrict.clear();
@@ -98,6 +100,7 @@ public class AddressAddActivity extends BaseAppCompatActivity implements View.On
         adapterDistrict.add("青阳区");
         adapterDistrict.add("金牛区");
         adapterDistrict.add("天府新区");
+        adapterDistrict.add("tianhequ");
         adapterDistrict.notifyDataSetChanged();
     }
 

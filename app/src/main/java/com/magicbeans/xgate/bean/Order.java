@@ -1,5 +1,7 @@
 package com.magicbeans.xgate.bean;
 
+import com.magicbeans.xgate.bean.product.Product;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,30 +17,102 @@ public class Order implements Serializable {
     public static final int STATUS_UNIN = 3;
     public static final int STATUS_UNEVA = 4;
 
-    private int id;
+    private String SOID;
+    private String OrderDate;
+    private String OrderStatus;
+    private String OrderStatusImg;
+    private String OrderStatusId;
+    private String OrderDateFormatted;
+    private String NetAmount;
+    private String CurSymbol;
+    private String NetAmountFormatted;
 
-    private List<Goods> goodsList;
+    private List<Product> ProductList;
 
     public Order() {
     }
 
-    public Order(List<Goods> goodsList) {
-        this.goodsList = goodsList;
+    public Order(List<Product> productList) {
+        ProductList = productList;
     }
 
-    public int getId() {
-        return id;
+    public String getSOID() {
+        return SOID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSOID(String SOID) {
+        this.SOID = SOID;
     }
 
-    public List<Goods> getGoodsList() {
-        return goodsList;
+    public String getOrderDate() {
+        return OrderDate;
     }
 
-    public void setGoodsList(List<Goods> goodsList) {
-        this.goodsList = goodsList;
+    public void setOrderDate(String orderDate) {
+        OrderDate = orderDate;
+    }
+
+    public String getOrderStatus() {
+        return OrderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        OrderStatus = orderStatus;
+    }
+
+    public String getOrderStatusImg() {
+        return OrderStatusImg;
+    }
+
+    public void setOrderStatusImg(String orderStatusImg) {
+        OrderStatusImg = orderStatusImg;
+    }
+
+    public String getOrderStatusId() {
+        return OrderStatusId;
+    }
+
+    public void setOrderStatusId(String orderStatusId) {
+        OrderStatusId = orderStatusId;
+    }
+
+    public String getOrderDateFormatted() {
+        return OrderDateFormatted;
+    }
+
+    public void setOrderDateFormatted(String orderDateFormatted) {
+        OrderDateFormatted = orderDateFormatted;
+    }
+
+    public String getNetAmount() {
+        return NetAmount;
+    }
+
+    public void setNetAmount(String netAmount) {
+        NetAmount = netAmount;
+    }
+
+    public String getCurSymbol() {
+        return CurSymbol;
+    }
+
+    public void setCurSymbol(String curSymbol) {
+        CurSymbol = curSymbol;
+    }
+
+    public String getNetAmountFormatted() {
+        return NetAmountFormatted;
+    }
+
+    public void setNetAmountFormatted(String netAmountFormatted) {
+        NetAmountFormatted = netAmountFormatted;
+    }
+
+    public List<Product> getProductList() {
+        return ProductList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        ProductList = productList;
     }
 }

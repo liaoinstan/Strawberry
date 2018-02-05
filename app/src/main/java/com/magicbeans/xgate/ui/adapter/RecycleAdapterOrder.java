@@ -1,15 +1,23 @@
 package com.magicbeans.xgate.ui.adapter;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ins.common.common.GridSpacingItemDecoration;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
+import com.ins.common.utils.DensityUtil;
+import com.ins.common.utils.GlideUtil;
 import com.ins.common.view.ListViewLinearLayout;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Order;
+import com.magicbeans.xgate.databinding.ItemOrderBinding;
+import com.magicbeans.xgate.helper.AppHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +37,8 @@ public class RecycleAdapterOrder extends RecyclerView.Adapter<RecycleAdapterOrde
 
     @Override
     public RecycleAdapterOrder.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_order, parent, false));
+        return new Holder((ItemOrderBinding) DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_order, parent, false));
+
     }
 
     @Override
@@ -42,9 +51,13 @@ public class RecycleAdapterOrder extends RecyclerView.Adapter<RecycleAdapterOrde
             }
         });
 
-        ListAdapterOrderGoods adapter = new ListAdapterOrderGoods(context);
-        adapter.getResults().addAll(order.getGoodsList());
-        holder.list_order_goods.setAdapter(adapter);
+        holder.binding.textCount.setText("共" + order.getProductList().size() + "件商品 实付款");
+        holder.binding.textPrice.setText(AppHelper.getPriceSymbol("") + order.getNetAmount());
+        holder.binding.textStatus.setText(order.getOrderStatus());
+
+        holder.adapter.getResults().clear();
+        holder.adapter.getResults().addAll(order.getProductList());
+        holder.adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -53,14 +66,21 @@ public class RecycleAdapterOrder extends RecyclerView.Adapter<RecycleAdapterOrde
     }
 
     public class Holder extends RecyclerView.ViewHolder {
+        ItemOrderBinding binding;
+        RecycleAdapterOrderGoods adapter;
 
-        private ListViewLinearLayout list_order_goods;
+        public Holder(ItemOrderBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
 
-        public Holder(View itemView) {
-            super(itemView);
-            list_order_goods = (ListViewLinearLayout) itemView.findViewById(R.id.list_order_goods);
+            adapter = new RecycleAdapterOrderGoods(context);
+            binding.recycle.setNestedScrollingEnabled(false);
+            binding.recycle.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+            binding.recycle.addItemDecoration(new GridSpacingItemDecoration(1, DensityUtil.dp2px(7), GridLayoutManager.HORIZONTAL, true));
+            binding.recycle.setAdapter(adapter);
         }
     }
+
 
     private OnRecycleItemClickListener listener;
 

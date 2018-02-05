@@ -1,16 +1,20 @@
 package com.magicbeans.xgate.ui.fragment;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
+import com.ins.common.utils.StrUtil;
+import com.ins.common.utils.ToastUtil;
 import com.ins.common.view.LoadingLayout;
 import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
@@ -18,10 +22,22 @@ import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Goods;
 import com.magicbeans.xgate.bean.Order;
+import com.magicbeans.xgate.bean.order.OrderWrap;
+import com.magicbeans.xgate.bean.product.Product;
+import com.magicbeans.xgate.bean.shopcart.ShopCart;
+import com.magicbeans.xgate.bean.shopcart.ShopCartWrap;
+import com.magicbeans.xgate.bean.user.Token;
+import com.magicbeans.xgate.databinding.FragmentOrderBinding;
+import com.magicbeans.xgate.net.NetApi;
+import com.magicbeans.xgate.net.NetParam;
+import com.magicbeans.xgate.net.STCallback;
+import com.magicbeans.xgate.net.STFormatCallback;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterOrder;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by liaoinstan
@@ -29,12 +45,7 @@ import java.util.ArrayList;
 public class OrderFragment extends BaseFragment implements OnRecycleItemClickListener {
 
     private int position;
-    private View rootView;
-
-    private LoadingLayout loadingLayout;
-
-    private SpringView springView;
-    private RecyclerView recycler;
+    private FragmentOrderBinding binding;
     private RecycleAdapterOrder adapter;
 
     public static Fragment newInstance(int position) {
@@ -55,8 +66,8 @@ public class OrderFragment extends BaseFragment implements OnRecycleItemClickLis
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_order, container, false);
-        return rootView;
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_order, container, false);
+        return binding.getRoot();
     }
 
     @Override
@@ -72,30 +83,27 @@ public class OrderFragment extends BaseFragment implements OnRecycleItemClickLis
     }
 
     private void initView() {
-        loadingLayout = (LoadingLayout) rootView.findViewById(R.id.loadingLayout);
-        springView = (SpringView) rootView.findViewById(R.id.spring);
-        recycler = (RecyclerView) rootView.findViewById(R.id.recycler);
     }
 
     private void initCtrl() {
         adapter = new RecycleAdapterOrder(getContext());
         adapter.setOnItemClickListener(this);
-        recycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        recycler.setAdapter(adapter);
-        loadingLayout.setOnRefreshListener(new View.OnClickListener() {
+        binding.recycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        binding.recycler.setAdapter(adapter);
+        binding.loadingLayout.setOnRefreshListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             }
         });
-        springView.setHeader(new AliHeader(getContext(), false));
-        springView.setFooter(new AliFooter(getContext(), false));
-        springView.setListener(new SpringView.OnFreshListener() {
+        binding.spring.setHeader(new AliHeader(getContext(), false));
+        binding.spring.setFooter(new AliFooter(getContext(), false));
+        binding.spring.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        springView.onFinishFreshAndLoad();
+                        binding.spring.onFinishFreshAndLoad();
                     }
                 }, 1000);
             }
@@ -107,7 +115,7 @@ public class OrderFragment extends BaseFragment implements OnRecycleItemClickLis
                     public void run() {
                         adapter.getResults().add(new Order());
                         adapter.getResults().add(new Order());
-                        springView.onFinishFreshAndLoad();
+                        binding.spring.onFinishFreshAndLoad();
                     }
                 }, 1000);
             }
@@ -115,35 +123,70 @@ public class OrderFragment extends BaseFragment implements OnRecycleItemClickLis
     }
 
     private void initData() {
-        adapter.getResults().clear();
-        adapter.getResults().add(new Order(new ArrayList<Goods>() {{
-            add(new Goods());
-        }}));
-        adapter.getResults().add(new Order(new ArrayList<Goods>() {{
-            add(new Goods());
-            add(new Goods());
-        }}));
-        adapter.getResults().add(new Order(new ArrayList<Goods>() {{
-            add(new Goods());
-            add(new Goods());
-            add(new Goods());
-            add(new Goods());
-        }}));
-        adapter.getResults().add(new Order(new ArrayList<Goods>() {{
-            add(new Goods());
-        }}));
-        adapter.getResults().add(new Order(new ArrayList<Goods>() {{
-            add(new Goods());
-            add(new Goods());
-            add(new Goods());
-            add(new Goods());
-            add(new Goods());
-            add(new Goods());
-        }}));
-        adapter.notifyDataSetChanged();
+//        adapter.getResults().clear();
+//        adapter.getResults().add(new Order(new ArrayList<Product>() {{
+//            add(new Product());
+//        }}));
+//        adapter.getResults().add(new Order(new ArrayList<Product>() {{
+//            add(new Product());
+//            add(new Product());
+//        }}));
+//        adapter.getResults().add(new Order(new ArrayList<Product>() {{
+//            add(new Product());
+//            add(new Product());
+//            add(new Product());
+//            add(new Product());
+//        }}));
+//        adapter.getResults().add(new Order(new ArrayList<Product>() {{
+//            add(new Product());
+//        }}));
+//        adapter.getResults().add(new Order(new ArrayList<Product>() {{
+//            add(new Product());
+//            add(new Product());
+//            add(new Product());
+//            add(new Product());
+//            add(new Product());
+//            add(new Product());
+//        }}));
+//        adapter.notifyDataSetChanged();
+        netOrderHistory();
     }
 
     @Override
     public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
+    }
+
+    //添加购物车
+    public void netOrderHistory() {
+        binding.loadingLayout.showLoadingView();
+        Map<String, Object> param = new NetParam()
+                .put("token", Token.getLocalToken())
+                .put("years", "30d")
+                .build();
+        NetApi.NI().netOrderHistory(param).enqueue(new STCallback<OrderWrap>(OrderWrap.class) {
+            @Override
+            public void onSuccess(int status, OrderWrap wrap, String msg) {
+                if (wrap.getResponseCode() == 0) {
+                    wrap.convert();
+                    List<Order> orders = wrap.getOrders();
+                    if (!StrUtil.isEmpty(orders)) {
+                        adapter.getResults().clear();
+                        adapter.getResults().addAll(orders);
+                        adapter.notifyDataSetChanged();
+                        binding.loadingLayout.showOut();
+                    } else {
+                        binding.loadingLayout.showLackView();
+                    }
+                } else {
+                    onError(wrap.getResponseCode(), wrap.getResponseMsg());
+                }
+            }
+
+            @Override
+            public void onError(int status, String msg) {
+                ToastUtil.showToastShort(msg);
+                binding.loadingLayout.showFailView();
+            }
+        });
     }
 }

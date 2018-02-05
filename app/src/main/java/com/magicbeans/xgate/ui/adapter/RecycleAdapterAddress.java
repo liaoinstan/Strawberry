@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ins.common.helper.SelectHelper;
+import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
@@ -56,6 +57,12 @@ public class RecycleAdapterAddress extends RecyclerView.Adapter<RecycleAdapterAd
     @Override
     public void onBindViewHolder(final RecycleAdapterAddress.Holder holder, final int position) {
         final Address address = results.get(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) listener.onItemClick(holder, position);
+            }
+        });
         holder.binding.imgItemAddressEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,12 +121,7 @@ public class RecycleAdapterAddress extends RecyclerView.Adapter<RecycleAdapterAd
 
     //获取默认地址
     private Address getSelectItem() {
-        for (Address address : results) {
-            if (address.isDefault()) {
-                return address;
-            }
-        }
-        return null;
+        return AddressWrap.getDefaultAddress(results);
     }
 
     private void showLoadingDialog() {
@@ -142,6 +144,14 @@ public class RecycleAdapterAddress extends RecyclerView.Adapter<RecycleAdapterAd
 
     public void setLoadingLayout(LoadingLayout loadingLayout) {
         this.loadingLayout = loadingLayout;
+    }
+
+    //########## 对外接口 ###########
+
+    private OnRecycleItemClickListener listener;
+
+    public void setOnItemClickListener(OnRecycleItemClickListener listener) {
+        this.listener = listener;
     }
 
     //########## 网络接口 ###########

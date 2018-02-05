@@ -3,6 +3,7 @@ package com.magicbeans.xgate.bean.address;
 import android.text.TextUtils;
 
 import com.ins.common.entity.BaseSelectBean;
+import com.magicbeans.xgate.bean.postbean.Addr;
 
 import java.io.Serializable;
 
@@ -21,6 +22,7 @@ public class Address extends BaseSelectBean implements Serializable {
     private String isDefault;
 
     //############# 业务方法 ###############
+
     public boolean isDefault() {
         if (TextUtils.isEmpty(isDefault)) return false;
         return Boolean.parseBoolean(isDefault.toLowerCase());
@@ -29,7 +31,6 @@ public class Address extends BaseSelectBean implements Serializable {
     public void setIsDefault(boolean isDefault) {
         this.isDefault = String.valueOf(isDefault);
     }
-    //############# 业务方法 ###############
 
     public String getTelEncry() {
         if (TextUtils.isEmpty(Tel)) return "";
@@ -37,14 +38,32 @@ public class Address extends BaseSelectBean implements Serializable {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < Tel.length(); i++) {
             char c = Tel.charAt(i);
-            if (i>=3 && i<=6){
+            if (i >= 3 && i <= 6) {
                 stringBuilder.append("*");
-            }else {
+            } else {
                 stringBuilder.append(c);
             }
         }
         return stringBuilder.toString();
     }
+
+    public Addr transToAddr() {
+        //"address1,address2,address2, state, city, country, 610100"
+        String[] split = Address.split(",");
+        Addr addr = new Addr();
+        addr.setFirstName(Firstname);
+        addr.setLastName(Lastname);
+        addr.setAddr1(split[0]);
+        addr.setCountry(split[split.length - 2]);
+        addr.setCity(split[split.length - 3]);
+        addr.setState(split[split.length - 4]);
+        addr.setPostcode(split[split.length - 1]);
+        addr.setTel(Tel);
+        addr.setMobile(Tel);
+        return addr;
+    }
+
+    //############# 业务方法 ###############
 
     //本地字段
     private String AccountID;

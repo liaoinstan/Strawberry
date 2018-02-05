@@ -6,9 +6,11 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.ToastUtil;
 import com.liaoinstan.springview.container.AliFooter;
@@ -31,25 +33,37 @@ import com.magicbeans.xgate.net.STFormatCallback;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterAddress;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 import java.util.Map;
 
-public class AddressActivity extends BaseAppCompatActivity {
+public class AddressActivity extends BaseAppCompatActivity implements OnRecycleItemClickListener {
 
 
     private ActivityAddressBinding binding;
     private RecycleAdapterAddress adapter;
+    private boolean forResult;
 
     public static void start(Context context) {
+        start(context, false);
+    }
+
+    public static void startForResult(Context context) {
+        start(context, true);
+    }
+
+    public static void start(Context context, boolean forResult) {
         Intent intent = new Intent(context, AddressActivity.class);
+        intent.putExtra("forResult", forResult);
         context.startActivity(intent);
     }
 
     @Override
     public void onCommonEvent(EventBean event) {
-        switch (event.getEvent()){
+        switch (event.getEvent()) {
             case EventBean.EVENT_REFRESH_ADDRESSLIST:
-                adapter.netGetAddressList(true,true);
+                adapter.netGetAddressList(true, true);
                 break;
         }
     }
@@ -67,6 +81,7 @@ public class AddressActivity extends BaseAppCompatActivity {
     }
 
     private void initBase() {
+        forResult = getIntent().getBooleanExtra("forResult", false);
     }
 
     private void initView() {
@@ -76,6 +91,7 @@ public class AddressActivity extends BaseAppCompatActivity {
         adapter = new RecycleAdapterAddress(this);
         adapter.setLoadingLayout(binding.loadingview);
         adapter.setSpringView(binding.spring);
+        if (forResult) adapter.setOnItemClickListener(this);
         binding.recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         binding.recycler.setAdapter(adapter);
         binding.spring.setHeader(new AliHeader(this, false));
@@ -114,5 +130,14 @@ public class AddressActivity extends BaseAppCompatActivity {
                 AddressAddActivity.start(this);
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
+        Address address = adapter.getResults().get(viewHolder.getLayoutPosition());
+        EventBean eventBean = new EventBean(EventBean.EVENT_GET_ADDRESS);
+        eventBean.put("address", address);
+        EventBus.getDefault().post(eventBean);
+        finish();
     }
 }

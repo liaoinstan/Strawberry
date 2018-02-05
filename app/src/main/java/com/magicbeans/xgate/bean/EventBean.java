@@ -26,6 +26,8 @@ public class EventBean implements Serializable {
     public static final int EVENT_LOGOUT = 0xffa107;
     //刷新地址管理列表
     public static final int EVENT_REFRESH_ADDRESSLIST = 0xffa108;
+    //从地址管理列表获取返回地址对象
+    public static final int EVENT_GET_ADDRESS = 0xffa109;
 
     private int event;
     private Map<String, Object> map = new HashMap<>();

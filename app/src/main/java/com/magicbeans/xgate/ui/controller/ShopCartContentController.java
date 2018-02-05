@@ -115,12 +115,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
             case R.id.btn_go: {
                 final List<ShopCart> selectBeans = adapter.getSelectBeans();
                 if (!StrUtil.isEmpty(selectBeans)) {
-                    DialogSure.showDialog(context, "确定要下单？", new DialogSure.CallBack() {
-                        @Override
-                        public void onSure() {
-                            OrderAddActivity.start(context, selectBeans);
-                        }
-                    });
+                    OrderAddActivity.start(context, selectBeans);
                 } else {
                     ToastUtil.showToastShort("请先选择要购买的商品");
                 }
@@ -139,6 +134,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
                         @Override
                         public void onSure() {
 //                            NetShopCartHelper.getInstance().netBatchDeleteShopCart(context, selectBeans);
+                            //TODO：还没有批量删除的接口
                         }
                     });
                 } else {

@@ -40,7 +40,6 @@ import com.magicbeans.xgate.utils.CipherUtil;
 public class MeFragment extends BaseFragment implements View.OnClickListener {
 
     private int position;
-    private View rootView;
 
     private FragmentMeBinding binding;
     private CommonRecommendController commonRecommendController;
@@ -76,7 +75,6 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_me, container, false);
-        rootView = binding.getRoot();
         return binding.getRoot();
     }
 

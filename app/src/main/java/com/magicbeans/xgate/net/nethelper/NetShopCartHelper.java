@@ -169,9 +169,14 @@ public class NetShopCartHelper {
         NetApi.NI().netGetShopCartList(param).enqueue(new STFormatCallback<ShopCartWrap>(ShopCartWrap.class) {
             @Override
             public void onSuccess(int status, ShopCartWrap shopCartWrap, String msg) {
-                List<ShopCart> shopCarts = shopCartWrap.getProdList();
-                liveData.setValue(shopCarts);
-                LiveData<Integer> liveData = ShopCartTableManager.getInstance().deleteAndUpdate(shopCarts.toArray(new ShopCart[]{}));
+                final List<ShopCart> shopCarts = shopCartWrap.getProdList();
+                LiveData<Integer> retLiveData = ShopCartTableManager.getInstance().deleteAndUpdate(shopCarts.toArray(new ShopCart[]{}));
+                retLiveData.observeForever(new Observer<Integer>() {
+                    @Override
+                    public void onChanged(@Nullable Integer integer) {
+                        liveData.setValue(shopCarts);
+                    }
+                });
             }
 
             @Override

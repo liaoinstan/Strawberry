@@ -36,6 +36,11 @@ public class CipherUtil {
         return urlEncodedData;
     }
 
+    public String encryptRefreshTokenData(String accountId, String deviceId, String deviceType, String time, String token) {
+        String data = accountId + "|" + deviceId + "|" + deviceType + "|" + time + "|" + token;
+        return encryptRefreshTokenData(data);
+    }
+
     public String encryptPassword(String password) {
         Log.d(TAG, TAG + " original password: " + password);
         String randomKey = getRandomKey();

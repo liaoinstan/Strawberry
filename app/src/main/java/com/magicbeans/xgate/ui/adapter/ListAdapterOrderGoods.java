@@ -47,7 +47,7 @@ public class ListAdapterOrderGoods extends BaseAdapter {
         ViewHolder holder = null;
         if (convertView == null) {
             inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(R.layout.item_order_goods, parent, false);
+            convertView = inflater.inflate(R.layout.item_orderdetail_goods, parent, false);
             holder = new ViewHolder();
             holder.img_header = (ImageView) convertView.findViewById(R.id.img_header);
             convertView.setTag(holder);

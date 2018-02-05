@@ -253,6 +253,18 @@ public interface NetInterface {
     @GET("/app/apiUserProfile.aspx")
     Call<ResponseBody> getUserProfile(@QueryMap(encoded = true) Map<String, Object> param);
 
+    /**
+     * 刷新token
+     * deviceId
+     * deviceType
+     * accountID
+     * time
+     * token
+     * encryptData
+     */
+    @GET("/app/refreshToken.aspx")
+    Call<ResponseBody> refreshToken(@QueryMap(encoded = true) Map<String, Object> param);
+
     //##################################################################
     //#########               2018/1/23 购物车
     //##################################################################
@@ -357,4 +369,23 @@ public interface NetInterface {
      */
     @POST("/app/apiPlaceOrder.aspx?ID=xGate")
     Call<ResponseBody> netAddOrder(@Body RequestBody requestBody);
+
+    /**
+     * 获取订单列表
+     */
+//    @POST("https://secure.strawberrynet.com/app/ajaxOrderSummary.aspx")
+    @POST("/app/ajaxOrderSummary.aspx")
+    Call<ResponseBody> netOrderHistory(@QueryMap(encoded = true) Map<String, Object> param);
+
+    /**
+     * 获取订单详情
+     */
+    @POST("https://secure.strawberrynet.com/app/ajaxOrderDetails.aspx")
+    Call<ResponseBody> netOrderDetail(@QueryMap(encoded = true) Map<String, Object> param);
+
+    /**
+     * adyen checkout
+     */
+    @POST("/RedirectmWeChat.aspx")
+    Call<ResponseBody> adyenPaySetup(@QueryMap Map<String, Object> param);
 }
