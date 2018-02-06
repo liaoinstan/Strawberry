@@ -32,10 +32,12 @@ import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.net.STFormatCallback;
+import com.magicbeans.xgate.ui.activity.OrderDetailActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterOrder;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -123,40 +125,34 @@ public class OrderFragment extends BaseFragment implements OnRecycleItemClickLis
     }
 
     private void initData() {
-//        adapter.getResults().clear();
-//        adapter.getResults().add(new Order(new ArrayList<Product>() {{
-//            add(new Product());
-//        }}));
-//        adapter.getResults().add(new Order(new ArrayList<Product>() {{
-//            add(new Product());
-//            add(new Product());
-//        }}));
-//        adapter.getResults().add(new Order(new ArrayList<Product>() {{
-//            add(new Product());
-//            add(new Product());
-//            add(new Product());
-//            add(new Product());
-//        }}));
-//        adapter.getResults().add(new Order(new ArrayList<Product>() {{
-//            add(new Product());
-//        }}));
-//        adapter.getResults().add(new Order(new ArrayList<Product>() {{
-//            add(new Product());
-//            add(new Product());
-//            add(new Product());
-//            add(new Product());
-//            add(new Product());
-//            add(new Product());
-//        }}));
-//        adapter.notifyDataSetChanged();
         netOrderHistory();
     }
 
     @Override
     public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
+        Order order = adapter.getResults().get(viewHolder.getLayoutPosition());
+        OrderDetailActivity.start(getContext(), order.getSOID());
     }
 
-    //添加购物车
+    //把不是该分类下的订单移除
+    private void convertOrders(List<Order> orders) {
+        if (StrUtil.isEmpty(orders)) return;
+        Iterator<Order> iterator = orders.iterator();
+        while (iterator.hasNext()) {
+            Order order = iterator.next();
+            if (position == 0) {
+                //全部
+                continue;
+            } else if (order.getOrderStatusId().equals("18") && position == 1) {
+                //等待付款
+                continue;
+            } else {
+                iterator.remove();
+            }
+        }
+    }
+
+    //订单历史
     public void netOrderHistory() {
         binding.loadingLayout.showLoadingView();
         Map<String, Object> param = new NetParam()
@@ -167,8 +163,8 @@ public class OrderFragment extends BaseFragment implements OnRecycleItemClickLis
             @Override
             public void onSuccess(int status, OrderWrap wrap, String msg) {
                 if (wrap.getResponseCode() == 0) {
-                    wrap.convert();
                     List<Order> orders = wrap.getOrders();
+                    convertOrders(orders);
                     if (!StrUtil.isEmpty(orders)) {
                         adapter.getResults().clear();
                         adapter.getResults().addAll(orders);

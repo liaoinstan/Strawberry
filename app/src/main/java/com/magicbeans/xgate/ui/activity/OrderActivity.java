@@ -73,7 +73,9 @@ public class OrderActivity extends BaseAppCompatActivity {
     private void initCtrl() {
         adapterPager = new PagerAdapterOrder(getSupportFragmentManager(), titles);
         binding.pager.setAdapter(adapterPager);
-        binding.tab.setupWithViewPager(binding.pager);
+//        binding.tab.setupWithViewPager(binding.pager);
+        binding.tab.setViewPager(binding.pager);
+
 
         binding.pager.setCurrentItem(position, false);
     }

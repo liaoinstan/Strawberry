@@ -373,14 +373,14 @@ public interface NetInterface {
     /**
      * 获取订单列表
      */
-//    @POST("https://secure.strawberrynet.com/app/ajaxOrderSummary.aspx")
-    @POST("/app/ajaxOrderSummary.aspx")
+    //@POST("/app/ajaxOrderSummary.aspx")   // 原来的接口不适合移动端的设计，使用下面新的api
+    @POST("/app/apiOrderSummaryNew.aspx")
     Call<ResponseBody> netOrderHistory(@QueryMap(encoded = true) Map<String, Object> param);
 
     /**
      * 获取订单详情
      */
-    @POST("https://secure.strawberrynet.com/app/ajaxOrderDetails.aspx")
+    @POST("app/ajaxOrderDetails.aspx")
     Call<ResponseBody> netOrderDetail(@QueryMap(encoded = true) Map<String, Object> param);
 
     /**

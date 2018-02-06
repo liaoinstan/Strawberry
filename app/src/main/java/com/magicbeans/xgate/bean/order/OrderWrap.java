@@ -15,18 +15,11 @@ public class OrderWrap implements Serializable {
     private int ResponseCode;
     private String responseMsg;
     private List<Order> Orders;
+    //推荐商品列表
     private List<Product> ProductList;
 
     /////////////////// 业务方法 /////////////////////
 
-    //转换数据结构
-    public void convert() {
-        if (!StrUtil.isEmpty(Orders)) {
-            for (Order order : Orders) {
-                order.setProductList(ProductList);
-            }
-        }
-    }
 
     /////////////////// 业务方法 /////////////////////
 

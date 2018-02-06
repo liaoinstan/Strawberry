@@ -12,6 +12,8 @@ import com.ins.common.helper.CropHelperEx;
 import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.TimeUtil;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.user.User;
+import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.databinding.ActivityMedetailBinding;
 import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
@@ -58,6 +60,11 @@ public class MeDetailActivity extends BaseAppCompatActivity implements CropHelpe
     }
 
     private void initData() {
+        User user = AppData.App.getUser();
+        if (user != null) {
+            binding.textMedetailNick.setText("你好");
+            GlideUtil.loadCircleImg(binding.imgMedetailHeader, R.drawable.default_header, user.getHeadImageURL());
+        }
     }
 
     public void onClick(View v) {

@@ -39,6 +39,7 @@ public class User implements Serializable {
     private String MonthOfBirthday;
     private String YearOfBirthday;
     private String Email;
+    private String headImageURL;
 //    private int Location;
     private String langId;
 //    private int Currency;
@@ -46,9 +47,6 @@ public class User implements Serializable {
     private String token;
     private String Mobile;
     private String LastName;
-
-    //本地字段
-    private String avator;
     //请求失败改字段会返回错误码
     private String responseCode;
     //请求失败改字段会返回错误msg
@@ -78,12 +76,12 @@ public class User implements Serializable {
         FirstName = firstName;
     }
 
-    public String getAvator() {
-        return avator;
+    public String getHeadImageURL() {
+        return headImageURL;
     }
 
-    public void setAvator(String avator) {
-        this.avator = avator;
+    public void setHeadImageURL(String headImageURL) {
+        this.headImageURL = headImageURL;
     }
 
     public String getSurname() {

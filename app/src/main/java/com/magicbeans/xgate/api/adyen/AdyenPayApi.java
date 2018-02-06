@@ -1,9 +1,8 @@
 package com.magicbeans.xgate.api.adyen;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.adyen.core.PaymentRequest;
@@ -14,17 +13,12 @@ import com.adyen.core.models.Payment;
 import com.adyen.core.models.PaymentRequestResult;
 import com.adyen.core.utils.AsyncHttpClient;
 import com.ins.common.utils.ToastUtil;
-import com.magicbeans.xgate.bean.user.User;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
-import com.magicbeans.xgate.net.STCallback;
-import com.magicbeans.xgate.net.nethelper.NetTokenHelper;
-import com.magicbeans.xgate.ui.activity.PayTestActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Locale;
@@ -54,7 +48,7 @@ public class AdyenPayApi {
     private String merchantApiSecretKey = "0101408667EE5CD5932B441CFA2483867639B0E69E5A995423965E7B6A5B8B6CAE8D7206ADD36411D16303257317FEFDD7A4BE2403A31C396DE18F6C0898682F20228C10C15D5B0DBEE47CDCB5588C48224C6007";
     private String merchantApiHeaderKeyForApiSecretKey = "x-demo-server-api-key";
 
-    private void pay(final String soId, final float payAmount, final String email) {
+    public void pay(final String soId, final float payAmount, final String email) {
         PaymentRequest paymentRequest = new PaymentRequest(context, new PaymentRequestListener() {
             @Override
             public void onPaymentDataRequested(@NonNull final PaymentRequest paymentRequest, @NonNull String sdkToken, @NonNull final PaymentDataCallback callback) {
@@ -70,6 +64,12 @@ public class AdyenPayApi {
                             ResponseBody body = response.body();
                             if (body == null) {
                                 ToastUtil.showToastShort("服務器异常：" + response.code());
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        paymentRequest.cancel();
+                                    }
+                                }, 2000);
                             } else {
                                 callback.completionWithPaymentData(body.bytes());
                             }
@@ -94,10 +94,10 @@ public class AdyenPayApi {
                 if (paymentRequestResult.isProcessed() && (
                         paymentRequestResult.getPayment().getPaymentStatus() == Payment.PaymentStatus.AUTHORISED
                                 || paymentRequestResult.getPayment().getPaymentStatus() == Payment.PaymentStatus.RECEIVED)) {
-                    ToastUtil.showToastShort("onPaymentResult onSuccess");
+                    ToastUtil.showToastShort("onPaymentResult 成功");
                     verifyPayment(paymentRequestResult.getPayment());
                 } else {
-                    ToastUtil.showToastShort("onPaymentResult onFailure");
+                    ToastUtil.showToastShort("onPaymentResult 失败");
                     if (paymentRequestResult.getError() != null) {
                         paymentRequestResult.getError().printStackTrace();
                     }

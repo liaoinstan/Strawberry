@@ -248,6 +248,8 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
             public void onSuccess(int status, CommonEntity com, String msg) {
                 ToastUtil.showToastShort("下单成功");
                 dismissLoadingDialog();
+                finish();
+                PayTestPaypalActivity.start(OrderAddActivity.this);
             }
 
             @Override

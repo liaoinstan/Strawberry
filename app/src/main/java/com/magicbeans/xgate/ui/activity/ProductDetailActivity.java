@@ -34,6 +34,8 @@ import com.magicbeans.xgate.ui.controller.ProductDetailNameBoradController;
 import com.magicbeans.xgate.ui.controller.ToolbarProdDetailController;
 import com.magicbeans.xgate.ui.dialog.DialogBottomProductAttr;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Map;
 
 public class ProductDetailActivity extends BaseAppCompatActivity {
@@ -174,8 +176,9 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
                 productDetail.setProdID(prodId);
                 ProductDetailActivity.this.productDetail = productDetail;
                 setData(productDetail);
-                //获取到商品详情，即表示该商品已经浏览过了，加入浏览记录中
+                //获取到商品详情，即表示该商品已经浏览过了，加入浏览记录中，并通知个人中心页面刷新总数
                 HistoryTableManager.getInstance().insert(productDetail.trans2Product());
+                EventBus.getDefault().post(new EventBean(EventBean.EVENT_ME_HISTORY_COUNT));
                 dismissLoadingDialog();
             }
 

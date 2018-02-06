@@ -5,13 +5,14 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.ClearCacheUtil;
+import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
+import com.magicbeans.xgate.bean.user.User;
 import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.databinding.ActivitySettingBinding;
 import com.magicbeans.xgate.helper.AppHelper;
@@ -61,6 +62,12 @@ public class SettingActivity extends BaseAppCompatActivity implements View.OnCli
     }
 
     private void initData() {
+        User user = AppData.App.getUser();
+        if (user != null) {
+            binding.textName.setText("你好");
+            binding.textSign.setText(user.getNickname());
+            GlideUtil.loadCircleImg(binding.imgMeHeader, R.drawable.default_header, user.getHeadImageURL());
+        }
     }
 
     @Override
@@ -117,7 +124,7 @@ public class SettingActivity extends BaseAppCompatActivity implements View.OnCli
                 });
                 break;
             case R.id.text_test_adyen:
-                PayTestActivity.start(this);
+                PayTestAdyenActivity.start(this);
                 break;
         }
     }

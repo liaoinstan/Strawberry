@@ -19,6 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@color/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
                 <TextView
@@ -32,15 +33,33 @@
 
             </android.support.v7.widget.Toolbar>
 
-            <android.support.design.widget.TabLayout
+            <!--<android.support.design.widget.TabLayout-->
+            <!--android:id="@+id/tab"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:background="@color/white"-->
+            <!--app:tabIndicatorColor="@color/com_blue"-->
+            <!--app:tabIndicatorHeight="1dp"-->
+            <!--app:tabSelectedTextColor="@color/com_blue"-->
+            <!--app:tabTextColor="@color/com_text_dark" />-->
+            <!--使用SmartTabLayout代替TabLayout，TabLayout不好自定义-->
+
+            <com.ogaclejapan.smarttablayout.SmartTabLayout
                 android:id="@+id/tab"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/white"
-                app:tabIndicatorColor="@color/com_blue"
-                app:tabIndicatorHeight="1dp"
-                app:tabSelectedTextColor="@color/com_blue"
-                app:tabTextColor="@color/com_text_dark" />
+                app:stl_customTabTextLayoutId="@layout/tab_text_red_dark"
+                app:stl_customTabTextViewId="@id/custom_text"
+                app:stl_distributeEvenly="true"
+                app:stl_dividerThickness="0dp"
+                app:stl_indicatorColor="@color/st_red"
+                app:stl_indicatorCornerRadius="0dp"
+                app:stl_indicatorInterpolation="smart"
+                app:stl_indicatorThickness="3dp"
+                app:stl_underlineColor="@color/com_line"
+                app:stl_underlineThickness="1px" />
+
 
         </android.support.design.widget.AppBarLayout>
 

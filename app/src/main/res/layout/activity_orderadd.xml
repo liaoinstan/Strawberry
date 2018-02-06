@@ -129,8 +129,8 @@
                         <ProgressBar
                             android:id="@+id/progress"
                             android:layout_width="30dp"
-                            android:layout_gravity="center"
-                            android:layout_height="30dp"/>
+                            android:layout_height="30dp"
+                            android:layout_gravity="center" />
 
                     </FrameLayout>
 
@@ -355,7 +355,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:background="@color/white"
+                    android:background="@drawable/shape_rect_gradient_while_dark"
                     android:gravity="right"
                     android:orientation="horizontal">
 

@@ -1,5 +1,7 @@
 package com.magicbeans.xgate.ui.fragment;
 
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,24 +16,22 @@ import com.ins.common.helper.ToobarTansColorHelper;
 import com.ins.common.utils.DensityUtil;
 import com.ins.common.utils.FocusUtil;
 import com.ins.common.utils.GlideUtil;
-import com.ins.common.utils.L;
 import com.ins.common.view.ObservableNestedScrollView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.Order;
 import com.magicbeans.xgate.bean.user.User;
 import com.magicbeans.xgate.common.AppData;
+import com.magicbeans.xgate.data.db.manager.HistoryTableManager;
 import com.magicbeans.xgate.databinding.FragmentMeBinding;
 import com.magicbeans.xgate.ui.activity.FavoActivity;
 import com.magicbeans.xgate.ui.activity.HistoryActivity;
 import com.magicbeans.xgate.ui.activity.MeDetailActivity;
 import com.magicbeans.xgate.ui.activity.MsgSettingActivity;
 import com.magicbeans.xgate.ui.activity.OrderActivity;
-import com.magicbeans.xgate.ui.activity.PayTestActivity;
 import com.magicbeans.xgate.ui.activity.SettingActivity;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.ui.controller.CommonRecommendController;
-import com.magicbeans.xgate.utils.CipherUtil;
 
 
 /**
@@ -60,6 +60,9 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case EventBean.EVENT_LOGOUT:
                 setUserData();
+                break;
+            case EventBean.EVENT_ME_HISTORY_COUNT:
+                setHistoryCount();
                 break;
         }
     }
@@ -120,6 +123,17 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
 
     private void initData() {
         setUserData();
+        setHistoryCount();
+    }
+
+    private void setHistoryCount() {
+        MutableLiveData<Integer> count = HistoryTableManager.getInstance().count();
+        count.observeForever(new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                binding.textHistoryCount.setText(integer + "");
+            }
+        });
     }
 
     private void initCtrl() {
@@ -141,7 +155,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         User user = AppData.App.getUser();
         if (user != null) {
             //已登录
-            GlideUtil.loadCircleImg(binding.imgMeHeader, R.drawable.header_default, user.getAvator());
+            GlideUtil.loadCircleImg(binding.imgMeHeader, R.drawable.header_default, user.getHeadImageURL());
             binding.textMeName.setText(!TextUtils.isEmpty(user.getNickname()) ? user.getNickname() : "欢迎");
         } else {
             //未登录

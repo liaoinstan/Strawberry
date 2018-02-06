@@ -96,8 +96,14 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
 
     @Override
     public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
-        ShopCart shopCart = adapter.getResults().get(viewHolder.getLayoutPosition());
-        ProductDetailActivity.start(context, shopCart.getProdID());
+        if (isEdit()) {
+            //编辑模式下点击商品，改变选择状态
+            adapter.selectItem(viewHolder.getLayoutPosition());
+        } else {
+            //非编辑模式下点击商品，进入详情
+            ShopCart shopCart = adapter.getResults().get(viewHolder.getLayoutPosition());
+            ProductDetailActivity.start(context, shopCart.getProdID());
+        }
     }
 
     @Override
@@ -160,6 +166,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
         });
     }
 
+    //设置当前UI状态为编辑状态，或者普通状态
     public void setEditModel(boolean isEdit) {
         if (isEdit) {
             binding.includeBottombar.layEdit.setVisibility(View.VISIBLE);

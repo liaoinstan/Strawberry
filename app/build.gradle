@@ -141,10 +141,13 @@ dependencies {
     //RxJava & RxAndroid
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.1.8'
-
+    //代替tablayout
+    compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
     //adyen 支付集成
     compile 'com.adyen.checkout:core:1.14.1'
     compile 'com.adyen.checkout:utils:1.14.1'
     compile 'com.adyen.checkout:ui:1.14.1'
     compile 'com.adyen.checkout:cardscan:1.14.1'
+    //paypal支付集成
+    compile 'com.braintreepayments.api:drop-in:3.+'
 }

@@ -58,11 +58,7 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
         holder.binding.includeCoutent.imgShopbagCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShopCart bean = results.get(holder.getLayoutPosition());
-                bean.setSelect(!bean.isSelect());
-                ShopCartTableManager.getInstance().update(bean);
-                notifyItemChanged(holder.getLayoutPosition());
-                if (onSelectChangeListenner != null) onSelectChangeListenner.onSelectChange();
+                selectItem(holder.getLayoutPosition());
             }
         });
         holder.binding.includeCoutent.countview.setOnCountChangeListenner(new CountView.OnCountChangeListenner() {
@@ -73,7 +69,7 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
                     bean.setQty(count);
                     NetShopCartHelper.getInstance().netUpdateShopCart(context, bean.getProdID(), count);
                     return false;
-                }else {
+                } else {
                     //拦截数据变化，在服务器成功更新后再改变数量
                     return true;
                 }
@@ -140,6 +136,15 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
                 loadingLayout.showLackView();
             }
         }
+    }
+
+    //选中某个item，会触发选择事件
+    public void selectItem(int position) {
+        ShopCart bean = results.get(position);
+        bean.setSelect(!bean.isSelect());
+        ShopCartTableManager.getInstance().update(bean);
+        notifyItemChanged(position);
+        if (onSelectChangeListenner != null) onSelectChangeListenner.onSelectChange();
     }
 
     public List<ShopCart> getSelectBeans() {

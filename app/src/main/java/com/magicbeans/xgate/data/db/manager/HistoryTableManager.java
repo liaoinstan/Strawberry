@@ -90,4 +90,23 @@ public class HistoryTableManager extends BaseTableManager<HistoryTable> {
     public void delete(final Product... beans) {
         delete(HistoryTable.beans2wraps(beans));
     }
+
+    public MutableLiveData<Integer> count() {
+        final MutableLiveData<Integer> resultsLiveData = new MediatorLiveData<>();
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                int count = AppDataBase.getInstance().historyTableDao().count();
+                e.onNext(count);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer results) throws Exception {
+                        resultsLiveData.setValue(results);
+                    }
+                });
+        return resultsLiveData;
+    }
 }

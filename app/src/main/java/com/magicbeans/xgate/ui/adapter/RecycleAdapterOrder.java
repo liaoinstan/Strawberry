@@ -18,6 +18,7 @@ import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Order;
 import com.magicbeans.xgate.databinding.ItemOrderBinding;
 import com.magicbeans.xgate.helper.AppHelper;
+import com.magicbeans.xgate.ui.activity.PayTestPaypalActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,13 +51,19 @@ public class RecycleAdapterOrder extends RecyclerView.Adapter<RecycleAdapterOrde
                 if (listener != null) listener.onItemClick(holder, position);
             }
         });
+        holder.binding.btnPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PayTestPaypalActivity.start(context);
+            }
+        });
 
-        holder.binding.textCount.setText("共" + order.getProductList().size() + "件商品 实付款");
+        holder.binding.textCount.setText("共" + order.getItemList().size() + "件商品 实付款");
         holder.binding.textPrice.setText(AppHelper.getPriceSymbol("") + order.getNetAmount());
         holder.binding.textStatus.setText(order.getOrderStatus());
 
         holder.adapter.getResults().clear();
-        holder.adapter.getResults().addAll(order.getProductList());
+        holder.adapter.getResults().addAll(order.getItemList());
         holder.adapter.notifyDataSetChanged();
     }
 

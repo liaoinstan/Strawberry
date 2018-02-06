@@ -16,15 +16,8 @@ import com.adyen.core.interfaces.PaymentRequestListener;
 import com.adyen.core.models.Payment;
 import com.adyen.core.models.PaymentRequestResult;
 import com.adyen.core.utils.AsyncHttpClient;
-import com.google.gson.Gson;
-import com.ins.common.utils.L;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.common.CommonEntity;
-import com.magicbeans.xgate.net.NetApi;
-import com.magicbeans.xgate.net.NetParam;
-import com.magicbeans.xgate.net.STCallback;
-import com.magicbeans.xgate.net.STFormatCallback;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
 import org.json.JSONException;
@@ -35,20 +28,17 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-
-public class PayTestActivity extends BaseAppCompatActivity implements View.OnClickListener {
+public class PayTestAdyenActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
     public static void start(Context context) {
-        Intent intent = new Intent(context, PayTestActivity.class);
+        Intent intent = new Intent(context, PayTestAdyenActivity.class);
         context.startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_paytest);
+        setContentView(R.layout.activity_paytest_adyen);
         setToolbar();
         initBase();
         initView();
@@ -183,12 +173,12 @@ public class PayTestActivity extends BaseAppCompatActivity implements View.OnCli
                     e.printStackTrace();
                     resultString = "Failed to verify payment.";
                 }
-                Toast.makeText(PayTestActivity.this, resultString, Toast.LENGTH_LONG).show();
+                Toast.makeText(PayTestAdyenActivity.this, resultString, Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(final Throwable e) {
-                Toast.makeText(PayTestActivity.this, resultString, Toast.LENGTH_LONG).show();
+                Toast.makeText(PayTestAdyenActivity.this, resultString, Toast.LENGTH_LONG).show();
             }
         });
     }

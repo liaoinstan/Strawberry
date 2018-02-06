@@ -22,6 +22,7 @@ import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.databinding.ItemOrderBinding;
 import com.magicbeans.xgate.databinding.ItemOrderGoodsBinding;
 import com.magicbeans.xgate.databinding.ItemSaleProductListBinding;
+import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public class RecycleAdapterOrderGoods extends RecyclerView.Adapter<RecycleAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listener != null) listener.onItemClick(holder, position);
+                ProductDetailActivity.start(context, product.getProdID());
             }
         });
         GlideUtil.loadImg(holder.binding.imgHeader, product.getProductImages().getImg350Src());
@@ -58,7 +59,7 @@ public class RecycleAdapterOrderGoods extends RecyclerView.Adapter<RecycleAdapte
         if (getItemCount() == 1) {
             holder.binding.getRoot().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
             holder.binding.textName.setVisibility(View.VISIBLE);
-            holder.binding.textName.setText("商品名称非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长");
+            holder.binding.textName.setText(product.getProdLangName() + product.getProdLangSize());
         } else if (getItemCount() > 1) {
             holder.binding.getRoot().getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
             holder.binding.textName.setVisibility(View.GONE);
@@ -78,11 +79,4 @@ public class RecycleAdapterOrderGoods extends RecyclerView.Adapter<RecycleAdapte
             this.binding = binding;
         }
     }
-
-    private OnRecycleItemClickListener listener;
-
-    public void setOnItemClickListener(OnRecycleItemClickListener listener) {
-        this.listener = listener;
-    }
-
 }

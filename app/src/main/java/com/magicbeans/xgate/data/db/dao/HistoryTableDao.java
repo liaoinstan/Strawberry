@@ -37,4 +37,7 @@ public interface HistoryTableDao extends BaseTableDao<HistoryTable>{
 
     @Query("DELETE FROM HistoryTable")
     void deleteAll();
+
+    @Query("SELECT count(1) FROM HistoryTable")
+    int count();
 }
