@@ -6,12 +6,14 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 
 import com.ins.common.helper.ValiHelper;
 import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
+import com.magicbeans.xgate.bean.address.Address;
 import com.magicbeans.xgate.bean.address.AddressWrap;
 import com.magicbeans.xgate.bean.common.CommonEntity;
 import com.magicbeans.xgate.bean.user.Token;
@@ -21,6 +23,7 @@ import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
+import com.magicbeans.xgate.net.nethelper.NetAddressHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,9 +38,17 @@ public class AddressAddActivity extends BaseAppCompatActivity implements View.On
     private ArrayAdapter adapterCity;
     private ArrayAdapter adapterDistrict;
 
+    private Address address;
+
     public static void start(Context context) {
+        start(context, null);
+    }
+
+    //如果有address参数，表示对已有地址进行修改，否则新增
+    public static void start(Context context, Address address) {
         if (AppHelper.User.isLogin()) {
             Intent intent = new Intent(context, AddressAddActivity.class);
+            intent.putExtra("address", address);
             context.startActivity(intent);
         } else {
             LoginActivity.start(context);
@@ -56,6 +67,7 @@ public class AddressAddActivity extends BaseAppCompatActivity implements View.On
     }
 
     private void initBase() {
+        address = (Address) getIntent().getSerializableExtra("address");
     }
 
     private void initView() {
@@ -75,6 +87,13 @@ public class AddressAddActivity extends BaseAppCompatActivity implements View.On
         binding.spinnerDistrict.setAdapter(adapterDistrict);
 
         binding.btnGo.setOnClickListener(this);
+
+        binding.swichDefault.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                ToastUtil.showToastShort("目前API接口暂时没有此功能，暂且请在添加后手动设置");
+            }
+        });
     }
 
     private void initData() {
@@ -102,6 +121,16 @@ public class AddressAddActivity extends BaseAppCompatActivity implements View.On
         adapterDistrict.add("天府新区");
         adapterDistrict.add("tianhequ");
         adapterDistrict.notifyDataSetChanged();
+
+        setAddressData();
+    }
+
+    private void setAddressData() {
+        if (address != null) {
+            binding.editName.setText(address.getAddressNickName());
+            binding.editPhone.setText(address.getTel());
+            binding.editAddress.setText(address.getAddress().split(",")[0]);//这个数据结构还要和后台商讨下，目前暂时这样
+        }
     }
 
     @Override
@@ -124,43 +153,22 @@ public class AddressAddActivity extends BaseAppCompatActivity implements View.On
         }
     }
 
-    //删除地址
-    public void netAddAddress(boolean isBillAddr, String addrNickname, String tel, String country, String city, String state, String address) {
+    //新增地址
+    public void netAddAddress(final boolean isBillAddr, String addrNickname, String tel, String country, String city, String state, String address) {
         showLoadingDialog();
-        Map<String, Object> param = new NetParam()
-                .put("AccountID", Token.getLocalAccountId())
-                .put("token", Token.getLocalToken())
-                .put("addrtype", isBillAddr ? 1 : 2)
-                .put("addrNickname", addrNickname)
-                .put("firstname", "liaoinstan")//TODO:UI与接口不匹配
-                .put("lastname", "albert")//TODO:UI与接口不匹配
-                .put("tel", tel)
-                .put("address1", address)
-                .put("state", state)
-                .put("city", city)
-                .put("country", country)
-                .put("postcode", "610100")//TODO:目前UI与接口不匹配，UI上没有邮政编码，但是接口比传，暂时写个默认的，这个问题需要反馈给后台
-                .build();
-        NetApi.NI().netAddAddress(param).enqueue(new STCallback<CommonEntity>(CommonEntity.class) {
+        NetAddressHelper.getInstance().netAddAddress(isBillAddr, addrNickname, tel, country, city, state, address, new NetAddressHelper.OnAddressSimpleCallback() {
             @Override
-            public void onSuccess(int status, CommonEntity com, String msg) {
-                if (com.getReponseCode() == 0) {
-                    ToastUtil.showToastShort("添加成功");
-                    EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_ADDRESSLIST));
-                    finish();
-                } else {
-                    ToastUtil.showToastShort(msg);
-                }
-                dismissLoadingDialog();
+            public void onSuccess() {
+                ToastUtil.showToastShort("添加成功");
+                EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_ADDRESSLIST));
+                finish();
             }
 
             @Override
-            public void onError(int status, String msg) {
+            public void onError(String msg) {
                 ToastUtil.showToastShort(msg);
                 dismissLoadingDialog();
             }
         });
     }
-
-
 }

@@ -25,17 +25,14 @@ import java.util.Map;
  * Created by Administrator on 2017/10/11.
  */
 
-public class ProductDetailEvaController implements View.OnClickListener {
+public class ProductDetailEvaController extends BaseController<LayProductdetailEvaBinding> implements View.OnClickListener {
 
-    private Context context;
-    private LayProductdetailEvaBinding binding;
     private RecycleAdapterEva adapter;
     private String prodId;
 
-    public ProductDetailEvaController(LayProductdetailEvaBinding binding,String prodId) {
+    public ProductDetailEvaController(LayProductdetailEvaBinding binding, String prodId) {
+        super(binding);
         this.prodId = prodId;
-        this.binding = binding;
-        this.context = binding.getRoot().getContext();
         initCtrl();
         initData();
     }
@@ -50,7 +47,7 @@ public class ProductDetailEvaController implements View.OnClickListener {
         binding.btnMore.setOnClickListener(this);
     }
 
-    private void initData(){
+    private void initData() {
         netProductReview(prodId);
     }
 
@@ -61,10 +58,6 @@ public class ProductDetailEvaController implements View.OnClickListener {
                 EvaListActivity.start(context, prodId);
                 break;
         }
-    }
-
-    public View getRootView(){
-        return binding.getRoot();
     }
 
     private void netProductReview(String prodId) {
@@ -78,7 +71,7 @@ public class ProductDetailEvaController implements View.OnClickListener {
                 List<Eva> evas = bean.getProducts();
                 if (!StrUtil.isEmpty(evas)) {
                     adapter.getResults().clear();
-                    adapter.getResults().addAll(ListUtil.getFirst(evas,5));
+                    adapter.getResults().addAll(ListUtil.getFirst(evas, 5));
                     adapter.notifyDataSetChanged();
 
                     binding.btnMore.setText("查看全部评价" + bean.getTotal() + "个");

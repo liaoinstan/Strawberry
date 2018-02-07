@@ -26,7 +26,6 @@ public class NetParam {
     }
 
     public NetParam() {
-        paramMap.put("region", "cn");
     }
 
     //添加参数
@@ -45,7 +44,6 @@ public class NetParam {
 
     //构建参数集合
     public Map<String, Object> build() {
-        //pritParam();
         return paramMap;
     }
 
@@ -61,7 +59,7 @@ public class NetParam {
 
     //构造一个RequestBody
     public static RequestBody buildJsonRequestBody(Object o) {
-        return RequestBody.create(MediaType.parse("application/json"), new Gson().toJson(o));
+        return RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(o));
     }
 
     //测试方法，打印出参数

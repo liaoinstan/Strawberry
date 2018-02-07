@@ -6,10 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.ins.common.helper.SelectHelper;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.StrUtil;
@@ -25,10 +22,10 @@ import com.magicbeans.xgate.databinding.ItemAddressBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
+import com.magicbeans.xgate.net.nethelper.NetAddressHelper;
+import com.magicbeans.xgate.ui.activity.AddressAddActivity;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
-import com.magicbeans.xgate.ui.dialog.DialogLoading;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +63,7 @@ public class RecycleAdapterAddress extends RecyclerView.Adapter<RecycleAdapterAd
         holder.binding.imgItemAddressEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showToastShort("建设中");
+                AddressAddActivity.start(context, address);
             }
         });
         holder.binding.textItemAddressDel.setOnClickListener(new View.OnClickListener() {
@@ -159,15 +156,9 @@ public class RecycleAdapterAddress extends RecyclerView.Adapter<RecycleAdapterAd
     //获取地址列表
     public void netGetAddressList(boolean isBillAddr, final boolean needLoading) {
         if (needLoading) showLoadingDialog();
-        Map<String, Object> param = new NetParam()
-                .put("addrtype", isBillAddr ? 1 : 2)    //addrtype 1: Billing Address 2: Delivery Address
-                .put("AccountID", Token.getLocalAccountId())
-                .put("token", Token.getLocalToken())
-                .build();
-        NetApi.NI().netGetAddressList(param).enqueue(new STCallback<AddressWrap>(AddressWrap.class) {
+        NetAddressHelper.getInstance().netGetAddressList(isBillAddr, new NetAddressHelper.OnAddressListCallback() {
             @Override
-            public void onSuccess(int status, AddressWrap wrap, String msg) {
-                List<Address> addressList = wrap.getAddresses();
+            public void onSuccess(List<Address> addressList) {
                 if (!StrUtil.isEmpty(addressList)) {
                     results.clear();
                     results.addAll(addressList);
@@ -181,7 +172,7 @@ public class RecycleAdapterAddress extends RecyclerView.Adapter<RecycleAdapterAd
             }
 
             @Override
-            public void onError(int status, String msg) {
+            public void onError(String msg) {
                 ToastUtil.showToastShort(msg);
                 if (springView != null) springView.onFinishFreshAndLoad();
                 if (needLoading) dismissLoadingDialog();
@@ -192,31 +183,22 @@ public class RecycleAdapterAddress extends RecyclerView.Adapter<RecycleAdapterAd
     //删除地址
     public void netDeleteAddress(final String addressId) {
         showLoadingDialog();
-        Map<String, Object> param = new NetParam()
-                .put("AccountID", Token.getLocalAccountId())
-                .put("token", Token.getLocalToken())
-                .put("AddId", addressId)
-                .build();
-        NetApi.NI().netDeleteAddress(param).enqueue(new STCallback<CommonEntity>(CommonEntity.class) {
+        NetAddressHelper.getInstance().netDeleteAddress(addressId, new NetAddressHelper.OnAddressSimpleCallback() {
             @Override
-            public void onSuccess(int status, CommonEntity com, String msg) {
-                if (com.getReponseCode() == 5) {
-                    //更新列表
-                    AddressWrap.removeById(results, addressId);
-                    if (!StrUtil.isEmpty(results)) {
-                        if (loadingLayout != null) loadingLayout.showOut();
-                    } else {
-                        if (loadingLayout != null) loadingLayout.showLackView();
-                    }
-                    notifyDataSetChanged();
+            public void onSuccess() {
+                //更新列表
+                AddressWrap.removeById(results, addressId);
+                if (!StrUtil.isEmpty(results)) {
+                    if (loadingLayout != null) loadingLayout.showOut();
                 } else {
-                    ToastUtil.showToastShort(msg);
+                    if (loadingLayout != null) loadingLayout.showLackView();
                 }
+                notifyDataSetChanged();
                 dismissLoadingDialog();
             }
 
             @Override
-            public void onError(int status, String msg) {
+            public void onError(String msg) {
                 ToastUtil.showToastShort(msg);
                 dismissLoadingDialog();
             }
@@ -231,32 +213,15 @@ public class RecycleAdapterAddress extends RecyclerView.Adapter<RecycleAdapterAd
         setDefaultAddress(addressId);
         notifyDataSetChanged();
         //发起请求
-        Map<String, Object> param = new NetParam()
-                .put("AccountID", Token.getLocalAccountId())
-                .put("token", Token.getLocalToken())
-                .put("AddId", addressId)
-                .put("addrtype", isBillAddr ? 1 : 2)
-                .put("action", isBillAddr ? "SETDEFB" : "SETDEFS")
-                .build();
-        NetApi.NI().netSetDefaultAddress(param).enqueue(new STCallback<CommonEntity>(CommonEntity.class) {
+        NetAddressHelper.getInstance().netSetDefaultAddress(isBillAddr, addressId, new NetAddressHelper.OnAddressSimpleCallback() {
             @Override
-            public void onSuccess(int status, CommonEntity com, String msg) {
-                if (com.getReponseCode() == 6 || com.getReponseCode() == 7) {
-                    //设置成功
-                    ToastUtil.showToastShort("设置默认地址成功");
-                } else {
-                    //设置失败，回滚到上次的默认地址
-                    if (lastSelectAddress != null) {
-                        setDefaultAddress(lastSelectAddress.getAddressID());
-                        notifyDataSetChanged();
-                    }
-                    ToastUtil.showToastShort(msg);
-                }
+            public void onSuccess() {
+                //设置成功
+                ToastUtil.showToastShort("设置默认地址成功");
             }
 
             @Override
-            public void onError(int status, String msg) {
-                //设置失败，回滚到上次的默认地址
+            public void onError(String msg) {
                 if (lastSelectAddress != null) {
                     setDefaultAddress(lastSelectAddress.getAddressID());
                     notifyDataSetChanged();

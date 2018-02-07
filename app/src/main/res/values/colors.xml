@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">@color/st_red</color>
     <color name="colorPrimaryDark">@color/st_red</color>
-    <color name="colorAccent">@color/st_purple</color>
+    <color name="colorAccent">@color/st_red</color>
 
     <!--<color name="st_bk">#f7f8fa</color>-->
     <color name="st_bk">#f2f3f5</color>

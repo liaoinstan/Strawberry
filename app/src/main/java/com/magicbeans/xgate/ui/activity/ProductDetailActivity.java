@@ -117,8 +117,14 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
                     case R.id.radio_product:
                         ScrollViewUtil.scrollToTop(binding.scrollView);
                         break;
+                    case R.id.radio_eva:
+                        ScrollViewUtil.scrollTo(binding.scrollView, getTopHightInScroll(productDetailEvaController.getRoot()));
+                        break;
+                    case R.id.radio_detail:
+                        ScrollViewUtil.scrollTo(binding.scrollView, getTopHightInScroll(productDetailDescribeController.getRoot()));
+                        break;
                     case R.id.radio_recommend:
-                        ScrollViewUtil.scrollTo(binding.scrollView, getTopHightInScroll(productDetailEvaController.getRootView()));
+                        ScrollViewUtil.scrollTo(binding.scrollView, getTopHightInScroll(commonRecommendController.getRoot()));
                         break;
                 }
             }
@@ -142,8 +148,10 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
                         .initColorEnd(ContextCompat.getColor(ProductDetailActivity.this, R.color.white))
                         .start(y);
                 //根据滚动位置反向设置tab切换
-                int hightRecommend = getTopHightInScroll(productDetailEvaController.getRootView());
-                toolbarProdDetailController.setTabByScrollHeight(hightRecommend, y, oldy);
+                int hightEva = getTopHightInScroll(productDetailEvaController.getRoot());
+                int hightDetail = getTopHightInScroll(productDetailDescribeController.getRoot());
+                int hightRecomment = getTopHightInScroll(commonRecommendController.getRoot());
+                toolbarProdDetailController.setTabByScrollHeight(hightEva, hightDetail, hightRecomment, y, oldy);
             }
         });
     }

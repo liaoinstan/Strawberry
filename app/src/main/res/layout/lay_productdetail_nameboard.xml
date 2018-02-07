@@ -11,6 +11,7 @@
 
         <com.ins.common.view.BannerView2
             android:id="@+id/banner"
+            android:layout_marginTop="65dp"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             app:autoscroll="false"

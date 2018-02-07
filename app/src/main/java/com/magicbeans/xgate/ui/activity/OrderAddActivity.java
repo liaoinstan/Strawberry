@@ -37,6 +37,7 @@ import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.net.STFormatCallback;
+import com.magicbeans.xgate.net.nethelper.NetAddressHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.controller.ShopCartContentController;
 import com.magicbeans.xgate.ui.fragment.ShopBagFragment;
@@ -199,22 +200,16 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
     //获取默认地址
     public void netGetDefaultAddress(boolean isBillAddr) {
         setVisibleType(0);
-        Map<String, Object> param = new NetParam()
-                .put("addrtype", isBillAddr ? 1 : 2)    //addrtype 1: Billing Address 2: Delivery Address
-                .put("AccountID", Token.getLocalAccountId())
-                .put("token", Token.getLocalToken())
-                .build();
-        NetApi.NI().netGetAddressList(param).enqueue(new STCallback<AddressWrap>(AddressWrap.class) {
+        NetAddressHelper.getInstance().netGetAddressList(isBillAddr, new NetAddressHelper.OnAddressListCallback() {
             @Override
-            public void onSuccess(int status, AddressWrap wrap, String msg) {
-                List<Address> addressList = wrap.getAddresses();
+            public void onSuccess(List<Address> addressList) {
                 Address defaultAddress = AddressWrap.getDefaultAddressEx(addressList);
                 setAddress(defaultAddress);
                 if (defaultAddress == null) ToastUtil.showToastShort("您还没有设置配送地址，请先添加地址");
             }
 
             @Override
-            public void onError(int status, String msg) {
+            public void onError(String msg) {
                 ToastUtil.showToastShort(msg);
                 setVisibleType(1);
             }

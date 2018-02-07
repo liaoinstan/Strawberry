@@ -12,14 +12,10 @@ import com.magicbeans.xgate.databinding.LayProductdetailDescribeBinding;
  * Created by Administrator on 2017/10/11.
  */
 
-public class ProductDetailDescribeController {
-
-    private Context context;
-    private LayProductdetailDescribeBinding binding;
+public class ProductDetailDescribeController extends BaseController<LayProductdetailDescribeBinding>{
 
     public ProductDetailDescribeController(LayProductdetailDescribeBinding binding) {
-        this.binding = binding;
-        this.context = binding.getRoot().getContext();
+        super(binding);
         initCtrl();
         initData();
     }

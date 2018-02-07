@@ -2,6 +2,7 @@ package com.magicbeans.xgate.net.interceptor;
 
 import java.io.IOException;
 
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -14,14 +15,21 @@ public class NetInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Interceptor.Chain chain) throws IOException {
-        Request original = chain.request();
+        Request requestOld = chain.request();
 
-        Request request = original.newBuilder()
-                .header("SecretKey", "XGate-Ecds4324-231545")
-                .header("Authorization", "304a12a8866eb445700625ac39f19f02")
-                .method(original.method(), original.body())
+        //添加公共参数
+        HttpUrl httpUrl = requestOld.url().newBuilder()
+                .addQueryParameter("region","cn")
                 .build();
 
-        return chain.proceed(request);
+        //添加公共请求头
+        Request requestNew = requestOld.newBuilder()
+                .header("SecretKey", "XGate-Ecds4324-231545")
+                .header("Authorization", "304a12a8866eb445700625ac39f19f02")
+                .url(httpUrl)
+//                .method(requestOld.method(), requestOld.body())
+                .build();
+
+        return chain.proceed(requestNew);
     }
 }

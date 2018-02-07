@@ -36,7 +36,7 @@ public class ProductDetailNameBoradController {
         binding.banner.setOnLoadImgListener(new BannerView2.OnLoadImgListener() {
             @Override
             public void onloadImg(ImageView imageView, String imgurl, int defaultSrc) {
-                GlideUtil.loadImg(imageView, R.drawable.default_bk_img, imgurl);
+                GlideUtil.loadImg(imageView, R.drawable.shape_rect_white, imgurl);
             }
         });
         FontUtils.boldText(binding.textPrice);

@@ -7,6 +7,7 @@
         android:layout_height="76dp"
         android:background="@color/none"
         android:paddingTop="20dp"
+        app:navigationIcon="@drawable/ic_back"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
         <RadioGroup
@@ -18,24 +19,56 @@
 
             <RadioButton
                 android:id="@+id/radio_product"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
                 android:button="@null"
                 android:checked="true"
+                android:drawableBottom="@drawable/selector_rect_red_none_tab"
                 android:gravity="center"
+                android:paddingBottom="7dp"
+                android:paddingTop="10dp"
                 android:text="商品"
                 android:textColor="@color/select_text_dark_red_check"
                 android:textSize="@dimen/text_big_nomal" />
 
             <RadioButton
-                android:id="@+id/radio_recommend"
-                android:layout_width="50dp"
+                android:id="@+id/radio_eva"
+                android:layout_width="45dp"
                 android:layout_height="match_parent"
                 android:button="@null"
+                android:drawableBottom="@drawable/selector_rect_red_none_tab"
                 android:gravity="center"
+                android:paddingBottom="7dp"
+                android:paddingTop="10dp"
                 android:text="评价"
                 android:textColor="@color/select_text_dark_red_check"
-                android:textSize="@dimen/text_big" />
+                android:textSize="@dimen/text_big_nomal" />
+
+            <RadioButton
+                android:id="@+id/radio_detail"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:button="@null"
+                android:drawableBottom="@drawable/selector_rect_red_none_tab"
+                android:gravity="center"
+                android:paddingBottom="7dp"
+                android:paddingTop="10dp"
+                android:text="详情"
+                android:textColor="@color/select_text_dark_red_check"
+                android:textSize="@dimen/text_big_nomal" />
+
+            <RadioButton
+                android:id="@+id/radio_recommend"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:button="@null"
+                android:drawableBottom="@drawable/selector_rect_red_none_tab"
+                android:gravity="center"
+                android:paddingBottom="7dp"
+                android:paddingTop="10dp"
+                android:text="推荐"
+                android:textColor="@color/select_text_dark_red_check"
+                android:textSize="@dimen/text_big_nomal" />
 
         </RadioGroup>
 
