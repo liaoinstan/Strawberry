@@ -36,17 +36,34 @@
                 android:text="+ 添加ip或域名"
                 android:textColor="#03948d" />
 
-            <EditText
-                android:id="@+id/edit_domain"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:digits="0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM.:_-"
-                android:hint="输入或选择API服务器域名或IP地址"
-                android:inputType="text"
-                android:lines="1"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textSize="14sp" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edit_domain"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:digits="0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM.:_-"
+                    android:hint="输入或选择API服务器域名或IP地址"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textSize="14sp" />
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:theme="@style/DomainCheckBox"
+                    android:id="@+id/check_domain_https"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right|center_vertical"
+                    android:paddingRight="13dp"
+                    android:checked="true"
+                    android:text="https"
+                    android:textColor="#666" />
+
+            </FrameLayout>
 
             <CheckBox
                 android:id="@+id/check_domain_vali"

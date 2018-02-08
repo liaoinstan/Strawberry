@@ -17,8 +17,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
+            android:layout_height="45dp"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <TextView
@@ -27,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="账号与安全"
-                android:textColor="@color/com_text_dark_light"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_big" />
 
         </android.support.v7.widget.Toolbar>
@@ -91,27 +90,26 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_tab_home" />
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_share_qq" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_tab_home" />
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_share_wx" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_tab_home" />
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_share_sinaweibo" />
 
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/text_safe_account"
                     style="@style/TextMeItem"
-                    android:text="版本更新" />
-                <!--android:drawableRight="@drawable/ic_me_next"-->
+                    android:text="绑定账号" />
 
             </FrameLayout>
 

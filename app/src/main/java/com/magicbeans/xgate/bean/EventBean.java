@@ -30,6 +30,8 @@ public class EventBean implements Serializable {
     public static final int EVENT_GET_ADDRESS = 0xffa109;
     //刷新个人中心历史记录总数
     public static final int EVENT_ME_HISTORY_COUNT = 0xffa109;
+    //刷新订单新增的地址区域
+    public static final int EVENT_REFRESH_ORDERADD_ADDRESS = 0xffa120;
 
     private int event;
     private Map<String, Object> map = new HashMap<>();

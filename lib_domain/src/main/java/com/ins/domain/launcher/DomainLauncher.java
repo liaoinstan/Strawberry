@@ -60,10 +60,21 @@ public class DomainLauncher {
         return domains;
     }
 
-    ///////////////////////
+    //////////// 回调接口 ///////////
 
     public interface SettingChangeCallback {
         void onDomainChange(String domain);
+
         void onDomainResChange(String domainRes);
+    }
+
+    public static class SimpleSettingChangeCallback implements SettingChangeCallback {
+        @Override
+        public void onDomainChange(String domainUrl) {
+        }
+
+        @Override
+        public void onDomainResChange(String domainResUrl) {
+        }
     }
 }

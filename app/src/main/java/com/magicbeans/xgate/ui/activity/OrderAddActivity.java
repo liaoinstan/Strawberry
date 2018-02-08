@@ -71,6 +71,9 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
                 Address address = (Address) event.get("address");
                 setAddress(address);
                 break;
+            case EventBean.EVENT_REFRESH_ORDERADD_ADDRESS:
+                netGetDefaultAddress(true);
+                break;
         }
     }
 
@@ -157,7 +160,7 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.lay_address_add:
-                AddressActivity.startForResult(this);
+                AddressAddActivity.start(this);
                 break;
             case R.id.lay_address_select:
                 AddressActivity.startForResult(this);

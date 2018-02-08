@@ -39,30 +39,38 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <com.ins.common.view.LoadingLayout
-            android:id="@+id/loadingview"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layout_fail="@layout/layout_fail"
-            app:layout_lack="@layout/layout_lack"
-            app:layout_loading="@layout/layout_loading">
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <com.liaoinstan.springview.widget.SpringView
-                android:id="@+id/spring"
+            <com.ins.common.view.LoadingLayout
+                android:id="@+id/loadingview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="45dp"
-                app:type="follow">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:layout_fail="@layout/layout_fail"
+                app:layout_lack="@layout/layout_lack"
+                app:layout_loading="@layout/layout_loading">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler"
+                <com.liaoinstan.springview.widget.SpringView
+                    android:id="@+id/spring"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:clipToPadding="false"
-                    android:paddingBottom="10dp" />
+                    android:layout_marginBottom="45dp"
+                    app:type="follow">
 
-            </com.liaoinstan.springview.widget.SpringView>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
+                        android:paddingBottom="10dp" />
+
+                </com.liaoinstan.springview.widget.SpringView>
+
+            </com.ins.common.view.LoadingLayout>
 
             <TextView
                 android:id="@+id/btn_add"
@@ -77,7 +85,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_nomal" />
 
-        </com.ins.common.view.LoadingLayout>
+        </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

@@ -63,7 +63,7 @@ public class RecycleAdapterAddress extends RecyclerView.Adapter<RecycleAdapterAd
         holder.binding.imgItemAddressEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddressAddActivity.start(context, address);
+                AddressAddActivity.startForUpdate(context, address);
             }
         });
         holder.binding.textItemAddressDel.setOnClickListener(new View.OnClickListener() {

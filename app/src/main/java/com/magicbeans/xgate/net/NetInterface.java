@@ -73,7 +73,7 @@ public interface NetInterface {
      * Gender:0: Female 1: Male
      */
 
-    @POST("http://demo2017.strawberrynet.com/app/apiCreateAccount.aspx?ID=xGate")
+    @POST("/app/apiCreateAccount.aspx?ID=xGate")
     Call<ResponseBody> createAccount(@Body RequestBody requestBody);
 
     /**
@@ -335,6 +335,14 @@ public interface NetInterface {
      */
     @GET("/app/apiAddressBook.aspx?ID=xGate&action=add")
     Call<ResponseBody> netAddAddress(@QueryMap(encoded = true) Map<String, Object> param);
+
+    /**
+     * 更新地址
+     * AddId
+     * ...
+     */
+    @GET("/app/apiAddressBook.aspx?ID=xGate&action=update")
+    Call<ResponseBody> netUpdateAddress(@QueryMap(encoded = true) Map<String, Object> param);
 
     /**
      * 删除地址

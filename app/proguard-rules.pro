@@ -80,6 +80,7 @@
 #-keep class com.ins.common.entity.** { *; }
 -keep class **.entity.** { *; }
 -keep class **.bean.** { *; }
+-keep class com.magicbeans.xgate.data.db.** { *; }
 #-keep class com.ins.aimai.bean.** { *; }
 #---------------------------------2.第三方包-------------------------------
 #极光推送

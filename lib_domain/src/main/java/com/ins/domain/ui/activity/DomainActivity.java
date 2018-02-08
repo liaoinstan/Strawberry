@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class DomainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, View.OnClickListener {
 
     private EditText edit_domain;
+    private CheckBox check_domain_https;
     private CheckBox check_domain_vali;
     private CheckBox check_domain_toast;
 
@@ -80,6 +81,7 @@ public class DomainActivity extends AppCompatActivity implements AdapterView.OnI
     private void initView() {
         listView = (ListView) findViewById(R.id.list);
         edit_domain = (EditText) findViewById(R.id.edit_domain);
+        check_domain_https = (CheckBox) findViewById(R.id.check_domain_https);
         check_domain_vali = (CheckBox) findViewById(R.id.check_domain_vali);
         check_domain_toast = (CheckBox) findViewById(R.id.check_domain_toast);
 
@@ -137,13 +139,14 @@ public class DomainActivity extends AppCompatActivity implements AdapterView.OnI
         int i = v.getId();
         if (i == R.id.btn_go) {
             String domain = edit_domain.getText().toString();
+            boolean isHttps = check_domain_https.isChecked();
             if (!TextUtils.isEmpty(domain)) {
                 //保存本次编辑框的内容
                 saveEditStr(domain);
                 //回调domain变更接口
-                DomainLauncher.getInstance().getSettingChangeCallback().onDomainChange(domain);
+                DomainLauncher.getInstance().getSettingChangeCallback().onDomainChange(buildDomainUrl(domain, isHttps));
                 //回调资源服务器domainRes变更接口
-                DomainLauncher.getInstance().getSettingChangeCallback().onDomainResChange(!TextUtils.isEmpty(domain_res) ? domain_res : domain);
+                DomainLauncher.getInstance().getSettingChangeCallback().onDomainResChange(buildDomainUrl(!TextUtils.isEmpty(domain_res) ? domain_res : domain, isHttps));
                 //启动APPLaunche页面
                 Intent intent = new Intent(this, DomainLauncher.getInstance().getLauncherActivity());
                 startActivity(intent);
@@ -156,6 +159,10 @@ public class DomainActivity extends AppCompatActivity implements AdapterView.OnI
         } else if (i == R.id.btn_advance) {
             AdvanceActivity.startForResult(this);
         }
+    }
+
+    private String buildDomainUrl(String domain, boolean isHttps) {
+        return (isHttps ? "https://" : "http://") + domain + "/";
     }
 
     //////////////// 存储 获取 方法 ////////////////

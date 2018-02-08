@@ -53,7 +53,7 @@ public class AddressActivity extends BaseAppCompatActivity implements OnRecycleI
         start(context, true);
     }
 
-    public static void start(Context context, boolean forResult) {
+    private static void start(Context context, boolean forResult) {
         Intent intent = new Intent(context, AddressActivity.class);
         intent.putExtra("forResult", forResult);
         context.startActivity(intent);

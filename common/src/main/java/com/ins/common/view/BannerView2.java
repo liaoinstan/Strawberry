@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ins.common.R;
 import com.ins.common.entity.Image;
@@ -26,8 +28,9 @@ import java.util.List;
 public class BannerView2 extends FrameLayout {
 
     private Context context;
-    private UltraViewPager mViewPager;
-    private BannerAdapter mBannerAdapter;
+    private TextView text_banner_count;
+    private UltraViewPager viewPager;
+    private BannerAdapter adapter;
     private List<Image> images;
 
     //自定义属性
@@ -35,6 +38,7 @@ public class BannerView2 extends FrameLayout {
     private int unSelectedColor;
     private boolean isAutoScroll;
     private Square square = Square.NONE;
+
     //是否显示为正方形：NONE：否 BY_WIDTH：由宽决定高 BY_HIGHT：由高决定宽
     public enum Square {
         NONE, BY_WIDTH, BY_HIGHT
@@ -75,32 +79,66 @@ public class BannerView2 extends FrameLayout {
         }
     }
 
+    private boolean numberIndicator = true;
+
     private void initView() {
-        mViewPager = (UltraViewPager) findViewById(R.id.viewpager);
-        mViewPager.getViewPager().setPageMargin(0);
-        mViewPager.setInfiniteLoop(true);
-        mViewPager.initIndicator();
-        mViewPager.getIndicator()
-                .setOrientation(UltraViewPager.Orientation.HORIZONTAL)
-                .setFocusColor(selectedColor)
-                .setNormalColor(unSelectedColor)
-                .setMargin(0, 0, DensityUtil.dp2px(5), DensityUtil.dp2px(5))
-                .setRadius(DensityUtil.dp2px(3));
-        mViewPager.getIndicator().setGravity(Gravity.RIGHT | Gravity.BOTTOM);
-        mViewPager.getIndicator().build();
-        mBannerAdapter = new BannerAdapter();
-        mViewPager.setAdapter(mBannerAdapter);
+        viewPager = findViewById(R.id.viewpager);
+        text_banner_count = findViewById(R.id.text_banner_count);
+        viewPager.getViewPager().setPageMargin(0);
+        viewPager.setInfiniteLoop(true);
+        adapter = new BannerAdapter();
+        viewPager.setAdapter(adapter);
+        if (!numberIndicator) {
+            //小圆点模式
+            viewPager.initIndicator();
+            viewPager.getIndicator()
+                    .setOrientation(UltraViewPager.Orientation.HORIZONTAL)
+                    .setFocusColor(selectedColor)
+                    .setNormalColor(unSelectedColor)
+                    .setMargin(0, 0, DensityUtil.dp2px(5), DensityUtil.dp2px(5))
+                    .setRadius(DensityUtil.dp2px(3));
+            viewPager.getIndicator().setGravity(Gravity.RIGHT | Gravity.BOTTOM);
+            viewPager.getIndicator().build();
+            text_banner_count.setVisibility(GONE);
+        } else {
+            //数字模式
+            text_banner_count.setVisibility(VISIBLE);
+            viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    setCountIndicator();
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+        }
     }
 
     private void initCtrl() {
         //如果允许滚动标志为true，并且数据条目>1则自动滚动，否则不滚动
         if (isAutoScroll && !StrUtil.isEmpty(images) && images.size() > 1) {
-            mViewPager.setAutoScroll(3000);
+            viewPager.setAutoScroll(3000);
         } else {
-            mViewPager.disableAutoScroll();
+            viewPager.disableAutoScroll();
         }
-        mBannerAdapter = new BannerAdapter();
-        mViewPager.setAdapter(mBannerAdapter);
+        adapter = new BannerAdapter();
+        viewPager.setAdapter(adapter);
+    }
+
+    private void setCountIndicator() {
+        if (numberIndicator) {
+            int currentItem = viewPager.getCurrentItem();
+            int count = viewPager.getAdapter().getCount();
+            text_banner_count.setText(currentItem + 1 + "/" + count);
+        }
     }
 
     private class BannerAdapter extends PagerAdapter {
@@ -172,6 +210,7 @@ public class BannerView2 extends FrameLayout {
     public void setDatas(List<Image> images) {
         this.images = images;
         notifyDataSetChanged();
+        setCountIndicator();
     }
 
     public void notifyDataSetChanged() {

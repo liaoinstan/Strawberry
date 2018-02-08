@@ -24,8 +24,12 @@ import com.magicbeans.xgate.net.nethelper.NetShopCartHelper;
 import com.magicbeans.xgate.sharesdk.ShareDialog;
 import com.magicbeans.xgate.ui.activity.OrderAddActivity;
 import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
+import com.magicbeans.xgate.ui.activity.ShopcartActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeShopbag;
+import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
+import com.magicbeans.xgate.ui.dialog.DialogLoading;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
@@ -82,6 +86,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
     }
 
     private void initData() {
+        showLoadingDialog();
         LiveData<List<ShopCart>> shopCartsLiveData = NetShopCartHelper.getInstance().netGetShopCartList();
         shopCartsLiveData.observeForever(new Observer<List<ShopCart>>() {
             @Override
@@ -90,6 +95,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
                 binding.spring.onFinishFreshAndLoad();
                 //计算价格
                 setPriceAndCount();
+                dismissLoadingDialog();
             }
         });
     }
@@ -204,5 +210,18 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
 
     public boolean isEdit() {
         return binding.includeBottombar.layEdit.getVisibility() == View.VISIBLE;
+    }
+
+    public final void showLoadingDialog() {
+        //只在ShopcartActivity中使用才显示加载进度条
+        if (context instanceof ShopcartActivity) {
+            ((BaseAppCompatActivity) context).showLoadingDialog();
+        }
+    }
+
+    public final void dismissLoadingDialog() {
+        if (context instanceof ShopcartActivity) {
+            ((BaseAppCompatActivity) context).dismissLoadingDialog();
+        }
     }
 }

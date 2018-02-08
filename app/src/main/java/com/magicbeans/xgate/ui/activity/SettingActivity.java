@@ -97,7 +97,7 @@ public class SettingActivity extends BaseAppCompatActivity implements View.OnCli
                 VersionActivity.start(this);
                 break;
             case R.id.text_setting_about:
-                WebActivity.start(this, "关于我们", "https://www.bing.com");
+                WebActivity.start(this, "关于我们", "https://cn.strawberrynet.com/m/mcompanydetail.aspx");
                 break;
             case R.id.text_setting_clear:
                 if (ClearCacheUtil.getAppCacheSizeValue(this) == 0) {

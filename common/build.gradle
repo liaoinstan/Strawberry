@@ -91,7 +91,7 @@ dependencies {
     //动态加载按钮
 //    compile 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3'
     //alibaba 循环viewpager
-    compile ('com.alibaba.android:ultraviewpager:1.0.6.1@aar') {
+    compile ('com.alibaba.android:ultraviewpager:1.0.6.4@aar') {
         transitive = true
     }
 }

@@ -19,15 +19,10 @@ import java.util.List;
  * Created by Administrator on 2017/10/11.
  */
 
-public class ProductDetailNameBoradController {
-
-
-    private LayProductdetailNameboardBinding binding;
-    private Context context;
+public class ProductDetailNameBoradController extends BaseController<LayProductdetailNameboardBinding> {
 
     public ProductDetailNameBoradController(LayProductdetailNameboardBinding binding) {
-        this.binding = binding;
-        this.context = binding.getRoot().getContext();
+        super(binding);
         initCtrl();
         initData();
     }

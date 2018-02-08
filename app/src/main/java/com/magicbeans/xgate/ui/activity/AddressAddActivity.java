@@ -8,28 +8,19 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 
-import com.ins.common.helper.ValiHelper;
-import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.address.Address;
-import com.magicbeans.xgate.bean.address.AddressWrap;
-import com.magicbeans.xgate.bean.common.CommonEntity;
-import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.common.AppVali;
 import com.magicbeans.xgate.databinding.ActivityAddressaddBinding;
 import com.magicbeans.xgate.helper.AppHelper;
-import com.magicbeans.xgate.net.NetApi;
-import com.magicbeans.xgate.net.NetParam;
-import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.net.nethelper.NetAddressHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class AddressAddActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
@@ -41,18 +32,15 @@ public class AddressAddActivity extends BaseAppCompatActivity implements View.On
     private Address address;
 
     public static void start(Context context) {
-        start(context, null);
+        Intent intent = new Intent(context, AddressAddActivity.class);
+        context.startActivity(intent);
     }
 
     //如果有address参数，表示对已有地址进行修改，否则新增
-    public static void start(Context context, Address address) {
-        if (AppHelper.User.isLogin()) {
-            Intent intent = new Intent(context, AddressAddActivity.class);
-            intent.putExtra("address", address);
-            context.startActivity(intent);
-        } else {
-            LoginActivity.start(context);
-        }
+    public static void startForUpdate(Context context, Address address) {
+        Intent intent = new Intent(context, AddressAddActivity.class);
+        intent.putExtra("address", address);
+        context.startActivity(intent);
     }
 
     @Override
@@ -154,13 +142,17 @@ public class AddressAddActivity extends BaseAppCompatActivity implements View.On
     }
 
     //新增地址
-    public void netAddAddress(final boolean isBillAddr, String addrNickname, String tel, String country, String city, String state, String address) {
+    public void netAddAddress(final boolean isBillAddr, String addrNickname, String tel, String country, String city, String state, String addressStr) {
         showLoadingDialog();
-        NetAddressHelper.getInstance().netAddAddress(isBillAddr, addrNickname, tel, country, city, state, address, new NetAddressHelper.OnAddressSimpleCallback() {
+        String AddId = address != null ? address.getAddressID() : "";
+        NetAddressHelper.getInstance().netAddOrUpdateAddress(AddId, isBillAddr, addrNickname, tel, country, city, state, addressStr, new NetAddressHelper.OnAddressSimpleCallback() {
             @Override
             public void onSuccess() {
-                ToastUtil.showToastShort("添加成功");
+                ToastUtil.showToastShort(address != null ? "更新成功" : "添加成功");
+                //通知地址管理列表刷新
                 EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_ADDRESSLIST));
+                //通知带单页面刷新地址区域
+                EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_ORDERADD_ADDRESS));
                 finish();
             }
 

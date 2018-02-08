@@ -62,7 +62,7 @@ public class MeDetailActivity extends BaseAppCompatActivity implements CropHelpe
     private void initData() {
         User user = AppData.App.getUser();
         if (user != null) {
-            binding.textMedetailNick.setText("你好");
+            binding.textMedetailNick.setText(user.getNickname());
             GlideUtil.loadCircleImg(binding.imgMedetailHeader, R.drawable.default_header, user.getHeadImageURL());
         }
     }

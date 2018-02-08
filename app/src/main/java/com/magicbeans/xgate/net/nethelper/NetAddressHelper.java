@@ -1,5 +1,7 @@
 package com.magicbeans.xgate.net.nethelper;
 
+import android.text.TextUtils;
+
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.address.Address;
@@ -14,6 +16,9 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 
 /**
  * Created by liaoinstan on 2018/1/22.
@@ -103,9 +108,11 @@ public class NetAddressHelper {
         });
     }
 
-    //新增地址
-    public void netAddAddress(boolean isBillAddr, String addrNickname, String tel, String country, String city, String state, String address, final OnAddressSimpleCallback callback) {
+    //新增或者更新地址
+    //有AddId则更新，无则新增
+    public void netAddOrUpdateAddress(String AddId, boolean isBillAddr, String addrNickname, String tel, String country, String city, String state, String address, final OnAddressSimpleCallback callback) {
         Map<String, Object> param = new NetParam()
+                .put("AddId", AddId)
                 .put("AccountID", Token.getLocalAccountId())
                 .put("token", Token.getLocalToken())
                 .put("addrtype", isBillAddr ? 1 : 2)
@@ -119,10 +126,16 @@ public class NetAddressHelper {
                 .put("country", country)
                 .put("postcode", "610100")//TODO:目前UI与接口不匹配，UI上没有邮政编码，但是接口必传，暂时写个默认的，这个问题需要反馈给后台
                 .build();
-        NetApi.NI().netAddAddress(param).enqueue(new STCallback<CommonEntity>(CommonEntity.class) {
+        Call<ResponseBody> call;
+        if (TextUtils.isEmpty(AddId)) {
+            call = NetApi.NI().netAddAddress(param);
+        } else {
+            call = NetApi.NI().netUpdateAddress(param);
+        }
+        call.enqueue(new STCallback<CommonEntity>(CommonEntity.class) {
             @Override
             public void onSuccess(int status, CommonEntity com, String msg) {
-                if (com.getReponseCode() == 0) {
+                if (com.getReponseCode() == 0 || com.getReponseCode() == 1) {
                     if (callback != null) callback.onSuccess();
                 } else {
                     onError(com.getReponseCode(), msg);

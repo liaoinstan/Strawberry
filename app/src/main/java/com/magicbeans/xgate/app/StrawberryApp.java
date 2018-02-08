@@ -56,16 +56,10 @@ public class StrawberryApp extends Application {
     }
 
     private void initLauncher() {
-        DomainLauncher.getInstance().setSettingChangeCallback(new DomainLauncher.SettingChangeCallback() {
+        DomainLauncher.getInstance().setSettingChangeCallback(new DomainLauncher.SimpleSettingChangeCallback() {
             @Override
-            public void onDomainChange(String domain) {
-                NetApi.setBaseUrl("https://" + domain + "/");
-            }
-
-            @Override
-            public void onDomainResChange(String domainRes) {
-//                AppData.Url.domainRes = "http://" + domainRes + "/";
-                //GlideUtil.setImgBaseUrl(AppData.Url.domainRes);
+            public void onDomainChange(String domainUrl) {
+                NetApi.setBaseUrl(domainUrl);
             }
         });
         DomainLauncher.getInstance()

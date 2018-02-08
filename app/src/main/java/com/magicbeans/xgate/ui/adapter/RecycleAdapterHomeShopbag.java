@@ -21,6 +21,7 @@ import com.magicbeans.xgate.bean.shopcart.ShopCart;
 import com.magicbeans.xgate.data.db.manager.ShopCartTableManager;
 import com.magicbeans.xgate.databinding.ItemShopbagBinding;
 import com.magicbeans.xgate.helper.AppHelper;
+import com.magicbeans.xgate.helper.DelayHelper;
 import com.magicbeans.xgate.net.nethelper.NetShopCartHelper;
 import com.magicbeans.xgate.ui.view.CountView;
 
@@ -63,12 +64,24 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
         });
         holder.binding.includeCoutent.countview.setOnCountChangeListenner(new CountView.OnCountChangeListenner() {
             @Override
-            public boolean onCountChange(boolean byUser, int count, int lastCount) {
+            public boolean onCountChange(boolean byUser, final int count, int lastCount) {
                 if (byUser) {
-                    ShopCart bean = results.get(holder.getLayoutPosition());
-                    bean.setQty(count);
-                    NetShopCartHelper.getInstance().netUpdateShopCart(context, bean.getProdID(), count);
-                    return false;
+//                    ShopCart bean = results.get(holder.getLayoutPosition());
+//                    bean.setQty(count);
+//                    NetShopCartHelper.getInstance().netUpdateShopCart(context, bean.getProdID(), count);
+//                    return false;
+                    //////////////
+                    //TODO:如果用户连续点击+ -按钮，做一个延迟，在连续点击停止后再发起请求，而不是每一次点击都请求服务器修改数量
+                    DelayHelper.getInstance().click(new DelayHelper.OnDelayCallback() {
+                        @Override
+                        public void onDo() {
+                            ShopCart bean = results.get(holder.getLayoutPosition());
+                            bean.setQty(count);
+                            NetShopCartHelper.getInstance().netUpdateShopCart(bean.getProdID(), count);
+                        }
+                    });
+                    return true;
+                    //////////////
                 } else {
                     //拦截数据变化，在服务器成功更新后再改变数量
                     return true;

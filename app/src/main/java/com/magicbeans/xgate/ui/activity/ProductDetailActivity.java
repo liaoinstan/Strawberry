@@ -172,6 +172,7 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
         return ScrollViewUtil.cacuHightByView(binding.scrollView, viewin) - toolbarProdDetailController.getHeight();
     }
 
+    //请求商品详情
     private void netProductDetail() {
         Map<String, Object> param = new NetParam()
                 .put("prodId", prodId)

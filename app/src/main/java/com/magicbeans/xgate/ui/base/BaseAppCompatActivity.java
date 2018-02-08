@@ -29,7 +29,6 @@ public class BaseAppCompatActivity extends CommonBaseAppCompatActivity {
 
     protected Toolbar toolbar;
     private WeakReference<DialogLoading> dialogLoading;
-    ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

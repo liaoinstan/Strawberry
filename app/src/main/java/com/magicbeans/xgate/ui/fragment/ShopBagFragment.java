@@ -42,17 +42,6 @@ public class ShopBagFragment extends BaseFragment {
         return fragment;
     }
 
-    //TODO:这个方法里设置StatusBar字体颜色会导致UI出现无法及时响应的异常，不要这样做，在CateFragment中这样做会导致子fragment无法加载的异常
-//    @Override
-//    public void setUserVisibleHint(boolean isVisibleToUser) {
-//        super.setUserVisibleHint(isVisibleToUser);
-//        if (isVisibleToUser) {
-//            if (getActivity() != null)
-//                StatusBarTextUtil.transBarBackground(getActivity(), ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
-//        }
-//    }
-
-
     @Override
     public void onCommonEvent(EventBean event) {
         switch (event.getEvent()) {

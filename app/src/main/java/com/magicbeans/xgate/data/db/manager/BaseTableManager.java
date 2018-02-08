@@ -28,6 +28,10 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * BaseTableManager
+ * 由于该类使用了反射，部分代码基于类名和方法名的命名规范，相关类要在混淆配置中忽略，否则混淆后会出现异常
+ * 在混淆规则中添加：
+ * -keep class com.magicbeans.xgate.data.db.** { *; }
+ * 即可
  */
 
 public class BaseTableManager<T> implements BaseTableManagerInterface<T> {
