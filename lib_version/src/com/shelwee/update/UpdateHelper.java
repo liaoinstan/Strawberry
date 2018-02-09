@@ -344,8 +344,7 @@ public class UpdateHelper {
         PackageInfo pinfo = null;
         if (mContext != null) {
             try {
-                pinfo = mContext.getPackageManager().getPackageInfo(
-                        mContext.getPackageName(), 0);
+                pinfo = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }

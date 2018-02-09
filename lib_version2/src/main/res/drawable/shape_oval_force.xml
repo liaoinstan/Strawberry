@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item>
+	    <shape android:shape="oval" >
+
+            <!-- 填充 -->
+            <solid android:color="@color/cc_red" />
+
+            <size
+                android:height="90dp"
+                android:width="90dp" />
+
+        </shape>
+	</item>
+    <item android:top="5dp" android:left="5dp" android:right="5dp" android:bottom="5dp">
+        <shape android:shape="oval" >
+
+            <!-- 填充 -->
+            <solid android:color="@color/cc_red" />
+
+            <!-- 描边 -->
+            <stroke
+                android:dashGap="4px"
+                android:dashWidth="4px"
+                android:width="1px"
+                android:color="@color/white" />
+        </shape>
+    </item>
+</layer-list>
