@@ -9,23 +9,18 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ins.version.R;
-import com.ins.version.VersionHelper;
 import com.ins.version.bean.UpdateInfo;
 import com.ins.version.utils.MoreTextUtil;
 import com.ins.version.utils.StorageHelper;
-import com.ins.version.utils.VersionUtil;
 
 
 /**

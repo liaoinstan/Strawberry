@@ -10,6 +10,7 @@ import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.ClearCacheUtil;
 import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.ToastUtil;
+import com.ins.version.utils.VersionUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.user.User;
@@ -17,7 +18,6 @@ import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.databinding.ActivitySettingBinding;
 import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
-import com.shelwee.update.utils.VersionUtil;
 
 import org.greenrobot.eventbus.EventBus;
 

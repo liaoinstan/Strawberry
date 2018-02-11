@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.ins.common.utils.App;
 import com.ins.common.utils.StatusBarTextUtil;
+import com.ins.common.utils.StatusBarUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.viewutils.AppUtil;
 import com.magicbeans.xgate.R;
@@ -46,7 +47,8 @@ public class LoginActivity extends BaseAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
-        StatusBarTextUtil.StatusBarLightMode(this);
+//        StatusBarTextUtil.StatusBarLightMode(this);
+        StatusBarUtil.setTextDark(this);
         setToolbar();
         initBase();
         initView();

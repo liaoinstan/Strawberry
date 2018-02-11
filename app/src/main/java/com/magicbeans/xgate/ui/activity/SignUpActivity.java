@@ -9,6 +9,7 @@ import android.view.View;
 import com.ins.common.helper.ValiHelper;
 import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.StatusBarTextUtil;
+import com.ins.common.utils.StatusBarUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.user.SignUpWrap;
@@ -35,7 +36,8 @@ public class SignUpActivity extends BaseAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_signup);
-        StatusBarTextUtil.StatusBarLightMode(this);
+//        StatusBarTextUtil.StatusBarLightMode(this);
+        StatusBarUtil.setTextDark(this);
         setToolbar();
         initBase();
         initView();

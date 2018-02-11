@@ -14,7 +14,6 @@ import com.ins.version.dialog.VersionDialog;
 import com.ins.version.listener.OnUpdateListener;
 import com.ins.version.network.DownloadHelper;
 import com.ins.version.network.NetCheckVersionHelper;
-import com.ins.version.network.DownloadUtils;
 import com.ins.version.utils.NetWorkHelper;
 import com.ins.version.utils.StorageHelper;
 import com.ins.version.utils.VersionUtil;
@@ -44,9 +43,15 @@ public class VersionHelper {
     private OnUpdateListener updateListener;
     //忽略标志是否可用（用户把某版本设置为忽略后不会再该提示版本的更新，这个字段设置为false将会使忽略标志不可用，依然执行更新提示，一般首页检查更新设置为true，设置中检查更新设为false）
     private boolean ignoreEnable = true;
+    private boolean isShowToast = true;
 
     public VersionHelper ignoreEnable(boolean ignoreEnable) {
         this.ignoreEnable = ignoreEnable;
+        return this;
+    }
+
+    public VersionHelper isShowToast(boolean isShowToast) {
+        this.isShowToast = isShowToast;
         return this;
     }
 
@@ -171,14 +176,11 @@ public class VersionHelper {
         dialog.show();
     }
 
-    public void onDestory() {
-        if (downloadHelper != null)
-            downloadHelper.onDestory();
-    }
-
     //显示提示统一调用这个方法，有些场景下使用并不希望提示
     private void showToast(String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+        if (isShowToast) {
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void installApk(Uri uri) {

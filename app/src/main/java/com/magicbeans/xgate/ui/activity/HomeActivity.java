@@ -10,18 +10,19 @@ import android.widget.RadioGroup;
 
 import com.ins.common.utils.PermissionsUtil;
 import com.ins.common.utils.StatusBarTextUtil;
+import com.ins.common.utils.StatusBarUtil;
+import com.ins.version.VersionHelper;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.ui.adapter.PagerAdapterHome;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
-import com.shelwee.update.UpdateHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
 public class HomeActivity extends BaseAppCompatActivity {
 
-    private UpdateHelper updateHelper;
+//    private UpdateHelper updateHelper;
     private RadioGroup group_tab;
     private ViewPager pager;
     private PagerAdapterHome pagerAdapter;
@@ -46,7 +47,6 @@ public class HomeActivity extends BaseAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        StatusBarTextUtil.StatusBarLightMode(this);
         setNeedDoubleClickExit(true);
         registEventBus();
 
@@ -54,12 +54,13 @@ public class HomeActivity extends BaseAppCompatActivity {
         PermissionsUtil.checkAndRequestPermissions(this);
         //版本更新检查
         //检查更新
-        updateHelper = new UpdateHelper.Builder(this).checkUrl(AppData.Url.version).isHintNewVersion(false).build();
-        updateHelper.check();
+//        updateHelper = new UpdateHelper.Builder(this).checkUrl(AppData.Url.version).isHintNewVersion(false).build();
+//        updateHelper.check();
+        VersionHelper.with(this).isShowToast(false).checkUrl(AppData.Url.version).check();
 
-//        StatusBarTextUtil.transparencyBar(HomeActivity.this);
-        StatusBarTextUtil.transBarBackground(this, ContextCompat.getColor(this, R.color.colorPrimaryDark));
-        StatusBarTextUtil.StatusBarDarkMode(HomeActivity.this);
+        StatusBarUtil.setBarFollow(this);
+        StatusBarUtil.setStatusBarColor(this,R.color.colorPrimaryDark);
+        StatusBarUtil.setTextLight(this);
 
         initBase();
         initView();
@@ -70,7 +71,7 @@ public class HomeActivity extends BaseAppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (updateHelper != null) updateHelper.onDestory();
+//        if (updateHelper != null) updateHelper.onDestory();
     }
 
     private void initBase() {
@@ -96,17 +97,13 @@ public class HomeActivity extends BaseAppCompatActivity {
                 group_tab.check(tabsId[position]);
                 switch (position) {
                     case 0:
-                        StatusBarTextUtil.StatusBarDarkMode(HomeActivity.this);
                         break;
                     case 1:
-                        StatusBarTextUtil.StatusBarDarkMode(HomeActivity.this);
                         break;
                     case 2:
-                        StatusBarTextUtil.StatusBarDarkMode(HomeActivity.this);
                         EventBus.getDefault().post(new EventBean(EventBean.EVENT_IN_SHOPCART));
                         break;
                     case 3:
-                        StatusBarTextUtil.StatusBarDarkMode(HomeActivity.this);
                         break;
                 }
             }

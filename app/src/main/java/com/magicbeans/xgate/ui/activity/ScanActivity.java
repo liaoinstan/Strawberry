@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.StatusBarTextUtil;
+import com.ins.common.utils.StatusBarUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.VibratorUtil;
 import com.magicbeans.xgate.R;
@@ -57,8 +58,10 @@ public class ScanActivity extends BaseAppCompatActivity implements QRCodeView.De
     }
 
     private void initBase() {
-        StatusBarTextUtil.StatusBarDarkMode(this);
-        StatusBarTextUtil.transparencyBar(this);
+//        StatusBarTextUtil.StatusBarDarkMode(this);
+//        StatusBarTextUtil.transparencyBar(this);
+        StatusBarUtil.setTranslucent(this);
+        StatusBarUtil.setTextLight(this);
     }
 
     private void initView() {

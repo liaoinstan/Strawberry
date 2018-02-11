@@ -1,1 +1,1 @@
-include ':app', ':common', ':lib_domain', ':lib_version', ':lib_progressbutton', ':lib_version2', ':app_test_download'
+include ':app', ':common', ':lib_domain', ':lib_version_old', ':lib_progressbutton', ':lib_version'

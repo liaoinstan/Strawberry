@@ -1,16 +1,11 @@
 package com.ins.version.network;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.text.TextUtils;
 import android.util.Log;
 
-import com.ins.version.VersionHelper;
 import com.ins.version.bean.UpdateInfo;
-import com.ins.version.listener.OnUpdateListener;
 import com.ins.version.utils.JsonUtil;
 import com.ins.version.utils.URLUtils;
-import com.ins.version.utils.VersionUtil;
 
 import static com.ins.version.VersionHelper.TAG;
 

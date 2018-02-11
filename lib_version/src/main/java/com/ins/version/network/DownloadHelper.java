@@ -6,13 +6,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.ins.version.VersionHelper;
 import com.ins.version.utils.VersionUtil;
 
 /**
@@ -93,11 +89,6 @@ public class DownloadHelper {
             }
         };
         context.registerReceiver(receiver, intentFilter);
-    }
-
-    public void onDestory() {
-        if (context != null && receiver != null)
-            context.unregisterReceiver(receiver);
     }
 
     public interface OnDownloadCallback {

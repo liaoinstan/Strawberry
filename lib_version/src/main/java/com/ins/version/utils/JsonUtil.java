@@ -1,7 +1,6 @@
 package com.ins.version.utils;
 
 import com.ins.version.bean.UpdateInfo;
-import com.ins.version.utils.URLUtils;
 
 import org.json.JSONObject;
 

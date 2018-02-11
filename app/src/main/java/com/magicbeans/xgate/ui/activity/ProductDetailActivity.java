@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import com.ins.common.helper.ToobarTansColorHelper;
 import com.ins.common.utils.DensityUtil;
 import com.ins.common.utils.StatusBarTextUtil;
+import com.ins.common.utils.StatusBarUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.viewutils.ScrollViewUtil;
 import com.ins.common.view.ObservableNestedScrollView;
@@ -80,8 +81,10 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_productdetail);
-        StatusBarTextUtil.transparencyBar(this);
-        StatusBarTextUtil.StatusBarLightMode(this);
+//        StatusBarTextUtil.transparencyBar(this);
+//        StatusBarTextUtil.StatusBarLightMode(this);
+        StatusBarUtil.setTranslucent(this);
+        StatusBarUtil.setTextDark(this);
         registEventBus();
         initBase();
         initView();
