@@ -1,4 +1,4 @@
-package com.ins.version.utils;
+package com.ins.version.network;
 
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
@@ -36,16 +36,15 @@ public class DownloadUtils {
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
         //移动网络情况下是否允许漫游
         request.setAllowedOverRoaming(false);
-
         //在通知栏中显示，默认就是显示的
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
         request.setTitle("新版本Apk");
         request.setDescription("Apk Downloading");
+        //如果我们希望下载的文件可以被系统的Downloads应用扫描到并管理
         request.setVisibleInDownloadsUi(true);
-
         //设置下载的路径
-        request.setDestinationInExternalPublicDir(Environment.getExternalStorageDirectory().getAbsolutePath(), name);
-
+//        request.setDestinationInExternalPublicDir(Environment.getExternalStorageDirectory().getAbsolutePath(), name);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, name);
         //获取DownloadManager
         downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         //将下载请求加入下载队列，加入下载队列后会给该任务返回一个long型的id，通过该id可以取消任务，重启任务、获取下载的文件等等

@@ -1,17 +1,19 @@
 package com.ins.version.listener;
 
+import android.net.Uri;
+
 import com.ins.version.bean.UpdateInfo;
 
 public interface OnUpdateListener {
-    public void onStartCheck();
+    void onStartCheck();
 
-    public void onFinishCheck(UpdateInfo info);
+    void onFinishCheck(UpdateInfo info);
 
-    public void onStartDownload();
-    
-    public void onDownloading(int progress);
-    
-    public void onFinshDownload();
+    void onStartDownload();
 
-    public void onInstallApk();
+    void onDownloading(int progress);
+
+    void onFinshDownload(Uri uri);
+
+    void onInstallApk();
 }

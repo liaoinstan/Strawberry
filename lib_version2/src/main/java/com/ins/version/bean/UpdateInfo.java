@@ -24,6 +24,14 @@ public class UpdateInfo implements Serializable {
         return Integer.parseInt(versionCode);
     }
 
+    public boolean isAutoInstall() {
+        return isAutoInstall == 1;
+    }
+
+    public boolean isForce() {
+        return isForce == 1;
+    }
+
     //###################################
 
     public int getIsAutoInstall() {

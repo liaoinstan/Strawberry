@@ -61,11 +61,10 @@
         android:textColor="@color/cc_text_blank"
         android:text="重大更新，大小为23.5M，老版本将无法继续使用，请及时更新。为您带来的不便请谅解" />
 
-    <ImageView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:src="@drawable/line" />
+        android:layout_height="1px"
+        android:background="@color/cc_line" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -26,7 +26,7 @@
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:textColor="@color/cc_text_blank"
-            android:text="安装提示" />
+            android:text="更新提示" />
     </FrameLayout>
 
     <TextView
@@ -40,13 +40,12 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:textColor="@color/cc_text_blank"
-        android:text="您已经下载了最新的安装包，正在进行安装..." />
+        android:text="您目前的网络环境下继续下载将可能会消耗手机流量，请确认是否继续下载" />
 
-    <ImageView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:src="@drawable/line" />
+        android:layout_height="1px"
+        android:background="@color/cc_line" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,7 +65,7 @@
             android:paddingRight="23dp"
             android:gravity="center"
             android:textColor="@color/cc_text_dark"
-            android:text="退出应用"/>
+            android:text="取消下载"/>
         
         <TextView
             android:layout_width="0dp"
@@ -81,7 +80,7 @@
             android:paddingRight="23dp"
             android:gravity="center"
             android:textColor="@color/cc_orage"
-            android:text="重新安装"/>
+            android:text="继续下载"/>
     </LinearLayout>
 
 </LinearLayout>
