@@ -8,26 +8,20 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.ins.common.utils.GlideUtil;
-import com.ins.common.utils.L;
 import com.ins.common.utils.ListUtil;
-import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.view.bundleimgview.BundleImgEntity;
 import com.ins.common.view.bundleimgview.BundleImgView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
+import com.magicbeans.xgate.bean.order.Order;
 import com.magicbeans.xgate.bean.address.Address;
 import com.magicbeans.xgate.bean.address.AddressWrap;
 import com.magicbeans.xgate.bean.common.CommonEntity;
-import com.magicbeans.xgate.bean.postbean.Addr;
 import com.magicbeans.xgate.bean.postbean.Cart;
-import com.magicbeans.xgate.bean.postbean.CreateAccountPost;
 import com.magicbeans.xgate.bean.postbean.CreateOrderPost;
 import com.magicbeans.xgate.bean.postbean.Customer;
-import com.magicbeans.xgate.bean.postbean.FreeGift;
 import com.magicbeans.xgate.bean.postbean.Payment;
-import com.magicbeans.xgate.bean.postbean.Promotion;
-import com.magicbeans.xgate.bean.postbean.SelectedShipment;
 import com.magicbeans.xgate.bean.shopcart.ShopCart;
 import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.common.AppData;
@@ -35,16 +29,13 @@ import com.magicbeans.xgate.databinding.ActivityOrderaddBinding;
 import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
-import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.net.STFormatCallback;
 import com.magicbeans.xgate.net.nethelper.NetAddressHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.controller.ShopCartContentController;
-import com.magicbeans.xgate.ui.fragment.ShopBagFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.RequestBody;
 
@@ -241,13 +232,13 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
     //下单
     private void netAddOrder(CreateOrderPost post) {
         RequestBody requestBody = NetParam.buildJsonRequestBody(post);
-        NetApi.NI().netAddOrder(requestBody).enqueue(new STFormatCallback<CommonEntity>(CommonEntity.class) {
+        NetApi.NI().netAddOrder(requestBody).enqueue(new STFormatCallback<Order>(Order.class) {
             @Override
-            public void onSuccess(int status, CommonEntity com, String msg) {
+            public void onSuccess(int status, Order order, String msg) {
                 ToastUtil.showToastShort("下单成功");
                 dismissLoadingDialog();
                 finish();
-                PayTestPaypalActivity.start(OrderAddActivity.this);
+                PayTestPaypalActivity.start(OrderAddActivity.this, order.getSOID());
             }
 
             @Override

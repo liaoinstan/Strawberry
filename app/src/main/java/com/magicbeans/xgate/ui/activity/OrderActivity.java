@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.Order;
+import com.magicbeans.xgate.bean.order.Order;
 import com.magicbeans.xgate.databinding.ActivityOrderBinding;
 import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.adapter.PagerAdapterOrder;

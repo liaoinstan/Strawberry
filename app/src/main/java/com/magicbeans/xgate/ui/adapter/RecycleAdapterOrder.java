@@ -12,10 +12,8 @@ import android.view.ViewGroup;
 import com.ins.common.common.GridSpacingItemDecoration;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.DensityUtil;
-import com.ins.common.utils.GlideUtil;
-import com.ins.common.view.ListViewLinearLayout;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.Order;
+import com.magicbeans.xgate.bean.order.Order;
 import com.magicbeans.xgate.databinding.ItemOrderBinding;
 import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.activity.PayTestPaypalActivity;
@@ -54,7 +52,7 @@ public class RecycleAdapterOrder extends RecyclerView.Adapter<RecycleAdapterOrde
         holder.binding.btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PayTestPaypalActivity.start(context);
+                PayTestPaypalActivity.start(context, order.getSOID());
             }
         });
 

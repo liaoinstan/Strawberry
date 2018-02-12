@@ -36,10 +36,14 @@ public abstract class STCallback<T> implements Callback<ResponseBody> {
             }
             String data = body.string();
             T t;
-            if (data != null && !data.equals("")) {
-                t = gson.fromJson(data, type);
-            } else {
-                t = null;
+            if (type.equals(String.class)){
+                t = (T) data;
+            }else {
+                if (data != null && !data.equals("")) {
+                    t = gson.fromJson(data, type);
+                } else {
+                    t = null;
+                }
             }
             onSuccess(200, t, "请求成功");
         } catch (Exception e) {

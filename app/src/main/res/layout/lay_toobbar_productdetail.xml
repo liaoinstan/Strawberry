@@ -72,16 +72,24 @@
 
         </RadioGroup>
 
-        <TextView
+        <!--<TextView-->
+        <!--android:id="@+id/btn_right"-->
+        <!--android:layout_width="60dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:foreground="?attr/selectableItemBackground"-->
+        <!--android:gravity="center"-->
+        <!--android:text="分享"-->
+        <!--android:textColor="@color/com_text_dark"-->
+        <!--android:textSize="@dimen/text_big_nomal" />-->
+        <ImageView
             android:id="@+id/btn_right"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_gravity="right"
             android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:text="分享"
-            android:textColor="@color/com_text_dark"
-            android:textSize="@dimen/text_big_nomal" />
+            android:scaleType="center"
+            android:src="@drawable/ic_share_dark" />
     </android.support.v7.widget.Toolbar>
 
 </layout>

@@ -95,8 +95,8 @@
                                     android:id="@+id/text_address_name"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="15dp"
-                                    android:textColor="@color/com_text_dark_blank"
+                                    android:layout_marginLeft="31dp"
+                                    android:textColor="@color/com_text_blank"
                                     android:textSize="@dimen/text_big_nomal"
                                     tools:text="Marie 186****1547" />
 
@@ -107,10 +107,13 @@
                                     android:layout_marginLeft="15dp"
                                     android:layout_marginRight="30dp"
                                     android:layout_marginTop="7dp"
+                                    android:drawableLeft="@drawable/ic_address_position"
+                                    android:drawablePadding="5dp"
                                     android:ellipsize="end"
+                                    android:gravity="center_vertical"
                                     android:lineSpacingExtra="2dp"
                                     android:maxLines="1"
-                                    android:textColor="@color/com_text_dark_blank"
+                                    android:textColor="@color/com_text_blank"
                                     android:textSize="@dimen/text_small"
                                     tools:text="四川省成都市高新西区环球中心W3区1320室，地址太长啦，一行都放不下了，地址太长啦，一行都放不下了，地址太长啦，一行都放不下了，地址太长啦，一行都放不下了，地址太长啦，一行都放不下了" />
 

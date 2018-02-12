@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -21,9 +22,19 @@ import com.braintreepayments.api.dropin.DropInActivity;
 import com.braintreepayments.api.dropin.DropInRequest;
 import com.braintreepayments.api.dropin.DropInResult;
 import com.braintreepayments.api.models.PaymentMethodNonce;
+import com.ins.common.utils.L;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.api.adyen.AdyenPayApi;
+import com.magicbeans.xgate.api.paypal.PaypalApi;
+import com.magicbeans.xgate.bean.common.CommonEntity;
+import com.magicbeans.xgate.bean.shopcart.ShopCart;
+import com.magicbeans.xgate.bean.shopcart.ShopCartWrap;
+import com.magicbeans.xgate.bean.user.Token;
+import com.magicbeans.xgate.net.NetApi;
+import com.magicbeans.xgate.net.NetParam;
+import com.magicbeans.xgate.net.STCallback;
+import com.magicbeans.xgate.net.STFormatCallback;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
 import org.json.JSONException;
@@ -31,15 +42,24 @@ import org.json.JSONObject;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public class PayTestPaypalActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
+    private String SOID;
+
     private final int REQUEST_CODE = 1001;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, PayTestPaypalActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void start(Context context, String SOID) {
+        Intent intent = new Intent(context, PayTestPaypalActivity.class);
+        intent.putExtra("SOID", SOID);
         context.startActivity(intent);
     }
 
@@ -55,6 +75,7 @@ public class PayTestPaypalActivity extends BaseAppCompatActivity implements View
     }
 
     private void initBase() {
+        SOID = getIntent().getStringExtra("SOID");
     }
 
     private void initView() {
@@ -81,9 +102,21 @@ public class PayTestPaypalActivity extends BaseAppCompatActivity implements View
     }
 
     public void payTest() {
-        DropInRequest dropInRequest = new DropInRequest()
-                .clientToken("eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiI1NzIyYTY1NmYxYWEyMzNjMTQ2N2UzMjVmMjczOTI2MDFjMDM5ZTRmMGIyM2NjZThkOTgwNjRiMjk3NTUxOGJlfGNyZWF0ZWRfYXQ9MjAxOC0wMi0wNlQxMTowNTowNS4zNzM3OTk5MDkrMDAwMFx1MDAyNm1lcmNoYW50X2lkPTM0OHBrOWNnZjNiZ3l3MmJcdTAwMjZwdWJsaWNfa2V5PTJuMjQ3ZHY4OWJxOXZtcHIiLCJjb25maWdVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvMzQ4cGs5Y2dmM2JneXcyYi9jbGllbnRfYXBpL3YxL2NvbmZpZ3VyYXRpb24iLCJjaGFsbGVuZ2VzIjpbXSwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwiY2xpZW50QXBpVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzLzM0OHBrOWNnZjNiZ3l3MmIvY2xpZW50X2FwaSIsImFzc2V0c1VybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXV0aFVybCI6Imh0dHBzOi8vYXV0aC52ZW5tby5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIiwiYW5hbHl0aWNzIjp7InVybCI6Imh0dHBzOi8vY2xpZW50LWFuYWx5dGljcy5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tLzM0OHBrOWNnZjNiZ3l3MmIifSwidGhyZWVEU2VjdXJlRW5hYmxlZCI6dHJ1ZSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImRpc3BsYXlOYW1lIjoiQWNtZSBXaWRnZXRzLCBMdGQuIChTYW5kYm94KSIsImNsaWVudElkIjpudWxsLCJwcml2YWN5VXJsIjoiaHR0cDovL2V4YW1wbGUuY29tL3BwIiwidXNlckFncmVlbWVudFVybCI6Imh0dHA6Ly9leGFtcGxlLmNvbS90b3MiLCJiYXNlVXJsIjoiaHR0cHM6Ly9hc3NldHMuYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhc3NldHNVcmwiOiJodHRwczovL2NoZWNrb3V0LnBheXBhbC5jb20iLCJkaXJlY3RCYXNlVXJsIjpudWxsLCJhbGxvd0h0dHAiOnRydWUsImVudmlyb25tZW50Tm9OZXR3b3JrIjp0cnVlLCJlbnZpcm9ubWVudCI6Im9mZmxpbmUiLCJ1bnZldHRlZE1lcmNoYW50IjpmYWxzZSwiYnJhaW50cmVlQ2xpZW50SWQiOiJtYXN0ZXJjbGllbnQzIiwiYmlsbGluZ0FncmVlbWVudHNFbmFibGVkIjp0cnVlLCJtZXJjaGFudEFjY291bnRJZCI6ImFjbWV3aWRnZXRzbHRkc2FuZGJveCIsImN1cnJlbmN5SXNvQ29kZSI6IlVTRCJ9LCJtZXJjaGFudElkIjoiMzQ4cGs5Y2dmM2JneXcyYiIsInZlbm1vIjoib2ZmIn0=");
-        startActivityForResult(dropInRequest.getIntent(this), REQUEST_CODE);
+        showLoadingDialog();
+        PaypalApi.getInstance().apiGetPaypalToken(new PaypalApi.OnTokenCallback() {
+            @Override
+            public void onToken(String clientToken) {
+                clientToken = clientToken.trim();
+                DropInRequest dropInRequest = new DropInRequest().clientToken(clientToken);
+                startActivityForResult(dropInRequest.getIntent(PayTestPaypalActivity.this), REQUEST_CODE);
+                dismissLoadingDialog();
+            }
+
+            @Override
+            public void onError(String msg) {
+                dismissLoadingDialog();
+            }
+        });
     }
 
     @Override
@@ -95,6 +128,7 @@ public class PayTestPaypalActivity extends BaseAppCompatActivity implements View
                 String deviceData = result.getDeviceData();
                 // use the result to update your UI and send the payment method nonce to your server
                 ToastUtil.showToastShort("获取nonce成功");
+                netPaypalPay(nonce.getNonce());
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 // the user canceled
                 ToastUtil.showToastShort("支付已取消");
@@ -105,5 +139,25 @@ public class PayTestPaypalActivity extends BaseAppCompatActivity implements View
                 ToastUtil.showToastShort("支付失败：" + error.getMessage());
             }
         }
+    }
+
+    //paypal支付
+    public void netPaypalPay(String nonce) {
+        showLoadingDialog();
+        PaypalApi.getInstance().apiPaypalPay(nonce, SOID, new PaypalApi.OnPaypalCallback() {
+            @Override
+            public void onPaySuccess() {
+                ToastUtil.showToastShort("success");
+                dismissLoadingDialog();
+                PayResultActivity.startSuccess(PayTestPaypalActivity.this, SOID);
+                finish();
+            }
+
+            @Override
+            public void onError(String msg) {
+                PayResultActivity.startFail(PayTestPaypalActivity.this, SOID);
+                dismissLoadingDialog();
+            }
+        });
     }
 }

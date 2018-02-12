@@ -53,10 +53,14 @@ public abstract class STFormatCallback<T> implements Callback<ResponseBody> {
                 data = root.getString("data");
             }
             T t;
-            if (data != null && !data.equals("")) {
-                t = gson.fromJson(data, type);
-            } else {
-                t = null;
+            if (type.equals(String.class)){
+                t = (T) data;
+            }else {
+                if (data != null && !data.equals("")) {
+                    t = gson.fromJson(data, type);
+                } else {
+                    t = null;
+                }
             }
             switch (status) {
                 case 200:

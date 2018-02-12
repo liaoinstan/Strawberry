@@ -390,12 +390,34 @@ public interface NetInterface {
     /**
      * 获取订单详情
      */
-    @POST("app/ajaxOrderDetails.aspx")
+    @POST("/app/ajaxOrderDetails.aspx")
     Call<ResponseBody> netOrderDetail(@QueryMap(encoded = true) Map<String, Object> param);
+
+    //##################################################################
+    //#########               2018/2/12 支付
+    //##################################################################
 
     /**
      * adyen checkout
      */
     @POST("/RedirectmWeChat.aspx")
     Call<ResponseBody> adyenPaySetup(@QueryMap Map<String, Object> param);
+
+    /**
+     * paypal getToken
+     * accountID
+     * token
+     */
+    @POST("/app/apiGenPaypalToken.aspx")
+    Call<ResponseBody> apiGetPaypalToken(@QueryMap(encoded = true) Map<String, Object> param);
+
+    /**
+     * paypal pay
+     * accountID
+     * token
+     * payment_method_nonce
+     * amt
+     */
+    @POST("/app/apiPaypalRequest.aspx")
+    Call<ResponseBody> apiPaypalPay(@QueryMap(encoded = true) Map<String, Object> param);
 }

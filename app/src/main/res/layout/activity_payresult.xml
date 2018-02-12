@@ -18,8 +18,7 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/white"
+                android:layout_height="45dp"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
                 <TextView
@@ -28,7 +27,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="订单支付成功"
-                    android:textColor="@color/com_text_dark_light"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/text_big" />
 
             </android.support.v7.widget.Toolbar>
@@ -55,80 +54,40 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/text_payresult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:drawableLeft="@drawable/shape_rect_corner_light"
-                        android:drawablePadding="10dp"
+                        android:drawableLeft="@drawable/ic_payresult_success"
+                        android:drawablePadding="15dp"
                         android:gravity="center_vertical"
                         android:lineSpacingExtra="5dp"
                         android:paddingRight="15dp"
-                        android:text="支付方式：微信支付\n订单金额：￥439.00"
-                        android:textColor="@color/com_text_dark_light"
-                        android:textSize="@dimen/text_big" />
+                        android:textColor="@color/com_text_blank"
+                        android:textSize="@dimen/text_nomal"
+                        tools:text="支付方式：信用卡支付\n订单金额：￥439.00" />
 
                     <TextView
-                        android:id="@+id/btn_clear"
+                        android:id="@+id/btn_orderdetail"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="50dp"
                         android:layout_marginRight="50dp"
                         android:layout_marginTop="15dp"
-                        android:background="@drawable/shape_rect_corner_none_line_dark"
+                        android:background="@drawable/shape_rect_corner_none_line_blank"
                         android:foreground="?attr/selectableItemBackground"
                         android:gravity="center"
+                        android:onClick="onClick"
                         android:text="查看订单"
-                        android:textColor="@color/com_text_dark"
+                        android:textColor="@color/com_text_blank"
                         android:textSize="@dimen/text_nomal" />
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/st_bk"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp">
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1px"
-                            android:layout_weight="1"
-                            android:background="@color/com_line" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:text="您可能还喜欢"
-                            android:textColor="@color/com_text_dark"
-                            android:textSize="@dimen/text_small" />
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1px"
-                            android:layout_weight="1"
-                            android:background="@color/com_line" />
-
-                    </LinearLayout>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycle_recomment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:paddingBottom="10dp" />
-
-                </LinearLayout>
+                <include
+                    android:id="@+id/include_recommend"
+                    layout="@layout/lay_recommend" />
 
             </LinearLayout>
 

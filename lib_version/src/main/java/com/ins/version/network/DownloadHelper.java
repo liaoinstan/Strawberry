@@ -56,6 +56,7 @@ public class DownloadHelper {
         request.setVisibleInDownloadsUi(true);
         //设置下载的路径
 //        request.setDestinationInExternalPublicDir(Environment.getExternalStorageDirectory().getAbsolutePath(), name);
+//        request.setDestinationInExternalFilesDir(context, "phoenix", "phoenix.apk");
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, VersionUtil.getAppName(context) + ".apk");
         //获取DownloadManager
         downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
