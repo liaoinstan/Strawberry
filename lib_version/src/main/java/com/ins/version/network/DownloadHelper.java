@@ -6,10 +6,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 
 import com.ins.version.utils.VersionUtil;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 下载帮助类，使用DownLoadManager进行下载
@@ -31,6 +36,10 @@ public class DownloadHelper {
     private boolean isOnlyWifi = true;
     //回调
     private OnDownloadCallback callback;
+    //广播监听下载的各个状态
+    private BroadcastReceiver receiver;
+    //计时器
+    private ScheduledExecutorService executorService;
 
     public DownloadHelper isOnlyWifi(boolean isOnlyWifi) {
         this.isOnlyWifi = isOnlyWifi;
@@ -42,8 +51,8 @@ public class DownloadHelper {
     }
 
     //下载apk
-    public void downloadAPK(String url, OnDownloadCallback callback) {
-        this.callback = callback;
+    public void downloadAPK(String url, OnDownloadCallback downloadCallback) {
+        this.callback = downloadCallback;
         //创建下载任务
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
         //移动网络情况下是否允许漫游
@@ -68,11 +77,20 @@ public class DownloadHelper {
         registerReceiver();
     }
 
-    //广播监听下载的各个状态
-    private BroadcastReceiver receiver;
-
     //注册下载完成广播监听，收到广播就移除该监听
     private void registerReceiver() {
+        //启动计时器，每1秒钟查询一次进度
+        executorService = Executors.newSingleThreadScheduledExecutor();
+        executorService.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                int[] downloadProgress = getDownloadProgress();
+                if (callback != null)
+                    callback.onDownloading(downloadProgress[0], downloadProgress[1]);
+            }
+        }, 0, 1000, TimeUnit.MILLISECONDS);
+
+        //监听下载完成广播
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
         receiver = new BroadcastReceiver() {
@@ -81,8 +99,10 @@ public class DownloadHelper {
                 if (intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
                     //下载完成，移除广播
                     context.unregisterReceiver(receiver);
+                    //关闭计时器
+                    executorService.shutdown();
+                    //回调下载uri
                     if (callback != null) {
-                        //获取URI开始安装
                         Uri uri = downloadManager.getUriForDownloadedFile(downloadId);
                         callback.onDownloadFinish(uri);
                     }
@@ -92,8 +112,33 @@ public class DownloadHelper {
         context.registerReceiver(receiver, intentFilter);
     }
 
+    //查询进度
+    private int[] getDownloadProgress() {
+        int[] bytesAndStatus = new int[]{-1, -1};
+        DownloadManager.Query query = new DownloadManager.Query().setFilterById(downloadId);
+        Cursor cursor = null;
+        try {
+            cursor = downloadManager.query(query);
+            if (cursor != null && cursor.moveToFirst()) {
+                //已经下载文件大小
+                bytesAndStatus[0] = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+                //下载文件的总大小
+                bytesAndStatus[1] = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return bytesAndStatus;
+    }
+
+    //################# 接口回调 ###################
+
     public interface OnDownloadCallback {
         void onDownloadStart();
+
+        void onDownloading(int nowBytes, int totalBytes);
 
         void onDownloadFinish(Uri uri);
     }

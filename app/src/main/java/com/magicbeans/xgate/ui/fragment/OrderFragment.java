@@ -95,12 +95,7 @@ public class OrderFragment extends BaseFragment implements OnRecycleItemClickLis
         binding.spring.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.spring.onFinishFreshAndLoad();
-                    }
-                }, 1000);
+                netOrderHistory(false);
             }
 
             @Override
@@ -118,7 +113,7 @@ public class OrderFragment extends BaseFragment implements OnRecycleItemClickLis
     }
 
     private void initData() {
-        netOrderHistory();
+        netOrderHistory(true);
     }
 
     @Override
@@ -146,39 +141,8 @@ public class OrderFragment extends BaseFragment implements OnRecycleItemClickLis
     }
 
     //订单历史
-    public void netOrderHistory() {
-//        binding.loadingLayout.showLoadingView();
-//        Map<String, Object> param = new NetParam()
-//                .put("token", Token.getLocalToken())
-//                .put("years", "30d")
-//                .build();
-//        NetApi.NI().netOrderHistory(param).enqueue(new STCallback<OrderWrap>(OrderWrap.class) {
-//            @Override
-//            public void onSuccess(int status, OrderWrap wrap, String msg) {
-//                if (wrap.getResponseCode() == 0) {
-//                    List<Order> orders = wrap.getOrders();
-//        convertOrders(orders);
-//        if (!StrUtil.isEmpty(orders)) {
-//            adapter.getResults().clear();
-//            adapter.getResults().addAll(orders);
-//            adapter.notifyDataSetChanged();
-//            binding.loadingLayout.showOut();
-//        } else {
-//            binding.loadingLayout.showLackView();
-//        }
-//                } else {
-//                    onError(wrap.getResponseCode(), wrap.getResponseMsg());
-//                }
-//            }
-//
-//            @Override
-//            public void onError(int status, String msg) {
-//                ToastUtil.showToastShort(msg);
-//                binding.loadingLayout.showFailView();
-//            }
-//        });
-
-        binding.loadingLayout.showLoadingView();
+    public void netOrderHistory(boolean needLoading) {
+        if (needLoading) binding.loadingLayout.showLoadingView();
         NetOrderHelper.getInstance().netOrderHistory(new NetOrderHelper.OnOrderListCallback() {
             @Override
             public void onOrderList(List<Order> orders) {
@@ -191,12 +155,14 @@ public class OrderFragment extends BaseFragment implements OnRecycleItemClickLis
                 } else {
                     binding.loadingLayout.showLackView();
                 }
+                binding.spring.onFinishFreshAndLoad();
             }
 
             @Override
             public void onError(String msg) {
                 ToastUtil.showToastShort(msg);
                 binding.loadingLayout.showFailView();
+                binding.spring.onFinishFreshAndLoad();
             }
         });
     }

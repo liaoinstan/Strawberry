@@ -18,6 +18,7 @@ import com.ins.common.utils.SpannableStringUtil;
 import com.ins.common.utils.viewutils.TextViewUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.Goods;
+import com.magicbeans.xgate.bean.order.OrderProduct;
 import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.databinding.ItemOrderBinding;
 import com.magicbeans.xgate.databinding.ItemOrderGoodsBinding;
@@ -30,9 +31,9 @@ import java.util.List;
 public class RecycleAdapterOrderGoods extends RecyclerView.Adapter<RecycleAdapterOrderGoods.Holder> {
 
     private Context context;
-    private List<Product> results = new ArrayList<>();
+    private List<OrderProduct> results = new ArrayList<>();
 
-    public List<Product> getResults() {
+    public List<OrderProduct> getResults() {
         return results;
     }
 
@@ -47,19 +48,19 @@ public class RecycleAdapterOrderGoods extends RecyclerView.Adapter<RecycleAdapte
 
     @Override
     public void onBindViewHolder(final RecycleAdapterOrderGoods.Holder holder, final int position) {
-        final Product product = results.get(position);
+        final OrderProduct product = results.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProductDetailActivity.start(context, product.getProdID());
+                ProductDetailActivity.start(context, product.getProdId());
             }
         });
-        GlideUtil.loadImg(holder.binding.imgHeader, product.getProductImages().getImg350Src());
+        GlideUtil.loadImg(holder.binding.imgHeader, product.getImg());
 
         if (getItemCount() == 1) {
             holder.binding.getRoot().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
             holder.binding.textName.setVisibility(View.VISIBLE);
-            holder.binding.textName.setText(product.getProdLangName() + product.getProdLangSize());
+            holder.binding.textName.setText(product.getProdName() + product.getProdSize());
         } else if (getItemCount() > 1) {
             holder.binding.getRoot().getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
             holder.binding.textName.setVisibility(View.GONE);

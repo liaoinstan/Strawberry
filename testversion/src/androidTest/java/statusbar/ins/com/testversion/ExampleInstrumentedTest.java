@@ -1,4 +1,4 @@
-package com.ins.sharesdk;
+package statusbar.ins.com.testversion;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.ins.sharesdk.test", appContext.getPackageName());
+        assertEquals("statusbar.ins.com.testversion", appContext.getPackageName());
     }
 }

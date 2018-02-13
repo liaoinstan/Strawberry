@@ -1,4 +1,4 @@
-package com.ins.sharesdk;
+package statusbar.ins.com.testversion;
 
 import org.junit.Test;
 

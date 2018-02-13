@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ins.test.downloadmaneger.MainActivity">
+    tools:context="statusbar.ins.com.testversion.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -30,16 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClick"
-            android:text="home"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onClick2"
-            android:text="setting"/>
-
+            android:text="home" />
 
     </LinearLayout>
-
 
 </android.support.design.widget.CoordinatorLayout>

@@ -6,10 +6,13 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
+import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.ToastUtil;
+import com.ins.version.dialog.MsgDialog;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.order.OrderDetail;
 import com.magicbeans.xgate.bean.order.OrderProduct;
@@ -22,6 +25,8 @@ import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.net.nethelper.NetOrderHelper;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterOrderDetailGoods;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
+
+import org.w3c.dom.Text;
 
 import java.util.Map;
 
@@ -94,29 +99,19 @@ public class OrderDetailActivity extends BaseAppCompatActivity implements View.O
             adapter.getResults().clear();
             adapter.getResults().addAll(orderDetail.getProductOrderList());
             adapter.notifyDataSetChanged();
+            if (TextUtils.isEmpty(orderDetail.getSOID())) {
+                DialogSure.showDialog(this, "您的订单正在受理中，预计将在2小时内完成，暂时无法查看，请耐心等待", new DialogSure.CallBack() {
+                    @Override
+                    public void onSure() {
+                        finish();
+                    }
+                });
+            }
         }
     }
 
     //订单详情
     public void netOrderDetail() {
-//        showLoadingDialog();
-//        Map<String, Object> param = new NetParam()
-//                .put("token", Token.getLocalToken())
-//                .put("SOId", orderId)
-//                .build();
-//        NetApi.NI().netOrderDetail(param).enqueue(new STCallback<OrderDetail>(OrderDetail.class) {
-//            @Override
-//            public void onSuccess(int status, OrderDetail orderDetail, String msg) {
-//                setData(orderDetail);
-//                hideLoadingDialog();
-//            }
-//
-//            @Override
-//            public void onError(int status, String msg) {
-//                ToastUtil.showToastShort(msg);
-//                hideLoadingDialog();
-//            }
-//        });
         showLoadingDialog();
         NetOrderHelper.getInstance().netOrderDetail(orderId, new NetOrderHelper.OnOrderDetailCallback() {
             @Override

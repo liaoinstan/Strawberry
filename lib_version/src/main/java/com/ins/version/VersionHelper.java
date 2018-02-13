@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,6 +18,8 @@ import com.ins.version.network.NetCheckVersionHelper;
 import com.ins.version.utils.NetWorkHelper;
 import com.ins.version.utils.StorageHelper;
 import com.ins.version.utils.VersionUtil;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 /**
  * Created by liaoinstan on 2018/2/9.
@@ -116,6 +119,12 @@ public class VersionHelper {
                     progressDialog.show();
                 }
                 if (updateListener != null) updateListener.onStartDownload();
+            }
+
+            @Override
+            public void onDownloading(int nowBytes, int totalBytes) {
+                if (progressDialog != null)
+                    progressDialog.setProgress(nowBytes, totalBytes);
             }
 
             @Override

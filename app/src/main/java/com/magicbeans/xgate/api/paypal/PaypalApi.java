@@ -1,39 +1,17 @@
 package com.magicbeans.xgate.api.paypal;
 
-import android.content.Context;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.widget.Toast;
 
-import com.adyen.core.PaymentRequest;
-import com.adyen.core.interfaces.HttpResponseCallback;
-import com.adyen.core.interfaces.PaymentDataCallback;
-import com.adyen.core.interfaces.PaymentRequestListener;
-import com.adyen.core.models.Payment;
-import com.adyen.core.models.PaymentRequestResult;
-import com.adyen.core.utils.AsyncHttpClient;
 import com.ins.common.utils.L;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.bean.common.CommonEntity;
+import com.magicbeans.xgate.bean.pay.PayResult;
 import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
-import com.magicbeans.xgate.net.nethelper.NetAddressHelper;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.nio.charset.Charset;
-import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class PaypalApi {
 
@@ -82,20 +60,23 @@ public class PaypalApi {
                 .put("soid", soid)
                 .build();
 
-        String url = NetParam.createUrl("https://demo2017.strawberrynet.com/app/apiPaypalRequest.aspx/app/apiPaypalRequest.aspx", param);
+//        String url = NetParam.createUrl("https://demo2017.strawberrynet.com/app/apiPaypalRequest.aspx/app/apiPaypalRequest.aspx", param);
+//        L.e(url);
 
-        L.e(url);
-
-        NetApi.NI().apiPaypalPay(param).enqueue(new STCallback<CommonEntity>(CommonEntity.class) {
+        NetApi.NI().apiPaypalPay(param).enqueue(new STCallback<PayResult>(PayResult.class) {
             @Override
-            public void onSuccess(int status, CommonEntity com, String msg) {
-                if (callback != null) callback.onPaySuccess();
+            public void onSuccess(int status, PayResult payResult, String msg) {
+                if ("1000".equals(payResult.getProcessorResponseCode())) {
+                    //支付成功
+                    if (callback != null) callback.onPaySuccess(payResult);
+                } else {
+                    if (callback != null) callback.onPayFail(payResult);
+                }
             }
 
             @Override
             public void onError(int status, String msg) {
-                ToastUtil.showToastShort(msg);
-                if (callback != null) callback.onError(msg);
+                if (callback != null) callback.onError(status + ":" + msg);
             }
         });
     }
@@ -108,7 +89,9 @@ public class PaypalApi {
     }
 
     public interface OnPaypalCallback {
-        void onPaySuccess();
+        void onPaySuccess(PayResult payResult);
+
+        void onPayFail(PayResult payResult);
 
         void onError(String msg);
     }

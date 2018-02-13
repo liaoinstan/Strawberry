@@ -51,8 +51,8 @@ public class PayActivity extends BaseAppCompatActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_pay:
-                PayResultActivity.startSuccess(this, null);
-                finish();
+//                PayResultActivity.startSuccess(this, null);
+//                finish();
                 break;
         }
     }

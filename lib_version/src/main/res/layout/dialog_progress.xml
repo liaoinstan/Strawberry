@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_marginLeft="30dp"
     android:layout_marginRight="30dp"
-    android:background="@drawable/shape_rect_btn_white"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:paddingBottom="20dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="10dp"
+    android:background="@drawable/shape_rect_btn_white_small"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
     android:paddingTop="20dp">
 
     <ProgressBar
-        android:layout_width="30dp"
-        android:layout_height="30dp" />
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        tools:max="100"
+        tools:progress="40" />
+
+    <!--android:progressDrawable="@drawable/progress_bar_drawable"-->
 
     <TextView
         android:id="@+id/text_version_log"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:lineSpacingExtra="10dp"
         android:text="正在下载最新安装包，请不要离开..."
         android:textColor="@color/cc_text_blank" />

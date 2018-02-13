@@ -28,6 +28,7 @@ import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.api.adyen.AdyenPayApi;
 import com.magicbeans.xgate.api.paypal.PaypalApi;
 import com.magicbeans.xgate.bean.common.CommonEntity;
+import com.magicbeans.xgate.bean.pay.PayResult;
 import com.magicbeans.xgate.bean.shopcart.ShopCart;
 import com.magicbeans.xgate.bean.shopcart.ShopCartWrap;
 import com.magicbeans.xgate.bean.user.Token;
@@ -127,7 +128,6 @@ public class PayTestPaypalActivity extends BaseAppCompatActivity implements View
                 PaymentMethodNonce nonce = result.getPaymentMethodNonce();
                 String deviceData = result.getDeviceData();
                 // use the result to update your UI and send the payment method nonce to your server
-                ToastUtil.showToastShort("获取nonce成功");
                 netPaypalPay(nonce.getNonce());
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 // the user canceled
@@ -146,17 +146,24 @@ public class PayTestPaypalActivity extends BaseAppCompatActivity implements View
         showLoadingDialog();
         PaypalApi.getInstance().apiPaypalPay(nonce, SOID, new PaypalApi.OnPaypalCallback() {
             @Override
-            public void onPaySuccess() {
-                ToastUtil.showToastShort("success");
+            public void onPaySuccess(PayResult payResult) {
+                ToastUtil.showToastShort("支付成功");
                 dismissLoadingDialog();
-                PayResultActivity.startSuccess(PayTestPaypalActivity.this, SOID);
+                PayResultActivity.start(PayTestPaypalActivity.this, payResult);
+                finish();
+            }
+
+            @Override
+            public void onPayFail(PayResult payResult) {
+                ToastUtil.showToastShort("支付失败");
+                dismissLoadingDialog();
+                PayResultActivity.start(PayTestPaypalActivity.this, payResult);
                 finish();
             }
 
             @Override
             public void onError(String msg) {
-                PayResultActivity.startFail(PayTestPaypalActivity.this, SOID);
-                dismissLoadingDialog();
+                ToastUtil.showToastShort("网络错误");
             }
         });
     }

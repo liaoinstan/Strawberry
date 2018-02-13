@@ -14,6 +14,7 @@ import com.ins.common.utils.FocusUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.order.OrderDetail;
+import com.magicbeans.xgate.bean.pay.PayResult;
 import com.magicbeans.xgate.databinding.ActivityPayresultBinding;
 import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.net.nethelper.NetOrderHelper;
@@ -33,21 +34,11 @@ public class PayResultActivity extends BaseAppCompatActivity {
 
     private ActivityPayresultBinding binding;
     private CommonRecommendController commonRecommendController;
-    private String SOID;
-    private int payStatus;
+    private PayResult payResult;
 
-    public static void startSuccess(Context context, String SOID) {
-        start(context, SOID, STATE_PAY_SUCCESS);
-    }
-
-    public static void startFail(Context context, String SOID) {
-        start(context, SOID, STATE_PAY_FAIL);
-    }
-
-    public static void start(Context context, String SOID, @PayStatus int payStatus) {
+    public static void start(Context context, PayResult payResult) {
         Intent intent = new Intent(context, PayResultActivity.class);
-        intent.putExtra("SOID", SOID);
-        intent.putExtra("payStatus", payStatus);
+        intent.putExtra("payResult", payResult);
         context.startActivity(intent);
     }
 
@@ -64,8 +55,7 @@ public class PayResultActivity extends BaseAppCompatActivity {
     }
 
     private void initBase() {
-        SOID = getIntent().getStringExtra("SOID");
-        payStatus = getIntent().getIntExtra("payStatus", STATE_PAY_FAIL);
+        payResult = (PayResult) getIntent().getSerializableExtra("payResult");
         commonRecommendController = new CommonRecommendController(binding.includeRecommend);
     }
 
@@ -73,54 +63,31 @@ public class PayResultActivity extends BaseAppCompatActivity {
     }
 
     private void initCtrl() {
-        switch (payStatus) {
-            case STATE_PAY_SUCCESS:
+        switch (payResult.getProcessorResponseCodeInt()) {
+            case 1000:
                 setToolbar("订单支付成功");
                 break;
-            case STATE_PAY_FAIL:
+            default:
                 setToolbar("订单支付失败");
-                break;
-            case STATE_PAY_CANCLE:
-                setToolbar("支付已取消");
                 break;
         }
     }
 
     private void initData() {
-        netOrderDetail();
+        setData();
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_orderdetail:
-                OrderDetailActivity.start(this, SOID);
+                OrderDetailActivity.start(this, payResult.getSOID());
                 finish();
                 break;
         }
     }
 
-    private void setData(OrderDetail orderDetail) {
-        if (orderDetail != null) {
-            String detail = "支付方式：信用卡支付\n订单金额：" + AppHelper.getPriceSymbol(null) + orderDetail.getNetAmount();
-            binding.textPayresult.setText(detail);
-        }
-    }
-
-    //订单详情
-    public void netOrderDetail() {
-        showLoadingDialog();
-        NetOrderHelper.getInstance().netOrderDetail(SOID, new NetOrderHelper.OnOrderDetailCallback() {
-            @Override
-            public void onOrderDetail(OrderDetail orderDetail) {
-                setData(orderDetail);
-                hideLoadingDialog();
-            }
-
-            @Override
-            public void onError(String msg) {
-                ToastUtil.showToastShort(msg);
-                hideLoadingDialog();
-            }
-        });
+    private void setData() {
+        String detail = "支付方式：信用卡支付\n订单金额：" + AppHelper.getPriceSymbol(null) + payResult.getAmount();
+        binding.textPayresult.setText(detail);
     }
 }

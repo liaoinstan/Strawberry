@@ -217,7 +217,7 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
         NetApi.NI().netCheckout(requestBody).enqueue(new STFormatCallback<CommonEntity>(CommonEntity.class) {
             @Override
             public void onSuccess(int status, CommonEntity com, String msg) {
-                ToastUtil.showToastShort("check out 成功");
+                //ToastUtil.showToastShort("check out 成功");
                 netAddOrder(post);
             }
 

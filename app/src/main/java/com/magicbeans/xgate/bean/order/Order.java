@@ -27,12 +27,12 @@ public class Order implements Serializable {
     private String CurSymbol;
     private String NetAmountFormatted;
 
-    private List<Product> ItemList;
+    private List<OrderProduct> ItemList;
 
     public Order() {
     }
 
-    public Order(List<Product> itemList) {
+    public Order(List<OrderProduct> itemList) {
         ItemList = itemList;
     }
 
@@ -108,11 +108,11 @@ public class Order implements Serializable {
         NetAmountFormatted = netAmountFormatted;
     }
 
-    public List<Product> getItemList() {
+    public List<OrderProduct> getItemList() {
         return ItemList;
     }
 
-    public void setItemList(List<Product> itemList) {
+    public void setItemList(List<OrderProduct> itemList) {
         ItemList = itemList;
     }
 }
