@@ -6,6 +6,7 @@ import com.magicbeans.xgate.net.nethelper.NetAddressHelper;
 
 /**
  * Created by Administrator on 2018/2/8.
+ * 调用click方法后将会在500ms后调用onDo()方法，如果连续点击，将刷新时间，只调用一次onDo方法
  */
 
 public class DelayHelper {
@@ -22,7 +23,6 @@ public class DelayHelper {
 
     /////////////////////////////////////
 
-    private long exitTime;
     private Handler handler;
     private Runnable runnable;
 

@@ -37,6 +37,7 @@ public class BannerView2 extends FrameLayout {
     private int selectedColor;
     private int unSelectedColor;
     private boolean isAutoScroll;
+    private boolean numberIndicator;    //是否使用数字指示器，默认小圆点
     private Square square = Square.NONE;
 
     //是否显示为正方形：NONE：否 BY_WIDTH：由宽决定高 BY_HIGHT：由高决定宽
@@ -52,6 +53,7 @@ public class BannerView2 extends FrameLayout {
             selectedColor = ta.getColor(R.styleable.BannerView2_selected_color, Color.rgb(255, 255, 255));
             unSelectedColor = ta.getColor(R.styleable.BannerView2_unselected_color, Color.argb(33, 255, 255, 255));
             isAutoScroll = ta.getBoolean(R.styleable.BannerView2_autoscroll, true);
+            numberIndicator = ta.getBoolean(R.styleable.BannerView2_number_indicator, false);
             square = Square.values()[ta.getInt(R.styleable.BannerView2_is_square, 0)];
             ta.recycle();
         }
@@ -78,8 +80,6 @@ public class BannerView2 extends FrameLayout {
                 break;
         }
     }
-
-    private boolean numberIndicator = true;
 
     private void initView() {
         viewPager = findViewById(R.id.viewpager);

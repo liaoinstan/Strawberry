@@ -81,8 +81,6 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_productdetail);
-//        StatusBarTextUtil.transparencyBar(this);
-//        StatusBarTextUtil.StatusBarLightMode(this);
         StatusBarUtil.setTranslucent(this);
         StatusBarUtil.setTextDark(this);
         registEventBus();
@@ -150,11 +148,13 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
                         .initColorStart(Color.parseColor("#00ffffff"))
                         .initColorEnd(ContextCompat.getColor(ProductDetailActivity.this, R.color.white))
                         .start(y);
-                //根据滚动位置反向设置tab切换
-                int hightEva = getTopHightInScroll(productDetailEvaController.getRoot());
-                int hightDetail = getTopHightInScroll(productDetailDescribeController.getRoot());
-                int hightRecomment = getTopHightInScroll(commonRecommendController.getRoot());
-                toolbarProdDetailController.setTabByScrollHeight(hightEva, hightDetail, hightRecomment, y, oldy);
+                //根据滚动位置反向设置tab切换(如果是用户点击radio导致的滚动不处理)
+                if (!toolbarProdDetailController.isRadioPressed()) {
+                    int hightEva = getTopHightInScroll(productDetailEvaController.getRoot());
+                    int hightDetail = getTopHightInScroll(productDetailDescribeController.getRoot());
+                    int hightRecomment = getTopHightInScroll(commonRecommendController.getRoot());
+                    toolbarProdDetailController.setTabByScrollHeight(hightEva, hightDetail, hightRecomment, y, oldy);
+                }
             }
         });
     }
