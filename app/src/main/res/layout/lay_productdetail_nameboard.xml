@@ -11,15 +11,16 @@
 
         <com.ins.common.view.BannerView2
             android:id="@+id/banner"
-            android:layout_marginTop="65dp"
             android:layout_width="match_parent"
             android:layout_height="300dp"
+            android:layout_marginTop="65dp"
             app:autoscroll="false"
             app:is_square="by_width"
-            app:selected_color="@color/colorAccent"
-            app:unselected_color="#11000000"
             app:layout_collapseMode="parallax"
-            app:layout_collapseParallaxMultiplier="0.8" />
+            app:layout_collapseParallaxMultiplier="0.8"
+            app:number_indicator="true"
+            app:selected_color="@color/colorAccent"
+            app:unselected_color="#11000000" />
 
         <LinearLayout
             android:layout_width="match_parent"
