@@ -73,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="￥298"
+                    android:text="比加入购物车时便宜￥298"
                     android:textColor="@color/com_text_light"
                     android:textSize="9sp" />
 

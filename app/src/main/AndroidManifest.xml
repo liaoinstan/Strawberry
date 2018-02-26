@@ -78,6 +78,7 @@
         <activity android:name=".ui.activity.PayTestAdyenActivity" />
         <activity android:name=".ui.activity.OrderDetailActivity" />
         <activity android:name=".ui.activity.PayTestPaypalActivity" />
+        <activity android:name=".ui.activity.OrderProductActivity" />
         <activity android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
             android:launchMode="singleTask">
             <intent-filter>

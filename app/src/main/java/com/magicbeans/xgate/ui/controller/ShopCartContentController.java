@@ -43,7 +43,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
     public ShopCartContentController(FragmentShopbagBinding binding) {
         super(binding);
         initCtrl();
-        initData();
+        initData(true);
     }
 
     private void initCtrl() {
@@ -64,7 +64,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
         binding.spring.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
-                initData();
+                initData(false);
             }
 
             @Override
@@ -85,8 +85,8 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
         });
     }
 
-    private void initData() {
-        showLoadingDialog();
+    private void initData(final boolean isShowLoading) {
+        if (isShowLoading) showLoadingDialog();
         LiveData<List<ShopCart>> shopCartsLiveData = NetShopCartHelper.getInstance().netGetShopCartList();
         shopCartsLiveData.observeForever(new Observer<List<ShopCart>>() {
             @Override
@@ -95,7 +95,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
                 binding.spring.onFinishFreshAndLoad();
                 //计算价格
                 setPriceAndCount();
-                dismissLoadingDialog();
+                if (isShowLoading) dismissLoadingDialog();
             }
         });
     }
@@ -159,6 +159,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
 
     //#################  对外方法 ##################
 
+    //刷新购物车（重新加载本地数据库列表）
     public void refreshData() {
         LiveData<List<ShopCart>> product2sLiveData = ShopCartTableManager.getInstance().queryAllBeans();
         product2sLiveData.observeForever(new Observer<List<ShopCart>>() {
@@ -170,6 +171,11 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
                 setPriceAndCount();
             }
         });
+    }
+
+    //刷新购物车（请求服务器最新购物车数据）
+    public void refreshRemoteData() {
+        initData(false);
     }
 
     //设置当前UI状态为编辑状态，或者普通状态
@@ -214,13 +220,13 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
 
     public final void showLoadingDialog() {
         //只在ShopcartActivity中使用才显示加载进度条
-        if (context instanceof ShopcartActivity) {
+        if (context instanceof BaseAppCompatActivity) {
             ((BaseAppCompatActivity) context).showLoadingDialog();
         }
     }
 
     public final void dismissLoadingDialog() {
-        if (context instanceof ShopcartActivity) {
+        if (context instanceof BaseAppCompatActivity) {
             ((BaseAppCompatActivity) context).dismissLoadingDialog();
         }
     }

@@ -420,4 +420,14 @@ public interface NetInterface {
      */
     @POST("/app/apiPaypalRequest.aspx")
     Call<ResponseBody> apiPaypalPay(@QueryMap(encoded = true) Map<String, Object> param);
+    //##################################################################
+    //#########               2018/2/12 支付
+    //##################################################################
+
+    /**
+     * term
+     */
+    @POST("/prodSearchkey.aspx")
+    Call<ResponseBody> netAutoComplete(@QueryMap Map<String, Object> param);
+
 }

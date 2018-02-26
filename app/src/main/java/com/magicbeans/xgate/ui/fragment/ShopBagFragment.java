@@ -49,8 +49,12 @@ public class ShopBagFragment extends BaseFragment {
                 //用户进入购物车，会进入这个case，这里做一些特殊操作
                 break;
             case EventBean.EVENT_REFRESH_SHOPCART:
-                //收到刷新购物车的消息
+                //收到刷新购物车的消息（从本地数据库获取）
                 shopCartContentController.refreshData();
+                break;
+            case EventBean.EVENT_REFRESH_SHOPCART_REMOTE:
+                //收到刷新购物车的消息（远程服务器获取数据）
+                shopCartContentController.refreshRemoteData();
                 break;
         }
     }

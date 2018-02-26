@@ -1,5 +1,7 @@
 package com.magicbeans.xgate.bean.shopcart;
 
+import android.text.Html;
+
 import com.google.gson.Gson;
 import com.ins.common.entity.BaseSelectBean;
 import com.ins.common.utils.StrUtil;
@@ -81,6 +83,10 @@ public class ShopCart extends BaseSelectBean implements Serializable {
 
     public String getHeaderImg() {
         return "https://c.cdnsbn.com/images/products/" + ProductNum + ".jpg";
+    }
+
+    public String getTitleName() {
+        return BrandName + " - " + Html.fromHtml(ProdName).toString();
     }
 
     //////////////////////业务方法///////////////////////

@@ -34,6 +34,8 @@ import com.magicbeans.xgate.net.nethelper.NetAddressHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.controller.ShopCartContentController;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,6 +87,7 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
     }
 
     private void initView() {
+        binding.layBundle.setOnClickListener(this);
     }
 
     private void initCtrl() {
@@ -94,7 +97,7 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
                 GlideUtil.loadImg(imageView, imgurl);
             }
         });
-        binding.textCount.setText("总计：" + goods.size());
+        binding.textCount.setText("总计：" + ShopCartContentController.calcuCount(goods));
         binding.textTotalPrice.setText(AppHelper.getPriceSymbol(null) + ShopCartContentController.calcuPrice(goods));
         //TODO:运费和积分抵扣暂时没有
         binding.textTransPrice.setText(AppHelper.getPriceSymbol(null) + "0.00");
@@ -155,6 +158,9 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
                 break;
             case R.id.lay_address_select:
                 AddressActivity.startForResult(this);
+                break;
+            case R.id.lay_bundle:
+                OrderProductActivity.start(this, goods);
                 break;
             case R.id.btn_go:
                 if (address != null) {
@@ -236,6 +242,8 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
             @Override
             public void onSuccess(int status, Order order, String msg) {
                 ToastUtil.showToastShort("下单成功");
+                //刷新购物车
+                EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART_REMOTE));
                 dismissLoadingDialog();
                 finish();
                 PayTestPaypalActivity.start(OrderAddActivity.this, order.getSOID());

@@ -18,20 +18,22 @@ public class EventBean implements Serializable {
     public static final int EVENT_JUMP_BRANDHOT = 0xffa103;
     //用户切换到购物车时，发送一条消息
     public static final int EVENT_IN_SHOPCART = 0xffa104;
-    //商品有变动，刷新购物车
+    //商品有变动，刷新购物车(本地数据库获取数据)
     public static final int EVENT_REFRESH_SHOPCART = 0xffa105;
+    //商品有变动，刷新购物车(远程服务器获取数据)
+    public static final int EVENT_REFRESH_SHOPCART_REMOTE = 0xffa106;
     //登录
-    public static final int EVENT_LOGIN = 0xffa106;
+    public static final int EVENT_LOGIN = 0xffa107;
     //注销
-    public static final int EVENT_LOGOUT = 0xffa107;
+    public static final int EVENT_LOGOUT = 0xffa108;
     //刷新地址管理列表
-    public static final int EVENT_REFRESH_ADDRESSLIST = 0xffa108;
+    public static final int EVENT_REFRESH_ADDRESSLIST = 0xffa109;
     //从地址管理列表获取返回地址对象
-    public static final int EVENT_GET_ADDRESS = 0xffa109;
+    public static final int EVENT_GET_ADDRESS = 0xffa110;
     //刷新个人中心历史记录总数
-    public static final int EVENT_ME_HISTORY_COUNT = 0xffa109;
+    public static final int EVENT_ME_HISTORY_COUNT = 0xffa111;
     //刷新订单新增的地址区域
-    public static final int EVENT_REFRESH_ORDERADD_ADDRESS = 0xffa120;
+    public static final int EVENT_REFRESH_ORDERADD_ADDRESS = 0xffa112;
 
     private int event;
     private Map<String, Object> map = new HashMap<>();

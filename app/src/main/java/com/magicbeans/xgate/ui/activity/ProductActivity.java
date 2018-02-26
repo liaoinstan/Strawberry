@@ -31,6 +31,12 @@ public class ProductActivity extends BaseAppCompatActivity {
         context.startActivity(intent);
     }
 
+    public static void startSearch(Context context,String searchKey) {
+        Intent intent = new Intent(context, ProductActivity.class);
+        intent.putExtra("brandID", "288");
+        context.startActivity(intent);
+    }
+
     public static void startCategroy(Context context, Cate1 cate1) {
         Intent intent = new Intent(context, ProductActivity.class);
         intent.putExtra("catgId", cate1.getCatgId());

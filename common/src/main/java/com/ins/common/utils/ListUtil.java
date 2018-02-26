@@ -12,6 +12,7 @@ public class ListUtil {
     //调用list的get方法，处理越界和空问题，如果越界或者空返回null
     public static <T> T get(List<T> list, int position) {
         if (list == null) return null;
+        if (position < 0) return null;
         if (list.size() > position) {
             return list.get(position);
         } else {
@@ -35,12 +36,12 @@ public class ListUtil {
     }
 
     //把一个List列表转换为ArrayList
-    public static <T> ArrayList<T> transArrayList(List<T> fromList){
-        if (fromList instanceof ArrayList){
+    public static <T> ArrayList<T> transArrayList(List<T> fromList) {
+        if (fromList instanceof ArrayList) {
             return (ArrayList<T>) fromList;
-        }else {
+        } else {
             ArrayList<T> toList = new ArrayList<>();
-            for (T t:fromList){
+            for (T t : fromList) {
                 toList.add(t);
             }
             return toList;

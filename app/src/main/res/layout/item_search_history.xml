@@ -14,12 +14,5 @@
         android:textColor="@color/com_text_dark"
         android:textSize="@dimen/text_nomal" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycle_lable"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_weight="1" />
 
 </LinearLayout>

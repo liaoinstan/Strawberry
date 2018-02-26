@@ -113,6 +113,10 @@ public class BundleImgView extends FrameLayout {
 
     //############### 对外方法 ################
 
+    public RecyclerView getRecyclerView(){
+        return recyclerView;
+    }
+
     public void notifyDataSetChanged() {
         adapter.notifyDataSetChanged();
     }

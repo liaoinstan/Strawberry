@@ -9,6 +9,7 @@ import android.view.View;
 import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.ClearCacheUtil;
 import com.ins.common.utils.GlideUtil;
+import com.ins.common.utils.L;
 import com.ins.common.utils.ToastUtil;
 import com.ins.version.utils.VersionUtil;
 import com.magicbeans.xgate.R;
@@ -18,6 +19,7 @@ import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.databinding.ActivitySettingBinding;
 import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
+import com.magicbeans.xgate.utils.CipherUtil2;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -47,6 +49,12 @@ public class SettingActivity extends BaseAppCompatActivity implements View.OnCli
         initView();
         initCtrl();
         initData();
+
+        String psw = "abcd1234";
+        CipherUtil2 cipherUtil2 = new CipherUtil2();
+        String pswEncry = cipherUtil2.encryptPassword(psw);
+        L.e(CipherUtil2.TAG, psw);
+        L.e(CipherUtil2.TAG, pswEncry);
     }
 
     private void initBase() {

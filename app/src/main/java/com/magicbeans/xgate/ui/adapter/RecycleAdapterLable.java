@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.category.Cate1;
 import com.magicbeans.xgate.bean.common.TestBean;
+import com.magicbeans.xgate.data.cache.RuntimeCache;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +19,9 @@ import java.util.List;
 public class RecycleAdapterLable extends RecyclerView.Adapter<RecycleAdapterLable.Holder> {
 
     private Context context;
-    private List<TestBean> results = new ArrayList<>();
+    private List<Cate1> results = new ArrayList<>();
 
-    public List<TestBean> getResults() {
+    public List<Cate1> getResults() {
         return results;
     }
 
@@ -34,14 +36,14 @@ public class RecycleAdapterLable extends RecyclerView.Adapter<RecycleAdapterLabl
 
     @Override
     public void onBindViewHolder(final RecycleAdapterLable.Holder holder, final int position) {
-        final TestBean bean = results.get(position);
+        final Cate1 bean = results.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) listener.onItemClick(holder, position);
             }
         });
-        holder.text_lable.setText(bean.getName());
+        holder.text_lable.setText(bean.getTitle());
     }
 
     @Override
@@ -63,5 +65,11 @@ public class RecycleAdapterLable extends RecyclerView.Adapter<RecycleAdapterLabl
 
     public void setOnItemClickListener(OnRecycleItemClickListener listener) {
         this.listener = listener;
+    }
+
+    public void queryData(){
+        results.clear();
+        results.addAll(RuntimeCache.getInstance().getCate1Cache());
+        notifyDataSetChanged();
     }
 }

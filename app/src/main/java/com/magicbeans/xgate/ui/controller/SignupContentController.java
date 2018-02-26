@@ -193,6 +193,8 @@ public class SignupContentController extends BaseController<LaySignupContentBind
         post.setHeadImageURL(headImageURL);
         post.setGender(gender);
 
+        L.e("unEncryptPsw:" + psw);
+
         RequestBody requestBody = NetParam.buildJsonRequestBody(post);
         NetApi.NI().mergeAccount(requestBody).enqueue(new STFormatCallback<User>(User.class) {
             @Override

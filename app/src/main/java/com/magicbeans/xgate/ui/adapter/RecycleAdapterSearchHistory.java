@@ -22,7 +22,6 @@ public class RecycleAdapterSearchHistory extends RecyclerView.Adapter<RecycleAda
 
     private Context context;
     private List<TestBean> results = new ArrayList<>();
-    private RecycleAdapterLable adapterSearchHot;
 
     public List<TestBean> getResults() {
         return results;
@@ -47,11 +46,6 @@ public class RecycleAdapterSearchHistory extends RecyclerView.Adapter<RecycleAda
             }
         });
         holder.text_title.setText(bean.getName());
-
-        adapterSearchHot.getResults().add(new TestBean("美妆"));
-        adapterSearchHot.getResults().add(new TestBean("热销"));
-        adapterSearchHot.getResults().add(new TestBean("草莓自营"));
-        adapterSearchHot.notifyDataSetChanged();
     }
 
     @Override
@@ -62,17 +56,10 @@ public class RecycleAdapterSearchHistory extends RecyclerView.Adapter<RecycleAda
     public class Holder extends RecyclerView.ViewHolder {
 
         private TextView text_title;
-        private RecyclerView recycle_lable;
 
         public Holder(View itemView) {
             super(itemView);
             text_title = (TextView) itemView.findViewById(R.id.text_title);
-            recycle_lable = (RecyclerView) itemView.findViewById(R.id.recycle_lable);
-
-            adapterSearchHot = new RecycleAdapterLable(context);
-            recycle_lable.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true));
-            recycle_lable.addItemDecoration(new GridSpacingItemDecoration(1, DensityUtil.dp2px(8), GridLayoutManager.HORIZONTAL, false, true));
-            recycle_lable.setAdapter(adapterSearchHot);
         }
     }
 

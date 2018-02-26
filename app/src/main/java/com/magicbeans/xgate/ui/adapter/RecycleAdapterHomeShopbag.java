@@ -51,7 +51,12 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
     @Override
     public void onBindViewHolder(final RecycleAdapterHomeShopbag.Holder holder, final int position) {
         ShopCart bean = results.get(position);
-        holder.binding.includeCoutent.layContent.setOnClickListener(new View.OnClickListener() {
+        //由于给整个item的父view设置点击事件会导致在点击+ - 的时候容易点到外部区域，所以这里不对父view设置点击事件，而是给其中的子view设置点击事件
+        setOnLayItemClickListenner(holder.binding.includeCoutent.imgHeader, holder, position);
+        setOnLayItemClickListenner(holder.binding.includeCoutent.textName, holder, position);
+        setOnLayItemClickListenner(holder.binding.includeCoutent.textAttr, holder, position);
+        setOnLayItemClickListenner(holder.binding.includeCoutent.textPrice, holder, position);
+        holder.binding.includeCoutent.textName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) listener.onItemClick(holder, position);
@@ -106,10 +111,11 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
         });
         holder.binding.includeCoutent.imgShopbagCheck.setSelected(bean.isSelect());
         GlideUtil.loadImg(holder.binding.includeCoutent.imgHeader, bean.getHeaderImg());
-        holder.binding.includeCoutent.textName.setText(Html.fromHtml(bean.getProdName()).toString());
+        holder.binding.includeCoutent.textName.setText(bean.getTitleName());
         holder.binding.includeCoutent.textAttr.setText(bean.getSize());
         holder.binding.includeCoutent.textPrice.setText(AppHelper.getPriceSymbol("") + bean.getPriceFloat());
-        holder.binding.includeCoutent.textPriceOld.setText(AppHelper.getPriceSymbol("") + bean.getBagAddedPriceDifference());
+//        holder.binding.includeCoutent.textPriceOld.setText(AppHelper.getPriceSymbol("") + bean.getBagAddedPriceDifference());
+        holder.binding.includeCoutent.textPriceOld.setText("比加入购物车时便宜" + AppHelper.getPriceSymbol("") + bean.getBagAddedPriceDifference());
         holder.binding.includeCoutent.textPriceOld.setVisibility(bean.getBagAddedPriceDifference() != 0 ? View.VISIBLE : View.INVISIBLE);
         holder.binding.includeCoutent.countview.setCount(bean.getQty());
         holder.binding.includeCoutent.countview.setEdit(true);
@@ -128,6 +134,15 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
             super(binding.getRoot());
             this.binding = binding;
         }
+    }
+
+    private void setOnLayItemClickListenner(View v, final RecycleAdapterHomeShopbag.Holder holder, final int position) {
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) listener.onItemClick(holder, position);
+            }
+        });
     }
 
     //############## 对外方法 ################
