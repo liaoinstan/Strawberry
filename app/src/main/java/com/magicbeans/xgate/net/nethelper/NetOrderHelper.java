@@ -1,12 +1,5 @@
 package com.magicbeans.xgate.net.nethelper;
 
-import android.text.TextUtils;
-
-import com.ins.common.utils.StrUtil;
-import com.ins.common.utils.ToastUtil;
-import com.magicbeans.xgate.bean.address.Address;
-import com.magicbeans.xgate.bean.address.AddressWrap;
-import com.magicbeans.xgate.bean.common.CommonEntity;
 import com.magicbeans.xgate.bean.order.Order;
 import com.magicbeans.xgate.bean.order.OrderDetail;
 import com.magicbeans.xgate.bean.order.OrderWrap;
@@ -17,9 +10,6 @@ import com.magicbeans.xgate.net.STCallback;
 
 import java.util.List;
 import java.util.Map;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
 
 /**
  * Created by liaoinstan on 2018/1/22.

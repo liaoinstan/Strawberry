@@ -2,7 +2,6 @@ package com.magicbeans.xgate.bean.product;
 
 import android.text.TextUtils;
 
-import com.google.gson.Gson;
 import com.ins.common.entity.BaseSelectBean;
 import com.ins.common.utils.StrUtil;
 

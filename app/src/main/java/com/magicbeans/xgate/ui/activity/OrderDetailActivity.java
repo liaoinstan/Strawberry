@@ -12,23 +12,14 @@ import android.view.View;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.ui.dialog.DialogSure;
 import com.ins.common.utils.ToastUtil;
-import com.ins.version.dialog.MsgDialog;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.order.OrderDetail;
 import com.magicbeans.xgate.bean.order.OrderProduct;
-import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.databinding.ActivityOrderdetailBinding;
 import com.magicbeans.xgate.helper.AppHelper;
-import com.magicbeans.xgate.net.NetApi;
-import com.magicbeans.xgate.net.NetParam;
-import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.net.nethelper.NetOrderHelper;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterOrderDetailGoods;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
-
-import org.w3c.dom.Text;
-
-import java.util.Map;
 
 public class OrderDetailActivity extends BaseAppCompatActivity implements View.OnClickListener, OnRecycleItemClickListener {
 

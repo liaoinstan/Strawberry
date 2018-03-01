@@ -186,49 +186,58 @@
                         android:background="@color/white"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/text_me_sign"
-                            style="@style/TextMeItem"
-                            android:layout_height="45dp"
-                            android:text="优惠券"
-                            android:textColor="@color/com_text_blank" />
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/text_coupon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right|center_vertical"
+                                android:layout_marginRight="45dp"
+                                android:hint="请填写优惠劵"
+                                android:textColor="@color/com_text_dark_light"
+                                android:textColorHint="@color/com_text_dark_light"
+                                android:textSize="@dimen/text_nomal_small" />
+
+                            <TextView
+                                android:id="@+id/lay_coupon"
+                                style="@style/TextMeItem"
+                                android:layout_height="45dp"
+                                android:onClick="onClick"
+                                android:text="优惠券" />
+
+                        </FrameLayout>
 
                         <View
                             style="@style/Line_H"
                             android:layout_marginLeft="10dp" />
 
-                        <LinearLayout
+                        <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp">
+                            android:layout_height="wrap_content">
 
                             <TextView
+                                android:id="@+id/text_idcard"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="积分"
-                                android:textColor="@color/com_text_blank"
-                                android:textSize="@dimen/text_nomal" />
+                                android:layout_gravity="right|center_vertical"
+                                android:layout_marginRight="45dp"
+                                android:hint="请填写申报资料"
+                                android:textColor="@color/com_text_dark_light"
+                                android:textColorHint="@color/com_text_dark_light"
+                                android:textSize="@dimen/text_nomal_small" />
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="公有20分，可用20分，抵￥0.20元"
-                                android:textColor="@color/com_text_blank"
-                                android:textSize="@dimen/text_tiny" />
+                                android:id="@+id/lay_idcard"
+                                style="@style/TextMeItem"
+                                android:layout_height="45dp"
+                                android:onClick="onClick"
+                                android:text="申报资料" />
 
-                            <Space style="@style/Space_H" />
+                        </FrameLayout>
 
-                            <com.kyleduo.switchbutton.SwitchButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                app:kswBackColor="@color/select_text_dark_green_check"
-                                app:kswThumbColor="@color/white" />
-
-                        </LinearLayout>
 
                     </LinearLayout>
 

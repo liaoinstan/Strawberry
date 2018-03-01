@@ -16,19 +16,13 @@ import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.address.Address;
 import com.magicbeans.xgate.bean.address.AddressWrap;
-import com.magicbeans.xgate.bean.common.CommonEntity;
-import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.databinding.ItemAddressBinding;
-import com.magicbeans.xgate.net.NetApi;
-import com.magicbeans.xgate.net.NetParam;
-import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.net.nethelper.NetAddressHelper;
 import com.magicbeans.xgate.ui.activity.AddressAddActivity;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class RecycleAdapterAddress extends RecyclerView.Adapter<RecycleAdapterAddress.Holder> {
 

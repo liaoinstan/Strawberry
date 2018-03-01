@@ -39,15 +39,17 @@
                         android:src="@drawable/ic_back_light" />
 
                     <EditText
+                        android:id="@+id/edit_search"
                         android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_weight="1"
                         android:background="@drawable/shape_rect_cornerfull_white"
                         android:gravity="center_vertical"
                         android:hint="@string/home_search"
+                        android:inputType="textPersonName"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
-                        android:textColor="@color/com_text_dark"
+                        android:textColor="@color/com_text_blank"
                         android:textColorHint="@color/com_text_hint"
                         android:textSize="@dimen/text_nomal" />
 

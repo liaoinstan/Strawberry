@@ -143,6 +143,8 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxjava:2.1.8'
     //代替tablayout
     compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
+    //支持flow布局的RecyclerView布局管理器
+    compile 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
     //adyen 支付集成
     compile 'com.adyen.checkout:core:1.14.1'
     compile 'com.adyen.checkout:utils:1.14.1'

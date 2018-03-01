@@ -34,6 +34,10 @@ public class EventBean implements Serializable {
     public static final int EVENT_ME_HISTORY_COUNT = 0xffa111;
     //刷新订单新增的地址区域
     public static final int EVENT_REFRESH_ORDERADD_ADDRESS = 0xffa112;
+    //选择优惠券通知下单页面
+    public static final int EVENT_ADD_COUPON = 0xffa113;
+    //添加身份证号通知下单页面
+    public static final int EVENT_ADD_IDCARD = 0xffa114;
 
     private int event;
     private Map<String, Object> map = new HashMap<>();

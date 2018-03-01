@@ -24,12 +24,9 @@ import com.magicbeans.xgate.net.nethelper.NetShopCartHelper;
 import com.magicbeans.xgate.sharesdk.ShareDialog;
 import com.magicbeans.xgate.ui.activity.OrderAddActivity;
 import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
-import com.magicbeans.xgate.ui.activity.ShopcartActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeShopbag;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
-import com.magicbeans.xgate.ui.dialog.DialogLoading;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**

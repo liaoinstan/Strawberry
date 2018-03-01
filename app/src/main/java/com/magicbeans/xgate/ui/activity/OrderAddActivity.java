@@ -14,10 +14,10 @@ import com.ins.common.view.bundleimgview.BundleImgEntity;
 import com.ins.common.view.bundleimgview.BundleImgView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
-import com.magicbeans.xgate.bean.order.Order;
 import com.magicbeans.xgate.bean.address.Address;
 import com.magicbeans.xgate.bean.address.AddressWrap;
 import com.magicbeans.xgate.bean.common.CommonEntity;
+import com.magicbeans.xgate.bean.order.Order;
 import com.magicbeans.xgate.bean.postbean.Cart;
 import com.magicbeans.xgate.bean.postbean.CreateOrderPost;
 import com.magicbeans.xgate.bean.postbean.Customer;
@@ -60,6 +60,12 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
     @Override
     public void onCommonEvent(EventBean event) {
         switch (event.getEvent()) {
+            case EventBean.EVENT_ADD_COUPON:
+                binding.textCoupon.setText((String) event.get("coupon"));
+                break;
+            case EventBean.EVENT_ADD_IDCARD:
+                binding.textIdcard.setText((String) event.get("idcard"));
+                break;
             case EventBean.EVENT_GET_ADDRESS:
                 Address address = (Address) event.get("address");
                 setAddress(address);
@@ -88,6 +94,8 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
 
     private void initView() {
         binding.layBundle.setOnClickListener(this);
+        binding.layCoupon.setOnClickListener(this);
+        binding.layIdcard.setOnClickListener(this);
     }
 
     private void initCtrl() {
@@ -161,6 +169,12 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
                 break;
             case R.id.lay_bundle:
                 OrderProductActivity.start(this, goods);
+                break;
+            case R.id.lay_coupon:
+                OrderCouponActivity.start(this);
+                break;
+            case R.id.lay_idcard:
+                OrderIdcardActivity.start(this);
                 break;
             case R.id.btn_go:
                 if (address != null) {

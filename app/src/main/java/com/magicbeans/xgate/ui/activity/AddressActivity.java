@@ -7,36 +7,20 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.ins.common.interfaces.OnRecycleItemClickListener;
-import com.ins.common.ui.dialog.DialogSure;
-import com.ins.common.utils.ToastUtil;
 import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.address.Address;
-import com.magicbeans.xgate.bean.address.AddressWrap;
-import com.magicbeans.xgate.bean.common.CommonEntity;
-import com.magicbeans.xgate.bean.shopcart.ShopCart;
-import com.magicbeans.xgate.bean.shopcart.ShopCartWrap;
-import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.databinding.ActivityAddressBinding;
-import com.magicbeans.xgate.helper.SpringViewHelper;
-import com.magicbeans.xgate.net.NetApi;
-import com.magicbeans.xgate.net.NetParam;
-import com.magicbeans.xgate.net.STCallback;
-import com.magicbeans.xgate.net.STFormatCallback;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterAddress;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.List;
-import java.util.Map;
 
 public class AddressActivity extends BaseAppCompatActivity implements OnRecycleItemClickListener {
 

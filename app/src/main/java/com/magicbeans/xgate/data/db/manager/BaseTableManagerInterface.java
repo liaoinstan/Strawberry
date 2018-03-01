@@ -2,8 +2,6 @@ package com.magicbeans.xgate.data.db.manager;
 
 import android.arch.lifecycle.LiveData;
 
-import com.magicbeans.xgate.bean.product.Product;
-
 import java.util.List;
 
 /**

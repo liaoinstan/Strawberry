@@ -4,36 +4,35 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 
+import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager;
 import com.google.gson.reflect.TypeToken;
-import com.ins.common.common.GridSpacingItemDecoration;
+import com.ins.common.interfaces.OnRecycleItemClickListenerEx;
 import com.ins.common.ui.dialog.DialogSure;
-import com.ins.common.utils.DensityUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.address.AddressWrap;
-import com.magicbeans.xgate.bean.common.TestBean;
-import com.magicbeans.xgate.bean.user.Token;
+import com.magicbeans.xgate.bean.category.Cate1;
+import com.magicbeans.xgate.bean.search.SearchHistory;
+import com.magicbeans.xgate.data.cache.DataCache;
 import com.magicbeans.xgate.databinding.ActivitySearchBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
-import com.magicbeans.xgate.net.nethelper.NetAddressHelper;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterLable;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterSearchHistory;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.dialog.SearchPopupWindow;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class SearchActivity extends BaseAppCompatActivity implements SearchPopupWindow.OnSearchKeyClickListener {
+public class SearchActivity extends BaseAppCompatActivity implements SearchPopupWindow.OnSearchKeyClickListener, OnRecycleItemClickListenerEx {
 
     private ActivitySearchBinding binding;
     private RecycleAdapterLable adapterSearchHot;
@@ -67,11 +66,14 @@ public class SearchActivity extends BaseAppCompatActivity implements SearchPopup
 
     private void initCtrl() {
         adapterSearchHot = new RecycleAdapterLable(this);
-        binding.recycleHot.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        binding.recycleHot.addItemDecoration(new GridSpacingItemDecoration(1, DensityUtil.dp2px(8), GridLayoutManager.HORIZONTAL, false));
+        adapterSearchHot.setOnItemClickListener(this);
+        binding.recycleHot.setNestedScrollingEnabled(false);
+        binding.recycleHot.setLayoutManager(ChipsLayoutManager.newBuilder(this).setOrientation(ChipsLayoutManager.HORIZONTAL).build());
         binding.recycleHot.setAdapter(adapterSearchHot);
 
         adapterSearchHistory = new RecycleAdapterSearchHistory(this);
+        adapterSearchHistory.setOnItemClickListener(this);
+        binding.recycleHistory.setNestedScrollingEnabled(false);
         binding.recycleHistory.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         binding.recycleHistory.setAdapter(adapterSearchHistory);
 
@@ -89,18 +91,24 @@ public class SearchActivity extends BaseAppCompatActivity implements SearchPopup
             public void afterTextChanged(Editable s) {
             }
         });
+        binding.editSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == event.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
+                    String key = binding.editSearch.getText().toString();
+                    if (!TextUtils.isEmpty(key)) {
+                        startActivityAndFinish(key);
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void initData() {
         adapterSearchHot.queryData();
-
-        adapterSearchHistory.getResults().clear();
-        adapterSearchHistory.getResults().add(new TestBean("面膜"));
-        adapterSearchHistory.getResults().add(new TestBean("口红"));
-        adapterSearchHistory.getResults().add(new TestBean("洗面奶"));
-        adapterSearchHistory.getResults().add(new TestBean("化妆品"));
-        adapterSearchHistory.getResults().add(new TestBean("粉底"));
-        adapterSearchHistory.notifyDataSetChanged();
+        adapterSearchHistory.queryData();
     }
 
     private void search(String searchText) {
@@ -113,19 +121,57 @@ public class SearchActivity extends BaseAppCompatActivity implements SearchPopup
 
     @Override
     public void onKeyClick(String key, int position) {
-        ProductActivity.startSearch(this, key);
+        startActivityAndFinish(key);
         searchPopupWindow.dismiss();
+    }
+
+    @Override
+    public void onItemClick(RecyclerView.Adapter adapter, RecyclerView.ViewHolder viewHolder, int position) {
+        if (adapter instanceof RecycleAdapterLable) {
+            Cate1 cate1 = adapterSearchHot.getResults().get(viewHolder.getLayoutPosition());
+            startActivityAndFinish(cate1);
+            finish();
+        } else if (adapter instanceof RecycleAdapterSearchHistory) {
+            SearchHistory searchHistory = adapterSearchHistory.getResults().get(viewHolder.getLayoutPosition());
+            startActivityAndFinish(searchHistory);
+        }
+    }
+
+    private void startActivityAndFinish(String key) {
+        ProductActivity.startSearch(this, key);
+        DataCache.getInstance().putSeachHistory(new SearchHistory(key));
+        finish();
+    }
+
+    private void startActivityAndFinish(Cate1 cate1) {
+        ProductActivity.startCategroy(this, cate1);
+        DataCache.getInstance().putSeachHistory(new SearchHistory(cate1));
+        finish();
+    }
+
+    private void startActivityAndFinish(SearchHistory searchHistory) {
+        switch (searchHistory.getHistoryType()) {
+            case SearchHistory.TYPE_STRING:
+                startActivityAndFinish(searchHistory.getSearchKey());
+                break;
+            case SearchHistory.TYPE_CATE1:
+                startActivityAndFinish(searchHistory.getCate1());
+                break;
+        }
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_right:
+                binding.editSearch.setText("");
                 onBackPressed();
                 break;
             case R.id.btn_clear:
                 DialogSure.showDialog(this, "确定要清除搜索记录？", new DialogSure.CallBack() {
                     @Override
                     public void onSure() {
+                        DataCache.getInstance().removeSeachHistory();
+                        adapterSearchHistory.queryData();
                     }
                 });
                 break;
@@ -140,6 +186,7 @@ public class SearchActivity extends BaseAppCompatActivity implements SearchPopup
             super.onBackPressed();
         }
     }
+
 
     //自动填充接口
     public void netAutoComplete(String searchText) {
@@ -162,6 +209,4 @@ public class SearchActivity extends BaseAppCompatActivity implements SearchPopup
             }
         });
     }
-
-
 }

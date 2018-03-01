@@ -1,7 +1,6 @@
 package com.magicbeans.xgate.ui.dialog;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,13 +10,9 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.ins.common.common.GridSpacingItemDecoration;
 import com.ins.common.common.ItemDecorationDivider;
-import com.ins.common.helper.SelectHelper;
-import com.ins.common.utils.DensityUtil;
 import com.ins.common.view.singlepopview.BaseRecyclePopupWindow;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.PopBean;
 
 /**
  * Created by Administrator on 2017/9/27.

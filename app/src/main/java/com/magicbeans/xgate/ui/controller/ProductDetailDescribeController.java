@@ -1,6 +1,5 @@
 package com.magicbeans.xgate.ui.controller;
 
-import android.content.Context;
 import android.view.View;
 
 import com.ins.common.utils.StrUtil;

@@ -10,7 +10,6 @@ import com.magicbeans.xgate.bean.user.User;
 
 public class AppData {
 
-
     public static class App {
 
         private static final String SHARENAME = "app_config";

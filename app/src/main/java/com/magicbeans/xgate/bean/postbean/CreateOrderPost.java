@@ -2,7 +2,6 @@ package com.magicbeans.xgate.bean.postbean;
 
 import com.google.gson.Gson;
 import com.ins.common.utils.StrUtil;
-import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.shopcart.ShopCart;
 
 import java.io.Serializable;

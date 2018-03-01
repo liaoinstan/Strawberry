@@ -4,17 +4,12 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
-import android.os.AsyncTask;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.data.db.AppDataBase;
 import com.magicbeans.xgate.data.db.entity.HistoryTable;
 
-import org.reactivestreams.Subscriber;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;

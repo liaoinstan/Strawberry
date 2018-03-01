@@ -8,7 +8,7 @@ import android.widget.RadioGroup;
 import com.ins.common.view.singlepopview.BaseRecyclePopupWindow;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.PopBean;
-import com.magicbeans.xgate.data.cache.RuntimeCache;
+import com.magicbeans.xgate.data.cache.DataCache;
 import com.magicbeans.xgate.databinding.LayProductlistSortBinding;
 import com.magicbeans.xgate.ui.dialog.MyGridPopupWindow;
 
@@ -46,10 +46,10 @@ public class ProductListSortController implements View.OnClickListener, RadioGro
 
     public void initData() {
         //获取缓存数据
-        List<PopBean> popBrands = PopBean.transFromBrands(RuntimeCache.getInstance().getHotBrandsCache());
+        List<PopBean> popBrands = PopBean.transFromBrands(DataCache.getInstance().getHotBrandsCache());
         popBrands.add(0, new PopBean(null, "全部", true));
         pop_brand.setResults(popBrands);
-        List<PopBean> popCates = PopBean.transFromCate1s(RuntimeCache.getInstance().getCate1Cache());
+        List<PopBean> popCates = PopBean.transFromCate1s(DataCache.getInstance().getCate1Cache());
         popCates.add(0, new PopBean(null, "全部", true));
         pop_cate.setResults(popCates);
     }

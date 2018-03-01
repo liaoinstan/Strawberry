@@ -1,29 +1,28 @@
 package com.magicbeans.xgate.ui.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.ins.common.common.GridSpacingItemDecoration;
-import com.ins.common.interfaces.OnRecycleItemClickListener;
-import com.ins.common.utils.DensityUtil;
+import com.ins.common.interfaces.OnRecycleItemClickListenerEx;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.common.TestBean;
+import com.magicbeans.xgate.bean.search.SearchHistory;
+import com.magicbeans.xgate.data.cache.DataCache;
+import com.magicbeans.xgate.databinding.ItemSearchHistoryBinding;
+import com.magicbeans.xgate.ui.holder.BaseHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecycleAdapterSearchHistory extends RecyclerView.Adapter<RecycleAdapterSearchHistory.Holder> {
+public class RecycleAdapterSearchHistory extends RecyclerView.Adapter<BaseHolder<ItemSearchHistoryBinding>> {
 
     private Context context;
-    private List<TestBean> results = new ArrayList<>();
+    private List<SearchHistory> results = new ArrayList<>();
 
-    public List<TestBean> getResults() {
+    public List<SearchHistory> getResults() {
         return results;
     }
 
@@ -32,20 +31,32 @@ public class RecycleAdapterSearchHistory extends RecyclerView.Adapter<RecycleAda
     }
 
     @Override
-    public RecycleAdapterSearchHistory.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search_history, parent, false));
+    public BaseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new BaseHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_search_history, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(final RecycleAdapterSearchHistory.Holder holder, final int position) {
-        final TestBean bean = results.get(position);
+    public void onBindViewHolder(final BaseHolder<ItemSearchHistoryBinding> holder, final int position) {
+        final SearchHistory bean = results.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listener != null) listener.onItemClick(holder, position);
+                if (listener != null)
+                    listener.onItemClick(RecycleAdapterSearchHistory.this, holder, position);
             }
         });
-        holder.text_title.setText(bean.getName());
+        switch (bean.getHistoryType()) {
+            case SearchHistory.TYPE_STRING:
+                holder.binding.textTitle.setText(bean.getSearchKey());
+                holder.binding.textTag.setVisibility(View.GONE);
+                break;
+            case SearchHistory.TYPE_CATE1:
+                holder.binding.textTitle.setText(bean.getCate1().getTitle());
+                holder.binding.textTag.setText(bean.getTag());
+                holder.binding.textTag.setVisibility(View.VISIBLE);
+                break;
+        }
+
     }
 
     @Override
@@ -53,19 +64,18 @@ public class RecycleAdapterSearchHistory extends RecyclerView.Adapter<RecycleAda
         return results.size();
     }
 
-    public class Holder extends RecyclerView.ViewHolder {
+    private OnRecycleItemClickListenerEx listener;
 
-        private TextView text_title;
-
-        public Holder(View itemView) {
-            super(itemView);
-            text_title = (TextView) itemView.findViewById(R.id.text_title);
-        }
+    public void setOnItemClickListener(OnRecycleItemClickListenerEx listener) {
+        this.listener = listener;
     }
 
-    private OnRecycleItemClickListener listener;
+    //########################
 
-    public void setOnItemClickListener(OnRecycleItemClickListener listener) {
-        this.listener = listener;
+    public void queryData() {
+        List<SearchHistory> seachHistorys = DataCache.getInstance().getSeachHistory();
+        results.clear();
+        results.addAll(seachHistorys);
+        notifyDataSetChanged();
     }
 }

@@ -5,7 +5,6 @@ import android.text.Html;
 import com.google.gson.Gson;
 import com.ins.common.entity.BaseSelectBean;
 import com.ins.common.utils.StrUtil;
-import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.product.ProductDetail;
 

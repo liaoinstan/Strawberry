@@ -1,7 +1,5 @@
 package com.magicbeans.xgate.bean.order;
 
-import com.magicbeans.xgate.bean.product.Product;
-
 import java.io.Serializable;
 import java.util.List;
 

@@ -19,12 +19,7 @@ import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.order.Order;
-import com.magicbeans.xgate.bean.order.OrderWrap;
-import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.databinding.FragmentOrderBinding;
-import com.magicbeans.xgate.net.NetApi;
-import com.magicbeans.xgate.net.NetParam;
-import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.net.nethelper.NetOrderHelper;
 import com.magicbeans.xgate.ui.activity.OrderDetailActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterOrder;
@@ -32,7 +27,6 @@ import com.magicbeans.xgate.ui.base.BaseFragment;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by liaoinstan

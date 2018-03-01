@@ -1,6 +1,5 @@
 package com.magicbeans.xgate.ui.controller;
 
-import android.content.Context;
 import android.widget.ImageView;
 
 import com.ins.common.entity.Image;

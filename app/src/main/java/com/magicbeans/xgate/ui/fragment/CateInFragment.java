@@ -15,7 +15,7 @@ import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.category.Cate1;
 import com.magicbeans.xgate.bean.category.Cate2Wrap;
 import com.magicbeans.xgate.bean.category.Cate3;
-import com.magicbeans.xgate.data.cache.RuntimeCache;
+import com.magicbeans.xgate.data.cache.DataCache;
 import com.magicbeans.xgate.databinding.FragmentCateinBinding;
 import com.magicbeans.xgate.helper.SpringViewHelper;
 import com.magicbeans.xgate.net.NetApi;
@@ -85,7 +85,7 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
 
     //刷新数据并检查是否有缓存
     public void freshData(String CatgId) {
-        Cate2Wrap cate2Wrap = RuntimeCache.getInstance().getCate2Cache(CatgId);
+        Cate2Wrap cate2Wrap = DataCache.getInstance().getCate2Cache(CatgId);
         if (cate2Wrap != null) {
             setData(cate2Wrap);
         } else {
@@ -142,7 +142,7 @@ public class CateInFragment extends BaseFragment implements OnRecycleItemClickLi
                 cate2Wrap = bean;
                 setData(bean);
                 //添加运行时缓存
-                RuntimeCache.getInstance().putCate2Cache(CatgId, bean);
+                DataCache.getInstance().putCate2Cache(CatgId, bean);
             }
 
             @Override

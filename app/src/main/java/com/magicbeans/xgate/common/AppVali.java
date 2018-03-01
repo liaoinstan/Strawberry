@@ -62,6 +62,14 @@ public class AppVali {
         }
     }
 
+//    public static String coupon(String coupon) {
+//        if (TextUtils.isEmpty(coupon)) {
+//            return "请输入优惠券";
+//        } else {
+//            return null;
+//        }
+//    }
+
     /////////////////////////////////////
 
 
@@ -153,91 +161,6 @@ public class AppVali {
             return "两次输入号码不同";
         } else {
             return null;
-        }
-    }
-
-    public static String addOrderCount(int lessonId, int count) {
-        if (lessonId == 0) {
-            return "错误：无效的课程";
-        } else if (count <= 0) {
-            return "请输入购买课程数量";
-        } else {
-            return null;
-        }
-    }
-
-    public static String allocatUser(String userIds) {
-        if (isEmpty(userIds)) {
-            return "请至少选择一员工进行分配";
-        } else {
-            return null;
-        }
-    }
-
-    public static String allocatLesson(String lessonIds) {
-        if (isEmpty(lessonIds)) {
-            return "请至少选择一个课程进行分配";
-        } else {
-            return null;
-        }
-    }
-
-    public static String regist_info(int type, String phone, String psw, String path, String faceId, String u_name, String u_num, String c_name, String c_num, int c_tradeid, String g_name, String g_num, int cityid) {
-        switch (type) {
-            case 0:
-                if (TextUtils.isEmpty(phone)) {
-                    return "请输入手机号";
-                } else if (TextUtils.isEmpty(psw)) {
-                    return "请输入密码";
-                } else if (TextUtils.isEmpty(faceId)) {
-                    return "请先进行人脸采集";
-                } else if (cityid == 0) {
-                    return "请输入所在地";
-                } else if (TextUtils.isEmpty(u_name)) {
-                    return "请输入姓名";
-                } else if (TextUtils.isEmpty(u_num)) {
-                    return "请输入身份证";
-                } else if (!ValidateUtil.IDcard(u_num)) {
-                    return "身份证号格式不正确";
-                } else {
-                    return null;
-                }
-            case 1:
-                if (TextUtils.isEmpty(phone)) {
-                    return "请输入手机号";
-                } else if (TextUtils.isEmpty(psw)) {
-                    return "请输入密码";
-                } else if (TextUtils.isEmpty(path)) {
-                    return "请上传营业执照";
-                } else if (cityid == 0) {
-                    return "请输入所在地";
-                } else if (TextUtils.isEmpty(c_name)) {
-                    return "请输入企业名称";
-                } else if (TextUtils.isEmpty(c_num)) {
-                    return "请输入营业执照编码";
-                } else if (c_tradeid == 0) {
-                    return "请选择行业";
-                } else {
-                    return null;
-                }
-            case 2:
-                if (TextUtils.isEmpty(phone)) {
-                    return "请输入手机号";
-                } else if (TextUtils.isEmpty(psw)) {
-                    return "请输入密码";
-                } else if (TextUtils.isEmpty(path)) {
-                    return "请上传介绍信";
-                } else if (cityid == 0) {
-                    return "请输入所在地";
-                } else if (TextUtils.isEmpty(g_name)) {
-                    return "请输入机构名称";
-                } else if (TextUtils.isEmpty(g_num)) {
-                    return "请输入机构代码";
-                } else {
-                    return null;
-                }
-            default:
-                return "验证错误";
         }
     }
 

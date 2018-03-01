@@ -4,12 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.widget.RadioGroup;
 
 import com.ins.common.utils.PermissionsUtil;
-import com.ins.common.utils.StatusBarTextUtil;
 import com.ins.common.utils.StatusBarUtil;
 import com.ins.version.VersionHelper;
 import com.magicbeans.xgate.R;

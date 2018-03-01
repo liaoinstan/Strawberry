@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.ins.common.utils.ToastUtil;
 import com.ins.version.VersionHelper;
 import com.ins.version.utils.VersionUtil;
 import com.magicbeans.xgate.R;

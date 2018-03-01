@@ -2,7 +2,6 @@ package com.magicbeans.xgate.ui.adapter;
 
 import android.support.v7.util.DiffUtil;
 
-import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.shopcart.ShopCart;
 
 import java.util.List;

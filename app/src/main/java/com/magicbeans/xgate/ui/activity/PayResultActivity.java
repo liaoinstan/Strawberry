@@ -5,20 +5,13 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
-import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 
-import com.ins.common.common.GridSpacingItemDecoration;
-import com.ins.common.utils.DensityUtil;
 import com.ins.common.utils.FocusUtil;
-import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.order.OrderDetail;
 import com.magicbeans.xgate.bean.pay.PayResult;
 import com.magicbeans.xgate.databinding.ActivityPayresultBinding;
 import com.magicbeans.xgate.helper.AppHelper;
-import com.magicbeans.xgate.net.nethelper.NetOrderHelper;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterRecomment;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.controller.CommonRecommendController;
 

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/st_bk"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.activity.SettingActivity">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <TextView
+                    android:id="@+id/text_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="优惠券"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_big" />
+
+                <TextView
+                    android:id="@+id/btn_right"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="确定"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_nomal" />
+
+            </android.support.v7.widget.Toolbar>
+
+            <View style="@style/Line_H" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:id="@+id/showingroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <View style="@style/Line_H" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="优惠编码"
+                        android:textColor="@color/com_text_blank"
+                        android:textSize="@dimen/text_nomal" />
+
+                    <EditText
+                        android:id="@+id/edit_coupon"
+                        style="@style/EditMeItem"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:maxLength="32"
+                        android:layout_weight="1"
+                        android:hint="请填写优惠编码"
+                        android:inputType="textPersonName" />
+
+                </LinearLayout>
+
+                <View style="@style/Line_H" />
+
+                <!--需正确输入优惠码（提示：可使用复制-粘贴功能）。-->
+                <!--每个优惠码仅限使用一次。-->
+                <!--优惠码不可与全网优惠共同使用，如全单折上9折或香水产品折上9折等。-->
+                <!--该优惠或仅限于特定品牌或产品。请您再次查看优惠条款。-->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="3dp"
+                    android:minHeight="45dp"
+                    android:padding="15dp"
+                    android:text="·需正确输入优惠码（提示：可使用复制-粘贴功能）\n·每个优惠码仅限使用一次\n·优惠码不可与全网优惠共同使用，如全单折上9折或香水产品折上9折等\n·该优惠或仅限于特定品牌或产品。请您再次查看优惠条款"
+                    android:textColor="@color/com_text_dark"
+                    android:textSize="@dimen/text_small" />
+
+                <View style="@style/Line_H" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

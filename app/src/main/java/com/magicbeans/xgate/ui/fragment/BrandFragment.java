@@ -22,7 +22,7 @@ import com.magicbeans.xgate.bean.brand.Brand;
 import com.magicbeans.xgate.bean.brand.BrandHotWrap;
 import com.magicbeans.xgate.bean.brand.BrandIndex;
 import com.magicbeans.xgate.bean.brand.BrandWrap;
-import com.magicbeans.xgate.data.cache.RuntimeCache;
+import com.magicbeans.xgate.data.cache.DataCache;
 import com.magicbeans.xgate.helper.SpringViewHelper;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
@@ -201,7 +201,7 @@ public class BrandFragment extends BaseFragment implements OnRecycleItemClickLis
                 List<Brand> brandHots = bean.getBrand();
                 if (!StrUtil.isEmpty(brandHots)) {
                     //加入运行时缓存
-                    RuntimeCache.getInstance().putHotBrandsCache(brandHots);
+                    DataCache.getInstance().putHotBrandsCache(brandHots);
                     setBrandHotData(brandHots);
                 }
             }

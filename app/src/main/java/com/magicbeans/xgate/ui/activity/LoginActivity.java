@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.ins.common.utils.App;
-import com.ins.common.utils.StatusBarTextUtil;
 import com.ins.common.utils.StatusBarUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.viewutils.AppUtil;

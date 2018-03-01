@@ -4,48 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.adyen.core.PaymentRequest;
-import com.adyen.core.interfaces.HttpResponseCallback;
-import com.adyen.core.interfaces.PaymentDataCallback;
-import com.adyen.core.interfaces.PaymentRequestListener;
-import com.adyen.core.models.Payment;
-import com.adyen.core.models.PaymentRequestResult;
-import com.adyen.core.utils.AsyncHttpClient;
 import com.braintreepayments.api.dropin.DropInActivity;
 import com.braintreepayments.api.dropin.DropInRequest;
 import com.braintreepayments.api.dropin.DropInResult;
 import com.braintreepayments.api.models.PaymentMethodNonce;
-import com.ins.common.utils.L;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.api.adyen.AdyenPayApi;
 import com.magicbeans.xgate.api.paypal.PaypalApi;
-import com.magicbeans.xgate.bean.common.CommonEntity;
 import com.magicbeans.xgate.bean.pay.PayResult;
-import com.magicbeans.xgate.bean.shopcart.ShopCart;
-import com.magicbeans.xgate.bean.shopcart.ShopCartWrap;
-import com.magicbeans.xgate.bean.user.Token;
-import com.magicbeans.xgate.net.NetApi;
-import com.magicbeans.xgate.net.NetParam;
-import com.magicbeans.xgate.net.STCallback;
-import com.magicbeans.xgate.net.STFormatCallback;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.nio.charset.Charset;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 public class PayTestPaypalActivity extends BaseAppCompatActivity implements View.OnClickListener {
 

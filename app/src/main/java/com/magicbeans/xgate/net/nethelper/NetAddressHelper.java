@@ -2,8 +2,6 @@ package com.magicbeans.xgate.net.nethelper;
 
 import android.text.TextUtils;
 
-import com.ins.common.utils.ToastUtil;
-import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.address.Address;
 import com.magicbeans.xgate.bean.address.AddressWrap;
 import com.magicbeans.xgate.bean.common.CommonEntity;
@@ -11,8 +9,6 @@ import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 import java.util.Map;

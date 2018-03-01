@@ -3,20 +3,12 @@ package com.magicbeans.xgate.data.db.manager;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.os.AsyncTask;
 
-import com.ins.common.utils.StrUtil;
-import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.data.db.AppDataBase;
 import com.magicbeans.xgate.data.db.dao.BaseTableDao;
-import com.magicbeans.xgate.data.db.dao.HistoryTableDao;
-import com.magicbeans.xgate.data.db.dao.ShopCartTableDao;
-import com.magicbeans.xgate.data.db.entity.HistoryTable;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;

@@ -14,7 +14,7 @@ import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.category.Cate1;
 import com.magicbeans.xgate.bean.category.Cate1Wrap;
-import com.magicbeans.xgate.data.cache.RuntimeCache;
+import com.magicbeans.xgate.data.cache.DataCache;
 import com.magicbeans.xgate.databinding.ItemCateTabBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
@@ -92,7 +92,8 @@ public class RecycleAdapterCateTab extends RecyclerView.Adapter<RecycleAdapterCa
             public void onSuccess(int status, Cate1Wrap bean, String msg) {
                 List<Cate1> cate1List = bean.getMenuList();
                 //加入运行时缓存
-                RuntimeCache.getInstance().putCate1Cache(cate1List);
+                DataCache.getInstance().putCate1Cache(cate1List);
+
                 //添加一个品牌分类
                 cate1List.add(0, new Cate1(true, "品牌"));
                 getResults().clear();

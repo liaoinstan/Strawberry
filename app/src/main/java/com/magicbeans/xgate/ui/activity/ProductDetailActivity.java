@@ -11,7 +11,6 @@ import android.widget.RadioGroup;
 
 import com.ins.common.helper.ToobarTansColorHelper;
 import com.ins.common.utils.DensityUtil;
-import com.ins.common.utils.StatusBarTextUtil;
 import com.ins.common.utils.StatusBarUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.utils.viewutils.ScrollViewUtil;

@@ -10,6 +10,7 @@ import com.ins.common.utils.ToastUtil;
 import com.ins.domain.launcher.DomainLauncher;
 import com.magicbeans.xgate.BuildConfig;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.data.cache.DataCache;
 import com.magicbeans.xgate.data.db.AppDataBase;
 import com.magicbeans.xgate.net.NetApi;
 import com.mob.MobSDK;
@@ -32,6 +33,7 @@ public class StrawberryApp extends Application {
 
     private void initSetting() {
         SharedPrefUtilV2.init(this);
+        DataCache.init(this);
         App.saveApplication(this);
         L.setDEBUG(BuildConfig.DEBUG);
         ToastUtil.init(this);

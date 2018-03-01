@@ -14,7 +14,6 @@ import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.address.Address;
 import com.magicbeans.xgate.common.AppVali;
 import com.magicbeans.xgate.databinding.ActivityAddressaddBinding;
-import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.net.nethelper.NetAddressHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 

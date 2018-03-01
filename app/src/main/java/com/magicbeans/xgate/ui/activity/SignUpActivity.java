@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.ins.common.helper.ValiHelper;
 import com.ins.common.ui.dialog.DialogSure;
-import com.ins.common.utils.StatusBarTextUtil;
 import com.ins.common.utils.StatusBarUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;

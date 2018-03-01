@@ -41,11 +41,12 @@
                         android:foreground="?attr/selectableItemBackground"
                         android:gravity="center"
                         android:hint="搜索"
+                        android:imeOptions="actionSearch"
                         android:inputType="textPersonName"
                         android:maxLines="1"
+                        android:onClick="onClick"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
-                        android:onClick="onClick"
                         android:textColor="@color/com_text_blank"
                         android:textColorHint="@color/com_text_hint"
                         android:textSize="@dimen/text_nomal" />
@@ -69,116 +70,95 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <android.support.v4.widget.NestedScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:visibility="visible">
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:minHeight="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:drawableLeft="@drawable/ic_brandhot_title"
+                    android:drawablePadding="3dp"
+                    android:paddingRight="8dp"
+                    android:text="热搜"
+                    android:textColor="@color/com_text_blank"
+                    android:textSize="@dimen/text_nomal_small" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle_hot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    tools:layout_height="50dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@color/st_bk" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/white"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:drawableLeft="@drawable/ic_brandhot_title"
-                            android:drawablePadding="3dp"
-                            android:paddingRight="8dp"
-                            android:text="热搜"
-                            android:textColor="@color/com_text_blank"
-                            android:textSize="@dimen/text_nomal_small" />
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/recycle_hot"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="8dp"
-                        android:background="@color/st_bk" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:text="历史记录"
-                                android:textColor="@color/com_text_dark"
-                                android:textSize="@dimen/text_big" />
-
-                            <Space style="@style/Space_H" />
-
-                            <TextView
-                                android:layout_width="50dp"
-                                android:layout_height="match_parent"
-                                android:foreground="?attr/selectableItemBackground"
-                                android:gravity="center"
-                                android:onClick="onClick"
-                                android:text="清空"
-                                android:textColor="@color/com_text_dark_light"
-                                android:textSize="@dimen/text_nomal_small" />
-                        </LinearLayout>
-
-                        <View
-                            style="@style/Line_H"
-                            android:layout_marginLeft="20dp" />
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/recycle_history"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                        <TextView
-                            android:id="@+id/btn_clear"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginLeft="80dp"
-                            android:layout_marginRight="80dp"
-                            android:layout_marginTop="30dp"
-                            android:background="@drawable/shape_rect_corner_none_line_dark"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:gravity="center"
-                            android:onClick="onClick"
-                            android:text="清空历史搜索"
-                            android:textColor="@color/com_text_dark"
-                            android:textSize="@dimen/text_nomal" />
-
-
-                    </LinearLayout>
+                        android:layout_marginLeft="20dp"
+                        android:text="历史记录"
+                        android:textColor="@color/com_text_blank"
+                        android:textSize="@dimen/text_big" />
 
                 </LinearLayout>
 
-            </android.support.v4.widget.NestedScrollView>
+                <View
+                    style="@style/Line_H"
+                    android:layout_marginLeft="20dp" />
 
-        </FrameLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/btn_clear"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="80dp"
+                    android:layout_marginRight="80dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shape_rect_corner_none_line_dark"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="清空历史搜索"
+                    android:textColor="@color/com_text_dark"
+                    android:textSize="@dimen/text_nomal" />
+
+            </LinearLayout>
+
+        </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

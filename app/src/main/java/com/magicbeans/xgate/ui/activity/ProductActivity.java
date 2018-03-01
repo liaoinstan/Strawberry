@@ -31,9 +31,10 @@ public class ProductActivity extends BaseAppCompatActivity {
         context.startActivity(intent);
     }
 
-    public static void startSearch(Context context,String searchKey) {
+    public static void startSearch(Context context, String searchKey) {
         Intent intent = new Intent(context, ProductActivity.class);
         intent.putExtra("brandID", "288");
+        intent.putExtra("searchKey", searchKey);
         context.startActivity(intent);
     }
 
@@ -71,6 +72,7 @@ public class ProductActivity extends BaseAppCompatActivity {
         String catgId = getIntent().getStringExtra("catgId");
         String brandID = getIntent().getStringExtra("brandID");
         String typeId = getIntent().getStringExtra("typeId");
+        String searchKey = getIntent().getStringExtra("searchKey");
 
         //初始化控制器
         productListSortController = new ProductListSortController(binding.includeProductlistSort);
@@ -81,6 +83,7 @@ public class ProductActivity extends BaseAppCompatActivity {
         productListContentController.setTypeId(typeId);
         if (!TextUtils.isEmpty(catgId)) productListSortController.setSelectCate(catgId);
         if (!TextUtils.isEmpty(brandID)) productListSortController.setSelectBrand(brandID);
+        if (!TextUtils.isEmpty(searchKey)) binding.editSearch.setText(searchKey);
         productListSortController.setOnSortSelectListenner(new ProductListSortController.OnSortSelectListenner() {
             @Override
             public void onSort(String sort) {

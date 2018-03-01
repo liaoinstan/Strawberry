@@ -1,15 +1,12 @@
 package com.magicbeans.xgate.utils;
 
 import android.util.Base64;
-import android.util.Log;
 
 import com.ins.common.utils.L;
 
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Random;
-import java.util.logging.Logger;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;

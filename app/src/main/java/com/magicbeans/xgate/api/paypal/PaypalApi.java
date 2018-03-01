@@ -2,9 +2,7 @@ package com.magicbeans.xgate.api.paypal;
 
 import android.text.TextUtils;
 
-import com.ins.common.utils.L;
 import com.ins.common.utils.ToastUtil;
-import com.magicbeans.xgate.bean.common.CommonEntity;
 import com.magicbeans.xgate.bean.pay.PayResult;
 import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.net.NetApi;

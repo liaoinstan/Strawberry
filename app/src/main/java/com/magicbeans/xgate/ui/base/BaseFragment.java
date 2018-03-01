@@ -8,13 +8,10 @@ import android.widget.TextView;
 
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
-import com.magicbeans.xgate.ui.dialog.DialogLoading;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.lang.ref.WeakReference;
 
 
 /**
