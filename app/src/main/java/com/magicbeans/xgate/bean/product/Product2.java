@@ -47,8 +47,10 @@ public class Product2 extends BaseSelectBean implements Serializable {
     private List<ProductImages> ProductImages;
     private List<String> Description;
 
-    //新增字段
+    //本地字段
     private int count = 1; //购买数量，默认1，无法为0
+    //品牌名称
+    private String BrandName;
 
     // ###########  逻辑方法  ################
 
@@ -176,6 +178,14 @@ public class Product2 extends BaseSelectBean implements Serializable {
 
     public boolean isUnboxed() {
         return IsUnboxed;
+    }
+
+    public String getBrandName() {
+        return BrandName;
+    }
+
+    public void setBrandName(String brandName) {
+        BrandName = brandName;
     }
 
     public void setUnboxed(boolean unboxed) {

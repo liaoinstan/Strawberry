@@ -98,6 +98,26 @@ public class BaseTableManager<T> implements BaseTableManagerInterface<T> {
     }
 
     @Override
+    public LiveData<List<T>> queryById(final int[] ids) {
+        final MutableLiveData<List<T>> resultsLiveData = new MediatorLiveData<>();
+        Observable.create(new ObservableOnSubscribe<List<T>>() {
+            @Override
+            public void subscribe(ObservableEmitter<List<T>> e) throws Exception {
+                List<T> results = baseTableDao.queryById(ids);
+                e.onNext(results);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<T>>() {
+                    @Override
+                    public void accept(List<T> results) throws Exception {
+                        resultsLiveData.setValue(results);
+                    }
+                });
+        return resultsLiveData;
+    }
+
+    @Override
     public LiveData<Integer> insert(final T... tables) {
         final MutableLiveData<Integer> resultsLiveData = new MediatorLiveData<>();
         Observable.create(new ObservableOnSubscribe<Integer>() {

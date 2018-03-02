@@ -21,6 +21,7 @@ import com.magicbeans.xgate.bean.shopcart.ShopCart;
 import com.magicbeans.xgate.data.db.manager.ShopCartTableManager;
 import com.magicbeans.xgate.databinding.ItemShopbagBinding;
 import com.magicbeans.xgate.helper.AppHelper;
+import com.magicbeans.xgate.helper.DataShopCartHelper;
 import com.magicbeans.xgate.helper.DelayHelper;
 import com.magicbeans.xgate.net.nethelper.NetShopCartHelper;
 import com.magicbeans.xgate.ui.view.CountView;
@@ -78,7 +79,8 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
                             ShopCart bean = ListUtil.get(results, holder.getLayoutPosition());
                             if (bean != null) {
                                 bean.setQty(count);
-                                NetShopCartHelper.getInstance().netUpdateShopCart(bean.getProdID(), count);
+//                                NetShopCartHelper.getInstance().netUpdateShopCart(bean.getProdID(), bean.getQty());
+                                DataShopCartHelper.getInstance().updateShopCart(bean);
                             }
                         }
                     });
@@ -103,7 +105,8 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
                     public void onSure() {
                         ShopCart bean = results.get(holder.getLayoutPosition());
                         //######### 从服务器及本地数据库移除 ############
-                        NetShopCartHelper.getInstance().netRemoveShopCart(context, bean.getProdID());
+//                        NetShopCartHelper.getInstance().netRemoveShopCart(context, bean.getProdID());
+                        DataShopCartHelper.getInstance().removeShopCart(context, bean);
                     }
                 });
             }

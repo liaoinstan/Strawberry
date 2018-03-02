@@ -43,7 +43,7 @@
                     android:layout_weight="1"
                     android:text="4FCC239C61DC9B25A09D6A4B86FCB3DF1"
                     android:textSize="@dimen/text_tiny"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
 
             </FrameLayout>

@@ -15,6 +15,7 @@ import com.magicbeans.xgate.bean.shopcart.ShopCart;
 import com.magicbeans.xgate.bean.shopcart.ShopCartWrap;
 import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.data.db.manager.ShopCartTableManager;
+import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STFormatCallback;
@@ -69,9 +70,7 @@ public class NetShopCartHelper {
     //修改购物车商品
     //conetxt只用于显示进度弹窗，如果不需要显示进度可以传null
     public void netUpdateShopCart(final Context context, final String ProdId, int count) {
-        if (context != null && context instanceof BaseAppCompatActivity) {
-            ((BaseAppCompatActivity) context).showLoadingDialog();
-        }
+        dismissLoadingDialog(context);
         Map<String, Object> param = new NetParam()
                 .put("ProdId", ProdId)
                 .put("qty", count)
@@ -84,17 +83,13 @@ public class NetShopCartHelper {
                 if (!TextUtils.isEmpty(errorMsg)) ToastUtil.showToastShort(errorMsg);
                 List<ShopCart> shopCarts = shopCartWrap.getProdList();
                 updateDataBaseSendFreshMsg(shopCarts);
-                if (context != null && context instanceof BaseAppCompatActivity) {
-                    ((BaseAppCompatActivity) context).hideLoadingDialog();
-                }
+                dismissLoadingDialog(context);
             }
 
             @Override
             public void onError(int status, String msg) {
                 ToastUtil.showToastShort(msg);
-                if (context != null && context instanceof BaseAppCompatActivity) {
-                    ((BaseAppCompatActivity) context).hideLoadingDialog();
-                }
+                dismissLoadingDialog(context);
             }
         });
     }
@@ -103,9 +98,7 @@ public class NetShopCartHelper {
     //批量修改购物车商品（可用于删除）
     //conetxt只用于显示进度弹窗，如果不需要显示进度可以传null
     public void netBatchUpdateShopCart(final Context context, List<ShopCart> shopCarts) {
-        if (context != null && context instanceof BaseAppCompatActivity) {
-            ((BaseAppCompatActivity) context).showLoadingDialog();
-        }
+        showLoadingDialog(context);
         Map<String, Object> param = new NetParam()
                 .put("AppProds", ShopCart.getBatchUpdateIds(shopCarts))
                 .put("token", Token.getLocalToken())
@@ -115,17 +108,13 @@ public class NetShopCartHelper {
             public void onSuccess(int status, ShopCartWrap shopCartWrap, String msg) {
                 List<ShopCart> shopCarts = shopCartWrap.getProdList();
                 updateDataBaseSendFreshMsg(shopCarts);
-                if (context != null && context instanceof BaseAppCompatActivity) {
-                    ((BaseAppCompatActivity) context).hideLoadingDialog();
-                }
+                dismissLoadingDialog(context);
             }
 
             @Override
             public void onError(int status, String msg) {
                 ToastUtil.showToastShort(msg);
-                if (context != null && context instanceof BaseAppCompatActivity) {
-                    ((BaseAppCompatActivity) context).hideLoadingDialog();
-                }
+                dismissLoadingDialog(context);
             }
         });
     }
@@ -133,9 +122,7 @@ public class NetShopCartHelper {
     //删除购物车商品
     //conetxt只用于显示进度弹窗，如果不需要显示进度可以传null
     public void netRemoveShopCart(final Context context, String ProdId) {
-        if (context != null && context instanceof BaseAppCompatActivity) {
-            ((BaseAppCompatActivity) context).showLoadingDialog();
-        }
+        showLoadingDialog(context);
         Map<String, Object> param = new NetParam()
                 .put("ProdId", ProdId)
                 .put("token", Token.getLocalToken())
@@ -145,17 +132,13 @@ public class NetShopCartHelper {
             public void onSuccess(int status, ShopCartWrap shopCartWrap, String msg) {
                 List<ShopCart> shopCarts = shopCartWrap.getProdList();
                 updateDataBaseSendFreshMsg(shopCarts);
-                if (context != null && context instanceof BaseAppCompatActivity) {
-                    ((BaseAppCompatActivity) context).hideLoadingDialog();
-                }
+                dismissLoadingDialog(context);
             }
 
             @Override
             public void onError(int status, String msg) {
                 ToastUtil.showToastShort(msg);
-                if (context != null && context instanceof BaseAppCompatActivity) {
-                    ((BaseAppCompatActivity) context).hideLoadingDialog();
-                }
+                dismissLoadingDialog(context);
             }
         });
     }
@@ -185,6 +168,18 @@ public class NetShopCartHelper {
             }
         });
         return liveData;
+    }
+
+    private void dismissLoadingDialog(Context context) {
+        if (context != null && context instanceof BaseAppCompatActivity) {
+            ((BaseAppCompatActivity) context).dismissLoadingDialog();
+        }
+    }
+
+    private void showLoadingDialog(Context context) {
+        if (context != null && context instanceof BaseAppCompatActivity) {
+            ((BaseAppCompatActivity) context).showLoadingDialog();
+        }
     }
 
 

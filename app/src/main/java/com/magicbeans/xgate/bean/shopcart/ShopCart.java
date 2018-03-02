@@ -1,10 +1,14 @@
 package com.magicbeans.xgate.bean.shopcart;
 
 import android.text.Html;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.ins.common.entity.BaseSelectBean;
+import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.StrUtil;
+import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.product.ProductDetail;
 
@@ -48,6 +52,9 @@ public class ShopCart extends BaseSelectBean implements Serializable {
     private double BagAddedPriceDifference;
 
     //本地字段
+    //是否是在离线（未登陆）状态下添加的购物车（离线购物车数据要在用户登陆后同步到服务器）
+    private boolean isOffline;
+    private String headerImg;
 
     public ShopCart() {
     }
@@ -80,12 +87,53 @@ public class ShopCart extends BaseSelectBean implements Serializable {
         return StrUtil.subLastChart(ids, ",");
     }
 
+    //把购物车商品列表的数量都设置为0
+    public static void clearQty(List<ShopCart> shopCarts) {
+        if (StrUtil.isEmpty(shopCarts)) return;
+        for (ShopCart shopCart : shopCarts) {
+            shopCart.setQty(0);
+        }
+    }
+
     public String getHeaderImg() {
-        return "https://c.cdnsbn.com/images/products/" + ProductNum + ".jpg";
+        if (TextUtils.isEmpty(headerImg)) {
+            return "https://c.cdnsbn.com/images/products/" + ProductNum + ".jpg";
+        } else {
+            return headerImg;
+        }
     }
 
     public String getTitleName() {
         return BrandName + " - " + Html.fromHtml(ProdName).toString();
+    }
+
+    public static ShopCart transByProduct(Product product) {
+        ShopCart shopCart = new ShopCart();
+        shopCart.setProdID(product.getProdID());
+        shopCart.setProdName(product.getProdLangName());
+        shopCart.setBrandName(product.getProdBrandLangName());
+        shopCart.setSize(product.getProdLangSize());
+        shopCart.setHeaderImg(product.getProductImages().getImg350Src());
+        shopCart.setPrice(product.getShopprice());
+        shopCart.setQty(1);
+        return shopCart;
+    }
+
+    public static ShopCart transByProduct2(Product2 product2) {
+        ShopCart shopCart = new ShopCart();
+        shopCart.setProdID(product2.getProdID());
+        shopCart.setProdName(product2.getProdName());
+        shopCart.setBrandName(product2.getBrandName());
+        shopCart.setSize(product2.getSizeText());
+        shopCart.setHeaderImg(product2.getHeaderImg());
+        shopCart.setPrice(product2.getShopPrice());
+        shopCart.setQty(product2.getCount());
+        return shopCart;
+    }
+
+    public ShopCart setOffLineFlag() {
+        isOffline = true;
+        return this;
     }
 
     //////////////////////业务方法///////////////////////
@@ -142,6 +190,10 @@ public class ShopCart extends BaseSelectBean implements Serializable {
 
     public void setSize(String Size) {
         this.Size = Size;
+    }
+
+    public void setHeaderImg(String headerImg) {
+        this.headerImg = headerImg;
     }
 
     public String getPrice() {

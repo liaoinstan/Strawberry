@@ -16,6 +16,7 @@ import com.magicbeans.xgate.bean.product.ProductDetail;
 import com.magicbeans.xgate.bean.shopcart.ShopCart;
 import com.magicbeans.xgate.data.db.manager.ShopCartTableManager;
 import com.magicbeans.xgate.databinding.LayProductdetailBottombarBinding;
+import com.magicbeans.xgate.helper.DataShopCartHelper;
 import com.magicbeans.xgate.net.nethelper.NetShopCartHelper;
 import com.magicbeans.xgate.ui.activity.ShopcartActivity;
 
@@ -65,14 +66,16 @@ public class ProductDetailBottombarController implements View.OnClickListener {
                 ShopcartActivity.start(context);
                 break;
             case R.id.text_favo:
-                NetShopCartHelper.getInstance().netGetShopCartList();
+//                NetShopCartHelper.getInstance().netGetShopCartList();
                 break;
             case R.id.text_add:
                 if (productDetail != null) {
                     Product2 product2 = productDetail.getSelectProduct(productDetail.getProdID());
                     if (product2 != null) {
-                        //###### 添加到服务器添加到服务器及本地数据库 ######
-                        NetShopCartHelper.getInstance().netAddShopCart(product2.getProdID(), product2.getCount());
+                        //###### 添加到服务器及本地数据库 ######
+//                        NetShopCartHelper.getInstance().netAddShopCart(product2.getProdID(), product2.getCount());
+                        product2.setBrandName(productDetail.getBrandName());
+                        DataShopCartHelper.getInstance().addShopCart(product2);
                         //###### 飞入动画 ######
                         ShopAnimHelper.newInstance().quickStart(binding.textAdd, binding.textShopbag, (ViewGroup) root, product2.getHeaderImg());
                     }

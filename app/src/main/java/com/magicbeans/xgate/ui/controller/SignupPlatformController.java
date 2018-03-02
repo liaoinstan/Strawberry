@@ -70,7 +70,7 @@ public class SignupPlatformController extends BaseController<LaySignupPlatformBi
             @Override
             public void onLogin(String platform, UserInfo userInfo) {
                 //FIXME:这里生成一个假OpenId
-                userInfo.setOpenId(((LoginActivity) context).getTestOpenId());
+//                userInfo.setOpenId(((LoginActivity) context).getTestOpenId());
                 userInfo.setPlatform(platform);
                 netCheckOpenidExist(userInfo);
             }

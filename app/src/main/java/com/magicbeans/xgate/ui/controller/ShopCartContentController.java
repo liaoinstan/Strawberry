@@ -20,6 +20,7 @@ import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.shopcart.ShopCart;
 import com.magicbeans.xgate.data.db.manager.ShopCartTableManager;
 import com.magicbeans.xgate.databinding.FragmentShopbagBinding;
+import com.magicbeans.xgate.helper.DataShopCartHelper;
 import com.magicbeans.xgate.net.nethelper.NetShopCartHelper;
 import com.magicbeans.xgate.sharesdk.ShareDialog;
 import com.magicbeans.xgate.ui.activity.OrderAddActivity;
@@ -84,7 +85,8 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
 
     private void initData(final boolean isShowLoading) {
         if (isShowLoading) showLoadingDialog();
-        LiveData<List<ShopCart>> shopCartsLiveData = NetShopCartHelper.getInstance().netGetShopCartList();
+//        LiveData<List<ShopCart>> shopCartsLiveData = NetShopCartHelper.getInstance().netGetShopCartList();
+        LiveData<List<ShopCart>> shopCartsLiveData = DataShopCartHelper.getInstance().getShopCartList();
         shopCartsLiveData.observeForever(new Observer<List<ShopCart>>() {
             @Override
             public void onChanged(@Nullable List<ShopCart> shopCarts) {
@@ -143,7 +145,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
                         @Override
                         public void onSure() {
 //                            NetShopCartHelper.getInstance().netBatchDeleteShopCart(context, selectBeans);
-                            //TODO：还没有批量删除的接口
+                            DataShopCartHelper.getInstance().batchDeleteShopCart(context, selectBeans);
                         }
                     });
                 } else {
