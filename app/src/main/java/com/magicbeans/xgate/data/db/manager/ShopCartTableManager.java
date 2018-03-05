@@ -14,6 +14,9 @@ import com.magicbeans.xgate.data.db.entity.ShopCartTable;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -56,6 +59,25 @@ public class ShopCartTableManager extends BaseTableManager<ShopCartTable> {
             }
         });
         return beansLiveData;
+    }
+
+    public LiveData<List<ShopCart>> queryAllOfflineBeans() {
+        final MutableLiveData<List<ShopCart>> resultsLiveData = new MediatorLiveData<>();
+        Observable.create(new ObservableOnSubscribe<List<ShopCartTable>>() {
+            @Override
+            public void subscribe(ObservableEmitter<List<ShopCartTable>> e) throws Exception {
+                List<ShopCartTable> results = AppDataBase.getInstance().shopCartTableDao().queryAllOffline();
+                e.onNext(results);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<ShopCartTable>>() {
+                    @Override
+                    public void accept(List<ShopCartTable> results) throws Exception {
+                        resultsLiveData.setValue(ShopCartTable.wraps2beans(results));
+                    }
+                });
+        return resultsLiveData;
     }
 
     public LiveData<List<ShopCart>> queryByIdBeans(final String... ids) {
@@ -113,6 +135,36 @@ public class ShopCartTableManager extends BaseTableManager<ShopCartTable> {
 
     public LiveData<Integer> delete(final ShopCart... beans) {
         return delete(ShopCartTable.beans2wraps(beans));
+    }
+
+    //批量更新，不在beans里的记录会被删除
+    public LiveData<Integer> batchUpdate(final ShopCart... beans) {
+        final MutableLiveData<Integer> resultsLiveData = new MediatorLiveData<>();
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                //删除旧数据
+                AppDataBase.getInstance().shopCartTableDao().deleteAll();
+                //移除数量为0的数据
+                List<ShopCart> shopCartList = new ArrayList<>();
+                for (ShopCart shopCart : beans) {
+                    if (shopCart.getQty() != 0) {
+                        shopCartList.add(shopCart);
+                    }
+                }
+                //插入新数据
+                AppDataBase.getInstance().shopCartTableDao().insert(ShopCartTable.beans2wraps(shopCartList));
+                e.onNext(1);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer results) throws Exception {
+                        resultsLiveData.setValue(results);
+                    }
+                });
+        return resultsLiveData;
     }
 
     //同步数据库表

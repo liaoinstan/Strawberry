@@ -1,5 +1,7 @@
 package com.magicbeans.xgate.ui.fragment;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,13 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ins.common.utils.FocusUtil;
+import com.ins.common.utils.L;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
+import com.magicbeans.xgate.bean.shopcart.ShopCart;
+import com.magicbeans.xgate.data.db.manager.ShopCartTableManager;
 import com.magicbeans.xgate.databinding.FragmentShopbagBinding;
 import com.magicbeans.xgate.ui.activity.ShopcartActivity;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.ui.controller.CommonRecommendController;
 import com.magicbeans.xgate.ui.controller.ShopCartContentController;
+
+import java.util.List;
 
 
 /**
@@ -53,6 +60,10 @@ public class ShopBagFragment extends BaseFragment {
                 //收到刷新购物车的消息（远程服务器获取数据）
                 shopCartContentController.refreshRemoteData();
                 break;
+            case EventBean.EVENT_LOGIN:
+                //用户登录，检查本地是否存在离线状态下添加的商品，若存在批量添加到服务器数据库
+                shopCartContentController.batchAddOfflineData();
+                break;
         }
     }
 
@@ -84,7 +95,7 @@ public class ShopBagFragment extends BaseFragment {
     private void initBase() {
         //该fragment有两处使用，一处是首页的购物车tab，一处是ShopcartActivity，两处业务逻辑完全一样
         //特殊处理，如果该fragment在ShopcartActivity中使用，则需要显示左上角的返回按钮
-        if (getActivity() instanceof ShopcartActivity){
+        if (getActivity() instanceof ShopcartActivity) {
             setToolbar(true);
         }
         shopCartContentController = new ShopCartContentController(binding);

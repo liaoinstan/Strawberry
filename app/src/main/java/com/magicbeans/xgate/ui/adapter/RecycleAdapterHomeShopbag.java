@@ -178,6 +178,10 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
         return SelectHelper.getSelectBeans(results);
     }
 
+    public List<ShopCart> getUnSelectBeans() {
+        return SelectHelper.getUnSelectBeans(results);
+    }
+
     public void selectAll(boolean isSelect) {
         SelectHelper.selectAllSelectBeans(results, isSelect);
         notifyDataSetChanged();

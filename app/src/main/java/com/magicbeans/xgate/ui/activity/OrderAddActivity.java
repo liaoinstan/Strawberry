@@ -22,9 +22,11 @@ import com.magicbeans.xgate.bean.postbean.Cart;
 import com.magicbeans.xgate.bean.postbean.CreateOrderPost;
 import com.magicbeans.xgate.bean.postbean.Customer;
 import com.magicbeans.xgate.bean.postbean.Payment;
+import com.magicbeans.xgate.bean.postbean.Promotion;
 import com.magicbeans.xgate.bean.shopcart.ShopCart;
 import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.common.AppData;
+import com.magicbeans.xgate.common.AppVali;
 import com.magicbeans.xgate.databinding.ActivityOrderaddBinding;
 import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.net.NetApi;
@@ -109,7 +111,6 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
         binding.textTotalPrice.setText(AppHelper.getPriceSymbol(null) + ShopCartContentController.calcuPrice(goods));
         //TODO:运费和积分抵扣暂时没有
         binding.textTransPrice.setText(AppHelper.getPriceSymbol(null) + "0.00");
-        binding.textGradeDeprice.setText(AppHelper.getPriceSymbol(null) + "-0.00");
         binding.textPayPrice.setText("应付：" + AppHelper.getPriceSymbol(null) + ShopCartContentController.calcuPrice(goods));
         binding.layAddressAdd.setOnClickListener(this);
         binding.layAddressSelect.setOnClickListener(this);
@@ -178,8 +179,15 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
                 break;
             case R.id.btn_go:
                 if (address != null) {
-                    CreateOrderPost orderPost = createOrderPost();
-                    netCheckout(orderPost);
+                    String idcard = binding.textIdcard.getText().toString();
+                    String coupon = binding.textCoupon.getText().toString();
+                    String msg = AppVali.checkOut(idcard);
+                    if (msg != null) {
+                        ToastUtil.showToastShort(msg);
+                    } else {
+                        CreateOrderPost orderPost = createOrderPost(coupon, idcard);
+                        netCheckout(orderPost);
+                    }
                 } else {
                     ToastUtil.showToastShort("请先填写送货地址");
                 }
@@ -189,7 +197,7 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
 
     /////////////////////////////////
 
-    private CreateOrderPost createOrderPost() {
+    private CreateOrderPost createOrderPost(String coupon, String idcard) {
         //创建Post对象，进行赋值
         CreateOrderPost post = new CreateOrderPost();
         post.setCart(new Cart(CreateOrderPost.tansProdList(goods)));
@@ -198,7 +206,7 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
         //Customer
         Customer customer = new Customer();
         customer.setEmail("liaoinstan@qq.com");
-        customer.setIDCardNumber("511322199211044654");
+        customer.setIDCardNumber(idcard);
         customer.setToken(Token.getLocalToken());
         customer.setOpenId(AppData.App.getOpenId());
         //Customer
@@ -207,6 +215,8 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
         post.setCustomer(customer);
         //Payment
         post.setPayment(new Payment("Wechat AY"));
+        //Promotion
+        post.setPromotion(new Promotion(coupon));
 
         return post;
     }

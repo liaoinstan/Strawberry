@@ -106,7 +106,7 @@ public class NetAddressHelper {
 
     //新增或者更新地址
     //有AddId则更新，无则新增
-    public void netAddOrUpdateAddress(String AddId, boolean isBillAddr, String addrNickname, String tel, String country, String city, String state, String address, final OnAddressSimpleCallback callback) {
+    public void netAddOrUpdateAddress(String AddId, boolean isBillAddr, String addrNickname, String tel, String country, String city, String state, String postCode, String address, final OnAddressSimpleCallback callback) {
         Map<String, Object> param = new NetParam()
                 .put("AddId", AddId)
                 .put("AccountID", Token.getLocalAccountId())
@@ -120,7 +120,7 @@ public class NetAddressHelper {
                 .put("state", state)
                 .put("city", city)
                 .put("country", country)
-                .put("postcode", "610100")//TODO:目前UI与接口不匹配，UI上没有邮政编码，但是接口必传，暂时写个默认的，这个问题需要反馈给后台
+                .put("postcode", postCode)
                 .build();
         Call<ResponseBody> call;
         if (TextUtils.isEmpty(AddId)) {

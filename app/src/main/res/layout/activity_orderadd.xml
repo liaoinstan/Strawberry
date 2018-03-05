@@ -327,37 +327,6 @@
 
                         </LinearLayout>
 
-                        <View
-                            style="@style/Line_H"
-                            android:layout_marginLeft="10dp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="积分抵扣"
-                                android:textColor="@color/com_text_blank"
-                                android:textSize="@dimen/text_nomal" />
-
-                            <Space style="@style/Space_H" />
-
-                            <TextView
-                                android:id="@+id/text_grade_deprice"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="￥-0.20"
-                                android:textColor="@color/st_red"
-                                android:textSize="@dimen/text_nomal" />
-
-                        </LinearLayout>
-
                     </LinearLayout>
 
                     <View

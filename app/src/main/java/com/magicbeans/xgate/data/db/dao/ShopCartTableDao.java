@@ -16,12 +16,15 @@ import java.util.List;
  */
 
 @Dao
-public interface ShopCartTableDao extends BaseTableDao<ShopCartTable>{
+public interface ShopCartTableDao extends BaseTableDao<ShopCartTable> {
     @Query("SELECT * FROM ShopCartTable")
     List<ShopCartTable> querryAll();
 
     @Query("SELECT * FROM ShopCartTable WHERE id IN (:ids)")
     List<ShopCartTable> queryById(int[] ids);
+
+    @Query("SELECT * FROM ShopCartTable WHERE isOffline == 1")
+    List<ShopCartTable> queryAllOffline();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(ShopCartTable... shopCartTables);

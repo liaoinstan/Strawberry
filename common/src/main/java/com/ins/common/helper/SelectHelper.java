@@ -82,4 +82,17 @@ public class SelectHelper {
         }
         return ts;
     }
+
+    //获取未被选择的选择实体（多选）
+    public static <T extends BaseSelectBean> List<T> getUnSelectBeans(List<T> selectBeans) {
+        ArrayList<T> ts = new ArrayList<>();
+        if (!StrUtil.isEmpty(selectBeans)) {
+            for (T selectBean : selectBeans) {
+                if (!selectBean.isSelect()) {
+                    ts.add(selectBean);
+                }
+            }
+        }
+        return ts;
+    }
 }

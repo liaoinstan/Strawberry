@@ -292,8 +292,16 @@ public interface NetInterface {
      * AppProds ：185255_3,187916_1,210939_1
      * token
      */
-    @GET("/app/apiShopcart.aspx?ID=xGate")
+    @GET("/app/apiShopcart.aspx?ID=xGate&act=updatecart")
     Call<ResponseBody> netBatchUpdateShopCart(@QueryMap(encoded = true) Map<String, Object> param);
+
+    /**
+     * 批量添加商品到购物车
+     * AppProds ：185255_3,187916_1,210939_1
+     * token
+     */
+    @GET("/app/apiShopcart.aspx?ID=xGate&act=additem")
+    Call<ResponseBody> netBatchAddShopCart(@QueryMap(encoded = true) Map<String, Object> param);
 
     /**
      * 删除购物车商品

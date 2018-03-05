@@ -62,13 +62,13 @@ public class AppVali {
         }
     }
 
-//    public static String coupon(String coupon) {
-//        if (TextUtils.isEmpty(coupon)) {
-//            return "请输入优惠券";
-//        } else {
-//            return null;
-//        }
-//    }
+    public static String checkOut(String idcard) {
+        if (TextUtils.isEmpty(idcard)) {
+            return "请填写申报资料";
+        } else {
+            return null;
+        }
+    }
 
     /////////////////////////////////////
 

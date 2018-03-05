@@ -11,6 +11,13 @@ public class Promotion implements Serializable {
     private String CouponCode;
     private List<FreeGift> SelectedFreeGift;
 
+    public Promotion() {
+    }
+
+    public Promotion(String couponCode) {
+        CouponCode = couponCode;
+    }
+
     public String getCouponCode() {
         return CouponCode;
     }

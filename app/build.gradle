@@ -152,4 +152,6 @@ dependencies {
     compile 'com.adyen.checkout:cardscan:1.14.1'
     //paypal支付集成
     compile 'com.braintreepayments.api:drop-in:3.+'
+    //fastjson
+    compile 'com.alibaba:fastjson:1.1.68.android'
 }

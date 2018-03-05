@@ -34,7 +34,7 @@ import java.util.Map;
  * 这个类负责管理购物车相关接口的在线请求{@link NetShopCartHelper}，和本地数据库{@link ShopCartTableManager}
  * 在已登录状态，所有购物车的操作都需要请求接口，在未登陆状态，所有购物车的操作全部在本地数据库进行
  * 用户下次登陆后如果本地数据库有商品，要通过批量上传接口同步到服务器
- *
+ * <p>
  * 以下的几个方法分别在登陆和未登录状态下进行了2种不同的调用
  */
 
@@ -90,13 +90,14 @@ public class DataShopCartHelper {
         }
     }
 
-
-    public void batchDeleteShopCart(Context context, List<ShopCart> shopCarts) {
+    //批量删除的接口很恶心，不是传递需要删除的商品id集合，而是传不需要删除的商品id，其余没传的都会被删除
+    //所以下面本地数据库也写了一个类似方法batchUpdate
+    public void batchDeleteShopCart(Context context, List<ShopCart> unSelectShopCarts) {
         if (!AppHelper.User.isLogin()) {
-            LiveData<Integer> liveData = ShopCartTableManager.getInstance().delete(shopCarts.toArray(new ShopCart[]{}));
+            LiveData<Integer> liveData = ShopCartTableManager.getInstance().batchUpdate(unSelectShopCarts.toArray(new ShopCart[]{}));
             postEvent(liveData);
         } else {
-            NetShopCartHelper.getInstance().netBatchDeleteShopCart(context, shopCarts);
+            NetShopCartHelper.getInstance().netBatchUpdateShopCart(context, unSelectShopCarts);
         }
     }
 

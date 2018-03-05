@@ -94,8 +94,8 @@ public class NetShopCartHelper {
         });
     }
 
-
     //批量修改购物车商品（可用于删除）
+    //批量删除的接口很恶心，不是传递需要删除的商品id集合，而是传不需要删除的商品id，其余没传的都会被删除
     //conetxt只用于显示进度弹窗，如果不需要显示进度可以传null
     public void netBatchUpdateShopCart(final Context context, List<ShopCart> shopCarts) {
         showLoadingDialog(context);
@@ -104,6 +104,30 @@ public class NetShopCartHelper {
                 .put("token", Token.getLocalToken())
                 .build();
         NetApi.NI().netBatchUpdateShopCart(param).enqueue(new STFormatCallback<ShopCartWrap>(ShopCartWrap.class) {
+            @Override
+            public void onSuccess(int status, ShopCartWrap shopCartWrap, String msg) {
+                List<ShopCart> shopCarts = shopCartWrap.getProdList();
+                updateDataBaseSendFreshMsg(shopCarts);
+                dismissLoadingDialog(context);
+            }
+
+            @Override
+            public void onError(int status, String msg) {
+                ToastUtil.showToastShort(msg);
+                dismissLoadingDialog(context);
+            }
+        });
+    }
+
+    //批量添加商品
+    //conetxt只用于显示进度弹窗，如果不需要显示进度可以传null
+    public void netBatchAddShopCart(final Context context, List<ShopCart> shopCarts) {
+        showLoadingDialog(context);
+        Map<String, Object> param = new NetParam()
+                .put("AppProds", ShopCart.getBatchUpdateIds(shopCarts))
+                .put("token", Token.getLocalToken())
+                .build();
+        NetApi.NI().netBatchAddShopCart(param).enqueue(new STFormatCallback<ShopCartWrap>(ShopCartWrap.class) {
             @Override
             public void onSuccess(int status, ShopCartWrap shopCartWrap, String msg) {
                 List<ShopCart> shopCarts = shopCartWrap.getProdList();
@@ -182,7 +206,6 @@ public class NetShopCartHelper {
         }
     }
 
-
     public void netUpdateShopCart(String ProdId, int count) {
         netUpdateShopCart(null, ProdId, count);
     }
@@ -195,16 +218,8 @@ public class NetShopCartHelper {
         netBatchUpdateShopCart(null, shopCarts);
     }
 
-    public void netBatchDeleteShopCart(List<ShopCart> shopCarts) {
-        netBatchDeleteShopCart(null, shopCarts);
-    }
-
-    public void netBatchDeleteShopCart(Context context, List<ShopCart> shopCarts) {
-        if (StrUtil.isEmpty(shopCarts)) return;
-        for (ShopCart shopCart : shopCarts) {
-            shopCart.setQty(0);
-        }
-        netBatchUpdateShopCart(context, shopCarts);
+    public void netBatchAddShopCart(List<ShopCart> shopCarts) {
+        netBatchAddShopCart(null, shopCarts);
     }
 
     //################ 业务逻辑 ######################

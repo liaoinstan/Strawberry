@@ -144,6 +144,14 @@ public class ShopCart extends BaseSelectBean implements Serializable {
         return gson.toJson(this).equals(gson.toJson(obj));
     }
 
+    public boolean isOffline() {
+        return isOffline;
+    }
+
+    public void setOffline(boolean offline) {
+        isOffline = offline;
+    }
+
     public String getProdID() {
         return ProdID;
     }

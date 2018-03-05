@@ -20,11 +20,14 @@ public class ShopCartTable {
     @PrimaryKey
     @ColumnInfo(name = "id")
     private String id;
+    @ColumnInfo(name = "isOffline")
+    private boolean isOffline;
     @ColumnInfo(name = "bean")
     private ShopCart bean;
 
     public ShopCartTable(ShopCart bean) {
         this.id = bean.getProdID();
+        this.isOffline = bean.isOffline();
         this.bean = bean;
     }
 
@@ -41,6 +44,14 @@ public class ShopCartTable {
     }
 
     public static ShopCartTable[] beans2wraps(ShopCart[] beans) {
+        ArrayList<ShopCartTable> shopCartTables = new ArrayList<>();
+        for (ShopCart bean : beans) {
+            shopCartTables.add(new ShopCartTable(bean));
+        }
+        return shopCartTables.toArray(new ShopCartTable[]{});
+    }
+
+    public static ShopCartTable[] beans2wraps(List<ShopCart> beans) {
         ArrayList<ShopCartTable> shopCartTables = new ArrayList<>();
         for (ShopCart bean : beans) {
             shopCartTables.add(new ShopCartTable(bean));
@@ -66,5 +77,13 @@ public class ShopCartTable {
 
     public void setBean(ShopCart bean) {
         this.bean = bean;
+    }
+
+    public boolean isOffline() {
+        return isOffline;
+    }
+
+    public void setOffline(boolean offline) {
+        isOffline = offline;
     }
 }

@@ -11,6 +11,7 @@ import android.view.View;
 import com.ins.common.common.ItemDecorationDivider;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.ui.dialog.DialogSure;
+import com.ins.common.utils.L;
 import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.liaoinstan.springview.container.AliFooter;
@@ -144,8 +145,14 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
                     DialogSure.showDialog(context, "确定要删除这些商品？", new DialogSure.CallBack() {
                         @Override
                         public void onSure() {
+                            List<ShopCart> results = adapter.getResults();
+                            for (ShopCart shopCart : results) {
+                                if (shopCart.isSelect()) {
+                                    shopCart.setQty(0);
+                                }
+                            }
 //                            NetShopCartHelper.getInstance().netBatchDeleteShopCart(context, selectBeans);
-                            DataShopCartHelper.getInstance().batchDeleteShopCart(context, selectBeans);
+                            DataShopCartHelper.getInstance().batchDeleteShopCart(context, results);
                         }
                     });
                 } else {
@@ -175,6 +182,23 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
     //刷新购物车（请求服务器最新购物车数据）
     public void refreshRemoteData() {
         initData(false);
+    }
+
+    //刷新购物车（请求服务器最新购物车数据）
+    public void batchAddOfflineData() {
+        LiveData<List<ShopCart>> listLiveData = ShopCartTableManager.getInstance().queryAllOfflineBeans();
+        listLiveData.observeForever(new Observer<List<ShopCart>>() {
+            @Override
+            public void onChanged(@Nullable List<ShopCart> shopCarts) {
+                if (shopCarts != null) {
+                    //如果存在offline数据，则同步到该用户服务器数据库上
+                    NetShopCartHelper.getInstance().netBatchAddShopCart(shopCarts);
+                } else {
+                    //不存在则刷新远程数据
+                    refreshRemoteData();
+                }
+            }
+        });
     }
 
     //设置当前UI状态为编辑状态，或者普通状态
