@@ -54,130 +54,14 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="65dp"
-                        android:background="@color/white">
-
-                        <FrameLayout
-                            android:id="@+id/lay_address_add"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:foreground="?attr/selectableItemBackground"
-                            tools:visibility="gone">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:drawableLeft="@drawable/ic_add"
-                                android:drawablePadding="8dp"
-                                android:gravity="center"
-                                android:text="新增地址"
-                                android:textColor="@color/com_text_blank"
-                                android:textSize="@dimen/text_big" />
-
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:id="@+id/lay_address_select"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:foreground="?attr/selectableItemBackground">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/text_address_name"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="31dp"
-                                    android:textColor="@color/com_text_blank"
-                                    android:textSize="@dimen/text_big_nomal"
-                                    tools:text="Marie 186****1547" />
-
-                                <TextView
-                                    android:id="@+id/text_address_detail"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="15dp"
-                                    android:layout_marginRight="30dp"
-                                    android:layout_marginTop="7dp"
-                                    android:drawableLeft="@drawable/ic_address_position"
-                                    android:drawablePadding="5dp"
-                                    android:ellipsize="end"
-                                    android:gravity="center_vertical"
-                                    android:lineSpacingExtra="2dp"
-                                    android:maxLines="1"
-                                    android:textColor="@color/com_text_blank"
-                                    android:textSize="@dimen/text_small"
-                                    tools:text="四川省成都市高新西区环球中心W3区1320室，地址太长啦，一行都放不下了，地址太长啦，一行都放不下了，地址太长啦，一行都放不下了，地址太长啦，一行都放不下了，地址太长啦，一行都放不下了" />
+                    <include
+                        android:id="@+id/include_address"
+                        layout="@layout/lay_orderadd_address" />
 
 
-                            </LinearLayout>
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical|right"
-                                android:layout_marginRight="10dp"
-                                android:src="@drawable/ic_me_next" />
-
-                        </FrameLayout>
-
-                        <ProgressBar
-                            android:id="@+id/progress"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <com.ins.common.view.bundleimgview.BundleImgView
-                                android:id="@+id/bundleview"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="10dp"
-                                android:layout_weight="1"
-                                android:minHeight="50dp"
-                                app:editble="false" />
-
-                            <TextView
-                                android:id="@+id/text_count"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:drawablePadding="8dp"
-                                android:drawableRight="@drawable/ic_next_dark"
-                                android:gravity="center"
-                                android:paddingRight="15dp"
-                                android:text="总计:2"
-                                android:textColor="@color/com_text_blank"
-                                android:textSize="@dimen/text_nomal_small" />
-
-                        </LinearLayout>
-
-                        <ImageView
-                            android:id="@+id/lay_bundle"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-
-                    </FrameLayout>
+                    <include
+                        android:id="@+id/include_products"
+                        layout="@layout/lay_orderadd_products" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -211,10 +95,12 @@
                         </FrameLayout>
 
                         <View
+                            android:visibility="gone"
                             style="@style/Line_H"
                             android:layout_marginLeft="10dp" />
 
                         <FrameLayout
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 

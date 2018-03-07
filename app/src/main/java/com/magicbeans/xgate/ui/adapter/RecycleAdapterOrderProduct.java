@@ -49,7 +49,7 @@ public class RecycleAdapterOrderProduct extends RecyclerView.Adapter<RecycleAdap
         holder.binding.textName.setText(shopCart.getTitleName());
         holder.binding.textIntro.setText(shopCart.getSize());
         holder.binding.textPrice.setText(AppHelper.getPriceSymbol("") + shopCart.getPriceFloat());
-        holder.binding.textPriceOld.setText("比加入购物车时便宜" + AppHelper.getPriceSymbol("") + shopCart.getBagAddedPriceDifference());
+        holder.binding.textPriceOld.setText("比加入时降" + shopCart.getBagAddedPriceDifference() + "元");
         holder.binding.textPriceOld.setVisibility(shopCart.getBagAddedPriceDifference() != 0 ? View.VISIBLE : View.INVISIBLE);
         holder.binding.textCount.setText("数量：" + shopCart.getQty());
         FontUtils.boldText(holder.binding.textPrice);

@@ -17,7 +17,7 @@ import com.ins.common.utils.L;
  * 要进行视图切换需要提前设置几种视图（目前：加载中，加载失败，空数据视图）
  * 设置可以使用set方法设置 {@link #setLoadingViewSrc(int)}...也可以在布局文件中用属性设置 app:layout_loading="@layout/layout_loading"...
  * 这些视图不会在设置的时候加载，只会在需要展示时动态进行加载以减少性能消耗
- *
+ * <p>
  * 如果要设置点击事件，使用{@link #setOnRefreshListener(OnClickListener)}
  */
 
@@ -103,5 +103,23 @@ public class LoadingLayout extends FrameLayout {
 
     public void showOut() {
         LoadingViewHelper.showout(this, showin);
+    }
+
+    public void setClickbleBack(int id, final OnClickCallback callback) {
+        if (showin != null && callback != null) {
+            View clickView = showin.findViewById(id);
+            if (clickView != null) {
+                clickView.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        callback.onClick(v);
+                    }
+                });
+            }
+        }
+    }
+
+    public interface OnClickCallback {
+        void onClick(View v);
     }
 }

@@ -67,21 +67,44 @@
                         android:textSize="@dimen/text_nomal"
                         tools:text="支付方式：信用卡支付\n订单金额：￥439.00" />
 
-                    <TextView
-                        android:id="@+id/btn_orderdetail"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="50dp"
                         android:layout_marginRight="50dp"
                         android:layout_marginTop="15dp"
-                        android:background="@drawable/shape_rect_corner_none_line_blank"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:onClick="onClick"
-                        android:text="查看订单"
-                        android:textColor="@color/com_text_blank"
-                        android:textSize="@dimen/text_nomal" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/btn_gohome"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+
+                            android:background="@drawable/shape_rect_corner_none_line_blank"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:onClick="onClick"
+                            android:text="回到首页"
+                            android:textColor="@color/com_text_blank"
+                            android:textSize="@dimen/text_nomal" />
+
+                        <TextView
+                            android:id="@+id/btn_orderdetail"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shape_rect_corner_none_line_red"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:onClick="onClick"
+                            android:text="查看订单"
+                            android:textColor="@color/st_red"
+                            android:textSize="@dimen/text_nomal" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 

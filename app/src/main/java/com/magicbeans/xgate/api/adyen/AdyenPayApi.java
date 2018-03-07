@@ -12,6 +12,7 @@ import com.adyen.core.interfaces.PaymentRequestListener;
 import com.adyen.core.models.Payment;
 import com.adyen.core.models.PaymentRequestResult;
 import com.adyen.core.utils.AsyncHttpClient;
+import com.ins.common.utils.MD5Util;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
@@ -53,9 +54,9 @@ public class AdyenPayApi {
             @Override
             public void onPaymentDataRequested(@NonNull final PaymentRequest paymentRequest, @NonNull String sdkToken, @NonNull final PaymentDataCallback callback) {
                 Map<String, Object> param = new NetParam()
-                        .put("SOId", soId)
-                        .put("payAmount", payAmount)
-                        .put("email", email)
+                        .put("SOId", MD5Util.md5(soId))
+                        .put("payAmount", MD5Util.md5(payAmount + ""))
+                        .put("email", MD5Util.md5(email))
                         .build();
                 NetApi.NI().adyenPaySetup(param).enqueue(new Callback<ResponseBody>() {
                     @Override

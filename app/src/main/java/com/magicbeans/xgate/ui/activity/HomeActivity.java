@@ -20,7 +20,7 @@ import org.greenrobot.eventbus.EventBus;
 
 public class HomeActivity extends BaseAppCompatActivity {
 
-//    private UpdateHelper updateHelper;
+    //    private UpdateHelper updateHelper;
     private RadioGroup group_tab;
     private ViewPager pager;
     private PagerAdapterHome pagerAdapter;
@@ -38,6 +38,9 @@ public class HomeActivity extends BaseAppCompatActivity {
         } else if (event.getEvent() == EventBean.EVENT_JUMP_BRANDHOT) {
             //跳转到热门品牌页面
             group_tab.check(tabsId[1]);
+        } else if (event.getEvent() == EventBean.EVENT_JUMP_HOME) {
+            //跳转到home页面
+            group_tab.check(tabsId[0]);
         }
     }
 
@@ -57,7 +60,7 @@ public class HomeActivity extends BaseAppCompatActivity {
         VersionHelper.with(this).isShowToast(false).checkUrl(AppData.Url.version).check();
 
         StatusBarUtil.setBarFollow(this);
-        StatusBarUtil.setStatusBarColor(this,R.color.colorPrimaryDark);
+        StatusBarUtil.setStatusBarColor(this, R.color.colorPrimaryDark);
         StatusBarUtil.setTextLight(this);
 
         initBase();

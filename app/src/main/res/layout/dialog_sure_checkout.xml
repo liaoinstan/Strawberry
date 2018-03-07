@@ -1,81 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
+    android:layout_marginLeft="35dp"
+    android:layout_marginRight="35dp"
     android:background="@drawable/shape_rect_corner_white"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="25dp">
 
     <TextView
         android:id="@+id/text_title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:paddingTop="10dp"
-        android:gravity="center"
-        android:text="确认"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="27dp"
+        android:text="提示"
         android:textColor="@color/com_text_blank"
         android:textSize="@dimen/text_big" />
 
-
-    <TextView
-        android:id="@+id/text_sure"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="25dp"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:lineSpacingExtra="5dp"
-        android:paddingLeft="27dp"
-        android:paddingRight="27dp"
-        android:text="确定取消订单？"
-        android:textColor="@color/com_text_blank"
-        android:textSize="@dimen/text_nomal" />
-
-
-    <View
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@color/com_line" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp">
+
+        <TextView
+            android:id="@+id/text_sure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="5dp"
+            android:paddingLeft="27dp"
+            android:paddingRight="27dp"
+            android:textColor="@color/com_text_blank"
+            android:textSize="@dimen/text_nomal"
+            tools:text="确定取消订单？" />
+
+    </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/lay_bottom"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/btn_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="取消"
-            android:textColor="@color/com_text_dark"
-            android:textSize="@dimen/text_nomal" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <View
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/com_line" />
 
-        <TextView
-            android:id="@+id/btn_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="确定"
-            android:textColor="@color/sb_blue"
-            android:textSize="@dimen/text_nomal" />
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="27dp"
+                android:paddingRight="27dp"
+                android:text="我再想想"
+                android:textColor="@color/com_text_dark"
+                android:textSize="@dimen/text_nomal" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/btn_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="27dp"
+                android:paddingRight="27dp"
+                android:text="确认下单"
+                android:textColor="@color/sb_blue"
+                android:textSize="@dimen/text_nomal" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

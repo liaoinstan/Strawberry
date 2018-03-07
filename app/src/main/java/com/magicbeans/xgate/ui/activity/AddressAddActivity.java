@@ -125,24 +125,25 @@ public class AddressAddActivity extends BaseAppCompatActivity implements View.On
                 String name = binding.editName.getText().toString();
                 String phone = binding.editPhone.getText().toString();
                 String address = binding.editAddress.getText().toString();
+                String idcard = binding.editIdcard.getText().toString();
                 Province province = (Province) binding.spinnerProvince.getSelectedItem();
                 City city = (City) binding.spinnerCity.getSelectedItem();
                 District district = (District) binding.spinnerDistrict.getSelectedItem();
-                String msg = AppVali.addAddress(name, phone, province.getName(), city.getName(), district.getName(), address);
+                String msg = AppVali.addAddress(name, phone, province.getName(), city.getName(), district.getName(), address, idcard);
                 if (msg != null) {
                     ToastUtil.showToastShort(msg);
                 } else {
-                    netAddAddress(true, name, phone, province.getName(), city.getName(), district.getName(), district.getPostcode(), address);
+                    netAddAddress(true, name, phone, province.getName(), city.getName(), district.getName(), district.getPostcode(), address, idcard);
                 }
                 break;
         }
     }
 
     //新增地址
-    public void netAddAddress(final boolean isBillAddr, String addrNickname, String tel, String country, String city, String state, String postCode, String addressStr) {
+    public void netAddAddress(final boolean isBillAddr, String addrNickname, String tel, String country, String city, String state, String postCode, String addressStr, String idcard) {
         showLoadingDialog();
         String AddId = address != null ? address.getAddressID() : "";
-        NetAddressHelper.getInstance().netAddOrUpdateAddress(AddId, isBillAddr, addrNickname, tel, country, city, state, postCode, addressStr, new NetAddressHelper.OnAddressSimpleCallback() {
+        NetAddressHelper.getInstance().netAddOrUpdateAddress(AddId, isBillAddr, addrNickname, tel, country, city, state, postCode, addressStr, idcard, new NetAddressHelper.OnAddressSimpleCallback() {
             @Override
             public void onSuccess() {
                 ToastUtil.showToastShort(address != null ? "更新成功" : "添加成功");

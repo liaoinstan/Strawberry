@@ -20,7 +20,7 @@
         android:textSize="@dimen/text_nomal" />
 
     <TextView
-        android:id="@+id/btn_del"
+        android:id="@+id/btn_go"
         android:layout_width="wrap_content"
         android:layout_height="28dp"
         android:layout_marginTop="15dp"

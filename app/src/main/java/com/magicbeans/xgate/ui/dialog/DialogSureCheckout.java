@@ -31,6 +31,7 @@ public class DialogSureCheckout extends Dialog {
     private TextView text_title;
     private TextView btn_cancel;
     private TextView btn_ok;
+    private View lay_bottom;
 
     private String msg;
     private String title;
@@ -49,7 +50,11 @@ public class DialogSureCheckout extends Dialog {
     }
 
     DialogSureCheckout(Context context, String msg) {
-        this(context, "", msg, "我再想想", "确认下单");
+        this(context, "提醒", msg, "我再想想", "确认下单");
+    }
+
+    DialogSureCheckout(Context context, String msg, String cancelStr, String sureStr) {
+        this(context, "提醒", msg, cancelStr, sureStr);
     }
 
     public DialogSureCheckout(Context context, String title, String msg, String cancelStr, String sureStr) {
@@ -82,12 +87,11 @@ public class DialogSureCheckout extends Dialog {
     private void setLoadingDialog() {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View v = inflater.inflate(R.layout.dialog_sure_checkout, null);
-
         text_title = v.findViewById(R.id.text_title);
         text_sure = v.findViewById(R.id.text_sure);
         btn_cancel = v.findViewById(R.id.btn_cancel);
         btn_ok = v.findViewById(R.id.btn_ok);
-
+        lay_bottom = v.findViewById(R.id.lay_bottom);
 
         btn_cancel.setOnClickListener(listener);
         btn_ok.setOnClickListener(listener);
@@ -117,6 +121,11 @@ public class DialogSureCheckout extends Dialog {
         } else {
             text_title.setVisibility(View.VISIBLE);
         }
+        if (TextUtils.isEmpty(cancelStr) && TextUtils.isEmpty(sureStr)) {
+            lay_bottom.setVisibility(View.GONE);
+        } else {
+            lay_bottom.setVisibility(View.VISIBLE);
+        }
     }
 
     public void setOnCancleListener(View.OnClickListener listener) {
@@ -135,8 +144,8 @@ public class DialogSureCheckout extends Dialog {
     };
 
     //便捷的调用方式
-    public static void showDialog(Context context, String msg, final CallBack callBack) {
-        final DialogSureCheckout dialogSure = new DialogSureCheckout(context, msg);
+    public static void showDialog(Context context, String msg, boolean showBtn, final CallBack callBack) {
+        final DialogSureCheckout dialogSure = showBtn ? new DialogSureCheckout(context, msg) : new DialogSureCheckout(context, msg, null, null);
         if (callBack != null) {
             dialogSure.setOnOkListener(new View.OnClickListener() {
                 @Override
@@ -147,6 +156,10 @@ public class DialogSureCheckout extends Dialog {
             });
         }
         dialogSure.show();
+    }
+
+    public static void showDialog(Context context, String msg, boolean showBtn) {
+        showDialog(context, msg, showBtn, null);
     }
 
     public interface CallBack {

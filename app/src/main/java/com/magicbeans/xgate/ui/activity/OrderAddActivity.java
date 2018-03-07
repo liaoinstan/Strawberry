@@ -7,10 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.alibaba.fastjson.JSONReader;
-import com.ins.common.helper.JsonReadHelper;
 import com.ins.common.utils.GlideUtil;
-import com.ins.common.utils.L;
 import com.ins.common.utils.ListUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.view.bundleimgview.BundleImgEntity;
@@ -20,7 +17,6 @@ import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.address.Address;
 import com.magicbeans.xgate.bean.address.AddressWrap;
 import com.magicbeans.xgate.bean.checkout.CheckoutWrap;
-import com.magicbeans.xgate.bean.common.CommonEntity;
 import com.magicbeans.xgate.bean.order.Order;
 import com.magicbeans.xgate.bean.postbean.Cart;
 import com.magicbeans.xgate.bean.postbean.CreateOrderPost;
@@ -39,7 +35,10 @@ import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STFormatCallback;
 import com.magicbeans.xgate.net.nethelper.NetAddressHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
+import com.magicbeans.xgate.ui.controller.OrderAddAddressController;
+import com.magicbeans.xgate.ui.controller.OrderAddProductsController;
 import com.magicbeans.xgate.ui.controller.ShopCartContentController;
+import com.magicbeans.xgate.ui.dialog.DialogSureCheckout;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -51,9 +50,10 @@ import okhttp3.RequestBody;
 public class OrderAddActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
     private ActivityOrderaddBinding binding;
-    private List<ShopCart> goods;
+    private OrderAddAddressController addressController;
+    private OrderAddProductsController productsController;
+
     private ShopCartInfo shopCartInfo;
-    private Address address;
 
     public static void start(Context context, List<ShopCart> goods, ShopCartInfo shopCartInfo) {
         if (AppHelper.User.isLogin()) {
@@ -77,10 +77,10 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
                 break;
             case EventBean.EVENT_GET_ADDRESS:
                 Address address = (Address) event.get("address");
-                setAddress(address);
+                addressController.setAddress(address);
                 break;
             case EventBean.EVENT_REFRESH_ORDERADD_ADDRESS:
-                netGetDefaultAddress(true);
+                addressController.netGetDefaultAddress(true);
                 break;
         }
     }
@@ -98,86 +98,36 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
     }
 
     private void initBase() {
-        goods = (List<ShopCart>) getIntent().getSerializableExtra("goods");
+        List<ShopCart> goods = (List<ShopCart>) getIntent().getSerializableExtra("goods");
         shopCartInfo = (ShopCartInfo) getIntent().getSerializableExtra("shopCartInfo");
+
+        addressController = new OrderAddAddressController(binding.includeAddress);
+        productsController = new OrderAddProductsController(binding.includeProducts);
+        productsController.setGoodsData(goods);
     }
 
     private void initView() {
-        binding.layBundle.setOnClickListener(this);
+
         binding.layCoupon.setOnClickListener(this);
         binding.layIdcard.setOnClickListener(this);
     }
 
     private void initCtrl() {
-        binding.bundleview.setOnBundleLoadImgListener(new BundleImgView.OnBundleLoadImgListener() {
-            @Override
-            public void onloadImg(ImageView imageView, String imgurl, int defaultSrc) {
-                GlideUtil.loadImg(imageView, imgurl);
-            }
-        });
-        binding.textCount.setText("总计：" + ShopCartContentController.calcuCount(goods));
+
         binding.textTotalPrice.setText(shopCartInfo.getTotalPrice());
         binding.textTransName.setText(shopCartInfo.getShipmentName());
         binding.textPayPrice.setText("应付：" + shopCartInfo.getTotalPrice());
-        binding.layAddressAdd.setOnClickListener(this);
-        binding.layAddressSelect.setOnClickListener(this);
+
     }
 
     private void initData() {
-        //设置商品图片列表数据
-        ArrayList<BundleImgEntity> bundles = new ArrayList<>();
-        for (ShopCart good : goods) {
-            bundles.add(new BundleImgEntity(good.getHeaderImg()));
-        }
-        binding.bundleview.setPhotos(bundles);
-
-        netGetDefaultAddress(true);
+        addressController.netGetDefaultAddress(true);
     }
 
-    //0：加载状态  1：新增状态  2：已选择状态
-    private void setVisibleType(int type) {
-        switch (type) {
-            case 0:
-                binding.progress.setVisibility(View.VISIBLE);
-                binding.layAddressAdd.setVisibility(View.GONE);
-                binding.layAddressSelect.setVisibility(View.GONE);
-                break;
-            case 1:
-                binding.progress.setVisibility(View.GONE);
-                binding.layAddressAdd.setVisibility(View.VISIBLE);
-                binding.layAddressSelect.setVisibility(View.GONE);
-                break;
-            case 2:
-                binding.progress.setVisibility(View.GONE);
-                binding.layAddressAdd.setVisibility(View.GONE);
-                binding.layAddressSelect.setVisibility(View.VISIBLE);
-                break;
-        }
-    }
-
-    private void setAddress(Address address) {
-        this.address = address;
-        if (address == null) {
-            setVisibleType(1);
-        } else {
-            setVisibleType(2);
-            binding.textAddressName.setText(address.getAddressNickName() + " " + address.getTelEncry());
-            binding.textAddressDetail.setText(address.getAddress());
-        }
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.lay_address_add:
-                AddressAddActivity.start(this);
-                break;
-            case R.id.lay_address_select:
-                AddressActivity.startForResult(this);
-                break;
-            case R.id.lay_bundle:
-                OrderProductActivity.start(this, goods);
-                break;
             case R.id.lay_coupon:
                 OrderCouponActivity.start(this);
                 break;
@@ -185,16 +135,16 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
                 OrderIdcardActivity.start(this);
                 break;
             case R.id.btn_go:
-                if (address != null) {
+                if (addressController.getAddress() != null) {
                     String idcard = binding.textIdcard.getText().toString();
                     String coupon = binding.textCoupon.getText().toString();
-                    String msg = AppVali.checkOut(idcard);
-                    if (msg != null) {
-                        ToastUtil.showToastShort(msg);
-                    } else {
-                        CreateOrderPost orderPost = createOrderPost(coupon, idcard);
-                        netCheckout(orderPost);
-                    }
+//                    String msg = AppVali.checkOut(idcard);
+//                    if (msg != null) {
+//                        ToastUtil.showToastShort(msg);
+//                    } else {
+                    CreateOrderPost orderPost = createOrderPost(coupon, idcard);
+                    netCheckout(orderPost);
+//                    }
                 } else {
                     ToastUtil.showToastShort("请先填写送货地址");
                 }
@@ -207,18 +157,18 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
     private CreateOrderPost createOrderPost(String coupon, String idcard) {
         //创建Post对象，进行赋值
         CreateOrderPost post = new CreateOrderPost();
-        post.setCart(new Cart(CreateOrderPost.tansProdList(goods)));
+        post.setCart(new Cart(CreateOrderPost.tansProdList(productsController.getGoods())));
         post.setCurrId("CNY");
         post.setRegion("CN");
         //Customer
         Customer customer = new Customer();
         customer.setEmail(AppData.App.getUser().getEmail());
-        customer.setIDCardNumber(idcard);
+        customer.setIDCardNumber("511322199211044611"); //TODO:idcard应该在地址管理中录入，等待服务器修改接口
         customer.setToken(Token.getLocalToken());
         customer.setOpenId(AppData.App.getOpenId());
         //Customer
-        customer.setBillAddr(address.transToAddr());
-        customer.setShipAddr(address.transToAddr());
+        customer.setBillAddr(addressController.getAddress().transToAddr());
+        customer.setShipAddr(addressController.getAddress().transToAddr());
         post.setCustomer(customer);
         //Payment
         post.setPayment(new Payment("Wechat AY"));
@@ -228,24 +178,6 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
         return post;
     }
 
-    //获取默认地址
-    public void netGetDefaultAddress(boolean isBillAddr) {
-        setVisibleType(0);
-        NetAddressHelper.getInstance().netGetAddressList(isBillAddr, new NetAddressHelper.OnAddressListCallback() {
-            @Override
-            public void onSuccess(List<Address> addressList) {
-                Address defaultAddress = AddressWrap.getDefaultAddressEx(addressList);
-                setAddress(defaultAddress);
-                if (defaultAddress == null) ToastUtil.showToastShort("您还没有设置配送地址，请先添加地址");
-            }
-
-            @Override
-            public void onError(String msg) {
-                ToastUtil.showToastShort(msg);
-                setVisibleType(1);
-            }
-        });
-    }
 
     //checkout
     private void netCheckout(final CreateOrderPost post) {
@@ -254,26 +186,27 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
         NetApi.NI().netCheckout(requestBody).enqueue(new STFormatCallback<CheckoutWrap>(CheckoutWrap.class) {
             @Override
             public void onSuccess(int status, CheckoutWrap wrap, String msg) {
-                //ToastUtil.showToastShort("check out 成功");
-                netAddOrder(post);
+                dismissLoadingDialog();
+                DialogSureCheckout.showDialog(OrderAddActivity.this, wrap.getImportantNoticeStr(), true, new DialogSureCheckout.CallBack() {
+                    @Override
+                    public void onSure() {
+                        netAddOrder(post);
+                    }
+                });
             }
 
             @Override
             public void onError(int status, CheckoutWrap wrap, String msg) {
                 ToastUtil.showToastShort("check out 失败：" + msg);
                 dismissLoadingDialog();
-
-//                JsonReadHelper.newInstance().read(com, new JsonReadHelper.JsonCallback() {
-//                    @Override
-//                    public void onRead(String key, Object object) {
-//                    }
-//                });
+                DialogSureCheckout.showDialog(OrderAddActivity.this, wrap.getNoticeStr(), false);
             }
         });
     }
 
     //下单
     private void netAddOrder(CreateOrderPost post) {
+        showLoadingDialog();
         RequestBody requestBody = NetParam.buildJsonRequestBody(post);
         NetApi.NI().netAddOrder(requestBody).enqueue(new STFormatCallback<Order>(Order.class) {
             @Override

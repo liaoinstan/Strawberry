@@ -7,10 +7,9 @@
     tools:context=".ui.activity.LoadUpActivity">
 
     <ImageView
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:src="@drawable/logo"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/loadup_bk" />
 
 </FrameLayout>

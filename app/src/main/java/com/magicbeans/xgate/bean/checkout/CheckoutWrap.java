@@ -1,5 +1,7 @@
 package com.magicbeans.xgate.bean.checkout;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2018/3/7.
  */
@@ -13,5 +15,23 @@ public class CheckoutWrap {
 
     public void setCheckoutContents(CheckoutContent checkoutContents) {
         CheckoutContents = checkoutContents;
+    }
+
+    //################  业务方法 ####################
+
+    public String getNoticeStr() {
+        if (CheckoutContents != null) {
+            return CheckoutContents.getNoticeStr();
+        } else {
+            return "";
+        }
+    }
+
+    public String getImportantNoticeStr() {
+        if (CheckoutContents != null) {
+            return CheckoutContents.getNoticeByOne(CheckoutContents.getImportantNotices());
+        } else {
+            return "";
+        }
     }
 }

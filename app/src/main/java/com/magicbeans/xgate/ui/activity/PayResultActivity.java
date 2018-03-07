@@ -5,15 +5,20 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
+import android.text.SpannableString;
 import android.view.View;
 
 import com.ins.common.utils.FocusUtil;
+import com.ins.common.utils.SpannableStringUtil;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.pay.PayResult;
 import com.magicbeans.xgate.databinding.ActivityPayresultBinding;
 import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.controller.CommonRecommendController;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class PayResultActivity extends BaseAppCompatActivity {
 
@@ -76,11 +81,20 @@ public class PayResultActivity extends BaseAppCompatActivity {
                 OrderDetailActivity.start(this, payResult.getSOID());
                 finish();
                 break;
+            case R.id.btn_gohome:
+                HomeActivity.start(this);
+                EventBus.getDefault().post(new EventBean(EventBean.EVENT_JUMP_HOME));
+                break;
         }
     }
 
     private void setData() {
-        String detail = "支付方式：信用卡支付\n订单金额：" + AppHelper.getPriceSymbol(null) + payResult.getAmount();
-        binding.textPayresult.setText(detail);
+//        String detail = "支付方式：信用卡支付\n订单金额：" + AppHelper.getPriceSymbol(null) + payResult.getAmount();
+        String title1 = "支付方式：";
+        String title2 = "\n订单金额：";
+        String textPayway = "信用卡支付";
+        String textAmount = AppHelper.getPriceSymbol(null) + payResult.getAmount();
+        SpannableString spannableString = SpannableStringUtil.create(this, new String[]{title1, textPayway, title2, textAmount}, new int[]{R.color.com_text_blank, R.color.st_red, R.color.com_text_blank, R.color.st_red});
+        binding.textPayresult.setText(spannableString);
     }
 }

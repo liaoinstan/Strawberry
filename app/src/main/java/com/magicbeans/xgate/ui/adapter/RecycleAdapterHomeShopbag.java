@@ -17,6 +17,7 @@ import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.view.LoadingLayout;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.shopcart.ShopCart;
 import com.magicbeans.xgate.data.db.manager.ShopCartTableManager;
 import com.magicbeans.xgate.databinding.ItemShopbagBinding;
@@ -25,6 +26,8 @@ import com.magicbeans.xgate.helper.DataShopCartHelper;
 import com.magicbeans.xgate.helper.DelayHelper;
 import com.magicbeans.xgate.net.nethelper.NetShopCartHelper;
 import com.magicbeans.xgate.ui.view.CountView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,7 +121,7 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
         holder.binding.includeCoutent.textAttr.setText(bean.getSize());
         holder.binding.includeCoutent.textPrice.setText(AppHelper.getPriceSymbol("") + bean.getPriceFloat());
 //        holder.binding.includeCoutent.textPriceOld.setText(AppHelper.getPriceSymbol("") + bean.getBagAddedPriceDifference());
-        holder.binding.includeCoutent.textPriceOld.setText("比加入购物车时便宜" + AppHelper.getPriceSymbol("") + bean.getBagAddedPriceDifference());
+        holder.binding.includeCoutent.textPriceOld.setText("比加入时降" + bean.getBagAddedPriceDifference() + "元");
         holder.binding.includeCoutent.textPriceOld.setVisibility(bean.getBagAddedPriceDifference() != 0 ? View.VISIBLE : View.INVISIBLE);
         holder.binding.includeCoutent.countview.setCount(bean.getQty());
         holder.binding.includeCoutent.countview.setEdit(true);
@@ -162,6 +165,12 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
                 loadingLayout.showOut();
             } else {
                 loadingLayout.showLackView();
+                loadingLayout.setClickbleBack(R.id.btn_go, new LoadingLayout.OnClickCallback() {
+                    @Override
+                    public void onClick(View v) {
+                        EventBus.getDefault().post(new EventBean(EventBean.EVENT_JUMP_HOME));
+                    }
+                });
             }
         }
     }
