@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.alibaba.fastjson.JSONReader;
+import com.ins.common.helper.JsonReadHelper;
 import com.ins.common.utils.GlideUtil;
+import com.ins.common.utils.L;
 import com.ins.common.utils.ListUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.view.bundleimgview.BundleImgEntity;
@@ -16,6 +19,7 @@ import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.address.Address;
 import com.magicbeans.xgate.bean.address.AddressWrap;
+import com.magicbeans.xgate.bean.checkout.CheckoutWrap;
 import com.magicbeans.xgate.bean.common.CommonEntity;
 import com.magicbeans.xgate.bean.order.Order;
 import com.magicbeans.xgate.bean.postbean.Cart;
@@ -24,6 +28,7 @@ import com.magicbeans.xgate.bean.postbean.Customer;
 import com.magicbeans.xgate.bean.postbean.Payment;
 import com.magicbeans.xgate.bean.postbean.Promotion;
 import com.magicbeans.xgate.bean.shopcart.ShopCart;
+import com.magicbeans.xgate.bean.shopcart.ShopCartInfo;
 import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.common.AppVali;
@@ -47,12 +52,14 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
 
     private ActivityOrderaddBinding binding;
     private List<ShopCart> goods;
+    private ShopCartInfo shopCartInfo;
     private Address address;
 
-    public static void start(Context context, List<ShopCart> goods) {
+    public static void start(Context context, List<ShopCart> goods, ShopCartInfo shopCartInfo) {
         if (AppHelper.User.isLogin()) {
             Intent intent = new Intent(context, OrderAddActivity.class);
             intent.putExtra("goods", ListUtil.transArrayList(goods));
+            intent.putExtra("shopCartInfo", shopCartInfo);
             context.startActivity(intent);
         } else {
             LoginActivity.start(context);
@@ -92,6 +99,7 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
 
     private void initBase() {
         goods = (List<ShopCart>) getIntent().getSerializableExtra("goods");
+        shopCartInfo = (ShopCartInfo) getIntent().getSerializableExtra("shopCartInfo");
     }
 
     private void initView() {
@@ -108,10 +116,9 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
             }
         });
         binding.textCount.setText("总计：" + ShopCartContentController.calcuCount(goods));
-        binding.textTotalPrice.setText(AppHelper.getPriceSymbol(null) + ShopCartContentController.calcuPrice(goods));
-        //TODO:运费和积分抵扣暂时没有
-        binding.textTransPrice.setText(AppHelper.getPriceSymbol(null) + "0.00");
-        binding.textPayPrice.setText("应付：" + AppHelper.getPriceSymbol(null) + ShopCartContentController.calcuPrice(goods));
+        binding.textTotalPrice.setText(shopCartInfo.getTotalPrice());
+        binding.textTransName.setText(shopCartInfo.getShipmentName());
+        binding.textPayPrice.setText("应付：" + shopCartInfo.getTotalPrice());
         binding.layAddressAdd.setOnClickListener(this);
         binding.layAddressSelect.setOnClickListener(this);
     }
@@ -205,7 +212,7 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
         post.setRegion("CN");
         //Customer
         Customer customer = new Customer();
-        customer.setEmail("liaoinstan@qq.com");
+        customer.setEmail(AppData.App.getUser().getEmail());
         customer.setIDCardNumber(idcard);
         customer.setToken(Token.getLocalToken());
         customer.setOpenId(AppData.App.getOpenId());
@@ -244,17 +251,23 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
     private void netCheckout(final CreateOrderPost post) {
         showLoadingDialog();
         RequestBody requestBody = NetParam.buildJsonRequestBody(post);
-        NetApi.NI().netCheckout(requestBody).enqueue(new STFormatCallback<CommonEntity>(CommonEntity.class) {
+        NetApi.NI().netCheckout(requestBody).enqueue(new STFormatCallback<CheckoutWrap>(CheckoutWrap.class) {
             @Override
-            public void onSuccess(int status, CommonEntity com, String msg) {
+            public void onSuccess(int status, CheckoutWrap wrap, String msg) {
                 //ToastUtil.showToastShort("check out 成功");
                 netAddOrder(post);
             }
 
             @Override
-            public void onError(int status, String msg) {
+            public void onError(int status, CheckoutWrap wrap, String msg) {
                 ToastUtil.showToastShort("check out 失败：" + msg);
                 dismissLoadingDialog();
+
+//                JsonReadHelper.newInstance().read(com, new JsonReadHelper.JsonCallback() {
+//                    @Override
+//                    public void onRead(String key, Object object) {
+//                    }
+//                });
             }
         });
     }

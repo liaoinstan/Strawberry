@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,16 +33,30 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/text_shopbag_priceall"
+                <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginRight="10dp"
-                    android:text="合计：￥0.00"
-                    android:textColor="@color/com_text_blank"
-                    android:textSize="@dimen/text_nomal_small" />
+                    android:layout_marginRight="10dp">
 
+                    <TextView
+                        android:id="@+id/text_shopbag_priceall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="合计：￥0.00"
+                        android:textColor="@color/com_text_blank"
+                        android:textSize="@dimen/text_nomal_small" />
+
+                    <ProgressBar
+                        android:id="@+id/progress"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                </FrameLayout>
 
                 <Space style="@style/Space_H" />
 

@@ -16,6 +16,7 @@ public class AppData {
         private static final String KEY_TOKEN = "token";
         private static final String KEY_OPENID = "openid";
         private static final String KEY_USER = "user";
+        private static final String KEY_USERAGENT = "user_agent";
         private static final String KEY_LANGUAGE = "language";
 
         public static void saveToken(Token token) {
@@ -57,6 +58,20 @@ public class AppData {
 
         public static void removeUser() {
             SharedPrefUtilV2.open(SHARENAME).remove(KEY_USER);
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+
+        public static void saveUserAgent(String userAgent) {
+            SharedPrefUtilV2.open(SHARENAME).putString(KEY_USERAGENT, userAgent);
+        }
+
+        public static String getUserAgent() {
+            return SharedPrefUtilV2.open(SHARENAME).getString(KEY_USERAGENT);
+        }
+
+        public static void removeUserAgent() {
+            SharedPrefUtilV2.open(SHARENAME).remove(KEY_USERAGENT);
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////

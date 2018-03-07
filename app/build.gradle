@@ -111,7 +111,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     //SpringView
-    compile 'com.liaoinstan.springview:library:1.3.0'
+    compile 'com.liaoinstan.springview:library:1.3.1'
     //加载自定义字体
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
     //汉字拼音库TinyPinyin核心包，约80KB

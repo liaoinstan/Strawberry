@@ -108,11 +108,11 @@ public interface NetInterface {
 
     /**
      * 产品列表
-     * CatgId 功能
+     * CatgId  功能
      * brandId 品牌
-     * typeId
-     * sort 排序（producttype, alphabetical, popularity, save, lowerprice）
-     * page
+     * typeId  类别
+     * sort    排序（producttype, alphabetical, popularity, save, lowerprice）
+     * page    页码
      */
     @GET("/app/productList.aspx")
     Call<ResponseBody> netProductList(@QueryMap Map<String, Object> param);
@@ -317,6 +317,14 @@ public interface NetInterface {
      */
     @GET("/app/apiShopcart.aspx?ID=xGate")
     Call<ResponseBody> netGetShopCartList(@QueryMap(encoded = true) Map<String, Object> param);
+
+    /**
+     * 获取商品价格运费等信息
+     * token
+     * AppProds
+     */
+    @GET("/app/apiShopcartItems.aspx?ID=xGate&flag=1")
+    Call<ResponseBody> netGetShopCartInfo(@QueryMap(encoded = true) Map<String, Object> param);
 
 
     //##################################################################

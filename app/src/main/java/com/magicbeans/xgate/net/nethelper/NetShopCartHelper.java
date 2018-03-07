@@ -12,6 +12,7 @@ import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.shopcart.ShopCart;
+import com.magicbeans.xgate.bean.shopcart.ShopCartInfo;
 import com.magicbeans.xgate.bean.shopcart.ShopCartWrap;
 import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.data.db.manager.ShopCartTableManager;
@@ -184,6 +185,27 @@ public class NetShopCartHelper {
                         liveData.setValue(shopCarts);
                     }
                 });
+            }
+
+            @Override
+            public void onError(int status, String msg) {
+                ToastUtil.showToastShort(msg);
+            }
+        });
+        return liveData;
+    }
+
+    //获取商品信息（总价，折扣，运费等）
+    public LiveData<ShopCartInfo> netGetShopCartInfo(List<ShopCart> shopCarts) {
+        final MutableLiveData<ShopCartInfo> liveData = new MediatorLiveData<>();
+        Map<String, Object> param = new NetParam()
+                .put("AppProds", ShopCart.getBatchUpdateIds(shopCarts))
+                .build();
+        NetApi.NI().netGetShopCartInfo(param).enqueue(new STFormatCallback<ShopCartWrap>(ShopCartWrap.class) {
+            @Override
+            public void onSuccess(int status, ShopCartWrap shopCartWrap, String msg) {
+                ShopCartInfo shopCartInfo = new ShopCartInfo(shopCartWrap);
+                liveData.setValue(shopCartInfo);
             }
 
             @Override

@@ -12,7 +12,9 @@ import java.util.List;
  */
 
 public class ShopCartWrap implements Serializable {
-    List<ShopCart> ProdList;
+    private List<ShopCart> ProdList;
+    private Shipment Shipment;
+    private String OrderTotal;
 
     public List<ShopCart> getProdList() {
         return ProdList;
@@ -20,6 +22,22 @@ public class ShopCartWrap implements Serializable {
 
     public void setProdList(List<ShopCart> prodList) {
         ProdList = prodList;
+    }
+
+    public com.magicbeans.xgate.bean.shopcart.Shipment getShipment() {
+        return Shipment;
+    }
+
+    public void setShipment(com.magicbeans.xgate.bean.shopcart.Shipment shipment) {
+        Shipment = shipment;
+    }
+
+    public String getOrderTotal() {
+        return OrderTotal;
+    }
+
+    public void setOrderTotal(String orderTotal) {
+        OrderTotal = orderTotal;
     }
 
     //############## 业务方法 ###############

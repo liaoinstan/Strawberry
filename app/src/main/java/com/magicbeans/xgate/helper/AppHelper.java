@@ -11,6 +11,10 @@ public class AppHelper {
         return "¥";
     }
 
+    public static String replecePriceSymbol(String price) {
+        return price.replace("&#165;", "¥");
+    }
+
     public static class User {
         //当前是否已经登录
         public static boolean isLogin() {

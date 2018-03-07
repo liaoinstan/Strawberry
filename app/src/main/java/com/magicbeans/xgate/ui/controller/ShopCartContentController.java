@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.webkit.WebView;
 
 import com.ins.common.common.ItemDecorationDivider;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
@@ -19,6 +20,7 @@ import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.shopcart.ShopCart;
+import com.magicbeans.xgate.bean.shopcart.ShopCartInfo;
 import com.magicbeans.xgate.data.db.manager.ShopCartTableManager;
 import com.magicbeans.xgate.databinding.FragmentShopbagBinding;
 import com.magicbeans.xgate.helper.DataShopCartHelper;
@@ -38,6 +40,7 @@ import java.util.List;
 public class ShopCartContentController extends BaseController<FragmentShopbagBinding> implements OnRecycleItemClickListener, View.OnClickListener {
 
     private RecycleAdapterHomeShopbag adapter;
+    private ShopCartInfo shopCartInfo;
 
     public ShopCartContentController(FragmentShopbagBinding binding) {
         super(binding);
@@ -78,15 +81,18 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
         });
         adapter.setOnSelectChangeListenner(new RecycleAdapterHomeShopbag.OnSelectChangeListenner() {
             @Override
-            public void onSelectChange() {
-                setPriceAndCount();
+            public void onSelectChange(boolean changePrice) {
+                if (changePrice) {
+                    setPriceAndCount();
+                } else {
+                    setCount();
+                }
             }
         });
     }
 
     private void initData(final boolean isShowLoading) {
         if (isShowLoading) showLoadingDialog();
-//        LiveData<List<ShopCart>> shopCartsLiveData = NetShopCartHelper.getInstance().netGetShopCartList();
         LiveData<List<ShopCart>> shopCartsLiveData = DataShopCartHelper.getInstance().getShopCartList();
         shopCartsLiveData.observeForever(new Observer<List<ShopCart>>() {
             @Override
@@ -127,7 +133,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
             case R.id.btn_go: {
                 final List<ShopCart> selectBeans = adapter.getSelectBeans();
                 if (!StrUtil.isEmpty(selectBeans)) {
-                    OrderAddActivity.start(context, selectBeans);
+                    OrderAddActivity.start(context, selectBeans, shopCartInfo);
                 } else {
                     ToastUtil.showToastShort("请先选择要购买的商品");
                 }
@@ -151,7 +157,6 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
                                     shopCart.setQty(0);
                                 }
                             }
-//                            NetShopCartHelper.getInstance().netBatchDeleteShopCart(context, selectBeans);
                             DataShopCartHelper.getInstance().batchDeleteShopCart(context, results);
                         }
                     });
@@ -213,19 +218,32 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
     }
 
     public void setPriceAndCount() {
-        List<ShopCart> selectProduct2s = adapter.getSelectBeans();
-        binding.includeBottombar.btnGo.setText("去结算(" + calcuCount(selectProduct2s) + ")");
-        float totalPrice = calcuPrice(selectProduct2s);
-        binding.includeBottombar.textShopbagPriceall.setText("合计：￥" + totalPrice);
+        setCount();
+        setPrice();
     }
 
-    //计算商品总价，这个方法作为工具类方法APP通用，目前的逻辑只是把商品价格全加起来
-    public static float calcuPrice(List<ShopCart> shopCarts) {
-        float totalPrice = 0;
-        for (ShopCart shopCart : shopCarts) {
-            totalPrice += shopCart.getPriceFloat() * shopCart.getQty();
+    private void setPrice() {
+        List<ShopCart> selectShopCarts = adapter.getSelectBeans();
+        if (StrUtil.isEmpty(selectShopCarts)){
+            //未选择直接设置为0
+            binding.includeBottombar.textShopbagPriceall.setText("合计：¥0.00");
+        }else {
+            LiveData<ShopCartInfo> liveData = NetShopCartHelper.getInstance().netGetShopCartInfo(selectShopCarts);
+            showPriceLoading();
+            liveData.observeForever(new Observer<ShopCartInfo>() {
+                @Override
+                public void onChanged(@Nullable ShopCartInfo shopCartInfo) {
+                    ShopCartContentController.this.shopCartInfo = shopCartInfo;
+                    binding.includeBottombar.textShopbagPriceall.setText("合计：" + shopCartInfo.getTotalPrice());
+                    dismissPriceLoading();
+                }
+            });
         }
-        return totalPrice;
+    }
+
+    private void setCount() {
+        List<ShopCart> selectShopCarts = adapter.getSelectBeans();
+        binding.includeBottombar.btnGo.setText("去结算(" + calcuCount(selectShopCarts) + ")");
     }
 
     //计算商品数量
@@ -241,6 +259,16 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
         return binding.includeBottombar.layEdit.getVisibility() == View.VISIBLE;
     }
 
+    private void showPriceLoading() {
+        binding.includeBottombar.progress.setVisibility(View.VISIBLE);
+        binding.includeBottombar.textShopbagPriceall.setVisibility(View.GONE);
+    }
+
+    private void dismissPriceLoading() {
+        binding.includeBottombar.progress.setVisibility(View.GONE);
+        binding.includeBottombar.textShopbagPriceall.setVisibility(View.VISIBLE);
+    }
+
     public final void showLoadingDialog() {
         //只在ShopcartActivity中使用才显示加载进度条
         if (context instanceof BaseAppCompatActivity) {
@@ -252,5 +280,15 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
         if (context instanceof BaseAppCompatActivity) {
             ((BaseAppCompatActivity) context).dismissLoadingDialog();
         }
+    }
+
+    //############## get & set #################
+
+    public ShopCartInfo getShopCartInfo() {
+        return shopCartInfo;
+    }
+
+    public void setShopCartInfo(ShopCartInfo shopCartInfo) {
+        this.shopCartInfo = shopCartInfo;
     }
 }

@@ -79,8 +79,9 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
                             ShopCart bean = ListUtil.get(results, holder.getLayoutPosition());
                             if (bean != null) {
                                 bean.setQty(count);
-//                                NetShopCartHelper.getInstance().netUpdateShopCart(bean.getProdID(), bean.getQty());
                                 DataShopCartHelper.getInstance().updateShopCart(bean);
+                                if (onSelectChangeListenner != null)
+                                    onSelectChangeListenner.onSelectChange(false);
                             }
                         }
                     });
@@ -171,7 +172,7 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
         bean.setSelect(!bean.isSelect());
         ShopCartTableManager.getInstance().update(bean);
         notifyItemChanged(position);
-        if (onSelectChangeListenner != null) onSelectChangeListenner.onSelectChange();
+        if (onSelectChangeListenner != null) onSelectChangeListenner.onSelectChange(true);
     }
 
     public List<ShopCart> getSelectBeans() {
@@ -185,7 +186,7 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
     public void selectAll(boolean isSelect) {
         SelectHelper.selectAllSelectBeans(results, isSelect);
         notifyDataSetChanged();
-        if (onSelectChangeListenner != null) onSelectChangeListenner.onSelectChange();
+        if (onSelectChangeListenner != null) onSelectChangeListenner.onSelectChange(true);
     }
 
     public boolean isSelectAll() {
@@ -207,7 +208,7 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
     }
 
     public interface OnSelectChangeListenner {
-        void onSelectChange();
+        void onSelectChange(boolean changePrice);
     }
 
     //############## get & set ################

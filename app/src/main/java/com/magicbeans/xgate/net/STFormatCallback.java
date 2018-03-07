@@ -53,9 +53,9 @@ public abstract class STFormatCallback<T> implements Callback<ResponseBody> {
                 data = root.getString("data");
             }
             T t;
-            if (type.equals(String.class)){
+            if (type.equals(String.class)) {
                 t = (T) data;
-            }else {
+            } else {
                 if (data != null && !data.equals("")) {
                     t = gson.fromJson(data, type);
                 } else {
@@ -67,7 +67,7 @@ public abstract class STFormatCallback<T> implements Callback<ResponseBody> {
                     onSuccess(status, t, msg);
                     break;
                 case 1005:
-                    onError(status, msg);
+                    onError(status, t, msg);
                     //统一处理未登录状态
 //                    AppData.App.removeUser();
 //                    AppData.App.removeToken();
@@ -75,7 +75,7 @@ public abstract class STFormatCallback<T> implements Callback<ResponseBody> {
 //                    LoginActivity.start();
                     break;
                 default:
-                    onError(status, msg);
+                    onError(status, t, msg);
                     break;
             }
         } catch (Exception e) {
@@ -91,5 +91,10 @@ public abstract class STFormatCallback<T> implements Callback<ResponseBody> {
 
     abstract public void onSuccess(int status, T t, String msg);
 
-    abstract public void onError(int status, String msg);
+    protected void onError(int status, String msg) {
+    }
+
+    protected void onError(int status, T t, String msg) {
+        onError(status, msg);
+    }
 }

@@ -1,6 +1,7 @@
 package com.magicbeans.xgate.app;
 
 import android.app.Application;
+import android.webkit.WebView;
 
 import com.ins.common.utils.App;
 import com.ins.common.utils.GlideUtil;
@@ -10,6 +11,7 @@ import com.ins.common.utils.ToastUtil;
 import com.ins.domain.launcher.DomainLauncher;
 import com.magicbeans.xgate.BuildConfig;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.data.cache.DataCache;
 import com.magicbeans.xgate.data.db.AppDataBase;
 import com.magicbeans.xgate.net.NetApi;
@@ -28,7 +30,6 @@ public class StrawberryApp extends Application {
         initJpush();
         initBugly();
         initShareSdk();
-
     }
 
     private void initSetting() {
@@ -42,6 +43,8 @@ public class StrawberryApp extends Application {
         NetApi.setBaseUrl(BuildConfig.BASE_URL);
         //初始化数据库
         AppDataBase.createDataBase(this);
+        //保存userAgent
+        AppData.App.saveUserAgent(new WebView(this).getSettings().getUserAgentString());
     }
 
     private void initJpush() {

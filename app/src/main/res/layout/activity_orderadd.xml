@@ -309,6 +309,7 @@
                             android:paddingRight="15dp">
 
                             <TextView
+                                android:id="@+id/text_trans_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="运费"
