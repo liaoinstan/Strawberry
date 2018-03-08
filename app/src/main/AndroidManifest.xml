@@ -81,6 +81,7 @@
         <activity android:name=".ui.activity.OrderProductActivity" />
         <activity android:name=".ui.activity.OrderCouponActivity" />
         <activity android:name=".ui.activity.OrderIdcardActivity" />
+        <activity android:name=".ui.activity.ProductSearchActivity" />
         <activity android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
             android:launchMode="singleTask">
             <intent-filter>

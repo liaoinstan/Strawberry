@@ -95,12 +95,10 @@
                         </FrameLayout>
 
                         <View
-                            android:visibility="gone"
                             style="@style/Line_H"
                             android:layout_marginLeft="10dp" />
 
                         <FrameLayout
-                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 

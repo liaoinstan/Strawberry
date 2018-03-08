@@ -118,6 +118,14 @@ public interface NetInterface {
     Call<ResponseBody> netProductList(@QueryMap Map<String, Object> param);
 
     /**
+     * 产品搜索列表
+     * searchFiel  搜索关键字
+     * page    页码
+     */
+    @GET("/app/prodSearch.aspx")
+    Call<ResponseBody> netProductSearch(@QueryMap Map<String, Object> param);
+
+    /**
      * 产品详情
      * ProdId 产品id
      * currId 货币类型

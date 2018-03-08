@@ -138,13 +138,13 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
                 if (addressController.getAddress() != null) {
                     String idcard = binding.textIdcard.getText().toString();
                     String coupon = binding.textCoupon.getText().toString();
-//                    String msg = AppVali.checkOut(idcard);
-//                    if (msg != null) {
-//                        ToastUtil.showToastShort(msg);
-//                    } else {
-                    CreateOrderPost orderPost = createOrderPost(coupon, idcard);
-                    netCheckout(orderPost);
-//                    }
+                    String msg = AppVali.checkOut(idcard);
+                    if (msg != null) {
+                        ToastUtil.showToastShort(msg);
+                    } else {
+                        CreateOrderPost orderPost = createOrderPost(coupon, idcard);
+                        netCheckout(orderPost);
+                    }
                 } else {
                     ToastUtil.showToastShort("请先填写送货地址");
                 }
@@ -163,7 +163,7 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
         //Customer
         Customer customer = new Customer();
         customer.setEmail(AppData.App.getUser().getEmail());
-        customer.setIDCardNumber("511322199211044611"); //TODO:idcard应该在地址管理中录入，等待服务器修改接口
+        customer.setIDCardNumber(idcard); //TODO:idcard应该在地址管理中录入，等待服务器修改接口
         customer.setToken(Token.getLocalToken());
         customer.setOpenId(AppData.App.getOpenId());
         //Customer

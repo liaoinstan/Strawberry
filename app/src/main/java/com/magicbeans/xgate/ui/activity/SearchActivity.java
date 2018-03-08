@@ -138,13 +138,13 @@ public class SearchActivity extends BaseAppCompatActivity implements SearchPopup
     }
 
     private void startActivityAndFinish(String key) {
-        ProductActivity.startSearch(this, key);
+        ProductSearchActivity.startSearch(this, key);
         DataCache.getInstance().putSeachHistory(new SearchHistory(key));
         finish();
     }
 
     private void startActivityAndFinish(Cate1 cate1) {
-        ProductActivity.startCategroy(this, cate1);
+        ProductSearchActivity.startSearch(this, cate1.getTitle());
         DataCache.getInstance().putSeachHistory(new SearchHistory(cate1));
         finish();
     }
