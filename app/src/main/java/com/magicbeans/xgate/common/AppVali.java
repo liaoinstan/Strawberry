@@ -42,7 +42,7 @@ public class AppVali {
         }
     }
 
-    public static String addAddress(String addrNickname, String tel, String province, String city, String district, String address, String idcard) {
+    public static String addAddress(String addrNickname, String tel, String province, String city, String district, String address) {
         if (TextUtils.isEmpty(addrNickname)) {
             return "请输入收货人";
         } else if (TextUtils.isEmpty(tel)) {
@@ -57,9 +57,7 @@ public class AppVali {
             return "请选择城区";
         } else if (TextUtils.isEmpty(address)) {
             return "请输入详细地址";
-        } else if (TextUtils.isEmpty(idcard)) {
-            return "请输入申报资料";
-        } else {
+        }  else {
             return null;
         }
     }

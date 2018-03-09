@@ -422,7 +422,8 @@ public interface NetInterface {
     /**
      * adyen checkout
      */
-    @POST("/RedirectmWeChat.aspx")
+//    @POST("/RedirectmWeChat.aspx?siteID=xgate")
+    @POST("/RedirectmWeChatServer.aspx?siteID=xgate")
     Call<ResponseBody> adyenPaySetup(@QueryMap Map<String, Object> param);
 
     /**

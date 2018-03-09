@@ -118,7 +118,8 @@
                     android:gravity="center"
                     android:text="申报资料"
                     android:textColor="@color/com_text_blank"
-                    android:textSize="@dimen/text_nomal_small" />
+                    android:textSize="@dimen/text_nomal_small"
+                    android:visibility="gone" />
 
                 <com.ins.common.view.EmojiEditText
                     android:id="@+id/edit_idcard"
@@ -128,7 +129,8 @@
                     android:hint="订购人身份证或护照号"
                     android:inputType="textPersonName"
                     android:maxLines="1"
-                    android:minHeight="40dp" />
+                    android:minHeight="40dp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

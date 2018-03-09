@@ -7,7 +7,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:layout_height="35dp"
-        android:background="@drawable/selector_rect_corner_darklight_purple"
+        android:background="@drawable/selector_rect_corner_darklight_red"
         android:gravity="center"
         android:text="100ml"
         android:textColor="@color/white"

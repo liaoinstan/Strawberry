@@ -62,6 +62,7 @@ public class DialogBottomProductAttr extends Dialog implements OnRecycleItemClic
         binding.recycle.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
         binding.btnGo.setOnClickListener(this);
+        binding.btnClose.setOnClickListener(this);
 
         this.setCanceledOnTouchOutside(true);    //点击外部关闭
 
@@ -71,6 +72,9 @@ public class DialogBottomProductAttr extends Dialog implements OnRecycleItemClic
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_close:
+                dismiss();
+                break;
             case R.id.btn_go:
                 if (onSelectListenner != null) {
                     Product2 product2 = adapter.getSelectProduct();

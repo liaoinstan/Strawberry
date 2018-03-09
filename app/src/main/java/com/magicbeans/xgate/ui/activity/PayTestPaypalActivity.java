@@ -67,7 +67,7 @@ public class PayTestPaypalActivity extends BaseAppCompatActivity implements View
                 payTest();
                 break;
             case R.id.text_test_adyen:
-                AdyenPayApi.with(this).pay("1820816891", 129.5f, "liaoinstan@qq.com");
+                AdyenPayApi.with(this).pay("12312321", 10000, "jamesleung@strawberrynet.com");
                 break;
         }
     }

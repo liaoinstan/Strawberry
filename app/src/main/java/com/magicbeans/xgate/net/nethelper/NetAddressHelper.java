@@ -106,18 +106,17 @@ public class NetAddressHelper {
 
     //新增或者更新地址
     //有AddId则更新，无则新增
-    public void netAddOrUpdateAddress(String AddId, boolean isBillAddr, String addrNickname, String tel, String country, String city, String state, String postCode, String address, String idcard, final OnAddressSimpleCallback callback) {
+    public void netAddOrUpdateAddress(String AddId, boolean isBillAddr, String addrNickname, String tel, String country, String city, String state, String postCode, String address, final OnAddressSimpleCallback callback) {
         Map<String, Object> param = new NetParam()
                 .put("AddId", AddId)
                 .put("AccountID", Token.getLocalAccountId())
                 .put("token", Token.getLocalToken())
                 .put("addrtype", isBillAddr ? 1 : 2)
                 .put("addrNickname", addrNickname)
-                .put("firstname", "liaoinstan")//TODO:UI与接口不匹配
-                .put("lastname", "albert")//TODO:UI与接口不匹配
+                .put("firstname", "none")//TODO:UI与接口不匹配
+                .put("lastname", "none")//TODO:UI与接口不匹配
                 .put("tel", tel)
                 .put("address1", address)
-                .put("IDCardNumber", idcard)
                 .put("state", state)
                 .put("city", city)
                 .put("country", country)

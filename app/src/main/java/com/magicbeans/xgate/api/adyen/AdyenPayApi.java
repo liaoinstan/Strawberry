@@ -49,14 +49,14 @@ public class AdyenPayApi {
     private String merchantApiSecretKey = "0101408667EE5CD5932B441CFA2483867639B0E69E5A995423965E7B6A5B8B6CAE8D7206ADD36411D16303257317FEFDD7A4BE2403A31C396DE18F6C0898682F20228C10C15D5B0DBEE47CDCB5588C48224C6007";
     private String merchantApiHeaderKeyForApiSecretKey = "x-demo-server-api-key";
 
-    public void pay(final String soId, final float payAmount, final String email) {
+    public void pay(final String soId, final int payAmount, final String email) {
         PaymentRequest paymentRequest = new PaymentRequest(context, new PaymentRequestListener() {
             @Override
             public void onPaymentDataRequested(@NonNull final PaymentRequest paymentRequest, @NonNull String sdkToken, @NonNull final PaymentDataCallback callback) {
                 Map<String, Object> param = new NetParam()
-                        .put("SOId", MD5Util.md5(soId))
-                        .put("payAmount", MD5Util.md5(payAmount + ""))
-                        .put("email", MD5Util.md5(email))
+                        .put("SOId", soId)
+                        .put("amt", payAmount + "")
+                        .put("email", email)
                         .build();
                 NetApi.NI().adyenPaySetup(param).enqueue(new Callback<ResponseBody>() {
                     @Override
