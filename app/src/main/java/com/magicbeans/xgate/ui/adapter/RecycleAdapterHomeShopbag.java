@@ -37,6 +37,7 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
     private Context context;
     private List<ShopCart> results = new ArrayList<>();
     private LoadingLayout loadingLayout;
+    private View textSelectAll;
 
     public List<ShopCart> getResults() {
         return results;
@@ -69,6 +70,9 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
             @Override
             public void onClick(View v) {
                 selectItem(holder.getLayoutPosition());
+                if (textSelectAll != null) {
+                    textSelectAll.setSelected(SelectHelper.isSelectAll(results) ? true : false);
+                }
             }
         });
         holder.binding.includeCoutent.countview.setOnCountChangeListenner(new CountView.OnCountChangeListenner() {
@@ -200,6 +204,10 @@ public class RecycleAdapterHomeShopbag extends RecyclerView.Adapter<RecycleAdapt
 
     public boolean isSelectAll() {
         return SelectHelper.isSelectAll(results);
+    }
+
+    public void setTextSelectAll(View textSelectAll) {
+        this.textSelectAll = textSelectAll;
     }
 
     //############## 对外接口 ################

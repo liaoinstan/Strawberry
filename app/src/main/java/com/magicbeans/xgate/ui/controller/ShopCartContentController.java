@@ -37,26 +37,29 @@ import java.util.List;
  * Created by Administrator on 2017/10/11.
  */
 
-public class ShopCartContentController extends BaseController<FragmentShopbagBinding> implements OnRecycleItemClickListener, View.OnClickListener {
+public class ShopCartContentController extends BaseController<FragmentShopbagBinding> implements OnRecycleItemClickListener {
 
+    //子controller，用于分担ShopCartContentController的业务逻辑
+    private ShopCartBottomBarController bottomBarController;
     private RecycleAdapterHomeShopbag adapter;
-    private ShopCartInfo shopCartInfo;
 
     public ShopCartContentController(FragmentShopbagBinding binding) {
         super(binding);
+        initBase();
         initCtrl();
         initData(true);
     }
 
+    private void initBase() {
+        bottomBarController = new ShopCartBottomBarController(binding.includeBottombar);
+    }
+
     private void initCtrl() {
-        binding.includeBottombar.btnGo.setOnClickListener(this);
-        binding.includeBottombar.textShopbagCheckall.setOnClickListener(this);
-        binding.includeBottombar.btnShare.setOnClickListener(this);
-        binding.includeBottombar.btnFavo.setOnClickListener(this);
-        binding.includeBottombar.btnDel.setOnClickListener(this);
         adapter = new RecycleAdapterHomeShopbag(context);
         adapter.setLoadingLayout(binding.loadingLayout);
+        adapter.setTextSelectAll(binding.includeBottombar.textShopbagCheckall);
         adapter.setOnItemClickListener(this);
+        bottomBarController.setShopCartAdapter(adapter);
         binding.recycle.setNestedScrollingEnabled(false);
         binding.recycle.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         binding.recycle.addItemDecoration(new ItemDecorationDivider(context, LinearLayoutManager.VERTICAL));
@@ -83,9 +86,9 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
             @Override
             public void onSelectChange(boolean changePrice) {
                 if (changePrice) {
-                    setPriceAndCount();
+                    bottomBarController.setPriceAndCount();
                 } else {
-                    setCount();
+                    bottomBarController.setCount();
                 }
             }
         });
@@ -100,7 +103,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
                 adapter.notifyDataSetChanged(shopCarts);
                 binding.spring.onFinishFreshAndLoad();
                 //计算价格
-                setPriceAndCount();
+                bottomBarController.setPriceAndCount();
                 if (isShowLoading) dismissLoadingDialog();
             }
         });
@@ -118,56 +121,6 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.text_shopbag_checkall:
-                if (adapter.isSelectAll()) {
-                    binding.includeBottombar.textShopbagCheckall.setSelected(false);
-                    adapter.selectAll(false);
-                } else {
-                    binding.includeBottombar.textShopbagCheckall.setSelected(true);
-                    adapter.selectAll(true);
-                }
-                break;
-            case R.id.btn_go: {
-                final List<ShopCart> selectBeans = adapter.getSelectBeans();
-                if (!StrUtil.isEmpty(selectBeans)) {
-                    OrderAddActivity.start(context, selectBeans, shopCartInfo);
-                } else {
-                    ToastUtil.showToastShort("请先选择要购买的商品");
-                }
-                break;
-            }
-            case R.id.btn_share:
-                new ShareDialog(context).show();
-                break;
-            case R.id.btn_favo:
-                ToastUtil.showToastShort("开发中");
-                break;
-            case R.id.btn_del: {
-                final List<ShopCart> selectBeans = adapter.getSelectBeans();
-                if (!StrUtil.isEmpty(selectBeans)) {
-                    DialogSure.showDialog(context, "确定要删除这些商品？", new DialogSure.CallBack() {
-                        @Override
-                        public void onSure() {
-                            List<ShopCart> results = adapter.getResults();
-                            for (ShopCart shopCart : results) {
-                                if (shopCart.isSelect()) {
-                                    shopCart.setQty(0);
-                                }
-                            }
-                            DataShopCartHelper.getInstance().batchDeleteShopCart(context, results);
-                        }
-                    });
-                } else {
-                    ToastUtil.showToastShort("请先选择要删除的商品");
-                }
-                break;
-            }
-        }
-    }
-
     //#################  对外方法 ##################
 
     //刷新购物车（重新加载本地数据库列表）
@@ -179,7 +132,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
                 adapter.notifyDataSetChanged(shopCarts);
                 binding.spring.onFinishFreshAndLoad();
                 //计算价格
-                setPriceAndCount();
+                bottomBarController.setPriceAndCount();
             }
         });
     }
@@ -208,42 +161,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
 
     //设置当前UI状态为编辑状态，或者普通状态
     public void setEditModel(boolean isEdit) {
-        if (isEdit) {
-            binding.includeBottombar.layEdit.setVisibility(View.VISIBLE);
-            binding.includeBottombar.layUnedit.setVisibility(View.GONE);
-        } else {
-            binding.includeBottombar.layEdit.setVisibility(View.GONE);
-            binding.includeBottombar.layUnedit.setVisibility(View.VISIBLE);
-        }
-    }
-
-    public void setPriceAndCount() {
-        setCount();
-        setPrice();
-    }
-
-    private void setPrice() {
-        List<ShopCart> selectShopCarts = adapter.getSelectBeans();
-        if (StrUtil.isEmpty(selectShopCarts)){
-            //未选择直接设置为0
-            binding.includeBottombar.textShopbagPriceall.setText("合计：¥0.00");
-        }else {
-            LiveData<ShopCartInfo> liveData = NetShopCartHelper.getInstance().netGetShopCartInfo(selectShopCarts);
-            showPriceLoading();
-            liveData.observeForever(new Observer<ShopCartInfo>() {
-                @Override
-                public void onChanged(@Nullable ShopCartInfo shopCartInfo) {
-                    ShopCartContentController.this.shopCartInfo = shopCartInfo;
-                    binding.includeBottombar.textShopbagPriceall.setText("合计：" + shopCartInfo.getTotalPrice());
-                    dismissPriceLoading();
-                }
-            });
-        }
-    }
-
-    private void setCount() {
-        List<ShopCart> selectShopCarts = adapter.getSelectBeans();
-        binding.includeBottombar.btnGo.setText("去结算(" + calcuCount(selectShopCarts) + ")");
+        bottomBarController.setEditModel(isEdit);
     }
 
     //计算商品数量
@@ -256,17 +174,7 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
     }
 
     public boolean isEdit() {
-        return binding.includeBottombar.layEdit.getVisibility() == View.VISIBLE;
-    }
-
-    private void showPriceLoading() {
-        binding.includeBottombar.progress.setVisibility(View.VISIBLE);
-        binding.includeBottombar.textShopbagPriceall.setVisibility(View.GONE);
-    }
-
-    private void dismissPriceLoading() {
-        binding.includeBottombar.progress.setVisibility(View.GONE);
-        binding.includeBottombar.textShopbagPriceall.setVisibility(View.VISIBLE);
+        return bottomBarController.isEdit();
     }
 
     public final void showLoadingDialog() {
@@ -280,15 +188,5 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
         if (context instanceof BaseAppCompatActivity) {
             ((BaseAppCompatActivity) context).dismissLoadingDialog();
         }
-    }
-
-    //############## get & set #################
-
-    public ShopCartInfo getShopCartInfo() {
-        return shopCartInfo;
-    }
-
-    public void setShopCartInfo(ShopCartInfo shopCartInfo) {
-        this.shopCartInfo = shopCartInfo;
     }
 }

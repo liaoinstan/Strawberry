@@ -57,6 +57,19 @@ public class SelectHelper {
         return true;
     }
 
+    //检查选择实体列表是否全未选
+    public static <T extends BaseSelectBean> boolean isUnSelectAll(List<T> selectBeans) {
+        if (StrUtil.isEmpty(selectBeans)) {
+            return false;
+        }
+        for (BaseSelectBean selectBean : selectBeans) {
+            if (selectBean.isSelect()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     //获取已被选择的选择实体（单选）
     public static <T extends BaseSelectBean> T getSelectBean(List<T> selectBeans) {
         if (StrUtil.isEmpty(selectBeans)) {

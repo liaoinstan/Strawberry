@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/st_bk"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -54,51 +55,82 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <com.liaoinstan.springview.widget.SpringView
-                android:id="@+id/spring"
+            <android.support.design.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                app:type="follow">
+                android:background="@color/st_bk"
+                android:fitsSystemWindows="true">
 
-                <android.support.v4.widget.NestedScrollView
+                <com.liaoinstan.springview.widget.SpringView
+                    android:id="@+id/spring"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fillViewport="true">
+                    app:type="follow">
 
-                    <LinearLayout
+                    <android.support.v4.widget.NestedScrollView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:fillViewport="true">
 
-                        <com.ins.common.view.LoadingLayout
-                            android:id="@+id/loadingLayout"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:layout_fail="@layout/layout_fail"
-                            app:layout_lack="@layout/layout_lack_shopcart"
-                            app:layout_loading="@layout/layout_loading">
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
 
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/recycle"
+                            <com.ins.common.view.LoadingLayout
+                                android:id="@+id/loadingLayout"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                app:layout_fail="@layout/layout_fail"
+                                app:layout_lack="@layout/layout_lack_shopcart"
+                                app:layout_loading="@layout/layout_loading">
 
-                        </com.ins.common.view.LoadingLayout>
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/recycle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
 
-                        <include
-                            android:id="@+id/include_recomend"
-                            layout="@layout/lay_recommend" />
+                            </com.ins.common.view.LoadingLayout>
 
-                    </LinearLayout>
+                            <include
+                                android:id="@+id/include_recomend"
+                                layout="@layout/lay_recommend" />
 
-                </android.support.v4.widget.NestedScrollView>
+                        </LinearLayout>
 
-            </com.liaoinstan.springview.widget.SpringView>
+                    </android.support.v4.widget.NestedScrollView>
+
+                </com.liaoinstan.springview.widget.SpringView>
+
+                <LinearLayout
+                    android:id="@+id/lay_bottomsheep"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:clickable="true"
+                    app:behavior_hideable="true"
+                    app:behavior_peekHeight="50dp"
+                    android:background="@color/st_red_hit_bk"
+                    android:orientation="vertical"
+                    app:layout_behavior="@string/bottom_sheet_behavior">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="10dp"
+                        android:text="当前选中商品可免除运费\n满299元得赠品，赠完即止"
+                        android:textColor="@color/com_text_blank"
+                        android:textSize="@dimen/text_tiny" />
+
+                </LinearLayout>
+
+            </android.support.design.widget.CoordinatorLayout>
 
             <include
                 android:id="@+id/include_bottombar"
@@ -106,5 +138,5 @@
 
         </LinearLayout>
 
-    </android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
 </layout>
