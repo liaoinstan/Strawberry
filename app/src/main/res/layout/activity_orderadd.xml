@@ -125,94 +125,9 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/white"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="商品结算"
-                                android:textColor="@color/com_text_blank"
-                                android:textSize="@dimen/text_nomal" />
-
-                        </LinearLayout>
-
-                        <View
-                            style="@style/Line_H"
-                            android:layout_marginLeft="10dp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="商品总价"
-                                android:textColor="@color/com_text_blank"
-                                android:textSize="@dimen/text_nomal" />
-
-                            <Space style="@style/Space_H" />
-
-                            <TextView
-                                android:id="@+id/text_total_price"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="￥453.00"
-                                android:textColor="@color/st_red"
-                                android:textSize="@dimen/text_nomal" />
-
-                        </LinearLayout>
-
-                        <View
-                            style="@style/Line_H"
-                            android:layout_marginLeft="10dp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp">
-
-                            <TextView
-                                android:id="@+id/text_trans_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="运费"
-                                android:textColor="@color/com_text_blank"
-                                android:textSize="@dimen/text_nomal" />
-
-                            <Space style="@style/Space_H" />
-
-                            <TextView
-                                android:id="@+id/text_trans_price"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="￥0.00"
-                                android:textColor="@color/st_red"
-                                android:textSize="@dimen/text_nomal" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
+                    <include
+                        android:id="@+id/include_pricedetail"
+                        layout="@layout/lay_orderadd_pricedetail"/>
 
                     <View
                         android:layout_width="match_parent"

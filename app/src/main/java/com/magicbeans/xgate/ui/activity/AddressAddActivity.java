@@ -88,12 +88,12 @@ public class AddressAddActivity extends BaseAppCompatActivity implements View.On
 
         binding.btnGo.setOnClickListener(this);
 
-        binding.swichDefault.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                ToastUtil.showToastShort("目前API接口暂时没有此功能，暂且请在添加后手动设置");
-            }
-        });
+//        binding.swichDefault.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                ToastUtil.showToastShort("目前API接口暂时没有此功能，暂且请在添加后手动设置");
+//            }
+//        });
     }
 
     private void initData() {
@@ -109,6 +109,7 @@ public class AddressAddActivity extends BaseAppCompatActivity implements View.On
         if (address != null) {
             binding.editName.setText(address.getAddressNickName());
             binding.editPhone.setText(address.getTel());
+            binding.swichDefault.setChecked(address.isDefault());
             String[] splits = address.getAddress().split(",");
             //TODO:这个数据结构还要和后台商讨下，目前暂时这样
             binding.editAddress.setText(splits[0]);
@@ -125,6 +126,7 @@ public class AddressAddActivity extends BaseAppCompatActivity implements View.On
                 String name = binding.editName.getText().toString();
                 String phone = binding.editPhone.getText().toString();
                 String address = binding.editAddress.getText().toString();
+                boolean isDefault = binding.swichDefault.isChecked();
                 Province province = (Province) binding.spinnerProvince.getSelectedItem();
                 City city = (City) binding.spinnerCity.getSelectedItem();
                 District district = (District) binding.spinnerDistrict.getSelectedItem();
@@ -132,17 +134,17 @@ public class AddressAddActivity extends BaseAppCompatActivity implements View.On
                 if (msg != null) {
                     ToastUtil.showToastShort(msg);
                 } else {
-                    netAddAddress(true, name, phone, province.getName(), city.getName(), district.getName(), district.getPostcode(), address);
+                    netAddAddress(true, name, phone, province.getName(), city.getName(), district.getName(), district.getPostcode(), address, isDefault);
                 }
                 break;
         }
     }
 
     //新增地址
-    public void netAddAddress(final boolean isBillAddr, String addrNickname, String tel, String country, String city, String state, String postCode, String addressStr) {
+    public void netAddAddress(final boolean isBillAddr, String addrNickname, String tel, String country, String city, String state, String postCode, String addressStr, boolean isDefault) {
         showLoadingDialog();
         String AddId = address != null ? address.getAddressID() : "";
-        NetAddressHelper.getInstance().netAddOrUpdateAddress(AddId, isBillAddr, addrNickname, tel, country, city, state, postCode, addressStr, new NetAddressHelper.OnAddressSimpleCallback() {
+        NetAddressHelper.getInstance().netAddOrUpdateAddress(AddId, isBillAddr, addrNickname, tel, country, city, state, postCode, addressStr, isDefault, new NetAddressHelper.OnAddressSimpleCallback() {
             @Override
             public void onSuccess() {
                 ToastUtil.showToastShort(address != null ? "更新成功" : "添加成功");

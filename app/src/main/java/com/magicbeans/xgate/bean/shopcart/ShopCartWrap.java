@@ -14,6 +14,9 @@ import java.util.List;
 public class ShopCartWrap implements Serializable {
     private List<ShopCart> ProdList;
     private Shipment Shipment;
+    private List<Promote> PromoList;
+    private List<Surcharge> Surcharge;
+    private String SubTotal;
     private String OrderTotal;
 
     public List<ShopCart> getProdList() {
@@ -40,6 +43,29 @@ public class ShopCartWrap implements Serializable {
         OrderTotal = orderTotal;
     }
 
+    public List<Promote> getPromoList() {
+        return PromoList;
+    }
+
+    public void setPromoList(List<Promote> promoList) {
+        PromoList = promoList;
+    }
+
+    public List<com.magicbeans.xgate.bean.shopcart.Surcharge> getSurcharge() {
+        return Surcharge;
+    }
+
+    public void setSurcharge(List<com.magicbeans.xgate.bean.shopcart.Surcharge> surcharge) {
+        Surcharge = surcharge;
+    }
+
+    public String getSubTotal() {
+        return SubTotal;
+    }
+
+    public void setSubTotal(String subTotal) {
+        SubTotal = subTotal;
+    }
     //############## 业务方法 ###############
 
     public String getErrorMsg(String ProdID) {

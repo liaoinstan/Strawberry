@@ -164,8 +164,10 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
+                    <!--收藏功能暂时不要了，隐藏掉入口-->
 
                     <LinearLayout
+                        android:visibility="invisible"
                         android:id="@+id/lay_me_favo"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"

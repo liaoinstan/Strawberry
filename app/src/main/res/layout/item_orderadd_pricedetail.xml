@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="45dp"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:textColor="@color/com_text_blank"
+                android:textSize="@dimen/text_nomal"
+                tools:text="商品总价非常非常长" />
+
+            <TextView
+                android:id="@+id/text_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/st_red"
+                android:textSize="@dimen/text_nomal"
+                tools:text="￥453.00" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line"
+            style="@style/Line_H"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp" />
+
+    </FrameLayout>
+</layout>

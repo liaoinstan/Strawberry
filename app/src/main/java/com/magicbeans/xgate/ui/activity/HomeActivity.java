@@ -7,8 +7,10 @@ import android.support.annotation.IdRes;
 import android.support.v4.view.ViewPager;
 import android.widget.RadioGroup;
 
+import com.ins.common.utils.L;
 import com.ins.common.utils.PermissionsUtil;
 import com.ins.common.utils.StatusBarUtil;
+import com.ins.common.view.XRadioGroup;
 import com.ins.version.VersionHelper;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
@@ -21,7 +23,7 @@ import org.greenrobot.eventbus.EventBus;
 public class HomeActivity extends BaseAppCompatActivity {
 
     //    private UpdateHelper updateHelper;
-    private RadioGroup group_tab;
+    private XRadioGroup group_tab;
     private ViewPager pager;
     private PagerAdapterHome pagerAdapter;
     private int[] tabsId = new int[]{R.id.tab_1, R.id.tab_2, R.id.tab_3, R.id.tab_4};
@@ -80,7 +82,7 @@ public class HomeActivity extends BaseAppCompatActivity {
 
     private void initView() {
         pager = (ViewPager) findViewById(R.id.pager_home);
-        group_tab = (RadioGroup) findViewById(R.id.group_tab);
+        group_tab = (XRadioGroup) findViewById(R.id.group_tab);
     }
 
     private void initCtrl() {
@@ -114,9 +116,9 @@ public class HomeActivity extends BaseAppCompatActivity {
 
             }
         });
-        group_tab.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        group_tab.setOnCheckedChangeListener(new XRadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+            public void onCheckedChanged(XRadioGroup group, @IdRes int checkedId) {
                 for (int i = 0; i < tabsId.length; i++) {
                     if (tabsId[i] == checkedId) {
                         pager.setCurrentItem(i, true);

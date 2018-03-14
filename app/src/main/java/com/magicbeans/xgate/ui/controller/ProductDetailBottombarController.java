@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.ins.common.helper.ShopAnimHelper;
+import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.product.Product2;
 import com.magicbeans.xgate.bean.product.ProductDetail;
@@ -66,7 +67,7 @@ public class ProductDetailBottombarController implements View.OnClickListener {
                 ShopcartActivity.start(context);
                 break;
             case R.id.text_favo:
-//                NetShopCartHelper.getInstance().netGetShopCartList();
+                ToastUtil.showToastShort("建设中,敬请期待...");
                 break;
             case R.id.text_add:
                 if (productDetail != null) {

@@ -21,7 +21,7 @@
 
         <View style="@style/Line_H" />
 
-        <RadioGroup
+        <com.ins.common.view.XRadioGroup
             android:id="@+id/group_tab"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -41,11 +41,36 @@
                 android:drawableTop="@drawable/selector_check_tab_cate"
                 android:text="@string/home_tab_cate" />
 
-            <RadioButton
-                android:id="@+id/tab_3"
-                style="@style/RadioHomeTab"
-                android:drawableTop="@drawable/selector_check_tab_shopcar"
-                android:text="@string/home_tab_shopbag" />
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <RadioButton
+                    android:id="@+id/tab_3"
+                    style="@style/RadioHomeTab"
+                    android:layout_width="match_parent"
+                    android:drawableTop="@drawable/selector_check_tab_shopcar"
+                    android:text="@string/home_tab_shopbag" />
+
+                <TextView
+                    android:id="@+id/text_dot_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/shape_rect_cornerfull_red"
+                    android:gravity="center"
+                    android:minWidth="15dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:visibility="gone"
+                    tools:text="999"
+                    tools:visibility="visible" />
+            </FrameLayout>
 
             <RadioButton
                 android:id="@+id/tab_4"
@@ -53,7 +78,7 @@
                 android:drawableTop="@drawable/selector_check_tab_me"
                 android:text="@string/home_tab_me" />
 
-        </RadioGroup>
+        </com.ins.common.view.XRadioGroup>
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -44,7 +44,7 @@ public class ToolbarHomeController implements View.OnClickListener{
                 ScanActivity.start(context);
                 break;
             case R.id.btn_right:
-                ToastUtil.showToastLong("建设中...");
+                ToastUtil.showToastShort("建设中,敬请期待...");
                 break;
         }
     }

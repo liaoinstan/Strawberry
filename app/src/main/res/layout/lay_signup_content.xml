@@ -39,16 +39,19 @@
             android:inputType="textPassword"
             android:maxLength="32" />
 
+
         <LinearLayout
             android:id="@+id/lay_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!--上架前临时更改了需求，由于验证码接口未完成，所以暂时取消手机号及其验证码功能，所以隐藏掉下面的内容-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <com.ins.common.view.EmojiEditText
                     android:id="@+id/edit_phone"
@@ -78,7 +81,8 @@
                 android:layout_marginTop="12dp"
                 android:hint="请输入验证码"
                 android:inputType="numberSigned"
-                android:maxLength="6" />
+                android:maxLength="6"
+                android:visibility="gone" />
 
         </LinearLayout>
 

@@ -37,6 +37,7 @@
                     android:textSize="8sp" />
 
                 <TextView
+                    android:visibility="invisible"
                     android:id="@+id/text_search"
                     android:layout_width="0dp"
                     android:layout_height="30dp"

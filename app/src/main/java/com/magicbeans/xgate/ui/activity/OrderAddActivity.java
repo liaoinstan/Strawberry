@@ -36,6 +36,7 @@ import com.magicbeans.xgate.net.STFormatCallback;
 import com.magicbeans.xgate.net.nethelper.NetAddressHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.controller.OrderAddAddressController;
+import com.magicbeans.xgate.ui.controller.OrderAddPriceDetailController;
 import com.magicbeans.xgate.ui.controller.OrderAddProductsController;
 import com.magicbeans.xgate.ui.controller.ShopCartContentController;
 import com.magicbeans.xgate.ui.dialog.DialogSureCheckout;
@@ -52,6 +53,7 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
     private ActivityOrderaddBinding binding;
     private OrderAddAddressController addressController;
     private OrderAddProductsController productsController;
+    private OrderAddPriceDetailController priceDetailController;
 
     private ShopCartInfo shopCartInfo;
 
@@ -103,7 +105,9 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
 
         addressController = new OrderAddAddressController(binding.includeAddress);
         productsController = new OrderAddProductsController(binding.includeProducts);
+        priceDetailController = new OrderAddPriceDetailController(binding.includePricedetail);
         productsController.setGoodsData(goods);
+        priceDetailController.setShopCartInfo(shopCartInfo);
     }
 
     private void initView() {
@@ -114,8 +118,6 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
 
     private void initCtrl() {
 
-        binding.textTotalPrice.setText(shopCartInfo.getTotalPrice());
-        binding.textTransName.setText(shopCartInfo.getShipmentName());
         binding.textPayPrice.setText("应付：" + shopCartInfo.getTotalPrice());
 
     }
