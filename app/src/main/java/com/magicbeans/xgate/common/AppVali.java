@@ -3,6 +3,7 @@ package com.magicbeans.xgate.common;
 import android.text.TextUtils;
 
 import com.ins.common.utils.ValidateUtil;
+import com.magicbeans.xgate.bean.address.Address;
 
 /**
  * Created by Administrator on 2017/5/12.
@@ -57,14 +58,16 @@ public class AppVali {
             return "请选择城区";
         } else if (TextUtils.isEmpty(address)) {
             return "请输入详细地址";
-        }  else {
+        } else {
             return null;
         }
     }
 
-    public static String checkOut(String idcard) {
+    public static String checkOut(String idcard, Address address) {
         if (TextUtils.isEmpty(idcard)) {
             return "请填写申报资料";
+        } else if (address == null) {
+            return "请先填写地址";
         } else {
             return null;
         }

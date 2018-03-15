@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.ListUtil;
 import com.ins.common.utils.ToastUtil;
+import com.ins.common.utils.viewutils.ViewPagerUtil;
 import com.ins.common.view.bundleimgview.BundleImgEntity;
 import com.ins.common.view.bundleimgview.BundleImgView;
 import com.magicbeans.xgate.R;
@@ -34,6 +35,8 @@ import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STFormatCallback;
 import com.magicbeans.xgate.net.nethelper.NetAddressHelper;
+import com.magicbeans.xgate.ui.adapter.PagerAdapterOrder;
+import com.magicbeans.xgate.ui.adapter.PagerAdapterOrderAdd;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 import com.magicbeans.xgate.ui.controller.OrderAddAddressController;
 import com.magicbeans.xgate.ui.controller.OrderAddPriceDetailController;
@@ -53,7 +56,11 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
     private ActivityOrderaddBinding binding;
     private OrderAddAddressController addressController;
     private OrderAddProductsController productsController;
-    private OrderAddPriceDetailController priceDetailController;
+//    private OrderAddPriceDetailController priceDetailController;
+
+    private String[] titles = new String[]{"填写资料", "提交"};
+
+    private PagerAdapterOrderAdd adapterPager;
 
     private ShopCartInfo shopCartInfo;
 
@@ -71,12 +78,12 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
     @Override
     public void onCommonEvent(EventBean event) {
         switch (event.getEvent()) {
-            case EventBean.EVENT_ADD_COUPON:
-                binding.textCoupon.setText((String) event.get("coupon"));
-                break;
-            case EventBean.EVENT_ADD_IDCARD:
-                binding.textIdcard.setText((String) event.get("idcard"));
-                break;
+//            case EventBean.EVENT_ADD_COUPON:
+//                binding.textCoupon.setText((String) event.get("coupon"));
+//                break;
+//            case EventBean.EVENT_ADD_IDCARD:
+//                binding.textIdcard.setText((String) event.get("idcard"));
+//                break;
             case EventBean.EVENT_GET_ADDRESS:
                 Address address = (Address) event.get("address");
                 addressController.setAddress(address);
@@ -105,21 +112,22 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
 
         addressController = new OrderAddAddressController(binding.includeAddress);
         productsController = new OrderAddProductsController(binding.includeProducts);
-        priceDetailController = new OrderAddPriceDetailController(binding.includePricedetail);
         productsController.setGoodsData(goods);
-        priceDetailController.setShopCartInfo(shopCartInfo);
+//        priceDetailController = new OrderAddPriceDetailController(binding.includePricedetail);
+//        priceDetailController.setShopCartInfo(shopCartInfo);
     }
 
     private void initView() {
 
-        binding.layCoupon.setOnClickListener(this);
-        binding.layIdcard.setOnClickListener(this);
+//        binding.layCoupon.setOnClickListener(this);
+//        binding.layIdcard.setOnClickListener(this);
     }
 
     private void initCtrl() {
 
-        binding.textPayPrice.setText("应付：" + shopCartInfo.getTotalPrice());
-
+//        binding.textPayPrice.setText("应付：" + shopCartInfo.getTotalPrice());
+        adapterPager = new PagerAdapterOrderAdd(getSupportFragmentManager(), titles);
+        binding.pager.setAdapter(adapterPager);
     }
 
     private void initData() {
@@ -130,33 +138,45 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.lay_coupon:
-                OrderCouponActivity.start(this);
-                break;
-            case R.id.lay_idcard:
-                OrderIdcardActivity.start(this);
-                break;
-            case R.id.btn_go:
-                if (addressController.getAddress() != null) {
-                    String idcard = binding.textIdcard.getText().toString();
-                    String coupon = binding.textCoupon.getText().toString();
-                    String msg = AppVali.checkOut(idcard);
-                    if (msg != null) {
-                        ToastUtil.showToastShort(msg);
-                    } else {
-                        CreateOrderPost orderPost = createOrderPost(coupon, idcard);
-                        netCheckout(orderPost);
-                    }
-                } else {
-                    ToastUtil.showToastShort("请先填写送货地址");
-                }
-                break;
+//            case R.id.lay_coupon:
+//                OrderCouponActivity.start(this);
+//                break;
+//            case R.id.lay_idcard:
+//                OrderIdcardActivity.start(this);
+//                break;
+//            case R.id.btn_go:
+//                if (addressController.getAddress() != null) {
+//                    String idcard = binding.textIdcard.getText().toString();
+//                    String coupon = binding.textCoupon.getText().toString();
+//                    String msg = AppVali.checkOut(idcard);
+//                    if (msg != null) {
+//                        ToastUtil.showToastShort(msg);
+//                    } else {
+//                        CreateOrderPost orderPost = createOrderPost(coupon, idcard);
+//                        netCheckout(orderPost);
+//                    }
+//                } else {
+//                    ToastUtil.showToastShort("请先填写送货地址");
+//                }
+//                break;
         }
+    }
+
+    public ShopCartInfo getShopCartInfo() {
+        return shopCartInfo;
+    }
+
+    public ActivityOrderaddBinding getBinding() {
+        return binding;
+    }
+
+    public Address getAddress() {
+        return addressController.getAddress();
     }
 
     /////////////////////////////////
 
-    private CreateOrderPost createOrderPost(String coupon, String idcard) {
+    public CreateOrderPost createOrderPost(String coupon, String idcard) {
         //创建Post对象，进行赋值
         CreateOrderPost post = new CreateOrderPost();
         post.setCart(new Cart(CreateOrderPost.tansProdList(productsController.getGoods())));
@@ -180,52 +200,12 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
         return post;
     }
 
-
-    //checkout
-    private void netCheckout(final CreateOrderPost post) {
-        showLoadingDialog();
-        RequestBody requestBody = NetParam.buildJsonRequestBody(post);
-        NetApi.NI().netCheckout(requestBody).enqueue(new STFormatCallback<CheckoutWrap>(CheckoutWrap.class) {
-            @Override
-            public void onSuccess(int status, CheckoutWrap wrap, String msg) {
-                dismissLoadingDialog();
-                DialogSureCheckout.showDialog(OrderAddActivity.this, wrap.getImportantNoticeStr(), true, new DialogSureCheckout.CallBack() {
-                    @Override
-                    public void onSure() {
-                        netAddOrder(post);
-                    }
-                });
-            }
-
-            @Override
-            public void onError(int status, CheckoutWrap wrap, String msg) {
-                ToastUtil.showToastShort("check out 失败：" + msg);
-                dismissLoadingDialog();
-                DialogSureCheckout.showDialog(OrderAddActivity.this, wrap.getNoticeStr(), false);
-            }
-        });
-    }
-
-    //下单
-    private void netAddOrder(CreateOrderPost post) {
-        showLoadingDialog();
-        RequestBody requestBody = NetParam.buildJsonRequestBody(post);
-        NetApi.NI().netAddOrder(requestBody).enqueue(new STFormatCallback<Order>(Order.class) {
-            @Override
-            public void onSuccess(int status, Order order, String msg) {
-                ToastUtil.showToastShort("下单成功");
-                //刷新购物车
-                EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART_REMOTE));
-                dismissLoadingDialog();
-                finish();
-                PayTestPaypalActivity.start(OrderAddActivity.this, order.getSOID());
-            }
-
-            @Override
-            public void onError(int status, String msg) {
-                ToastUtil.showToastShort("下单失败：" + msg);
-                dismissLoadingDialog();
-            }
-        });
+    @Override
+    public void onBackPressed() {
+        if (binding.pager.getCurrentItem() != 0) {
+            ViewPagerUtil.last(binding.pager);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

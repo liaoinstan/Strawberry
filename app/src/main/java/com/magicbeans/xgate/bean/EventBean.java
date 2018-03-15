@@ -40,6 +40,8 @@ public class EventBean implements Serializable {
     public static final int EVENT_ADD_COUPON = 0xffa113;
     //添加身份证号通知下单页面
     public static final int EVENT_ADD_IDCARD = 0xffa114;
+    //下单页传递数据
+    public static final int EVENT_ORDERADD_POSTBEAN = 0xffa115;
 
     private int event;
     private Map<String, Object> map = new HashMap<>();

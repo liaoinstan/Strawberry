@@ -12,6 +12,7 @@ import com.adyen.core.interfaces.PaymentRequestListener;
 import com.adyen.core.models.Payment;
 import com.adyen.core.models.PaymentRequestResult;
 import com.adyen.core.utils.AsyncHttpClient;
+import com.ins.common.utils.L;
 import com.ins.common.utils.MD5Util;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.net.NetApi;
@@ -58,6 +59,7 @@ public class AdyenPayApi {
                         .put("amt", payAmount + "")
                         .put("email", email)
                         .build();
+                L.e(sdkToken);
                 NetApi.NI().adyenPaySetup(param).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

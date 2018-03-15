@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <com.ins.common.view.EmojiEditText
                     android:id="@+id/edit_phone"
@@ -63,6 +63,7 @@
                     android:maxLength="11" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/text_vali"
                     android:layout_width="80dp"
                     android:layout_height="28dp"

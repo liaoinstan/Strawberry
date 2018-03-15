@@ -1,12 +1,13 @@
 package com.magicbeans.xgate.bean.checkout;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2018/3/7.
  */
 
-public class CheckoutWrap {
+public class CheckoutWrap implements Serializable{
     private CheckoutContent CheckoutContents;
 
     public CheckoutContent getCheckoutContents() {
