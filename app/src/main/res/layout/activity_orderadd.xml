@@ -57,7 +57,7 @@
                     android:id="@+id/include_products"
                     layout="@layout/lay_orderadd_products" />
 
-                <android.support.v4.view.ViewPager
+                <com.ins.common.view.UnScrollViewPager
                     android:id="@+id/pager"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"

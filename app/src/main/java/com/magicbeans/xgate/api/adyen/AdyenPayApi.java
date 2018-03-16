@@ -15,8 +15,10 @@ import com.adyen.core.utils.AsyncHttpClient;
 import com.ins.common.utils.L;
 import com.ins.common.utils.MD5Util;
 import com.ins.common.utils.ToastUtil;
+import com.magicbeans.xgate.bean.address.AddressWrap;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
+import com.magicbeans.xgate.net.STCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,8 +57,11 @@ public class AdyenPayApi {
             @Override
             public void onPaymentDataRequested(@NonNull final PaymentRequest paymentRequest, @NonNull String sdkToken, @NonNull final PaymentDataCallback callback) {
                 Map<String, Object> param = new NetParam()
-                        .put("SOId", soId)
-                        .put("amt", payAmount + "")
+                        .put("soid", soId)
+                        .put("currency", "CNY")
+                        .put("device", "android")
+                        .put("token", "sdkToken")
+                        .put("amount", payAmount + "")
                         .put("email", email)
                         .build();
                 L.e(sdkToken);
@@ -112,43 +117,58 @@ public class AdyenPayApi {
 
     //验证支付结果
     private void verifyPayment(final Payment payment) {
-        final JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("payload", payment.getPayload());
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(context, "Failed to verify payment.", Toast.LENGTH_LONG).show();
-            return;
-        }
-        String verifyString = jsonObject.toString();
-
-        final Map<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", "application/json; charset=UTF-8");
-        headers.put(merchantApiHeaderKeyForApiSecretKey, merchantApiSecretKey);
-
-        AsyncHttpClient.post(merchantServerUrl + VERIFY, headers, verifyString, new HttpResponseCallback() {
-            String resultString = "";
-
+//        final JSONObject jsonObject = new JSONObject();
+//        try {
+//            jsonObject.put("payload", payment.getPayload());
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//            Toast.makeText(context, "Failed to verify payment.", Toast.LENGTH_LONG).show();
+//            return;
+//        }
+//        String verifyString = jsonObject.toString();
+//
+//        final Map<String, String> headers = new HashMap<>();
+//        headers.put("Content-Type", "application/json; charset=UTF-8");
+//        headers.put(merchantApiHeaderKeyForApiSecretKey, merchantApiSecretKey);
+//
+//        AsyncHttpClient.post(merchantServerUrl + VERIFY, headers, verifyString, new HttpResponseCallback() {
+//            String resultString = "";
+//
+//            @Override
+//            public void onSuccess(final byte[] response) {
+//                try {
+//                    JSONObject jsonVerifyResponse = new JSONObject(new String(response, Charset.forName("UTF-8")));
+//                    String authResponse = jsonVerifyResponse.getString("authResponse");
+//                    if (authResponse.equalsIgnoreCase(payment.getPaymentStatus().toString())) {
+//                        resultString = "Payment is " + payment.getPaymentStatus().toString().toLowerCase(Locale.getDefault()) + " and verified.";
+//                    } else {
+//                        resultString = "Failed to verify payment.";
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                    resultString = "Failed to verify payment.";
+//                }
+//                Toast.makeText(context, resultString, Toast.LENGTH_LONG).show();
+//            }
+//
+//            @Override
+//            public void onFailure(final Throwable e) {
+//                Toast.makeText(context, resultString, Toast.LENGTH_LONG).show();
+//            }
+//        });
+//    }
+        Map<String, Object> param = new NetParam()
+                .put("payload", payment.getPayload())
+                .build();
+        NetApi.NI().adyenPaySetup(param).enqueue(new STCallback<String>(String.class) {
             @Override
-            public void onSuccess(final byte[] response) {
-                try {
-                    JSONObject jsonVerifyResponse = new JSONObject(new String(response, Charset.forName("UTF-8")));
-                    String authResponse = jsonVerifyResponse.getString("authResponse");
-                    if (authResponse.equalsIgnoreCase(payment.getPaymentStatus().toString())) {
-                        resultString = "Payment is " + payment.getPaymentStatus().toString().toLowerCase(Locale.getDefault()) + " and verified.";
-                    } else {
-                        resultString = "Failed to verify payment.";
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    resultString = "Failed to verify payment.";
-                }
-                Toast.makeText(context, resultString, Toast.LENGTH_LONG).show();
+            public void onSuccess(int status, String str, String msg) {
+                ToastUtil.showToastShort(str);
             }
 
             @Override
-            public void onFailure(final Throwable e) {
-                Toast.makeText(context, resultString, Toast.LENGTH_LONG).show();
+            public void onError(int status, String msg) {
+                ToastUtil.showToastShort(msg);
             }
         });
     }

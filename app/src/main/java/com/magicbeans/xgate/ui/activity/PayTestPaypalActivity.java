@@ -15,6 +15,7 @@ import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.api.adyen.AdyenPayApi;
 import com.magicbeans.xgate.api.paypal.PaypalApi;
 import com.magicbeans.xgate.bean.pay.PayResult;
+import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
 public class PayTestPaypalActivity extends BaseAppCompatActivity implements View.OnClickListener {
@@ -67,7 +68,7 @@ public class PayTestPaypalActivity extends BaseAppCompatActivity implements View
                 payTest();
                 break;
             case R.id.text_test_adyen:
-                AdyenPayApi.with(this).pay("12312321", 10000, "jamesleung@strawberrynet.com");
+                AdyenPayApi.with(this).pay(SOID, 1, AppData.App.getUser().getEmail());
                 break;
         }
     }
