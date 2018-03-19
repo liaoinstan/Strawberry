@@ -16,6 +16,7 @@ import com.ins.common.utils.L;
 import com.ins.common.utils.MD5Util;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.bean.address.AddressWrap;
+import com.magicbeans.xgate.bean.pay.PayResult;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
@@ -171,5 +172,13 @@ public class AdyenPayApi {
                 ToastUtil.showToastShort(msg);
             }
         });
+    }
+
+    public interface OnAdyenCallback {
+        void onPaySuccess(PayResult payResult);
+
+        void onPayFail(PayResult payResult);
+
+        void onError(String msg);
     }
 }

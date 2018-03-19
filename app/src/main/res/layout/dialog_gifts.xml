@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="选择赠品"
+                android:textColor="@color/com_text_blank"
+                android:textSize="@dimen/text_nomal" />
+
+            <ImageView
+                android:id="@+id/btn_close"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:foreground="?attr/selectableItemBackground"
+                android:scaleType="center"
+                android:src="@drawable/ic_close_small" />
+
+        </FrameLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false" />
+
+        <View style="@style/Line_H" />
+
+    </LinearLayout>
+
+</layout>

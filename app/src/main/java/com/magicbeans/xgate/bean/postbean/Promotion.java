@@ -1,6 +1,7 @@
 package com.magicbeans.xgate.bean.postbean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,6 +11,17 @@ import java.util.List;
 public class Promotion implements Serializable {
     private String CouponCode;
     private List<FreeGift> SelectedFreeGift;
+
+    //////////////////////////////////////////////
+
+    public void addSelectGift(FreeGift freeGift) {
+        if (SelectedFreeGift == null) {
+            SelectedFreeGift = new ArrayList<>();
+        }
+        SelectedFreeGift.add(freeGift);
+    }
+
+    //////////////////////////////////////////////
 
     public Promotion() {
     }

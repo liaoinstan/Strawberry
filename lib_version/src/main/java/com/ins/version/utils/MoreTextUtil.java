@@ -20,17 +20,17 @@ public class MoreTextUtil {
 
     public static boolean hasMesure = false;    //是否已经执行过一次
 
-    public static void setMore(TextView textV, String content) {
+    public static void setMore(TextView textV, String content, OnMoreClicklistener listener) {
         textV.setText(content);
-        setMore(textV, "...", "查看更多");
+        setMore(textV, "...", "查看更多", listener);
     }
 
     public static void setMore(TextView textV) {
-        setMore(textV, "...", "查看更多");
+        setMore(textV, "...", "查看更多", null);
     }
 
     @SuppressLint("NewApi")
-    public static void setMore(final TextView textV, final String ellipsis, final String strmore) {
+    public static void setMore(final TextView textV, final String ellipsis, final String strmore, final OnMoreClicklistener listener) {
         if (textV == null) {
             return;
         }
@@ -67,7 +67,7 @@ public class MoreTextUtil {
                         }
 
                         //设置“查看更多”的点击事件
-                        spanstr.setSpan(new MyClickableSpan(strall, textV.getResources().getColor(R.color.cc_orage)), spanstr.length() - strmore.length(),
+                        spanstr.setSpan(new MyClickableSpan(strall, textV.getResources().getColor(R.color.cc_orage), listener), spanstr.length() - strmore.length(),
                                 spanstr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                         textV.setText(spanstr);
@@ -84,16 +84,25 @@ public class MoreTextUtil {
     static class MyClickableSpan extends ClickableSpan {
         private String str;
         private int color;
+        private OnMoreClicklistener listener;
 
         public MyClickableSpan(String str, int color) {
             this.str = str;
             this.color = color;
         }
 
+        public MyClickableSpan(String str, int color, OnMoreClicklistener listener) {
+            this.str = str;
+            this.color = color;
+            this.listener = listener;
+        }
+
         @Override
         public void onClick(View view) {
             ((TextView) view).setMovementMethod(new ScrollingMovementMethod());
             ((TextView) view).setText(str);
+            ((TextView) view).setMaxLines(1000);
+            if (listener != null) listener.onMoreClick(view);
         }
 
         @Override
@@ -103,5 +112,9 @@ public class MoreTextUtil {
             ds.setUnderlineText(false);    //设置“查看更多”无下划线，默认有
             ds.clearShadowLayer();
         }
+    }
+
+    public interface OnMoreClicklistener {
+        void onMoreClick(View v);
     }
 }

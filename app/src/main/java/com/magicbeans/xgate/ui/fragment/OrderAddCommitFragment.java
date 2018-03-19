@@ -8,13 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.checkout.CheckoutWrap;
 import com.magicbeans.xgate.bean.order.Order;
 import com.magicbeans.xgate.bean.postbean.CreateOrderPost;
+import com.magicbeans.xgate.bean.postbean.FreeGift;
 import com.magicbeans.xgate.common.AppVali;
+import com.magicbeans.xgate.databinding.DialogGiftsBinding;
 import com.magicbeans.xgate.databinding.FragmentOrderaddCommitBinding;
 import com.magicbeans.xgate.databinding.FragmentOrderaddInputBinding;
 import com.magicbeans.xgate.net.NetApi;
@@ -25,8 +28,11 @@ import com.magicbeans.xgate.ui.activity.PayTestPaypalActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterOrder;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.ui.controller.OrderAddPriceDetailController;
+import com.magicbeans.xgate.ui.dialog.DialogBottomGifts;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
 
 import okhttp3.RequestBody;
 
@@ -40,6 +46,8 @@ public class OrderAddCommitFragment extends BaseFragment implements View.OnClick
     private OrderAddActivity activity;
 
     private OrderAddPriceDetailController priceDetailController;
+
+    private DialogBottomGifts dialogBottomGifts;
 
     private CreateOrderPost post;
     private CheckoutWrap wrap;
@@ -90,9 +98,18 @@ public class OrderAddCommitFragment extends BaseFragment implements View.OnClick
     private void initBase() {
         priceDetailController = new OrderAddPriceDetailController(binding.includePricedetail);
         priceDetailController.setShopCartInfo(activity.getShopCartInfo());
+        dialogBottomGifts = new DialogBottomGifts(getActivity());
+        dialogBottomGifts.setGiftSelectListener(new DialogBottomGifts.GiftSelectListener() {
+            @Override
+            public void onSelect(FreeGift freeGift) {
+                binding.textGiftName.setText(freeGift.getName());
+                post.getPromotion().addSelectGift(freeGift);
+            }
+        });
     }
 
     private void initView() {
+        binding.textGift.setOnClickListener(this);
     }
 
     private void initCtrl() {
@@ -106,6 +123,13 @@ public class OrderAddCommitFragment extends BaseFragment implements View.OnClick
     private void setWarpData(CheckoutWrap wrap) {
         if (wrap != null) {
             binding.textNotice.setText(wrap.getImportantNoticeStr());
+            if (wrap.hasGift()) {
+                binding.textGift.setVisibility(View.VISIBLE);
+                binding.textGiftName.setVisibility(View.VISIBLE);
+            } else {
+                binding.textGift.setVisibility(View.GONE);
+                binding.textGiftName.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -118,6 +142,10 @@ public class OrderAddCommitFragment extends BaseFragment implements View.OnClick
                 } else {
                     ToastUtil.showToastShort("错误：数据为空");
                 }
+                break;
+            case R.id.text_gift:
+                dialogBottomGifts.setData(wrap.getGiftItems());
+                dialogBottomGifts.show();
                 break;
         }
     }

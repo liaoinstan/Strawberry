@@ -15,9 +15,11 @@ import android.widget.LinearLayout;
 import com.ins.common.utils.DensityUtil;
 import com.ins.common.utils.FocusUtil;
 import com.ins.common.utils.L;
+import com.ins.version.utils.MoreTextUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.shopcart.ShopCart;
+import com.magicbeans.xgate.bean.shopcart.ShopCartInfo;
 import com.magicbeans.xgate.data.db.manager.ShopCartTableManager;
 import com.magicbeans.xgate.databinding.FragmentShopbagBinding;
 import com.magicbeans.xgate.ui.activity.ShopcartActivity;
@@ -67,6 +69,17 @@ public class ShopBagFragment extends BaseFragment {
                 //用户登录，检查本地是否存在离线状态下添加的商品，若存在批量添加到服务器数据库
                 shopCartContentController.batchAddOfflineData();
                 break;
+            case EventBean.EVENT_SHOPCART_INFO:
+                //获取到shopcartInfo
+                ShopCartInfo shopCartInfo = (ShopCartInfo) event.get("shopCartInfo");
+                MoreTextUtil.setMore(binding.textBottomsheep, shopCartInfo.getInfoStr(), new MoreTextUtil.OnMoreClicklistener() {
+                    @Override
+                    public void onMoreClick(View v) {
+                        openBttomSheep();
+                    }
+                });
+                showBttomSheep();
+                break;
         }
     }
 
@@ -106,26 +119,38 @@ public class ShopBagFragment extends BaseFragment {
     }
 
     private void initView() {
+        //TODO:这里本来做了一个信息提示bottomsheep但是又不要了，日，暂且隐藏掉
+        hideBttomSheep();
     }
 
     private void initData() {
     }
 
     private void initCtrl() {
-        final BottomSheetBehavior<LinearLayout> sheetBehavior = BottomSheetBehavior.from(binding.layBottomsheep);
         binding.btnRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (shopCartContentController.isEdit()) {
                     shopCartContentController.setEditModel(false);
                     binding.btnRight.setText("编辑");
-                    sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                    hideBttomSheep();
                 } else {
                     shopCartContentController.setEditModel(true);
                     binding.btnRight.setText("完成");
-                    sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    showBttomSheep();
                 }
             }
         });
+    }
+
+    private void openBttomSheep() {
+        BottomSheetBehavior.from(binding.layBottomsheep).setState(BottomSheetBehavior.STATE_EXPANDED);
+    }
+    private void showBttomSheep() {
+        BottomSheetBehavior.from(binding.layBottomsheep).setState(BottomSheetBehavior.STATE_COLLAPSED);
+    }
+
+    private void hideBttomSheep() {
+        BottomSheetBehavior.from(binding.layBottomsheep).setState(BottomSheetBehavior.STATE_HIDDEN);
     }
 }

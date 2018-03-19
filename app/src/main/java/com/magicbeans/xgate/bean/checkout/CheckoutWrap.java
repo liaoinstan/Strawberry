@@ -1,5 +1,8 @@
 package com.magicbeans.xgate.bean.checkout;
 
+import com.ins.common.utils.StrUtil;
+import com.magicbeans.xgate.bean.postbean.FreeGift;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,8 +10,10 @@ import java.util.List;
  * Created by Administrator on 2018/3/7.
  */
 
-public class CheckoutWrap implements Serializable{
+public class CheckoutWrap implements Serializable {
     private CheckoutContent CheckoutContents;
+    private List<GiftOption> GiftOptions;
+
 
     public CheckoutContent getCheckoutContents() {
         return CheckoutContents;
@@ -18,7 +23,27 @@ public class CheckoutWrap implements Serializable{
         CheckoutContents = checkoutContents;
     }
 
+    public List<GiftOption> getGiftOptions() {
+        return GiftOptions;
+    }
+
+    public void setGiftOptions(List<GiftOption> giftOptions) {
+        GiftOptions = giftOptions;
+    }
+
     //################  业务方法 ####################
+
+    public boolean hasGift() {
+        return StrUtil.isEmpty(getGiftItems()) ? false : true;
+    }
+
+    public List<FreeGift> getGiftItems() {
+        if (!StrUtil.isEmpty(GiftOptions)) {
+            return GiftOptions.get(0).getGiftItems();
+        } else {
+            return null;
+        }
+    }
 
     public String getNoticeStr() {
         if (CheckoutContents != null) {

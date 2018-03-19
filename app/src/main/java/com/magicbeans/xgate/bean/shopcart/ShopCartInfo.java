@@ -1,8 +1,11 @@
 package com.magicbeans.xgate.bean.shopcart;
 
+import com.ins.common.utils.StrUtil;
+import com.magicbeans.xgate.bean.order.OrderPriceDetail;
 import com.magicbeans.xgate.helper.AppHelper;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,6 +42,28 @@ public class ShopCartInfo implements Serializable {
         PromoList = shopCartWrap.getPromoList();
         Surcharge = shopCartWrap.getSurcharge();
     }
+
+    ///////////////////////////////////////////////////////////////////////
+
+    public String getInfoStr() {
+        String infoStr = "";
+        infoStr += "配送方式：" + shipmentName + "\n";
+        infoStr += "当前运费：" + shipmentPrice + "\n";
+        //优惠内容
+        if (!StrUtil.isEmpty(PromoList)) {
+            for (Promote promote : PromoList) {
+                infoStr += promote.getName() + shipmentName + AppHelper.replecePriceSymbol(promote.getDiscAmount()) + "\n";
+            }
+        }
+        //附加费
+        if (!StrUtil.isEmpty(Surcharge)) {
+            for (Surcharge surcharge : Surcharge) {
+                infoStr += surcharge.getNameNoHtml() + shipmentName + AppHelper.replecePriceSymbol(surcharge.getTxtAmount()) + "\n";
+            }
+        }
+        return infoStr;
+    }
+    ///////////////////////////////////////////////////////////////////////
 
     public String getTotalPrice() {
         return totalPrice;

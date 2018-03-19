@@ -8,18 +8,41 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-
         <include
             android:id="@+id/include_pricedetail"
             layout="@layout/lay_orderadd_pricedetail" />
+
+
+        <TextView
+            android:id="@+id/text_gift"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="选择赠品 >"
+            android:textColor="@color/st_red"
+            android:textSize="@dimen/text_nomal" />
+
+        <TextView
+            android:id="@+id/text_gift_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/com_text_blank"
+            android:textSize="@dimen/text_nomal_small"
+            tools:text="迪奥香水" />
 
         <Space style="@style/Space_V" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:background="@color/st_red_hit_bk"
+            android:orientation="vertical"
             android:padding="10dp">
 
             <TextView

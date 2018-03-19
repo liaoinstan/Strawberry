@@ -17,6 +17,7 @@ import com.liaoinstan.springview.container.AliFooter;
 import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.shopcart.ShopCart;
 import com.magicbeans.xgate.bean.shopcart.ShopCartInfo;
 import com.magicbeans.xgate.data.db.manager.ShopCartTableManager;
@@ -29,6 +30,8 @@ import com.magicbeans.xgate.ui.activity.OrderAddActivity;
 import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeShopbag;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -148,6 +151,9 @@ public class ShopCartBottomBarController extends BaseController<LayShopcartBotto
                 public void onChanged(@Nullable ShopCartInfo shopCartInfo) {
                     ShopCartBottomBarController.this.shopCartInfo = shopCartInfo;
                     binding.textShopbagPriceall.setText("合计：" + shopCartInfo.getTotalPrice());
+                    EventBean eventBean = new EventBean(EventBean.EVENT_SHOPCART_INFO);
+                    eventBean.put("shopCartInfo", shopCartInfo);
+                    EventBus.getDefault().post(eventBean);
                     dismissPriceLoading();
                 }
             });

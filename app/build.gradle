@@ -8,8 +8,8 @@ android {
         applicationId "com.magicbeans.xgate"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 16
-        versionName "1.0.1.14"
+        versionCode 17
+        versionName "1.0.1.15"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //使用矢量图兼容库
         vectorDrawables.useSupportLibrary = true
