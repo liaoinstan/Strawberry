@@ -33,7 +33,7 @@ public abstract class STFormatCallback<T> implements Callback<ResponseBody> {
     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
         try {
             ResponseBody body = response.body();
-            if (body == null) {
+            if (body == null || response.code() != 200) {
                 onError(0, "服務器异常：" + response.code());
                 return;
             }

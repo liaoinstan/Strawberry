@@ -11,11 +11,15 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:layout_marginRight="10dp"
             android:background="@color/none"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             tools:translationZ="1dp">
 
+            <!--功能又不要啦，隐藏隐藏-->
+
             <ImageView
+                android:visibility="visible"
                 android:id="@+id/btn_right_msg"
                 android:layout_width="35dp"
                 android:layout_height="match_parent"
@@ -167,7 +171,7 @@
                     <!--收藏功能暂时不要了，隐藏掉入口-->
 
                     <LinearLayout
-                        android:visibility="invisible"
+                        android:visibility="visible"
                         android:id="@+id/lay_me_favo"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"

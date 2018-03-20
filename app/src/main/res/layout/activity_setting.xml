@@ -103,23 +103,30 @@
 
                     </LinearLayout>
 
+                    <!--这些功能又不要啦，隐藏隐藏 mmp-->
+
                     <TextView
                         android:id="@+id/text_setting_safe"
                         style="@style/TextMeItem"
                         android:onClick="onClick"
-                        android:text="@string/setting_safe" />
+                        android:text="@string/setting_safe"
+                        android:visibility="visible" />
 
                     <View
                         style="@style/Line_H"
-                        android:layout_marginLeft="10dp" />
+                        android:layout_marginLeft="10dp"
+                        android:visibility="visible" />
 
                     <TextView
                         android:id="@+id/text_setting_msgsetting"
                         style="@style/TextMeItem"
                         android:onClick="onClick"
-                        android:text="@string/setting_msg" />
+                        android:text="@string/setting_msg"
+                        android:visibility="visible" />
 
-                    <View style="@style/Line_H" />
+                    <View
+                        style="@style/Line_H"
+                        android:visibility="visible" />
 
                 </LinearLayout>
 

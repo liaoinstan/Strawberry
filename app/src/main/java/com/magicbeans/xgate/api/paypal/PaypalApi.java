@@ -3,7 +3,7 @@ package com.magicbeans.xgate.api.paypal;
 import android.text.TextUtils;
 
 import com.ins.common.utils.ToastUtil;
-import com.magicbeans.xgate.bean.pay.PayResult;
+import com.magicbeans.xgate.bean.pay.PaypalResult;
 import com.magicbeans.xgate.bean.user.Token;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
@@ -61,20 +61,15 @@ public class PaypalApi {
 //        String url = NetParam.createUrl("https://demo2017.strawberrynet.com/app/apiPaypalRequest.aspx/app/apiPaypalRequest.aspx", param);
 //        L.e(url);
 
-        NetApi.NI().apiPaypalPay(param).enqueue(new STCallback<PayResult>(PayResult.class) {
+        NetApi.NI().apiPaypalPay(param).enqueue(new STCallback<PaypalResult>(PaypalResult.class) {
             @Override
-            public void onSuccess(int status, PayResult payResult, String msg) {
-                if ("1000".equals(payResult.getProcessorResponseCode())) {
-                    //支付成功
-                    if (callback != null) callback.onPaySuccess(payResult);
-                } else {
-                    if (callback != null) callback.onPayFail(payResult);
-                }
+            public void onSuccess(int status, PaypalResult payResult, String msg) {
+                if (callback != null) callback.onPaySuccess(payResult);
             }
 
             @Override
             public void onError(int status, String msg) {
-                if (callback != null) callback.onError(status + ":" + msg);
+                ToastUtil.showToastShort(msg);
             }
         });
     }
@@ -87,10 +82,6 @@ public class PaypalApi {
     }
 
     public interface OnPaypalCallback {
-        void onPaySuccess(PayResult payResult);
-
-        void onPayFail(PayResult payResult);
-
-        void onError(String msg);
+        void onPaySuccess(PaypalResult paypalResult);
     }
 }

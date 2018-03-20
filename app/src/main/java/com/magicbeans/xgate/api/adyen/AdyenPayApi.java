@@ -3,30 +3,20 @@ package com.magicbeans.xgate.api.adyen;
 import android.content.Context;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
 import com.adyen.core.PaymentRequest;
-import com.adyen.core.interfaces.HttpResponseCallback;
 import com.adyen.core.interfaces.PaymentDataCallback;
 import com.adyen.core.interfaces.PaymentRequestListener;
 import com.adyen.core.models.Payment;
 import com.adyen.core.models.PaymentRequestResult;
-import com.adyen.core.utils.AsyncHttpClient;
 import com.ins.common.utils.L;
-import com.ins.common.utils.MD5Util;
 import com.ins.common.utils.ToastUtil;
-import com.magicbeans.xgate.bean.address.AddressWrap;
-import com.magicbeans.xgate.bean.pay.PayResult;
+import com.magicbeans.xgate.bean.pay.AdyenResult;
+import com.magicbeans.xgate.bean.pay.PaypalResult;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.nio.charset.Charset;
-import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
@@ -53,7 +43,7 @@ public class AdyenPayApi {
     private String merchantApiSecretKey = "0101408667EE5CD5932B441CFA2483867639B0E69E5A995423965E7B6A5B8B6CAE8D7206ADD36411D16303257317FEFDD7A4BE2403A31C396DE18F6C0898682F20228C10C15D5B0DBEE47CDCB5588C48224C6007";
     private String merchantApiHeaderKeyForApiSecretKey = "x-demo-server-api-key";
 
-    public void pay(final String soId, final int payAmount, final String email) {
+    public void pay(final String soId, final int payAmount, final String email, final OnAdyenCallback callback) {
         PaymentRequest paymentRequest = new PaymentRequest(context, new PaymentRequestListener() {
             @Override
             public void onPaymentDataRequested(@NonNull final PaymentRequest paymentRequest, @NonNull String sdkToken, @NonNull final PaymentDataCallback callback) {
@@ -103,10 +93,8 @@ public class AdyenPayApi {
                 if (paymentRequestResult.isProcessed() && (
                         paymentRequestResult.getPayment().getPaymentStatus() == Payment.PaymentStatus.AUTHORISED
                                 || paymentRequestResult.getPayment().getPaymentStatus() == Payment.PaymentStatus.RECEIVED)) {
-                    ToastUtil.showToastShort("onPaymentResult 成功");
-                    verifyPayment(paymentRequestResult.getPayment());
+                    verifyPayment(paymentRequestResult.getPayment(), callback);
                 } else {
-                    ToastUtil.showToastShort("onPaymentResult 失败");
                     if (paymentRequestResult.getError() != null) {
                         paymentRequestResult.getError().printStackTrace();
                     }
@@ -117,54 +105,14 @@ public class AdyenPayApi {
     }
 
     //验证支付结果
-    private void verifyPayment(final Payment payment) {
-//        final JSONObject jsonObject = new JSONObject();
-//        try {
-//            jsonObject.put("payload", payment.getPayload());
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//            Toast.makeText(context, "Failed to verify payment.", Toast.LENGTH_LONG).show();
-//            return;
-//        }
-//        String verifyString = jsonObject.toString();
-//
-//        final Map<String, String> headers = new HashMap<>();
-//        headers.put("Content-Type", "application/json; charset=UTF-8");
-//        headers.put(merchantApiHeaderKeyForApiSecretKey, merchantApiSecretKey);
-//
-//        AsyncHttpClient.post(merchantServerUrl + VERIFY, headers, verifyString, new HttpResponseCallback() {
-//            String resultString = "";
-//
-//            @Override
-//            public void onSuccess(final byte[] response) {
-//                try {
-//                    JSONObject jsonVerifyResponse = new JSONObject(new String(response, Charset.forName("UTF-8")));
-//                    String authResponse = jsonVerifyResponse.getString("authResponse");
-//                    if (authResponse.equalsIgnoreCase(payment.getPaymentStatus().toString())) {
-//                        resultString = "Payment is " + payment.getPaymentStatus().toString().toLowerCase(Locale.getDefault()) + " and verified.";
-//                    } else {
-//                        resultString = "Failed to verify payment.";
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                    resultString = "Failed to verify payment.";
-//                }
-//                Toast.makeText(context, resultString, Toast.LENGTH_LONG).show();
-//            }
-//
-//            @Override
-//            public void onFailure(final Throwable e) {
-//                Toast.makeText(context, resultString, Toast.LENGTH_LONG).show();
-//            }
-//        });
-//    }
+    private void verifyPayment(final Payment payment, final OnAdyenCallback callback) {
         Map<String, Object> param = new NetParam()
                 .put("payload", payment.getPayload())
                 .build();
-        NetApi.NI().adyenPaySetup(param).enqueue(new STCallback<String>(String.class) {
+        NetApi.NI().adyenPaySetup(param).enqueue(new STCallback<AdyenResult>(AdyenResult.class) {
             @Override
-            public void onSuccess(int status, String str, String msg) {
-                ToastUtil.showToastShort(str);
+            public void onSuccess(int status, AdyenResult adyenResult, String msg) {
+                if (callback != null) callback.onPaySuccess(adyenResult);
             }
 
             @Override
@@ -175,10 +123,6 @@ public class AdyenPayApi {
     }
 
     public interface OnAdyenCallback {
-        void onPaySuccess(PayResult payResult);
-
-        void onPayFail(PayResult payResult);
-
-        void onError(String msg);
+        void onPaySuccess(AdyenResult adyenResult);
     }
 }

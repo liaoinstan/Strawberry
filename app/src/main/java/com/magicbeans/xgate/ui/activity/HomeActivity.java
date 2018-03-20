@@ -1,12 +1,19 @@
 package com.magicbeans.xgate.ui.activity;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.ins.common.utils.L;
 import com.ins.common.utils.PermissionsUtil;
 import com.ins.common.utils.StatusBarUtil;
@@ -14,17 +21,23 @@ import com.ins.common.view.XRadioGroup;
 import com.ins.version.VersionHelper;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
+import com.magicbeans.xgate.bean.shopcart.ShopCart;
 import com.magicbeans.xgate.common.AppData;
+import com.magicbeans.xgate.data.db.manager.ShopCartTableManager;
 import com.magicbeans.xgate.ui.adapter.PagerAdapterHome;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
+import com.magicbeans.xgate.ui.controller.ShopCartContentController;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
 
 public class HomeActivity extends BaseAppCompatActivity {
 
     //    private UpdateHelper updateHelper;
     private XRadioGroup group_tab;
     private ViewPager pager;
+    private TextView text_dot_count;
     private PagerAdapterHome pagerAdapter;
     private int[] tabsId = new int[]{R.id.tab_1, R.id.tab_2, R.id.tab_3, R.id.tab_4};
 
@@ -43,6 +56,9 @@ public class HomeActivity extends BaseAppCompatActivity {
         } else if (event.getEvent() == EventBean.EVENT_JUMP_HOME) {
             //跳转到home页面
             group_tab.check(tabsId[0]);
+        } else if (event.getEvent() == EventBean.EVENT_REFRESH_SHOPCART) {
+            //收到刷新购物车的消息
+            refreshShopCount();
         }
     }
 
@@ -83,6 +99,7 @@ public class HomeActivity extends BaseAppCompatActivity {
     private void initView() {
         pager = (ViewPager) findViewById(R.id.pager_home);
         group_tab = (XRadioGroup) findViewById(R.id.group_tab);
+        text_dot_count = (TextView) findViewById(R.id.text_dot_count);
     }
 
     private void initCtrl() {
@@ -129,5 +146,21 @@ public class HomeActivity extends BaseAppCompatActivity {
     }
 
     private void initData() {
+        refreshShopCount();
+    }
+
+    public void refreshShopCount() {
+        LiveData<List<ShopCart>> listLiveData = ShopCartTableManager.getInstance().queryAllBeans();
+        listLiveData.observeForever(new Observer<List<ShopCart>>() {
+            @Override
+            public void onChanged(@Nullable List<ShopCart> shopCarts) {
+                int count = ShopCartContentController.calcuCount(shopCarts);
+                text_dot_count.setText(count + "");
+                text_dot_count.setVisibility(count != 0 ? View.VISIBLE : View.GONE);
+                YoYo.with(Techniques.Pulse)
+                        .duration(300)
+                        .playOn(text_dot_count);
+            }
+        });
     }
 }

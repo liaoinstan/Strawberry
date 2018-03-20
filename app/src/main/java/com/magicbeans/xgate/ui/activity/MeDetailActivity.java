@@ -21,6 +21,7 @@ import com.magicbeans.xgate.ui.view.DayPicker;
 
 import java.util.Date;
 
+//TODO:服务器接口尚未完成，这个页面暂时没有对接接口，上线紧急，屏蔽掉该页面入口
 public class MeDetailActivity extends BaseAppCompatActivity implements CropHelper.CropInterface, TimePickerView.OnTimeSelectListener {
 
     private DayPicker dayPicker;

@@ -1,5 +1,7 @@
 package com.magicbeans.xgate.bean.pay;
 
+import com.ins.common.utils.StrUtil;
+
 import java.io.Serializable;
 
 /**
@@ -8,31 +10,38 @@ import java.io.Serializable;
 
 public class PayResult implements Serializable {
 
-    /**
-     * SOID : 1820846855
-     * Amount : 606.5
-     * TransactionID : 9r006fdd
-     * ProcessorAuthorizationCode : 8F4VCZ
-     * ProcessorResponseCode : 1000
-     * ProcessorResponseText : Approved
-     */
-
+    //0 支付成功，1支付失败，2支付取消
+    private int status;
     private String SOID;
-    private float Amount;
-    private String TransactionID;
-    private String ProcessorAuthorizationCode;
-    private String ProcessorResponseCode;
-    private String ProcessorResponseText;
+    private float amount;
+    private String payType;
 
-    ////////////////////////
-    public int getProcessorResponseCodeInt() {
-        return Integer.parseInt(ProcessorResponseCode);
+    public PayResult(PaypalResult paypalResult) {
+        this.SOID = paypalResult.getSOID();
+        this.amount = paypalResult.getAmount();
+        //FIXME:服务器没有返回支付方式，这里写个默认，这个问题得跟服务器开发人员提
+        this.payType = "信用卡支付";
+        this.status = paypalResult.isPaySuccess() ? 0 : 1;
     }
 
-    public boolean isPaySuccess() {
-        return "1000".equals(ProcessorResponseCode);
+    public PayResult(AdyenResult adyenResult) {
+        this.SOID = adyenResult.getMerchantReference();
+        this.amount = StrUtil.str2float(adyenResult.getAmount());
+        this.payType = adyenResult.getPaidMethond();
+        //FIXME:服务器没有返回支付状态，这个问题也要追
+        this.status = 0;
     }
-    ////////////////////////
+
+    public PayResult() {
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public String getSOID() {
         return SOID;
@@ -43,42 +52,18 @@ public class PayResult implements Serializable {
     }
 
     public float getAmount() {
-        return Amount;
+        return amount;
     }
 
-    public void setAmount(float Amount) {
-        this.Amount = Amount;
+    public void setAmount(float amount) {
+        amount = amount;
     }
 
-    public String getTransactionID() {
-        return TransactionID;
+    public String getPayType() {
+        return payType;
     }
 
-    public void setTransactionID(String TransactionID) {
-        this.TransactionID = TransactionID;
-    }
-
-    public String getProcessorAuthorizationCode() {
-        return ProcessorAuthorizationCode;
-    }
-
-    public void setProcessorAuthorizationCode(String ProcessorAuthorizationCode) {
-        this.ProcessorAuthorizationCode = ProcessorAuthorizationCode;
-    }
-
-    public String getProcessorResponseCode() {
-        return ProcessorResponseCode;
-    }
-
-    public void setProcessorResponseCode(String ProcessorResponseCode) {
-        this.ProcessorResponseCode = ProcessorResponseCode;
-    }
-
-    public String getProcessorResponseText() {
-        return ProcessorResponseText;
-    }
-
-    public void setProcessorResponseText(String ProcessorResponseText) {
-        this.ProcessorResponseText = ProcessorResponseText;
+    public void setPayType(String payType) {
+        this.payType = payType;
     }
 }

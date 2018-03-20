@@ -93,13 +93,14 @@
             android:maxLines="1" />
 
         <Button
-            android:id="@+id/version_check"
+            android:id="@+id/btn_go"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="10dp"
             android:background="@color/st_red"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
+            android:onClick="onClick"
             android:text="提交意见"
             android:textColor="@color/white" />
 

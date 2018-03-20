@@ -74,7 +74,7 @@ public class ShopCart extends BaseSelectBean implements Serializable {
     //////////////////////业务方法///////////////////////
 
     public float getPriceFloat() {
-        return Float.parseFloat(Price.substring(Price.indexOf(";") + 1));
+        return StrUtil.str2float(Price.substring(Price.indexOf(";") + 1));
     }
 
     //从一个购物车列表获取批量修改ids字符串参数

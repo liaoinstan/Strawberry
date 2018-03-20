@@ -14,7 +14,9 @@ import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.api.adyen.AdyenPayApi;
 import com.magicbeans.xgate.api.paypal.PaypalApi;
+import com.magicbeans.xgate.bean.pay.AdyenResult;
 import com.magicbeans.xgate.bean.pay.PayResult;
+import com.magicbeans.xgate.bean.pay.PaypalResult;
 import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
@@ -68,7 +70,12 @@ public class PayTestPaypalActivity extends BaseAppCompatActivity implements View
                 payTest();
                 break;
             case R.id.text_test_adyen:
-                AdyenPayApi.with(this).pay(SOID, 1, AppData.App.getUser().getEmail());
+                AdyenPayApi.with(this).pay(SOID, 1, AppData.App.getUser().getEmail(), new AdyenPayApi.OnAdyenCallback() {
+                    @Override
+                    public void onPaySuccess(AdyenResult adyenResult) {
+                        PayResultActivity.start(PayTestPaypalActivity.this, new PayResult(adyenResult));
+                    }
+                });
                 break;
         }
     }
@@ -117,24 +124,10 @@ public class PayTestPaypalActivity extends BaseAppCompatActivity implements View
         showLoadingDialog();
         PaypalApi.getInstance().apiPaypalPay(nonce, SOID, new PaypalApi.OnPaypalCallback() {
             @Override
-            public void onPaySuccess(PayResult payResult) {
-                ToastUtil.showToastShort("支付成功");
+            public void onPaySuccess(PaypalResult paypalResult) {
                 dismissLoadingDialog();
-                PayResultActivity.start(PayTestPaypalActivity.this, payResult);
+                PayResultActivity.start(PayTestPaypalActivity.this, new PayResult(paypalResult));
                 finish();
-            }
-
-            @Override
-            public void onPayFail(PayResult payResult) {
-                ToastUtil.showToastShort("支付失败");
-                dismissLoadingDialog();
-                PayResultActivity.start(PayTestPaypalActivity.this, payResult);
-                finish();
-            }
-
-            @Override
-            public void onError(String msg) {
-                ToastUtil.showToastShort("网络错误");
             }
         });
     }

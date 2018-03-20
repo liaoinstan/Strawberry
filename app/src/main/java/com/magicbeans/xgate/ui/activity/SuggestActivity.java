@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
@@ -74,9 +75,11 @@ public class SuggestActivity extends BaseAppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-//            case R.id.btn_right:
-//                String content = edit_suggest.getText().toString();
-//                break;
+            case R.id.btn_go:
+                //TODO:服务器没有提供接口，先暂时作提示
+                ToastUtil.showToastShort("感谢您的反馈");
+                finish();
+                break;
         }
     }
 }
