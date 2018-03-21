@@ -38,7 +38,6 @@ public class AdyenPayApi {
 
     /////////////////////////////////////
 
-    private static final String VERIFY = "verify";
     private String merchantServerUrl = "demo2017.strawberrynet.com/RedirectmWeChat.aspx";
     private String merchantApiSecretKey = "0101408667EE5CD5932B441CFA2483867639B0E69E5A995423965E7B6A5B8B6CAE8D7206ADD36411D16303257317FEFDD7A4BE2403A31C396DE18F6C0898682F20228C10C15D5B0DBEE47CDCB5588C48224C6007";
     private String merchantApiHeaderKeyForApiSecretKey = "x-demo-server-api-key";
@@ -55,7 +54,6 @@ public class AdyenPayApi {
                         .put("amount", payAmount + "")
                         .put("email", email)
                         .build();
-                L.e(sdkToken);
                 NetApi.NI().adyenPaySetup(param).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

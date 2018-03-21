@@ -19,6 +19,7 @@ import com.ins.common.utils.viewutils.TextViewUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.databinding.ItemSaleProductListBinding;
+import com.magicbeans.xgate.helper.DataShopCartHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,13 @@ public class RecycleAdapterSale extends RecyclerView.Adapter<RecycleAdapterSale.
             @Override
             public void onClick(View v) {
                 if (listener != null) listener.onItemClick(holder, position);
+            }
+        });
+        holder.binding.btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //###### 添加到服务器及本地数据库 ######
+                DataShopCartHelper.getInstance().addShopCart(product);
             }
         });
         GlideUtil.loadImg(holder.binding.imgHeader, R.drawable.default_bk_img, product.getProductImages().getImg350Src());

@@ -20,19 +20,19 @@ import com.magicbeans.xgate.bean.pay.PaypalResult;
 import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
-public class PayTestPaypalActivity extends BaseAppCompatActivity implements View.OnClickListener {
+public class PayWayActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
     private String SOID;
 
     private final int REQUEST_CODE = 1001;
 
     public static void start(Context context) {
-        Intent intent = new Intent(context, PayTestPaypalActivity.class);
+        Intent intent = new Intent(context, PayWayActivity.class);
         context.startActivity(intent);
     }
 
     public static void start(Context context, String SOID) {
-        Intent intent = new Intent(context, PayTestPaypalActivity.class);
+        Intent intent = new Intent(context, PayWayActivity.class);
         intent.putExtra("SOID", SOID);
         context.startActivity(intent);
     }
@@ -40,7 +40,7 @@ public class PayTestPaypalActivity extends BaseAppCompatActivity implements View
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_paytest_paypal);
+        setContentView(R.layout.activity_payway);
         setToolbar();
         initBase();
         initView();
@@ -53,8 +53,8 @@ public class PayTestPaypalActivity extends BaseAppCompatActivity implements View
     }
 
     private void initView() {
-        findViewById(R.id.text_test_paypal).setOnClickListener(this);
-        findViewById(R.id.text_test_adyen).setOnClickListener(this);
+        findViewById(R.id.text_paypal).setOnClickListener(this);
+        findViewById(R.id.text_adyen).setOnClickListener(this);
     }
 
     private void initCtrl() {
@@ -66,28 +66,28 @@ public class PayTestPaypalActivity extends BaseAppCompatActivity implements View
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.text_test_paypal:
-                payTest();
+            case R.id.text_paypal:
+                payPal();
                 break;
-            case R.id.text_test_adyen:
+            case R.id.text_adyen:
                 AdyenPayApi.with(this).pay(SOID, 1, AppData.App.getUser().getEmail(), new AdyenPayApi.OnAdyenCallback() {
                     @Override
                     public void onPaySuccess(AdyenResult adyenResult) {
-                        PayResultActivity.start(PayTestPaypalActivity.this, new PayResult(adyenResult));
+                        PayResultActivity.start(PayWayActivity.this, new PayResult(adyenResult));
                     }
                 });
                 break;
         }
     }
 
-    public void payTest() {
+    public void payPal() {
         showLoadingDialog();
         PaypalApi.getInstance().apiGetPaypalToken(new PaypalApi.OnTokenCallback() {
             @Override
             public void onToken(String clientToken) {
                 clientToken = clientToken.trim();
                 DropInRequest dropInRequest = new DropInRequest().clientToken(clientToken);
-                startActivityForResult(dropInRequest.getIntent(PayTestPaypalActivity.this), REQUEST_CODE);
+                startActivityForResult(dropInRequest.getIntent(PayWayActivity.this), REQUEST_CODE);
                 dismissLoadingDialog();
             }
 
@@ -126,7 +126,7 @@ public class PayTestPaypalActivity extends BaseAppCompatActivity implements View
             @Override
             public void onPaySuccess(PaypalResult paypalResult) {
                 dismissLoadingDialog();
-                PayResultActivity.start(PayTestPaypalActivity.this, new PayResult(paypalResult));
+                PayResultActivity.start(PayWayActivity.this, new PayResult(paypalResult));
                 finish();
             }
         });

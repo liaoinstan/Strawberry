@@ -72,7 +72,7 @@ public class OrderDetailActivity extends BaseAppCompatActivity implements View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_go:
-                PayTestPaypalActivity.start(this, orderId);
+                PayWayActivity.start(this, orderId);
                 break;
         }
     }

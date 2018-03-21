@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
@@ -16,23 +15,17 @@ import com.magicbeans.xgate.bean.checkout.CheckoutWrap;
 import com.magicbeans.xgate.bean.order.Order;
 import com.magicbeans.xgate.bean.postbean.CreateOrderPost;
 import com.magicbeans.xgate.bean.postbean.FreeGift;
-import com.magicbeans.xgate.common.AppVali;
-import com.magicbeans.xgate.databinding.DialogGiftsBinding;
 import com.magicbeans.xgate.databinding.FragmentOrderaddCommitBinding;
-import com.magicbeans.xgate.databinding.FragmentOrderaddInputBinding;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STFormatCallback;
 import com.magicbeans.xgate.ui.activity.OrderAddActivity;
-import com.magicbeans.xgate.ui.activity.PayTestPaypalActivity;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterOrder;
+import com.magicbeans.xgate.ui.activity.PayWayActivity;
 import com.magicbeans.xgate.ui.base.BaseFragment;
 import com.magicbeans.xgate.ui.controller.OrderAddPriceDetailController;
 import com.magicbeans.xgate.ui.dialog.DialogBottomGifts;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.List;
 
 import okhttp3.RequestBody;
 
@@ -162,7 +155,7 @@ public class OrderAddCommitFragment extends BaseFragment implements View.OnClick
                 EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART_REMOTE));
                 dismissLoadingDialog();
                 getActivity().finish();
-                PayTestPaypalActivity.start(getActivity(), order.getSOID());
+                PayWayActivity.start(getActivity(), order.getSOID());
             }
 
             @Override

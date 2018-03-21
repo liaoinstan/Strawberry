@@ -16,7 +16,7 @@ import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.order.Order;
 import com.magicbeans.xgate.databinding.ItemOrderBinding;
 import com.magicbeans.xgate.helper.AppHelper;
-import com.magicbeans.xgate.ui.activity.PayTestPaypalActivity;
+import com.magicbeans.xgate.ui.activity.PayWayActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +52,7 @@ public class RecycleAdapterOrder extends RecyclerView.Adapter<RecycleAdapterOrde
         holder.binding.btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PayTestPaypalActivity.start(context, order.getSOID());
+                PayWayActivity.start(context, order.getSOID());
             }
         });
 

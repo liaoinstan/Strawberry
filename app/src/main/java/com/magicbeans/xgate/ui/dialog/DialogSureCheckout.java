@@ -121,6 +121,16 @@ public class DialogSureCheckout extends Dialog {
         } else {
             text_title.setVisibility(View.VISIBLE);
         }
+        if (TextUtils.isEmpty(cancelStr)) {
+            btn_cancel.setVisibility(View.GONE);
+        } else {
+            btn_cancel.setVisibility(View.VISIBLE);
+        }
+        if (TextUtils.isEmpty(sureStr)) {
+            btn_ok.setVisibility(View.GONE);
+        } else {
+            btn_ok.setVisibility(View.VISIBLE);
+        }
         if (TextUtils.isEmpty(cancelStr) && TextUtils.isEmpty(sureStr)) {
             lay_bottom.setVisibility(View.GONE);
         } else {
@@ -144,8 +154,10 @@ public class DialogSureCheckout extends Dialog {
     };
 
     //便捷的调用方式
-    public static void showDialog(Context context, String msg, boolean showBtn, final CallBack callBack) {
-        final DialogSureCheckout dialogSure = showBtn ? new DialogSureCheckout(context, msg) : new DialogSureCheckout(context, msg, null, null);
+    public static void showDialog(Context context, String title, String msg, boolean showBtn, final CallBack callBack) {
+        String cancleStr = showBtn ? "我再想想" : null;
+        String sureStr = showBtn ? "确认下单" : null;
+        final DialogSureCheckout dialogSure = new DialogSureCheckout(context, title, msg, cancleStr, sureStr);
         if (callBack != null) {
             dialogSure.setOnOkListener(new View.OnClickListener() {
                 @Override
@@ -158,8 +170,8 @@ public class DialogSureCheckout extends Dialog {
         dialogSure.show();
     }
 
-    public static void showDialog(Context context, String msg, boolean showBtn) {
-        showDialog(context, msg, showBtn, null);
+    public static void showDialog(Context context, String title, String msg, boolean showBtn) {
+        showDialog(context, title, msg, showBtn, null);
     }
 
     public interface CallBack {

@@ -64,6 +64,8 @@ public class RecycleAdapterCateIn extends RecyclerView.Adapter<RecyclerView.View
     private void bindContent(HolderContent holder, int position) {
         Cate3 bean = results.get(position);
         holder.text_title.setText(bean.getProdTypeName());
+        //TODO:接口一直没有提供分类的图片，但是UI设计上有图片，直到今天香港那边发了一百多张图过来，要把图片放在本地，自行去写if else筛选图片。心累…
+        //TODO:图片的问题先暂时放一放，这里先随机加载一张产品图片
         GlideUtil.loadImgTest(holder.img_header);
     }
 

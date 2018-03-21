@@ -115,6 +115,7 @@
                     <Space style="@style/Space_H" />
 
                     <TextView
+                        android:id="@+id/btn_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_rect_corner_red"

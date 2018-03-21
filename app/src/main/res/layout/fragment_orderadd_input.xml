@@ -8,59 +8,82 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp">
 
             <TextView
-                android:id="@+id/text_coupon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginRight="45dp"
-                android:gravity="right"
-                android:hint="请填写优惠劵"
-                android:textColor="@color/com_text_dark_light"
-                android:textColorHint="@color/com_text_dark_light"
-                android:textSize="@dimen/text_nomal_small" />
+                android:text="优惠编码"
+                android:textColor="@color/com_text_blank"
+                android:textSize="@dimen/text_nomal" />
 
             <TextView
-                android:id="@+id/lay_coupon"
-                style="@style/TextMeItem"
-                android:layout_height="45dp"
-                android:onClick="onClick"
-                android:text="优惠券" />
+                android:id="@+id/btn_coupon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="[?]"
+                android:textColor="@color/st_red"
+                android:textSize="@dimen/text_nomal" />
 
-        </FrameLayout>
+            <EditText
+                android:id="@+id/edit_coupon"
+                style="@style/EditMeItem"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:digits="@string/digits_num_en"
+                android:hint="请填写优惠编码"
+                android:inputType="textPersonName"
+                android:maxLength="32" />
+
+        </LinearLayout>
 
         <View
             style="@style/Line_H"
             android:layout_marginLeft="10dp" />
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp">
 
             <TextView
-                android:id="@+id/text_idcard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginRight="45dp"
-                android:gravity="right"
-                android:hint="请填写申报资料"
-                android:textColor="@color/com_text_dark_light"
-                android:textColorHint="@color/com_text_dark_light"
-                android:textSize="@dimen/text_nomal_small" />
+                android:text="申报资料"
+                android:textColor="@color/com_text_blank"
+                android:textSize="@dimen/text_nomal" />
 
             <TextView
-                android:id="@+id/lay_idcard"
-                style="@style/TextMeItem"
-                android:layout_height="45dp"
-                android:onClick="onClick"
-                android:text="申报资料" />
+                android:id="@+id/btn_idcard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="[?]"
+                android:textColor="@color/st_red"
+                android:textSize="@dimen/text_nomal" />
 
-        </FrameLayout>
+            <EditText
+                android:id="@+id/edit_idcard"
+                style="@style/EditMeItem"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:digits="@string/digits_num_en"
+                android:hint="订购人身份证或护照号"
+                android:inputType="textCapCharacters"
+                android:maxLength="32" />
+
+        </LinearLayout>
+
 
         <Space style="@style/Space_V" />
 

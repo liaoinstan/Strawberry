@@ -412,7 +412,7 @@ public interface NetInterface {
     /**
      * 获取订单详情
      */
-    @POST("/app/ajaxOrderDetails.aspx")
+    @POST("/app/ajaxOrderDetails.aspx?siteID=xgate")
     Call<ResponseBody> netOrderDetail(@QueryMap(encoded = true) Map<String, Object> param);
 
     //##################################################################
@@ -441,7 +441,7 @@ public interface NetInterface {
      * payment_method_nonce
      * amt
      */
-    @POST("/app/apiPaypalRequest.aspx")
+    @POST("   ")
     Call<ResponseBody> apiPaypalPay(@QueryMap(encoded = true) Map<String, Object> param);
     //##################################################################
     //#########               2018/2/12 支付

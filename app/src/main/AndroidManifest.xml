@@ -77,7 +77,7 @@
         <activity android:name=".ui.activity.HistoryActivity" />
         <activity android:name=".ui.activity.PayTestAdyenActivity" />
         <activity android:name=".ui.activity.OrderDetailActivity" />
-        <activity android:name=".ui.activity.PayTestPaypalActivity" />
+        <activity android:name=".ui.activity.PayWayActivity" />
         <activity android:name=".ui.activity.OrderProductActivity" />
         <activity android:name=".ui.activity.OrderCouponActivity" />
         <activity android:name=".ui.activity.OrderIdcardActivity" />

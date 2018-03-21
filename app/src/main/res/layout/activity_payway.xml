@@ -53,16 +53,16 @@
             <View style="@style/Line_H" />
 
             <TextView
-                android:id="@+id/text_test_paypal"
+                android:id="@+id/text_paypal"
                 style="@style/TextMeItem"
-                android:text="Paypal" />
+                android:text="国外支付" />
 
             <View style="@style/Line_H" />
 
             <TextView
-                android:id="@+id/text_test_adyen"
+                android:id="@+id/text_adyen"
                 style="@style/TextMeItem"
-                android:text="Adyen" />
+                android:text="国内支付" />
 
             <View style="@style/Line_H" />
 

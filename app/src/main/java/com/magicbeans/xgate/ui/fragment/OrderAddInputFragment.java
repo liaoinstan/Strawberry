@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -67,12 +68,6 @@ public class OrderAddInputFragment extends BaseFragment implements View.OnClickL
     @Override
     public void onCommonEvent(EventBean event) {
         switch (event.getEvent()) {
-            case EventBean.EVENT_ADD_COUPON:
-                binding.textCoupon.setText((String) event.get("coupon"));
-                break;
-            case EventBean.EVENT_ADD_IDCARD:
-                binding.textIdcard.setText((String) event.get("idcard"));
-                break;
         }
     }
 
@@ -104,9 +99,9 @@ public class OrderAddInputFragment extends BaseFragment implements View.OnClickL
     }
 
     private void initView() {
-        binding.layCoupon.setOnClickListener(this);
-        binding.layIdcard.setOnClickListener(this);
         binding.btnGo.setOnClickListener(this);
+        binding.btnCoupon.setOnClickListener(this);
+        binding.btnIdcard.setOnClickListener(this);
     }
 
     private void initCtrl() {
@@ -118,16 +113,16 @@ public class OrderAddInputFragment extends BaseFragment implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.lay_coupon:
-                OrderCouponActivity.start(getActivity());
+            case R.id.btn_coupon:
+                DialogSureCheckout.showDialog(getContext(), null, getContext().getResources().getString(R.string.checkout_coupon), false);
                 break;
-            case R.id.lay_idcard:
-                OrderIdcardActivity.start(getActivity());
+            case R.id.btn_idcard:
+                DialogSureCheckout.showDialog(getContext(), getContext().getResources().getString(R.string.checkout_idcard_title), getContext().getResources().getString(R.string.checkout_idcard), false);
                 break;
             case R.id.btn_go:
                 Address address = activity.getAddress();
-                String idcard = binding.textIdcard.getText().toString();
-                String coupon = binding.textCoupon.getText().toString();
+                String idcard = binding.editIdcard.getText().toString();
+                String coupon = binding.editCoupon.getText().toString();
                 String msg = AppVali.checkOut(idcard, address);
                 if (msg != null) {
                     ToastUtil.showToastShort(msg);

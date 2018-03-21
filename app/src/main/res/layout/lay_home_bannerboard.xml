@@ -10,7 +10,7 @@
         <com.ins.common.view.BannerView2
             android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="140dp" />
+            android:layout_height="180dp" />
 
 
         <com.ins.common.view.AutoFitGridLayout

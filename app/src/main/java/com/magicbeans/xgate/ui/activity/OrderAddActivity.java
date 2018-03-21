@@ -56,7 +56,6 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
     private ActivityOrderaddBinding binding;
     private OrderAddAddressController addressController;
     private OrderAddProductsController productsController;
-//    private OrderAddPriceDetailController priceDetailController;
 
     private String[] titles = new String[]{"填写资料", "提交"};
 
@@ -78,12 +77,6 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
     @Override
     public void onCommonEvent(EventBean event) {
         switch (event.getEvent()) {
-//            case EventBean.EVENT_ADD_COUPON:
-//                binding.textCoupon.setText((String) event.get("coupon"));
-//                break;
-//            case EventBean.EVENT_ADD_IDCARD:
-//                binding.textIdcard.setText((String) event.get("idcard"));
-//                break;
             case EventBean.EVENT_GET_ADDRESS:
                 Address address = (Address) event.get("address");
                 addressController.setAddress(address);
@@ -113,19 +106,12 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
         addressController = new OrderAddAddressController(binding.includeAddress);
         productsController = new OrderAddProductsController(binding.includeProducts);
         productsController.setGoodsData(goods);
-//        priceDetailController = new OrderAddPriceDetailController(binding.includePricedetail);
-//        priceDetailController.setShopCartInfo(shopCartInfo);
     }
 
     private void initView() {
-
-//        binding.layCoupon.setOnClickListener(this);
-//        binding.layIdcard.setOnClickListener(this);
     }
 
     private void initCtrl() {
-
-//        binding.textPayPrice.setText("应付：" + shopCartInfo.getTotalPrice());
         adapterPager = new PagerAdapterOrderAdd(getSupportFragmentManager(), titles);
         binding.pager.setAdapter(adapterPager);
     }
@@ -138,27 +124,6 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-//            case R.id.lay_coupon:
-//                OrderCouponActivity.start(this);
-//                break;
-//            case R.id.lay_idcard:
-//                OrderIdcardActivity.start(this);
-//                break;
-//            case R.id.btn_go:
-//                if (addressController.getAddress() != null) {
-//                    String idcard = binding.textIdcard.getText().toString();
-//                    String coupon = binding.textCoupon.getText().toString();
-//                    String msg = AppVali.checkOut(idcard);
-//                    if (msg != null) {
-//                        ToastUtil.showToastShort(msg);
-//                    } else {
-//                        CreateOrderPost orderPost = createOrderPost(coupon, idcard);
-//                        netCheckout(orderPost);
-//                    }
-//                } else {
-//                    ToastUtil.showToastShort("请先填写送货地址");
-//                }
-//                break;
         }
     }
 
