@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/st_red</color>
-    <color name="colorPrimaryDark">@color/st_red</color>
-    <color name="colorAccent">@color/st_red</color>
+    <color name="colorPrimary">@color/st_purple_xgate</color>
+    <color name="colorPrimaryDark">@color/st_purple_xgate</color>
+    <color name="colorAccent">@color/st_purple_xgate</color>
 
     <!--<color name="st_bk">#f7f8fa</color>-->
     <color name="st_bk">#f2f3f5</color>
     <color name="st_bk_light">#fafafa</color>
     <color name="st_default_bk">#f2f2f2</color>
     <color name="st_purple">#652d90</color>
+    <color name="st_purple_xgate">#9509b2</color>
+    <color name="st_purple_xgate_none">#009509b2</color>
     <color name="st_pink">#FF08D9</color>
     <color name="st_red">#FE3461</color>
     <color name="st_red_none">#00FE3461</color>

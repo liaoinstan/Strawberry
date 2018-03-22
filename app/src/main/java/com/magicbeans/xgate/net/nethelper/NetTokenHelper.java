@@ -2,6 +2,7 @@ package com.magicbeans.xgate.net.nethelper;
 
 import android.text.TextUtils;
 
+import com.ins.common.utils.DateUtil;
 import com.ins.common.utils.TimeUtil;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.bean.common.CommonEntity;
@@ -35,11 +36,53 @@ public class NetTokenHelper {
 
     /////////////////////////////////////
 
+    //更新用户信息
+    public void netUpdateUserProfile(final String nickname, final String surname, final String Gender, final Date birthday, final UserProfileCallback callback) {
+        Token token = AppData.App.getToken();
+        if (token == null) return;
+        Map<String, Object> param = new NetParam()
+                .put("accountID", token.getAccountID())
+                .put("token", token.getToken())
+                .put("nickname", nickname)
+                .put("surname", surname)
+                .put("Gender", Gender)
+                .put("dbDay", DateUtil.getDay(birthday))
+                .put("dbMonth", DateUtil.getMouth(birthday))
+                .put("birthdayYear", DateUtil.getYear(birthday))
+                .build();
+        NetApi.NI().updateUserProfile(param).enqueue(new STCallback<CommonEntity>(CommonEntity.class) {
+            @Override
+            public void onSuccess(int status, CommonEntity com, String msg) {
+                if (com.getReponseCode() != 1) {
+                    if (callback != null) {
+                        User user = AppData.App.getUser();
+                        if (!TextUtils.isEmpty(nickname)) user.setNickname(nickname);
+                        if (!TextUtils.isEmpty(surname)) user.setSurname(surname);
+                        if (!TextUtils.isEmpty(Gender)) user.setGender(Gender);
+                        if (!TextUtils.isEmpty(Gender))
+                            user.setDayOfBirthday(DateUtil.getDay(birthday) + "");
+                        if (!TextUtils.isEmpty(Gender))
+                            user.setMonthOfBirthday(DateUtil.getMouth(birthday) + "");
+                        if (!TextUtils.isEmpty(Gender))
+                            user.setYearOfBirthday(DateUtil.getYear(birthday) + "");
+                        callback.onSuccess(status, user, msg);
+                    }
+                } else {
+                    onError(com.getReponseCode(), "修改失败：reponseCode:" + com.getReponseCode());
+                }
+            }
+
+            @Override
+            public void onError(int status, String msg) {
+                if (callback != null) callback.onError(status, msg);
+            }
+        });
+    }
+
     //使用token获取用户信息
     public void netGetUserProfile(final String accountID, final String token, final UserProfileCallback callback) {
         Map<String, Object> param = new NetParam()
                 .put("accountID", accountID)
-                .put("action", "get")
                 .put("token", token)
                 .build();
         NetApi.NI().getUserProfile(param).enqueue(new STCallback<User>(User.class) {

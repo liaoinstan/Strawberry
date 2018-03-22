@@ -116,6 +116,8 @@ public class OrderFragment extends BaseFragment implements OnRecycleItemClickLis
         OrderDetailActivity.start(getContext(), order.getSOID());
     }
 
+    //TODO:接口本应该提供一个根据订单类型查询的接口，但是接口并不完善，这里先自行进行筛选
+    //TODO:另外订单状态和UI设计不同，只知道18是待付款，需要进一步确认
     //把不是该分类下的订单移除
     private void convertOrders(List<Order> orders) {
         if (StrUtil.isEmpty(orders)) return;

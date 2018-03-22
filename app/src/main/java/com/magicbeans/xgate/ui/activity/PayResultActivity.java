@@ -13,7 +13,6 @@ import com.ins.common.utils.SpannableStringUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.pay.PayResult;
-import com.magicbeans.xgate.bean.pay.PaypalResult;
 import com.magicbeans.xgate.databinding.ActivityPayresultBinding;
 import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
@@ -98,7 +97,7 @@ public class PayResultActivity extends BaseAppCompatActivity {
         String title2 = "\n订单金额：";
         String textPayway = payResult.getPayType();
         String textAmount = AppHelper.getPriceSymbol(null) + payResult.getAmount();
-        SpannableString spannableString = SpannableStringUtil.create(this, new String[]{title1, textPayway, title2, textAmount}, new int[]{R.color.com_text_blank, R.color.st_red, R.color.com_text_blank, R.color.st_red});
+        SpannableString spannableString = SpannableStringUtil.create(this, new String[]{title1, textPayway, title2, textAmount}, new int[]{R.color.com_text_blank, R.color.st_purple_xgate, R.color.com_text_blank, R.color.st_purple_xgate});
         binding.textPayresult.setText(spannableString);
     }
 }

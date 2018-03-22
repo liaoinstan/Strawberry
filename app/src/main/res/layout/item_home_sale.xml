@@ -48,7 +48,7 @@
             android:layout_marginLeft="2dp"
             android:layout_marginTop="7dp"
             android:text="￥ 49"
-            android:textColor="@color/st_red"
+            android:textColor="@color/st_purple_xgate"
             android:textSize="@dimen/text_small" />
 
         <TextView

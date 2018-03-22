@@ -71,7 +71,7 @@
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:text="比加入时降298元"
-                        android:textColor="@color/st_red"
+                        android:textColor="@color/st_purple_xgate"
                         android:textSize="9sp" />
                 </LinearLayout>
 
@@ -83,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="￥89.00"
-                    android:textColor="@color/st_red"
+                    android:textColor="@color/st_purple_xgate"
                     android:textSize="@dimen/text_nomal_small" />
 
                 <TextView

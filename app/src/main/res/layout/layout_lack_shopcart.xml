@@ -30,7 +30,7 @@
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
         android:text="去逛逛"
-        android:textColor="@color/st_red"
+        android:textColor="@color/st_purple_xgate"
         android:textSize="@dimen/text_big_nomal" />
 
 </LinearLayout>

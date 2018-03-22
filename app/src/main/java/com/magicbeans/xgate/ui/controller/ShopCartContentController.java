@@ -151,6 +151,8 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
                 if (shopCarts != null) {
                     //如果存在offline数据，则同步到该用户服务器数据库上
                     NetShopCartHelper.getInstance().netBatchAddShopCart(shopCarts);
+                    //同时删除这些数据
+                    ShopCartTableManager.getInstance().delete(shopCarts.toArray(new ShopCart[]{}));
                 } else {
                     //不存在则刷新远程数据
                     refreshRemoteData();

@@ -258,8 +258,17 @@ public interface NetInterface {
      * action
      * token
      */
-    @GET("/app/apiUserProfile.aspx")
+    @GET("/app/apiUserProfile.aspx?action=get")
     Call<ResponseBody> getUserProfile(@QueryMap(encoded = true) Map<String, Object> param);
+
+    /**
+     * 更新用户信息
+     * accountID
+     * action
+     * token
+     */
+    @GET("/app/apiUserProfile.aspx?action=update")
+    Call<ResponseBody> updateUserProfile(@QueryMap(encoded = true) Map<String, Object> param);
 
     /**
      * 刷新token

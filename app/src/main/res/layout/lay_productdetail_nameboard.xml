@@ -53,7 +53,7 @@
                     android:id="@+id/text_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/st_red"
+                    android:textColor="@color/st_purple_xgate"
                     android:textSize="@dimen/text_big"
                     tools:text="￥369.00" />
 

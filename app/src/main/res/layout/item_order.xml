@@ -89,7 +89,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:text="再次购买"
-                android:textColor="@color/st_red"
+                android:textColor="@color/st_purple_xgate"
                 android:textSize="@dimen/text_nomal_small" />
 
             <TextView
@@ -101,7 +101,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:text="去支付"
-                android:textColor="@color/st_red"
+                android:textColor="@color/st_purple_xgate"
                 android:textSize="@dimen/text_nomal_small" />
 
         </LinearLayout>

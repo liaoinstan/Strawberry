@@ -74,7 +74,7 @@
                 android:id="@+id/text_add"
                 android:layout_width="120dp"
                 android:layout_height="match_parent"
-                android:background="@color/st_red"
+                android:background="@color/st_purple_xgate"
                 android:gravity="center"
                 android:text="加入购物车"
                 android:textColor="@color/white"

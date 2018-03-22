@@ -286,4 +286,51 @@ public class DateUtil {
     public static boolean isSameDate(long date1, long date2) {
         return isSameDate(new Date(date1), new Date(date2));
     }
+
+    /**
+     * 获取一个时间的特定单位（时分秒等等）
+     * 当前年
+     * int year = cal.get(Calendar.YEAR);
+     * 当前月
+     * int month = (cal.get(Calendar.MONTH)) + 1;
+     * 当前月的第几天：即当前日
+     * int day_of_month = cal.get(Calendar.DAY_OF_MONTH);
+     * 当前时：HOUR_OF_DAY-24小时制；HOUR-12小时制
+     * int hour = cal.get(Calendar.HOUR_OF_DAY);
+     * 当前分
+     * int minute = cal.get(Calendar.MINUTE);
+     * 当前秒
+     * int second = cal.get(Calendar.SECOND);
+     * 0-上午；1-下午
+     * int ampm = cal.get(Calendar.AM_PM);
+     * 当前年的第几周
+     * int week_of_year = cal.get(Calendar.WEEK_OF_YEAR);
+     * 当前月的第几周
+     * int week_of_month = cal.get(Calendar.WEEK_OF_MONTH);
+     * 当前年的第几天
+     * int day_of_year = cal.get(Calendar.DAY_OF_YEAR);
+     */
+    public static Integer getDay(Date date) {
+        if (date == null) return null;
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(date.getTime());
+        int cell = cal.get(Calendar.DAY_OF_MONTH);
+        return cell;
+    }
+
+    public static Integer getMouth(Date date) {
+        if (date == null) return null;
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(date.getTime());
+        int cell = cal.get(Calendar.MONTH) + 1;
+        return cell;
+    }
+
+    public static Integer getYear(Date date) {
+        if (date == null) return null;
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(date.getTime());
+        int cell = cal.get(Calendar.YEAR);
+        return cell;
+    }
 }

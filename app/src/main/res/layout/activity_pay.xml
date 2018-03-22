@@ -142,7 +142,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:background="@color/st_red"
+                android:background="@color/st_purple_xgate"
                 android:gravity="center"
                 android:text="微信支付：482.80元"
                 android:textColor="@color/white" />

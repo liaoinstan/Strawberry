@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="￥89.00"
-            android:textColor="@color/st_red"
+            android:textColor="@color/st_purple_xgate"
             android:textSize="@dimen/text_nomal_small" />
 
         <TextView

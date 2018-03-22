@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_gender_m"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="男"
+            android:textColor="@color/com_text_blank"
+            android:textSize="@dimen/text_big_nomal" />
+
+        <View style="@style/Line_H" />
+
+        <TextView
+            android:id="@+id/text_gender_fm"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="女"
+            android:textColor="@color/com_text_blank"
+            android:textSize="@dimen/text_big_nomal" />
+
+    </LinearLayout>
+
+</layout>

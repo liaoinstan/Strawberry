@@ -53,7 +53,7 @@
                 app:stl_customTabTextViewId="@id/custom_text"
                 app:stl_distributeEvenly="true"
                 app:stl_dividerThickness="0dp"
-                app:stl_indicatorColor="@color/st_red"
+                app:stl_indicatorColor="@color/st_purple_xgate"
                 app:stl_indicatorCornerRadius="0dp"
                 app:stl_indicatorInterpolation="smart"
                 app:stl_indicatorThickness="3dp"

@@ -101,7 +101,7 @@
                             android:gravity="center"
                             android:onClick="onClick"
                             android:text="查看订单"
-                            android:textColor="@color/st_red"
+                            android:textColor="@color/st_purple_xgate"
                             android:textSize="@dimen/text_nomal" />
 
                     </LinearLayout>

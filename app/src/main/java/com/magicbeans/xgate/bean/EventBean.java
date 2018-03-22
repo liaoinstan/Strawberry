@@ -12,8 +12,8 @@ public class EventBean implements Serializable {
 
     //语言切换
     public static final int EVENT_LANGUAGE_CHANGE = 0xffa101;
-    //未登录
-    public static final int EVENT_NOLOGIN = 0xffa102;
+    //更新用户
+    public static final int EVENT_UPDATE_USER = 0xffa102;
     //首页跳转到热门品牌页面
     public static final int EVENT_JUMP_BRANDHOT = 0xffa103;
     //首页跳转到热门首页第一个tab

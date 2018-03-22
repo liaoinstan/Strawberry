@@ -144,7 +144,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 //toolbar动态透明渐变
                 ToobarTansColorHelper.with(binding.toolbar)
                         .initMaxHeight(DensityUtil.dp2px(100))
-                        .initColorStart(ContextCompat.getColor(getContext(), R.color.st_red_none))
+                        .initColorStart(ContextCompat.getColor(getContext(), R.color.st_purple_xgate_none))
                         .initColorEnd(ContextCompat.getColor(getContext(), R.color.colorPrimary))
                         .start(y);
             }

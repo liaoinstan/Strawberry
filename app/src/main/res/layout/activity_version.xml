@@ -86,7 +86,7 @@
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_marginTop="40dp"
-            android:background="@color/st_red"
+            android:background="@color/st_purple_xgate"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:text="检查更新"

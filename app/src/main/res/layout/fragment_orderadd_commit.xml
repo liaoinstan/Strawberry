@@ -22,7 +22,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="选择赠品 >"
-            android:textColor="@color/st_red"
+            android:textColor="@color/st_purple_xgate"
             android:textSize="@dimen/text_nomal" />
 
         <TextView
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="温馨提示："
-                android:textColor="@color/st_red"
+                android:textColor="@color/st_purple_xgate"
                 android:textSize="@dimen/text_small" />
 
             <TextView
@@ -82,14 +82,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:text="应付：￥453.0"
-                    android:textColor="@color/st_red"
+                    android:textColor="@color/st_purple_xgate"
                     android:textSize="@dimen/text_nomal_small" />
 
                 <TextView
                     android:id="@+id/btn_go"
                     android:layout_width="120dp"
                     android:layout_height="match_parent"
-                    android:background="@color/st_red"
+                    android:background="@color/st_purple_xgate"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
                     android:onClick="onClick"

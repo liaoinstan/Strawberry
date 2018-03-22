@@ -190,7 +190,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:text="特别注意：测试服只支持 1827613****到1827619**** 的手机号，如果下单所选择地址关联的手机号码不在这个区间将会导致下单失败"
-                    android:textColor="@color/st_red"
+                    android:textColor="@color/st_purple_xgate"
                     android:textSize="@dimen/text_tiny" />
 
             </LinearLayout>
