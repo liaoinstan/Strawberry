@@ -74,7 +74,6 @@ public class ProductDetailBottombarController implements View.OnClickListener {
                     Product2 product2 = productDetail.getSelectProduct(productDetail.getProdID());
                     if (product2 != null) {
                         //###### 添加到服务器及本地数据库 ######
-//                        NetShopCartHelper.getInstance().netAddShopCart(product2.getProdID(), product2.getCount());
                         product2.setBrandName(productDetail.getBrandName());
                         DataShopCartHelper.getInstance().addShopCart(product2);
                         //###### 飞入动画 ######

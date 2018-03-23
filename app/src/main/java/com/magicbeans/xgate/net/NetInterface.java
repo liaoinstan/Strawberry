@@ -195,16 +195,60 @@ public interface NetInterface {
     //##################################################################
 
     /**
-     * 首页获取今日秒杀
+     * 首页获取特卖专场
      */
-    @GET("/app/promotionList.aspx?OthCatgId=90")
-    Call<ResponseBody> netHomeTodayList(@QueryMap Map<String, Object> param);
+    @GET("/app/promotionList.aspx?OthCatgId=89")
+    Call<ResponseBody> netHomeSaleList1(@QueryMap Map<String, Object> param);
+
+    /**
+     * 首页获取活动会场
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=supervaluezone&PCId=2&TypeId=39")
+    Call<ResponseBody> netHomeSaleList2(@QueryMap Map<String, Object> param);
+
+    /**
+     * 首页获取新品上线
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=17&PCId=2&TypeId=39")
+    Call<ResponseBody> netHomeSaleList3(@QueryMap Map<String, Object> param);
+
+    /**
+     * 首页获取美妆论坛
+     */
+    @GET("/app/apiBeautyArchive.aspx?region=cn")
+    Call<ResponseBody> netHomeSaleList4(@QueryMap Map<String, Object> param);
+
+    /**
+     * 首页获取榜单护肤
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=bestseller")
+    Call<ResponseBody> netHomeSaleList5(@QueryMap Map<String, Object> param);
+
+    /**
+     * 首页获取人气彩妆
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=97")
+    Call<ResponseBody> netHomeSaleList6(@QueryMap Map<String, Object> param);
+
+    /**
+     * 首页获取明星香水
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=76")
+    Call<ResponseBody> netHomeSaleList7(@QueryMap Map<String, Object> param);
+
+    /**
+     * 首页获取美发好物
+     */
+    @GET("/app/promotionList.aspx?OthCatgId=96")
+    Call<ResponseBody> netHomeSaleList8(@QueryMap Map<String, Object> param);
+
+    ////////////////////////////////////////////////////////////////////
 
     /**
      * 首页获取今日秒杀
      */
-    @GET("/app/promotionList.aspx?OthCatgId=19")
-    Call<ResponseBody> netHomeSaleList(@QueryMap Map<String, Object> param);
+    @GET("/app/promotionList.aspx?OthCatgId=90")
+    Call<ResponseBody> netHomeTodayList(@QueryMap Map<String, Object> param);
 
     /**
      * 首页获取王牌单品
@@ -229,12 +273,6 @@ public interface NetInterface {
      */
     @GET("/app/promotionList.aspx?OthCatgId=89")
     Call<ResponseBody> netHomeClearList(@QueryMap Map<String, Object> param);
-
-    /**
-     * 首页获取每日精选
-     */
-    @GET("/app/promotionList.aspx?OthCatgId=89")
-    Call<ResponseBody> netHomeSelectList(@QueryMap Map<String, Object> param);
 
     /**
      * 对评论点赞
@@ -431,8 +469,8 @@ public interface NetInterface {
     /**
      * adyen checkout
      */
-//    @POST("/RedirectmWeChat.aspx?siteID=xgate")
-    @POST("/RedirectmWeChatServer.aspx?siteID=xgate")
+//    @POST("/RedirectmWeChat.aspx?siteID=xGate")
+    @POST("/RedirectmWeChatServer.aspx?siteID=xGate")
     Call<ResponseBody> adyenPaySetup(@QueryMap Map<String, Object> param);
 
     /**

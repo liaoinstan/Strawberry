@@ -53,7 +53,7 @@ public class HomeRecommendController implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_more:
-                SaleActivity.start(context, SaleActivity.TYPE_RECOMMED);
+                SaleActivity.start(context, SaleActivity.TYPE_RECOMMEND);
                 break;
         }
     }

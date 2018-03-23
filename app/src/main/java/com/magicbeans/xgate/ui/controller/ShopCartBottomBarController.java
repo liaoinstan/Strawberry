@@ -26,8 +26,10 @@ import com.magicbeans.xgate.databinding.LayShopcartBottombarBinding;
 import com.magicbeans.xgate.helper.DataShopCartHelper;
 import com.magicbeans.xgate.net.nethelper.NetShopCartHelper;
 import com.magicbeans.xgate.sharesdk.ShareDialog;
+import com.magicbeans.xgate.ui.activity.HomeActivity;
 import com.magicbeans.xgate.ui.activity.OrderAddActivity;
 import com.magicbeans.xgate.ui.activity.ProductDetailActivity;
+import com.magicbeans.xgate.ui.activity.ShopcartActivity;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterHomeShopbag;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 
@@ -83,9 +85,16 @@ public class ShopCartBottomBarController extends BaseController<LayShopcartBotto
                 }
                 break;
             }
-            case R.id.btn_share:
-                new ShareDialog(context).show();
+            case R.id.btn_share: {
+                List<ShopCart> selectBeans = adapter.getSelectBeans();
+                if (!StrUtil.isEmpty(selectBeans)) {
+                    new ShareDialog(context).setShareShopCart(selectBeans).show();
+                } else {
+                    //没有选中商品就把首页分享出去
+                    new ShareDialog(context).setShareHome().show();
+                }
                 break;
+            }
             case R.id.btn_favo:
                 ToastUtil.showToastShort("开发中");
                 break;

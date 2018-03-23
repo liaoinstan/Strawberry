@@ -50,13 +50,15 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
     private CommonRecommendController commonRecommendController;
     private ProductDetailBottombarController productDetailBottombarController;
 
+    private boolean noBottomBar;
     private String prodId;
     private ProductDetail productDetail;
 
     //测试启动
-    public static void start(Context context) {
+    public static void startNoBottomBar(Context context, String prodId) {
         Intent intent = new Intent(context, ProductDetailActivity.class);
-        intent.putExtra("prodId", "174755");
+        intent.putExtra("noBottomBar", true);
+        intent.putExtra("prodId", prodId);
         context.startActivity(intent);
     }
 
@@ -91,6 +93,7 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
 
     private void initBase() {
         prodId = getIntent().getStringExtra("prodId");
+        noBottomBar = getIntent().getBooleanExtra("noBottomBar", false);
 
         //初始化各部分控制器
         toolbarProdDetailController = new ToolbarProdDetailController(binding.includeToobbarProductdetail);
@@ -132,6 +135,7 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
     }
 
     private void initView() {
+        binding.includeBottombar.getRoot().setVisibility(noBottomBar ? View.GONE : View.VISIBLE);
     }
 
     private void initCtrl() {
@@ -163,6 +167,7 @@ public class ProductDetailActivity extends BaseAppCompatActivity {
     }
 
     private void setData(ProductDetail productDetail) {
+        toolbarProdDetailController.setData(productDetail);
         productDetailNameBoradController.setData(productDetail);
         productDetailAttrController.setData(productDetail);
         productDetailDescribeController.setData(productDetail);

@@ -3,6 +3,7 @@ package com.magicbeans.xgate.sharesdk;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.ins.common.utils.StrUtil;
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.product.Product2;
+import com.magicbeans.xgate.bean.shopcart.ShopCart;
+
+import java.util.List;
 
 
 /**
@@ -82,12 +88,11 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
         dismiss();
     }
 
-
-    private String title = "测试标题";                      //微信、qq
-    private String content = "草莓网，我是分享文本，我是分享文本，我是分享文本";                     //all
-    private String url = "http://sharesdk.cn";
-    private String img = "http://pic.jj20.com/up/allimg/811/0Q314221532/140Q3221532-9.jpg";
-//    private String img = "https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3956038193,2397454070&fm=58&s=0614EE22C7E05D030C5498D40000C0B3";
+    //这些是默认分享文本，分析前请重新设置内容
+    private String title = "草莓网";                      //微信、qq
+    private String content = "快加入草莓网今日秒杀美妆热卖活动!惊喜优惠带走顶级产品。活动即将结束,马上行动起来!";                     //all
+    private String url = "https://cn.strawberrynet.com/m/mmain.aspx";
+    private String img = "https://a.cdnsbn.com/m/images/common/mgift_dailyspecials.jpg";
 
 
     public ShareDialog setShareData(String title, String content, String url, String img) {
@@ -97,4 +102,39 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
         this.img = img;
         return this;
     }
+
+    //分享app首页
+    public ShareDialog setShareHome() {
+        this.title = "草莓网";
+        this.content = "快加入草莓网今日秒杀美妆热卖活动!惊喜优惠带走顶级产品。活动即将结束,马上行动起来!";
+        this.url = "https://cn.strawberrynet.com/m/mmain.aspx";
+        this.img = "https://a.cdnsbn.com/m/images/common/mgift_dailyspecials.jpg";
+        return this;
+    }
+
+    //分享购物车内容
+    public ShareDialog setShareShopCart(List<ShopCart> shopCartList) {
+        if (StrUtil.isEmpty(shopCartList)) return this;
+        //TODO：现在还不清楚草莓怎么分享多件商品，这里先写成分享单件（取第一件）
+        ShopCart shopCart = shopCartList.get(0);
+        this.title = shopCart.getBrandName();
+        this.content = Html.fromHtml(shopCart.getProdName()).toString();
+        //TODO:现在还不知道商品详情页的链接，分享链接暂且写成首页
+        this.url = "https://cn.strawberrynet.com/m/mmain.aspx";
+        this.img = shopCart.getHeaderImg();
+        return this;
+    }
+
+
+    //分享购物车内容
+    public ShareDialog setShareProduct2(Product2 product2) {
+        this.title = product2.getBrandName();
+        this.content = product2.getProdName();
+        //TODO:现在还不知道商品详情页的链接，分享链接暂且写成首页
+        this.url = "https://cn.strawberrynet.com/m/mmain.aspx";
+        this.img = product2.getHeaderImg();
+        return this;
+    }
+
+
 }

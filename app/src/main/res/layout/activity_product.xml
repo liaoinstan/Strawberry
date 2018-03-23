@@ -51,7 +51,9 @@
                         android:paddingRight="15dp"
                         android:textColor="@color/com_text_blank"
                         android:textColorHint="@color/com_text_hint"
-                        android:textSize="@dimen/text_nomal" />
+                        android:textSize="@dimen/text_nomal"
+                        android:visibility="invisible"
+                        tools:visibility="visible" />
 
                     <ImageView
                         android:id="@+id/btn_right"

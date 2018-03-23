@@ -32,7 +32,7 @@
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="今日秒杀"
+                android:text="特卖专场"
                 android:textColor="@color/com_text_dark_blank"
                 android:textSize="@dimen/text_small" />
 
@@ -46,7 +46,7 @@
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="特卖专场"
+                android:text="活动会场"
                 android:textColor="@color/com_text_dark_blank"
                 android:textSize="@dimen/text_small" />
 
@@ -60,7 +60,7 @@
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="王牌单品"
+                android:text="新品上线"
                 android:textColor="@color/com_text_dark_blank"
                 android:textSize="@dimen/text_small" />
 
@@ -74,7 +74,7 @@
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="新品上市"
+                android:text="美妆论坛"
                 android:textColor="@color/com_text_dark_blank"
                 android:textSize="@dimen/text_small" />
 
@@ -88,7 +88,7 @@
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="精选品牌"
+                android:text="榜单护肤"
                 android:textColor="@color/com_text_dark_blank"
                 android:textSize="@dimen/text_small" />
 
@@ -102,7 +102,7 @@
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="精品推荐"
+                android:text="人气彩妆"
                 android:textColor="@color/com_text_dark_blank"
                 android:textSize="@dimen/text_small" />
 
@@ -116,7 +116,7 @@
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="清仓优惠"
+                android:text="明星香水"
                 android:textColor="@color/com_text_dark_blank"
                 android:textSize="@dimen/text_small" />
 
@@ -130,7 +130,7 @@
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="每日精选"
+                android:text="美发好物"
                 android:textColor="@color/com_text_dark_blank"
                 android:textSize="@dimen/text_small" />
 

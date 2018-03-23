@@ -4,136 +4,54 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingBottom="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:gravity="center"
-            android:text="限时抢购"
-            android:textColor="@color/com_text_dark"
-            android:textSize="18sp" />
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/ic_home_title_clear_left"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/ic_home_title_clear_right"
+                android:text="今日秒杀"
+                android:textColor="@color/st_pink"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/btn_more"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right|center_vertical"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_home_title_next"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="更多"
+                android:textColor="@color/am_blue"
+                android:textSize="@dimen/text_nomal_small"
+                android:visibility="gone" />
+
+            <!--之说以把“更多”设置为match_parent是为了增大点击区域，否则文字太小容易点控-->
+
+        </FrameLayout>
 
         <View style="@style/Line_H" />
 
-        <RadioGroup
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/temp1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:button="@null"
-                android:gravity="center"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="9月14日\n09:00"
-                android:textColor="@color/select_text_dark_purple_check"
-                android:textSize="@dimen/text_small" />
-
-            <RadioButton
-                android:id="@+id/temp2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:button="@null"
-                android:checked="true"
-                android:gravity="center"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="9月14日\n09:00"
-                android:textColor="@color/select_text_dark_purple_check"
-                android:textSize="@dimen/text_small" />
-
-            <RadioButton
-                android:id="@+id/temp3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:button="@null"
-                android:gravity="center"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="9月14日\n09:00"
-                android:textColor="@color/select_text_dark_purple_check"
-                android:textSize="@dimen/text_small" />
-
-            <RadioButton
-                android:id="@+id/temp4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:button="@null"
-                android:gravity="center"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="9月14日\n09:00"
-                android:textColor="@color/select_text_dark_purple_check"
-                android:textSize="@dimen/text_small" />
-
-            <RadioButton
-                android:id="@+id/temp5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:button="@null"
-                android:gravity="center"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="9月14日\n09:00"
-                android:textColor="@color/select_text_dark_purple_check"
-                android:textSize="@dimen/text_small" />
-
-        </RadioGroup>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/st_bk"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="正在抢购，快来下单购买"
-                    android:textColor="@color/com_text_dark"
-                    android:textSize="@dimen/text_tiny" />
-
-                <Space style="@style/Space_H" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="距结束 00时26分42秒"
-                    android:textColor="@color/com_text_dark"
-                    android:textSize="@dimen/text_tiny" />
-
-            </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:clipToPadding="false"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp" />
-
-        </LinearLayout>
+            android:clipToPadding="false" />
 
     </LinearLayout>
+
+
 </layout>

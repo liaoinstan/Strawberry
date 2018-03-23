@@ -39,28 +39,35 @@ public class SaleActivity extends BaseAppCompatActivity implements OnRecycleItem
     private ActivitySaleBinding binding;
     private RecycleAdapterSale adapter;
 
-    public static final int TYPE_TODAY = 0;     //今日秒杀
     public static final int TYPE_SALE = 1;      //特卖专场
-    public static final int TYPE_SINGLE = 2;    //王牌单品
-    public static final int TYPE_NEW = 3;       //新品上市
-    public static final int TYPE_RECOMMED = 5;  //精品推荐
-    public static final int TYPE_CLEAR = 6;     //清仓优惠
-    public static final int TYPE_SELECT = 7;    //每日精选
+    public static final int TYPE_TODAY = 0;     //活动会场
+    public static final int TYPE_NEW = 2;       //新品上线
+    public static final int TYPE_SINGLE = 3;    //美妆论坛
+    public static final int TYPE_TOP = 5;       //榜单护肤
+    public static final int TYPE_POPU = 6;      //人气彩妆
+    public static final int TYPE_SELECT = 7;    //明星香水
+    public static final int TYPE_GOOD = 8;      //美发好物
+
+    public static final int TYPE_RECOMMEND = 9; //精品推荐
+    public static final int TYPE_CLEAR = 10;    //清仓优惠
 
     private Map<Integer, String> titles = new HashMap() {{
-        put(TYPE_TODAY, "今日秒杀");
         put(TYPE_SALE, "特卖专场");
-        put(TYPE_SINGLE, "王牌单品");
-        put(TYPE_NEW, "新品上市");
-        put(TYPE_RECOMMED, "精品推荐");
+        put(TYPE_TODAY, "活动会场");
+        put(TYPE_NEW, "新品上线");
+        put(TYPE_SINGLE, "美妆论坛");
+        put(TYPE_TOP, "榜单护肤");
+        put(TYPE_POPU, "人气彩妆");
+        put(TYPE_SELECT, "明星香水");
+        put(TYPE_GOOD, "美发好物");
+        put(TYPE_RECOMMEND, "精品推荐");
         put(TYPE_CLEAR, "清仓优惠");
-        put(TYPE_SELECT, "每日精选");
     }};
 
     public int type;
 
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({TYPE_TODAY, TYPE_SALE, TYPE_SINGLE, TYPE_NEW, TYPE_RECOMMED, TYPE_CLEAR, TYPE_SELECT})
+    @IntDef({TYPE_TODAY, TYPE_SALE, TYPE_SINGLE, TYPE_NEW, TYPE_TOP, TYPE_POPU, TYPE_SELECT, TYPE_GOOD, TYPE_RECOMMEND, TYPE_CLEAR})
     @interface Type {
     }
 
@@ -128,39 +135,53 @@ public class SaleActivity extends BaseAppCompatActivity implements OnRecycleItem
         ProductDetailActivity.start(this, product.getProdID());
     }
 
+    private Call<ResponseBody> getCallByType(Map<String, Object> param) {
+        Call<ResponseBody> call;
+        switch (type) {
+            case TYPE_SALE:
+                call = NetApi.NI().netHomeSaleList1(param);      //特卖专场
+                break;
+            case TYPE_TODAY:
+                call = NetApi.NI().netHomeSaleList2(param);     //活动会场
+                break;
+            case TYPE_NEW:
+                call = NetApi.NI().netHomeSaleList3(param);      //新品上线
+                break;
+            case TYPE_SINGLE:
+                call = NetApi.NI().netHomeSaleList4(param);    //美妆论坛
+                break;
+            case TYPE_TOP:
+                call = NetApi.NI().netHomeSaleList5(param); //榜单护肤
+                break;
+            case TYPE_POPU:
+                call = NetApi.NI().netHomeSaleList6(param);     //人气彩妆
+                break;
+            case TYPE_SELECT:
+                call = NetApi.NI().netHomeSaleList7(param);    //明星香水
+                break;
+            case TYPE_GOOD:
+                call = NetApi.NI().netHomeSaleList8(param);     //美发好物
+                break;
+            case TYPE_RECOMMEND:
+                call = NetApi.NI().netHomeRecommendList(param);  //精品推荐
+                break;
+            case TYPE_CLEAR:
+                call = NetApi.NI().netHomeClearList(param);     //清仓优惠
+                break;
+            default:
+                call = NetApi.NI().netHomeSaleList1(param);     //默认：特卖专场
+                break;
+        }
+        return call;
+    }
+
     public void netGetProductList(final boolean showLoading) {
         page = 1;
         Map<String, Object> param = new NetParam()
                 .put("page", page)
                 .build();
         if (showLoading) showLoadingDialog();
-        Call<ResponseBody> call;
-        switch (type) {
-            case TYPE_TODAY:
-                call = NetApi.NI().netHomeTodayList(param);     //今日秒杀
-                break;
-            case TYPE_SALE:
-                call = NetApi.NI().netHomeSaleList(param);      //特卖专场
-                break;
-            case TYPE_SINGLE:
-                call = NetApi.NI().netHomeSingleList(param);    //王牌单品
-                break;
-            case TYPE_NEW:
-                call = NetApi.NI().netHomeNewList(param);       //新品上市
-                break;
-            case TYPE_RECOMMED:
-                call = NetApi.NI().netHomeRecommendList(param); //精品推荐
-                break;
-            case TYPE_CLEAR:
-                call = NetApi.NI().netHomeClearList(param);     //清仓优惠
-                break;
-            case TYPE_SELECT:
-                call = NetApi.NI().netHomeSelectList(param);    //每日精选
-                break;
-            default:
-                call = NetApi.NI().netHomeTodayList(param);     //默认：今日秒杀
-                break;
-        }
+        Call<ResponseBody> call = getCallByType(param);
         call.enqueue(new STCallback<ProductWrap>(ProductWrap.class) {
             @Override
             public void onSuccess(int status, ProductWrap bean, String msg) {
@@ -188,7 +209,8 @@ public class SaleActivity extends BaseAppCompatActivity implements OnRecycleItem
         Map<String, Object> param = new NetParam()
                 .put("page", page + 1)
                 .build();
-        NetApi.NI().netHomeRecommendList(param).enqueue(new STCallback<ProductWrap>(ProductWrap.class) {
+        Call<ResponseBody> call = getCallByType(param);
+        call.enqueue(new STCallback<ProductWrap>(ProductWrap.class) {
             @Override
             public void onSuccess(int status, ProductWrap bean, String msg) {
                 List<Product> products = bean.getProductList();

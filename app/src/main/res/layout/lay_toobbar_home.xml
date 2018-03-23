@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.design.widget.AppBarLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/appbar"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="0dp">
 
@@ -36,9 +37,11 @@
                     android:textColor="@color/white"
                     android:textSize="8sp" />
 
+                <!--功能不要了，隐藏掉-->
+
                 <TextView
-                    android:visibility="visible"
                     android:id="@+id/text_search"
+                    tools:visibility="visible"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="5dp"
@@ -53,10 +56,12 @@
                     android:paddingRight="15dp"
                     android:textColor="@color/com_text_dark"
                     android:textColorHint="@color/com_text_hint"
-                    android:textSize="@dimen/text_nomal" />
+                    android:textSize="@dimen/text_nomal"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/btn_right"
+                    tools:visibility="visible"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:drawableTop="@drawable/ic_toolbar_msg"
@@ -65,7 +70,8 @@
                     android:paddingTop="6dp"
                     android:text="消息"
                     android:textColor="@color/white"
-                    android:textSize="8sp" />
+                    android:textSize="8sp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

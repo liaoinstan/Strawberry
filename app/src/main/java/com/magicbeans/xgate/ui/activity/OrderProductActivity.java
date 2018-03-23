@@ -81,6 +81,6 @@ public class OrderProductActivity extends BaseAppCompatActivity implements OnRec
     @Override
     public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
         ShopCart shopCart = adapter.getResults().get(viewHolder.getLayoutPosition());
-        ProductDetailActivity.start(this, shopCart.getProdID());
+        ProductDetailActivity.startNoBottomBar(this, shopCart.getProdID());
     }
 }

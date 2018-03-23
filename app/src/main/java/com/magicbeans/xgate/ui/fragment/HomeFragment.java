@@ -18,6 +18,7 @@ import com.magicbeans.xgate.ui.controller.HomeBrandController;
 import com.magicbeans.xgate.ui.controller.HomeClearController;
 import com.magicbeans.xgate.ui.controller.HomeNewProductController;
 import com.magicbeans.xgate.ui.controller.HomeRecommendController;
+import com.magicbeans.xgate.ui.controller.HomeSaleController;
 import com.magicbeans.xgate.ui.controller.HomeSingleController;
 import com.magicbeans.xgate.ui.controller.ToolbarHomeController;
 
@@ -35,10 +36,11 @@ public class HomeFragment extends BaseFragment {
     //各个子模块控制器，各控制器相互独立，各自处理自己模块的业务逻辑
     private ToolbarHomeController toolbarHomeController;
     private HomeBannerBoardController homeBannerBoardController;
+    private HomeSaleController homeSaleController;
+    private HomeRecommendController homeRecommendController;
+    private HomeBrandController homeBrandController;
     private HomeSingleController homeSingleController;
     private HomeNewProductController homeNewProductController;
-    private HomeBrandController homeBrandController;
-    private HomeRecommendController homeRecommendController;
     private HomeClearController homeClearController;
 
     public static Fragment newInstance(int position) {
@@ -85,6 +87,7 @@ public class HomeFragment extends BaseFragment {
     private void initBase() {
         toolbarHomeController = new ToolbarHomeController(binding.includeToobarHome);
         homeBannerBoardController = new HomeBannerBoardController(binding.includeHomeBannerboard);
+        homeSaleController = new HomeSaleController(binding.includeHomeSale);
         homeSingleController = new HomeSingleController(binding.includeHomeSingle);
         homeNewProductController = new HomeNewProductController(binding.includeHomeNewproduct);
         homeBrandController = new HomeBrandController(binding.includeHomeBrand);

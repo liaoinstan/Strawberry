@@ -13,12 +13,8 @@ import com.magicbeans.xgate.ui.fragment.ShopBagFragment;
 public class ShopcartActivity extends BaseAppCompatActivity {
 
     public static void start(Context context) {
-//        if (!AppHelper.User.isLogin()) {
-//            LoginActivity.start(context);
-//        } else {
-            Intent intent = new Intent(context, ShopcartActivity.class);
-            context.startActivity(intent);
-//        }
+        Intent intent = new Intent(context, ShopcartActivity.class);
+        context.startActivity(intent);
     }
 
     @Override

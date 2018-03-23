@@ -9,7 +9,6 @@ import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.ToastUtil;
 import com.ins.common.view.BannerView2;
 import com.magicbeans.xgate.R;
-import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.banner.BannerWrap;
 import com.magicbeans.xgate.databinding.LayHomeBannerboardBinding;
 import com.magicbeans.xgate.net.NetApi;
@@ -17,8 +16,6 @@ import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STCallback;
 import com.magicbeans.xgate.ui.activity.SaleActivity;
 import com.magicbeans.xgate.ui.activity.WebActivity;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 import java.util.Map;
@@ -72,28 +69,28 @@ public class HomeBannerBoardController implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_bannerboard_today:
-                SaleActivity.start(context, SaleActivity.TYPE_TODAY);
-                break;
-            case R.id.btn_bannerboard_sale:
                 SaleActivity.start(context, SaleActivity.TYPE_SALE);
                 break;
-            case R.id.btn_bannerboard_single:
-                SaleActivity.start(context, SaleActivity.TYPE_SINGLE);
+            case R.id.btn_bannerboard_sale:
+                SaleActivity.start(context, SaleActivity.TYPE_TODAY);
                 break;
-            case R.id.btn_bannerboard_new:
+            case R.id.btn_bannerboard_single:
                 SaleActivity.start(context, SaleActivity.TYPE_NEW);
                 break;
+            case R.id.btn_bannerboard_new:
+                SaleActivity.start(context, SaleActivity.TYPE_SINGLE);
+                break;
             case R.id.btn_bannerboard_brandhot:
-                EventBus.getDefault().post(new EventBean(EventBean.EVENT_JUMP_BRANDHOT));
+                SaleActivity.start(context, SaleActivity.TYPE_TOP);
                 break;
             case R.id.btn_bannerboard_recommed:
-                SaleActivity.start(context, SaleActivity.TYPE_RECOMMED);
+                SaleActivity.start(context, SaleActivity.TYPE_POPU);
                 break;
             case R.id.btn_bannerboard_clear:
-                SaleActivity.start(context, SaleActivity.TYPE_CLEAR);
+                SaleActivity.start(context, SaleActivity.TYPE_SELECT);
                 break;
             case R.id.btn_bannerboard_selection:
-                SaleActivity.start(context, SaleActivity.TYPE_SELECT);
+                SaleActivity.start(context, SaleActivity.TYPE_GOOD);
                 break;
         }
     }

@@ -60,7 +60,8 @@
                         android:layout_height="100dp"
                         android:background="@color/white"
                         android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:onClick="onClick">
 
                         <ImageView
                             android:id="@+id/img_me_header"
@@ -110,23 +111,23 @@
                         style="@style/TextMeItem"
                         android:onClick="onClick"
                         android:text="@string/setting_safe"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
 
                     <View
                         style="@style/Line_H"
                         android:layout_marginLeft="10dp"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/text_setting_msgsetting"
                         style="@style/TextMeItem"
                         android:onClick="onClick"
                         android:text="@string/setting_msg"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
 
                     <View
                         style="@style/Line_H"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -178,9 +179,12 @@
                         android:id="@+id/text_setting_email"
                         style="@style/TextMeItem"
                         android:onClick="onClick"
-                        android:text="@string/setting_email" />
+                        android:text="@string/setting_email"
+                        android:visibility="gone" />
 
-                    <View style="@style/Line_H" />
+                    <View
+                        style="@style/Line_H"
+                        android:visibility="gone" />
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -248,13 +252,15 @@
 
                     <View
                         style="@style/Line_H"
-                        android:layout_marginLeft="10dp" />
+                        android:layout_marginLeft="10dp"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/text_test_adyen"
                         style="@style/TextMeItem"
                         android:onClick="onClick"
-                        android:text="adyen集成测试" />
+                        android:text="adyen集成测试"
+                        android:visibility="gone" />
 
                     <View style="@style/Line_H" />
 
@@ -279,7 +285,7 @@
                         android:gravity="center"
                         android:onClick="onClick"
                         android:text="@string/setting_logout"
-                        android:textColor="@color/am_blue" />
+                        android:textColor="@color/st_purple_xgate" />
 
                 </LinearLayout>
             </LinearLayout>

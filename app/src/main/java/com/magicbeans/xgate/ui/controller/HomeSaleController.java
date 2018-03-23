@@ -33,6 +33,8 @@ public class HomeSaleController {
     public HomeSaleController(LayHomeSaleBinding binding) {
         this.binding = binding;
         this.context = binding.getRoot().getContext();
+        initCtrl();
+        initData();
     }
 
     public void initCtrl() {
@@ -40,7 +42,7 @@ public class HomeSaleController {
         adapter.setOnItemClickListener(onRecycleItemClickListener);
         binding.recycle.setNestedScrollingEnabled(false);
         binding.recycle.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        binding.recycle.addItemDecoration(new GridSpacingItemDecoration(1, DensityUtil.dp2px(10), GridLayoutManager.HORIZONTAL, false));
+        binding.recycle.addItemDecoration(new GridSpacingItemDecoration(1, DensityUtil.dp2px(7), GridLayoutManager.HORIZONTAL, true));
         binding.recycle.setAdapter(adapter);
     }
 
@@ -59,7 +61,7 @@ public class HomeSaleController {
     private void netGetSale() {
         Map<String, Object> param = new NetParam()
                 .build();
-        NetApi.NI().netHomeSaleList(param).enqueue(new STCallback<ProductWrap>(ProductWrap.class) {
+        NetApi.NI().netHomeTodayList(param).enqueue(new STCallback<ProductWrap>(ProductWrap.class) {
             @Override
             public void onSuccess(int status, ProductWrap bean, String msg) {
                 adapter.getResults().clear();

@@ -56,9 +56,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     public void onCommonEvent(EventBean event) {
         switch (event.getEvent()) {
             case EventBean.EVENT_LOGIN:
-                setUserData();
-                break;
             case EventBean.EVENT_LOGOUT:
+            case EventBean.EVENT_UPDATE_USER:
                 setUserData();
                 break;
             case EventBean.EVENT_ME_HISTORY_COUNT:

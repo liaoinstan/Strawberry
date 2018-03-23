@@ -37,19 +37,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="10dp" />
 
-                    <!--王牌单品-->
+                    <!--今日秒杀-->
                     <include
-                        android:id="@+id/include_home_single"
-                        layout="@layout/lay_home_single" />
+                        android:id="@+id/include_home_sale"
+                        layout="@layout/lay_home_sale" />
 
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="10dp" />
 
-                    <!--新品上市-->
+                    <!--新品推荐-->
                     <include
-                        android:id="@+id/include_home_newproduct"
-                        layout="@layout/lay_home_newproduct" />
+                        android:id="@+id/include_home_recommend"
+                        layout="@layout/lay_home_recommend" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -64,10 +64,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="10dp" />
 
-                    <!--新品推荐-->
+                    <!--王牌单品-->
                     <include
-                        android:id="@+id/include_home_recommend"
-                        layout="@layout/lay_home_recommend" />
+                        android:id="@+id/include_home_single"
+                        layout="@layout/lay_home_single" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <!--新品上市-->
+                    <include
+                        android:id="@+id/include_home_newproduct"
+                        layout="@layout/lay_home_newproduct" />
 
                     <Space
                         android:layout_width="match_parent"

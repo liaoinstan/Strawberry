@@ -34,8 +34,13 @@ public class SettingActivity extends BaseAppCompatActivity implements View.OnCli
 
     @Override
     public void onCommonEvent(EventBean event) {
-        if (event.getEvent() == EventBean.EVENT_LANGUAGE_CHANGE) {
-            recreate();
+        switch (event.getEvent()) {
+            case EventBean.EVENT_UPDATE_USER:
+                setUserData();
+                break;
+            case EventBean.EVENT_LANGUAGE_CHANGE:
+                recreate();
+                break;
         }
     }
 
@@ -70,6 +75,10 @@ public class SettingActivity extends BaseAppCompatActivity implements View.OnCli
     }
 
     private void initData() {
+        setUserData();
+    }
+
+    private void setUserData(){
         User user = AppData.App.getUser();
         if (user != null) {
             binding.textName.setText("你好");

@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.RadioGroup;
 
 import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.product.Product2;
+import com.magicbeans.xgate.bean.product.ProductDetail;
 import com.magicbeans.xgate.databinding.LayToobbarProductdetailBinding;
 import com.magicbeans.xgate.sharesdk.ShareDialog;
 
@@ -13,6 +15,8 @@ import com.magicbeans.xgate.sharesdk.ShareDialog;
  */
 
 public class ToolbarProdDetailController extends BaseController<LayToobbarProductdetailBinding> {
+
+    ProductDetail productDetail;
 
     public ToolbarProdDetailController(LayToobbarProductdetailBinding binding) {
         super(binding);
@@ -29,7 +33,13 @@ public class ToolbarProdDetailController extends BaseController<LayToobbarProduc
         binding.btnRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new ShareDialog(context).show();
+                if (productDetail != null) {
+                    Product2 product2 = productDetail.getSelectProduct(productDetail.getProdID());
+                    if (product2 != null) {
+                        product2.setBrandName(productDetail.getBrandName());
+                        new ShareDialog(context).setShareProduct2(product2).show();
+                    }
+                }
             }
         });
     }
@@ -78,5 +88,9 @@ public class ToolbarProdDetailController extends BaseController<LayToobbarProduc
             }
         }
         return false;
+    }
+
+    public void setData(ProductDetail productDetail) {
+        this.productDetail = productDetail;
     }
 }

@@ -15,7 +15,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="新品上市"
+                android:text="新品上线"
                 android:drawablePadding="10dp"
                 android:textColor="@color/st_pink"
                 android:drawableLeft="@drawable/ic_home_title_new_left"
