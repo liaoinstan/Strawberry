@@ -21,7 +21,7 @@
     <string name="title_setting">setting</string>
 
     <string name="digits_num_en">1234567890qwertyuiopasdfghjklzxcvbnm</string>
-    <string name="checkout_idcard_title">中国海关申报资料 订购人身份证 或护照号</string>
-    <string name="checkout_idcard">·为配合中国海关总署2016年4月12日关于跨境电子商务零售进出口商品有关监管事宜的公告\n·凡经电子商务企业购买跨境电子商务零售进口商品的个人（订购人）身份信息进行核实，并向海关提供由国家主管部门认证的身份有效信息\n·所有草莓网网站运送至中国国内的购物订单，相关跨境税务会由草莓网电子商务企业承担，客人若有被要求缴纳税务请务必先跟草莓网客服联系确认</string>
-    <string name="checkout_coupon">·需正确输入优惠码（提示：可使用复制-粘贴功能）\n·每个优惠码仅限使用一次\n·优惠码不可与全网优惠共同使用，如全单折上9折或香水产品折上9折等\n·该优惠或仅限于特定品牌或产品。请您再次查看优惠条款</string>
+    <string name="checkout_idcard_title">The identity card or passport number of the subscribers of the customs declaration materials in China</string>
+    <string name="checkout_idcard">·For the Chinese April 12, 2016 of the General Administration of Customs on cross-border e-commerce retail import and export commodities related to regulatory matters announcement \n where the electronic commerce enterprises to buy cross-border e-commerce retail imports (ordering) personal identity information verification, and provide the Customs by the competent department of the state certified identity information effectively \n all web delivery of strawberry to Chinese domestic shopping orders, related cross-border tax would be absorbed by strawberry net e-commerce enterprises, if the guests are required to pay the tax please contact customer service to confirm with the strawberry net</string>
+    <string name="checkout_coupon">·You need to input the discount code correctly (hint: you can use the copy paste function) \n. Each discount code is only used once. \n discount code can not be used together with the whole network discount, for example, the total discount is 10 percent off or the perfume product is folded up to 10 percent off and so on \n. This offer is only limited to the specific brand or product. Please check the concessionary terms again</string>
 </resources>
