@@ -111,8 +111,10 @@ public class BrandFragment extends BaseFragment implements OnRecycleItemClickLis
         index_bar.addOnIndexChangeListener(new SideBar.OnIndexChangeListener() {
             @Override
             public void onIndexChanged(float centerY, String tag, int position) {
+                //TODO:滚动5.0上，卡
                 int pos = getPosByTag(adapter.getResults(), tag);
                 if (pos != -1) layoutManager.scrollToPositionWithOffset(pos, 0);
+//                recycler.scrollToPosition(50);
             }
         });
         SpringViewHelper.initSpringViewForTest(spring);
