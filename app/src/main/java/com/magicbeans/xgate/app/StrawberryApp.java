@@ -30,6 +30,7 @@ public class StrawberryApp extends Application {
         initJpush();
         initBugly();
         initShareSdk();
+
     }
 
     private void initSetting() {
