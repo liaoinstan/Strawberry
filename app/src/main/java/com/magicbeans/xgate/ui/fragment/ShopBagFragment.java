@@ -80,6 +80,9 @@ public class ShopBagFragment extends BaseFragment {
                 });
                 showBttomSheep();
                 break;
+            case EventBean.EVENT_SHOPCART_DOING:
+
+                break;
         }
     }
 

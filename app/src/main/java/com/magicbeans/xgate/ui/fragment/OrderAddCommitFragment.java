@@ -16,6 +16,7 @@ import com.magicbeans.xgate.bean.order.Order;
 import com.magicbeans.xgate.bean.postbean.CreateOrderPost;
 import com.magicbeans.xgate.bean.postbean.FreeGift;
 import com.magicbeans.xgate.databinding.FragmentOrderaddCommitBinding;
+import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.net.NetApi;
 import com.magicbeans.xgate.net.NetParam;
 import com.magicbeans.xgate.net.STFormatCallback;
@@ -155,7 +156,7 @@ public class OrderAddCommitFragment extends BaseFragment implements View.OnClick
                 EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART_REMOTE));
                 dismissLoadingDialog();
                 getActivity().finish();
-                PayWayActivity.start(getActivity(), order.getSOID());
+                PayWayActivity.start(getActivity(), order.getSOID(), activity.getShopCartInfo().getTotalPrice().replace(AppHelper.getPriceSymbol(""), ""));
             }
 
             @Override

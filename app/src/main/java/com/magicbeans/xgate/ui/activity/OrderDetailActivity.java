@@ -26,6 +26,7 @@ public class OrderDetailActivity extends BaseAppCompatActivity implements View.O
     private ActivityOrderdetailBinding binding;
     private String orderId;
     private RecycleAdapterOrderDetailGoods adapter;
+    private String netAmount;
 
     public static void start(Context context, String orderId) {
         if (AppHelper.User.isLogin()) {
@@ -72,7 +73,7 @@ public class OrderDetailActivity extends BaseAppCompatActivity implements View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_go:
-                PayWayActivity.start(this, orderId);
+                PayWayActivity.start(this, orderId, netAmount);
                 break;
         }
     }
@@ -107,6 +108,7 @@ public class OrderDetailActivity extends BaseAppCompatActivity implements View.O
         NetOrderHelper.getInstance().netOrderDetail(orderId, new NetOrderHelper.OnOrderDetailCallback() {
             @Override
             public void onOrderDetail(OrderDetail orderDetail) {
+                netAmount = orderDetail.getNetAmount();
                 setData(orderDetail);
                 hideLoadingDialog();
             }

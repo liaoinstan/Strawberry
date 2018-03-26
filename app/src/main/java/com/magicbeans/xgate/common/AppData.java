@@ -18,6 +18,7 @@ public class AppData {
         private static final String KEY_USER = "user";
         private static final String KEY_USERAGENT = "user_agent";
         private static final String KEY_LANGUAGE = "language";
+        private static final String KEY_CART = "cart";
 
         public static void saveToken(Token token) {
             SharedPrefUtilV2.open(SHARENAME).put(KEY_TOKEN, token);
@@ -47,6 +48,16 @@ public class AppData {
 
 
         ////////////////////////////////////////////////////////////////////////////////////////
+
+        public static boolean getIsDoingCart() {
+            return SharedPrefUtilV2.open(SHARENAME).getBoolean(KEY_CART);
+        }
+
+        public static void saveIsDoingCart(boolean isDoing){
+            SharedPrefUtilV2.open(SHARENAME).putBoolean(KEY_CART, isDoing);
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////
 
         public static void saveUser(User user) {
             SharedPrefUtilV2.open(SHARENAME).put(KEY_USER, user);

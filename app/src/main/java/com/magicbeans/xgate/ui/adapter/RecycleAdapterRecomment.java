@@ -15,6 +15,7 @@ import com.ins.common.utils.viewutils.TextViewUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.product.Product;
 import com.magicbeans.xgate.bean.product.ProductWrap;
+import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.databinding.ItemRecommentGridBinding;
 import com.magicbeans.xgate.helper.DataShopCartHelper;
 import com.magicbeans.xgate.net.NetApi;
@@ -57,6 +58,7 @@ public class RecycleAdapterRecomment extends RecyclerView.Adapter<RecycleAdapter
         holder.binding.btnAddShopcart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AppData.App.saveIsDoingCart(true);
                 //###### 添加到服务器及本地数据库 ######
 //                NetShopCartHelper.getInstance().netAddShopCart(product.getProdID(), 1);
                 DataShopCartHelper.getInstance().addShopCart(product);

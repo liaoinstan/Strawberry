@@ -11,6 +11,7 @@ import android.view.View;
 import com.ins.common.common.ItemDecorationDivider;
 import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.ui.dialog.DialogSure;
+import com.ins.common.utils.App;
 import com.ins.common.utils.StrUtil;
 import com.ins.common.utils.ToastUtil;
 import com.liaoinstan.springview.container.AliFooter;
@@ -20,6 +21,7 @@ import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.EventBean;
 import com.magicbeans.xgate.bean.shopcart.ShopCart;
 import com.magicbeans.xgate.bean.shopcart.ShopCartInfo;
+import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.data.db.manager.ShopCartTableManager;
 import com.magicbeans.xgate.databinding.FragmentShopbagBinding;
 import com.magicbeans.xgate.databinding.LayShopcartBottombarBinding;
@@ -77,6 +79,10 @@ public class ShopCartBottomBarController extends BaseController<LayShopcartBotto
                 }
                 break;
             case R.id.btn_go: {
+
+                if (AppData.App.getIsDoingCart()){
+                    return;
+                }
                 final List<ShopCart> selectBeans = adapter.getSelectBeans();
                 if (!StrUtil.isEmpty(selectBeans)) {
                     OrderAddActivity.start(context, selectBeans, shopCartInfo);

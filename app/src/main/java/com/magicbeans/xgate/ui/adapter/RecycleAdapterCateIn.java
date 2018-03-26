@@ -1,6 +1,8 @@
 package com.magicbeans.xgate.ui.adapter;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,9 +15,11 @@ import com.ins.common.interfaces.OnRecycleItemClickListener;
 import com.ins.common.utils.GlideUtil;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.category.Cate3;
+import com.magicbeans.xgate.utils.CategoryLoadImage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class RecycleAdapterCateIn extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -64,10 +68,18 @@ public class RecycleAdapterCateIn extends RecyclerView.Adapter<RecyclerView.View
     private void bindContent(HolderContent holder, int position) {
         Cate3 bean = results.get(position);
         holder.text_title.setText(bean.getProdTypeName());
+
         //TODO:接口一直没有提供分类的图片，但是UI设计上有图片，直到今天香港那边发了一百多张图过来，要把图片放在本地，自行去写if else筛选图片。心累…
         //TODO:图片的问题先暂时放一放，这里先随机加载一张产品图片
         GlideUtil.loadImgTest(holder.img_header);
-//        GlideUtil.loadImg(holder.img_header,123);
+//        Map<String, Integer> map = CategoryLoadImage.loadImage();
+//        Integer res = map.get(bean.getProdCatgId());
+//        if (res != null){
+//            holder.img_header.setImageResource(res);
+//        }else {
+//            holder.img_header.setImageResource(R.drawable.s_1);
+//        }
+
     }
 
     private void bindHeader(HolderHeader holder, int position) {

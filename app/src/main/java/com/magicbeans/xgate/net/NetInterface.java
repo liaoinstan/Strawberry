@@ -488,7 +488,7 @@ public interface NetInterface {
      * payment_method_nonce
      * amt
      */
-    @POST("   ")
+    @POST("/app/apiPaypalRequest.aspx")
     Call<ResponseBody> apiPaypalPay(@QueryMap(encoded = true) Map<String, Object> param);
     //##################################################################
     //#########               2018/2/12 搜索自动补全

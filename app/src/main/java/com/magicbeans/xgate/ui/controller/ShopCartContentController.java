@@ -21,6 +21,7 @@ import com.liaoinstan.springview.widget.SpringView;
 import com.magicbeans.xgate.R;
 import com.magicbeans.xgate.bean.shopcart.ShopCart;
 import com.magicbeans.xgate.bean.shopcart.ShopCartInfo;
+import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.data.db.manager.ShopCartTableManager;
 import com.magicbeans.xgate.databinding.FragmentShopbagBinding;
 import com.magicbeans.xgate.helper.DataShopCartHelper;
@@ -130,9 +131,22 @@ public class ShopCartContentController extends BaseController<FragmentShopbagBin
             @Override
             public void onChanged(@Nullable List<ShopCart> shopCarts) {
                 adapter.notifyDataSetChanged(shopCarts);
+                List<ShopCart> results = adapter.getResults();
+                boolean isSelectedAll = true;
+                for (int i = 0; i < results.size(); i++) {
+                   if (!results.get(i).isSelect()){
+                       isSelectedAll = false;
+                   }
+                }
+                if (isSelectedAll){
+                    binding.includeBottombar.textShopbagCheckall.setSelected(true);
+                }else {
+                    binding.includeBottombar.textShopbagCheckall.setSelected(false);
+                }
                 binding.spring.onFinishFreshAndLoad();
                 //计算价格
                 bottomBarController.setPriceAndCount();
+                AppData.App.saveIsDoingCart(false);
             }
         });
     }

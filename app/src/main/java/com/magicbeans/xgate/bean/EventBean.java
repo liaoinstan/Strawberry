@@ -44,6 +44,9 @@ public class EventBean implements Serializable {
     public static final int EVENT_ORDERADD_POSTBEAN = 0xffa115;
     //获取到SHOPCARTINFO
     public static final int EVENT_SHOPCART_INFO = 0xffa116;
+    //正在对购物车进行操作、完成
+    public static final int EVENT_SHOPCART_DOING = 0xffa117;
+
 
     private int event;
     private Map<String, Object> map = new HashMap<>();

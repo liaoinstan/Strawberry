@@ -78,7 +78,7 @@ public class ProductActivity extends BaseAppCompatActivity {
         productListSortController = new ProductListSortController(binding.includeProductlistSort);
         productListContentController = new ProductListContentController(binding.includeProductlistContent);
         productListSortController.setShadowView(binding.includeProductlistContent.shadow);
-        productListContentController.setCatgId(catgId);
+        productListContentController.setCatgId(TextUtils.isEmpty(catgId) ? "1" : catgId);
         productListContentController.setBrandID(brandID);
         productListContentController.setTypeId(typeId);
         if (!TextUtils.isEmpty(catgId)) productListSortController.setSelectCate(catgId);

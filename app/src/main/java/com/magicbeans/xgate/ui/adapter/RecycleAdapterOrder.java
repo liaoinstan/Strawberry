@@ -52,14 +52,13 @@ public class RecycleAdapterOrder extends RecyclerView.Adapter<RecycleAdapterOrde
         holder.binding.btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PayWayActivity.start(context, order.getSOID());
+                PayWayActivity.start(context, order.getSOID(), order.getNetAmount());
             }
         });
 
         holder.binding.textCount.setText("共" + order.getItemList().size() + "件商品 实付款");
         holder.binding.textPrice.setText(AppHelper.getPriceSymbol("") + order.getNetAmount());
         holder.binding.textStatus.setText(order.getOrderStatus());
-
         holder.adapter.getResults().clear();
         holder.adapter.getResults().addAll(order.getItemList());
         holder.adapter.notifyDataSetChanged();

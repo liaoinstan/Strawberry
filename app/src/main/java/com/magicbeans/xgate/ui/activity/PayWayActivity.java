@@ -6,9 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.braintreepayments.api.BraintreeFragment;
+import com.braintreepayments.api.PayPal;
 import com.braintreepayments.api.dropin.DropInActivity;
 import com.braintreepayments.api.dropin.DropInRequest;
 import com.braintreepayments.api.dropin.DropInResult;
+import com.braintreepayments.api.exceptions.InvalidArgumentException;
+import com.braintreepayments.api.models.PayPalRequest;
 import com.braintreepayments.api.models.PaymentMethodNonce;
 import com.ins.common.utils.ToastUtil;
 import com.magicbeans.xgate.R;
@@ -23,17 +27,20 @@ import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
 public class PayWayActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
     private String SOID;
+    private String totalPrice;
 
     private final int REQUEST_CODE = 1001;
+    private BraintreeFragment mBraintreeFragment;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, PayWayActivity.class);
         context.startActivity(intent);
     }
 
-    public static void start(Context context, String SOID) {
+    public static void start(Context context, String SOID, String totalPrice) {
         Intent intent = new Intent(context, PayWayActivity.class);
         intent.putExtra("SOID", SOID);
+        intent.putExtra("totalPrice", totalPrice);
         context.startActivity(intent);
     }
 
@@ -41,6 +48,7 @@ public class PayWayActivity extends BaseAppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payway);
+
         setToolbar();
         initBase();
         initView();
@@ -50,6 +58,7 @@ public class PayWayActivity extends BaseAppCompatActivity implements View.OnClic
 
     private void initBase() {
         SOID = getIntent().getStringExtra("SOID");
+        totalPrice = getIntent().getStringExtra("totalPrice");
     }
 
     private void initView() {
@@ -70,7 +79,7 @@ public class PayWayActivity extends BaseAppCompatActivity implements View.OnClic
                 payPal();
                 break;
             case R.id.text_adyen:
-                AdyenPayApi.with(this).pay(SOID, 1, AppData.App.getUser().getEmail(), new AdyenPayApi.OnAdyenCallback() {
+                AdyenPayApi.with(this).pay(SOID, (int)(Double.valueOf(totalPrice) * 100), AppData.App.getUser().getEmail(), new AdyenPayApi.OnAdyenCallback() {
                     @Override
                     public void onPaySuccess(AdyenResult adyenResult) {
                         PayResultActivity.start(PayWayActivity.this, new PayResult(adyenResult));
@@ -86,9 +95,22 @@ public class PayWayActivity extends BaseAppCompatActivity implements View.OnClic
             @Override
             public void onToken(String clientToken) {
                 clientToken = clientToken.trim();
-                DropInRequest dropInRequest = new DropInRequest().clientToken(clientToken);
-                startActivityForResult(dropInRequest.getIntent(PayWayActivity.this), REQUEST_CODE);
-                dismissLoadingDialog();
+
+                try {
+                    mBraintreeFragment = BraintreeFragment.newInstance(PayWayActivity.this, clientToken);
+                    PayPalRequest request = new PayPalRequest("1")
+                            .currencyCode("USD")
+                            .intent(PayPalRequest.INTENT_AUTHORIZE);
+                    PayPal.requestOneTimePayment(mBraintreeFragment, request);
+
+                    // mBraintreeFragment is ready to use!
+                } catch (InvalidArgumentException e) {
+                    // There was an issue with your authorization string.
+                }
+
+//                DropInRequest dropInRequest = new DropInRequest().clientToken(clientToken);
+//                startActivityForResult(dropInRequest.getIntent(PayWayActivity.this), REQUEST_CODE);
+//                dismissLoadingDialog();
             }
 
             @Override
