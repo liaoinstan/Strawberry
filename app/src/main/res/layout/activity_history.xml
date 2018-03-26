@@ -32,7 +32,7 @@
 
             </android.support.v7.widget.Toolbar>
 
-            <View
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/com_line" />

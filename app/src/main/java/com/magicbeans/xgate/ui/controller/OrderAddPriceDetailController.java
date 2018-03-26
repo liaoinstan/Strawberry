@@ -52,6 +52,7 @@ public class OrderAddPriceDetailController extends BaseController<LayOrderaddPri
 
     public void setShopCartInfo(ShopCartInfo shopCartInfo) {
         this.shopCartInfo = shopCartInfo;
+        if (shopCartInfo == null) return;
 
         List<OrderPriceDetail> results = new ArrayList<>();
 

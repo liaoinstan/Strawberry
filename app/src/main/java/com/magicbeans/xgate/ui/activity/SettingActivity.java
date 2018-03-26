@@ -19,7 +19,6 @@ import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.databinding.ActivitySettingBinding;
 import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.ui.base.BaseAppCompatActivity;
-import com.magicbeans.xgate.utils.CipherUtil2;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -54,12 +53,6 @@ public class SettingActivity extends BaseAppCompatActivity implements View.OnCli
         initView();
         initCtrl();
         initData();
-
-        String psw = "abcd1234";
-        CipherUtil2 cipherUtil2 = new CipherUtil2();
-        String pswEncry = cipherUtil2.encryptPassword(psw);
-        L.e(CipherUtil2.TAG, psw);
-        L.e(CipherUtil2.TAG, pswEncry);
     }
 
     private void initBase() {

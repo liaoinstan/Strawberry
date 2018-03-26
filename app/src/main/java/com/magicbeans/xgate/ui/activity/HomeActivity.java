@@ -73,8 +73,6 @@ public class HomeActivity extends BaseAppCompatActivity {
         PermissionsUtil.checkAndRequestPermissions(this);
         //版本更新检查
         //检查更新
-//        updateHelper = new UpdateHelper.Builder(this).checkUrl(AppData.Url.version).isHintNewVersion(false).build();
-//        updateHelper.check();
         VersionHelper.with(this).isShowToast(false).checkUrl(AppData.Url.version).check();
 
         StatusBarUtil.setBarFollow(this);
