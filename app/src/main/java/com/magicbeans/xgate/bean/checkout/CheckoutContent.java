@@ -18,6 +18,7 @@ public class CheckoutContent implements Serializable {
     private List<Notice> ImportantNotices;
     private List<Notice> AddressNotices;
 
+
     //##################### 业务方法 #######################
 
     public String getNoticeStr() {

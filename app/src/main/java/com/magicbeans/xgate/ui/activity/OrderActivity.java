@@ -18,7 +18,8 @@ public class OrderActivity extends BaseAppCompatActivity {
     private PagerAdapterOrder adapterPager;
 
     private int position;
-    private String[] titles = new String[]{"全部", "待付款", "待发货", "待收货", "待评价"};
+//    private String[] titles = new String[]{"全部", "待付款", "待发货", "待收货", "待评价"};
+    private String[] titles = new String[]{"全部"};
 
     public static void start(Context context, int status) {
         if (!AppHelper.User.isLogin()) {

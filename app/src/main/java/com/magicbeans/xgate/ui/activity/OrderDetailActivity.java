@@ -88,6 +88,10 @@ public class OrderDetailActivity extends BaseAppCompatActivity implements View.O
         if (orderDetail != null) {
             binding.textPriceTotal.setText(AppHelper.getPriceSymbol(null) + orderDetail.getNetAmount());
             binding.textPriceReal.setText(AppHelper.getPriceSymbol(null) + orderDetail.getNetAmount());
+            binding.orderStatus.setText(orderDetail.getOrderStatus());
+            binding.snNum.setText("订单编号： " + orderDetail.getSOID());
+            binding.orderTime.setText("下单时间： " + orderDetail.getOrderDate() );
+            binding.textAddressDetail.setText(orderDetail.getFullShipAddr().replace("\\n", "").replace("none", ""));
             adapter.getResults().clear();
             adapter.getResults().addAll(orderDetail.getProductOrderList());
             adapter.notifyDataSetChanged();

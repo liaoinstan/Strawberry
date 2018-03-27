@@ -1,25 +1,16 @@
 package com.magicbeans.xgate.ui.controller;
 
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.View;
-import android.widget.ImageView;
 
-import com.ins.common.common.ItemDecorationDivider;
-import com.ins.common.utils.GlideUtil;
 import com.ins.common.utils.StrUtil;
-import com.ins.common.view.bundleimgview.BundleImgEntity;
-import com.ins.common.view.bundleimgview.BundleImgView;
-import com.magicbeans.xgate.R;
+import com.magicbeans.xgate.bean.checkout.CheckoutWrap;
+import com.magicbeans.xgate.bean.checkout.PromoList;
 import com.magicbeans.xgate.bean.order.OrderPriceDetail;
 import com.magicbeans.xgate.bean.shopcart.Promote;
-import com.magicbeans.xgate.bean.shopcart.ShopCart;
 import com.magicbeans.xgate.bean.shopcart.ShopCartInfo;
 import com.magicbeans.xgate.bean.shopcart.Surcharge;
 import com.magicbeans.xgate.databinding.LayOrderaddPricedetailBinding;
-import com.magicbeans.xgate.databinding.LayOrderaddProductsBinding;
 import com.magicbeans.xgate.helper.AppHelper;
-import com.magicbeans.xgate.ui.activity.OrderProductActivity;
-import com.magicbeans.xgate.ui.adapter.RecycleAdapterEva;
 import com.magicbeans.xgate.ui.adapter.RecycleAdapterPriceDetail;
 
 import java.util.ArrayList;
@@ -48,6 +39,30 @@ public class OrderAddPriceDetailController extends BaseController<LayOrderaddPri
     }
 
     private void initData() {
+    }
+
+    public void setCheckOut(CheckoutWrap wrap){
+        List<OrderPriceDetail> results = new ArrayList<>();
+        results.add((new OrderPriceDetail("商品总价", AppHelper.replecePriceSymbol(wrap.getOrderSummary().getSubTotal()))));
+        results.add(new OrderPriceDetail(wrap.getOrderSummary().getShipment().getName(), AppHelper.replecePriceSymbol(wrap.getOrderSummary().getShipment().getAmount())));
+
+        //优惠内容
+        List<PromoList> promoList = wrap.getOrderSummary().getPromoList();
+        if (!StrUtil.isEmpty(promoList)) {
+            for (int i = 0; i < promoList.size(); i++) {
+                results.add(new OrderPriceDetail(promoList.get(i).getName(), AppHelper.replecePriceSymbol(promoList.get(i).getDiscAmount())));
+            }
+        }
+
+        //附加费
+        List<com.magicbeans.xgate.bean.checkout.Surcharge> surchargeList = wrap.getOrderSummary().getSurcharge();
+        if (!StrUtil.isEmpty(surchargeList)) {
+            for (int i = 0; i < surchargeList.size(); i++) {
+                results.add(new OrderPriceDetail(surchargeList.get(i).getName(), AppHelper.replecePriceSymbol(surchargeList.get(i).getAmount())));
+            }
+        }
+        adapter.getResults().addAll(results);
+        adapter.notifyDataSetChanged();
     }
 
     public void setShopCartInfo(ShopCartInfo shopCartInfo) {

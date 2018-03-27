@@ -158,7 +158,8 @@ public class OrderAddActivity extends BaseAppCompatActivity implements View.OnCl
         customer.setShipAddr(addressController.getAddress().transToAddr());
         post.setCustomer(customer);
         //Payment
-        post.setPayment(new Payment("Wechat AY"));
+//        post.setPayment(new Payment("Wechat AY"));
+        post.setPayment(new Payment("M - Wait"));
         //Promotion
         post.setPromotion(new Promotion(coupon));
 

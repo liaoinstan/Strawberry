@@ -58,7 +58,9 @@
                 app:stl_indicatorInterpolation="smart"
                 app:stl_indicatorThickness="3dp"
                 app:stl_underlineColor="@color/com_line"
-                app:stl_underlineThickness="1px" />
+                app:stl_underlineThickness="1px"
+                app:stl_indicatorWidth="50dp"
+                android:visibility="gone"/>
 
 
         </android.support.design.widget.AppBarLayout>

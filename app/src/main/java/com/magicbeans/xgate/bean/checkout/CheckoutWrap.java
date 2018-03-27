@@ -12,8 +12,17 @@ import java.util.List;
 
 public class CheckoutWrap implements Serializable {
     private CheckoutContent CheckoutContents;
+    private OrderSummary OrderSummary;
     private List<GiftOption> GiftOptions;
 
+
+    public OrderSummary getOrderSummary() {
+        return OrderSummary;
+    }
+
+    public void setOrderSummary(OrderSummary orderSummary) {
+        this.OrderSummary = orderSummary;
+    }
 
     public CheckoutContent getCheckoutContents() {
         return CheckoutContents;

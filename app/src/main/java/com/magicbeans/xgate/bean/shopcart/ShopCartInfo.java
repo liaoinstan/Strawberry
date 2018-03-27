@@ -23,6 +23,8 @@ public class ShopCartInfo implements Serializable {
     private String shipmentPrice;
     //运送方式
     private String shipmentName;
+
+    private String OrderTotal;
     //优惠
     private List<Promote> PromoList;
     //附加费

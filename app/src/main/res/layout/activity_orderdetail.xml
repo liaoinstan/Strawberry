@@ -55,6 +55,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/order_Status"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:background="@color/white"
@@ -143,6 +144,7 @@
                         android:paddingTop="10dp">
 
                         <TextView
+                            android:id="@+id/sn_Num"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
@@ -152,6 +154,7 @@
                             android:textSize="@dimen/text_nomal_small" />
 
                         <TextView
+                            android:id="@+id/order_Time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
@@ -178,7 +181,8 @@
                         <View
                             style="@style/Line_H"
                             android:layout_marginBottom="10dp"
-                            android:layout_marginTop="10dp" />
+                            android:layout_marginTop="10dp"
+                            android:visibility="gone"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -187,7 +191,8 @@
                             android:layout_marginRight="15dp"
                             android:text="配送方式： 普通快递"
                             android:textColor="@color/com_text_blank"
-                            android:textSize="@dimen/text_nomal_small" />
+                            android:textSize="@dimen/text_nomal_small"
+                            android:visibility="gone"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -197,7 +202,8 @@
                             android:layout_marginTop="10dp"
                             android:text="配送日期： 2017-09-15 14:15:35"
                             android:textColor="@color/com_text_blank"
-                            android:textSize="@dimen/text_nomal_small" />
+                            android:textSize="@dimen/text_nomal_small"
+                            android:visibility="gone"/>
 
                     </LinearLayout>
 

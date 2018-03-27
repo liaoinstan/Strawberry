@@ -15,6 +15,7 @@ import com.magicbeans.xgate.bean.checkout.CheckoutWrap;
 import com.magicbeans.xgate.bean.order.Order;
 import com.magicbeans.xgate.bean.postbean.CreateOrderPost;
 import com.magicbeans.xgate.bean.postbean.FreeGift;
+import com.magicbeans.xgate.common.AppData;
 import com.magicbeans.xgate.databinding.FragmentOrderaddCommitBinding;
 import com.magicbeans.xgate.helper.AppHelper;
 import com.magicbeans.xgate.net.NetApi;
@@ -91,7 +92,7 @@ public class OrderAddCommitFragment extends BaseFragment implements View.OnClick
 
     private void initBase() {
         priceDetailController = new OrderAddPriceDetailController(binding.includePricedetail);
-        priceDetailController.setShopCartInfo(activity.getShopCartInfo());
+//        priceDetailController.setShopCartInfo(activity.getShopCartInfo());
         dialogBottomGifts = new DialogBottomGifts(getActivity());
         dialogBottomGifts.setGiftSelectListener(new DialogBottomGifts.GiftSelectListener() {
             @Override
@@ -108,7 +109,6 @@ public class OrderAddCommitFragment extends BaseFragment implements View.OnClick
 
     private void initCtrl() {
         binding.btnGo.setOnClickListener(this);
-        binding.textPayPrice.setText("应付：" + activity.getShopCartInfo().getTotalPrice());
     }
 
     private void initData() {
@@ -117,6 +117,8 @@ public class OrderAddCommitFragment extends BaseFragment implements View.OnClick
     private void setWarpData(CheckoutWrap wrap) {
         if (wrap != null) {
             binding.textNotice.setText(wrap.getImportantNoticeStr());
+            priceDetailController.setCheckOut(wrap);
+            binding.textPayPrice.setText("应付：" + AppHelper.replecePriceSymbol(wrap.getOrderSummary().getOrderTotal()));
             if (wrap.hasGift()) {
                 binding.textGift.setVisibility(View.VISIBLE);
                 binding.textGiftName.setVisibility(View.VISIBLE);
@@ -156,7 +158,8 @@ public class OrderAddCommitFragment extends BaseFragment implements View.OnClick
                 EventBus.getDefault().post(new EventBean(EventBean.EVENT_REFRESH_SHOPCART_REMOTE));
                 dismissLoadingDialog();
                 getActivity().finish();
-                PayWayActivity.start(getActivity(), order.getSOID(), activity.getShopCartInfo().getTotalPrice().replace(AppHelper.getPriceSymbol(""), ""));
+//                PayWayActivity.start(getActivity(), order.getSOID(), activity.getShopCartInfo().getTotalPrice().replace(AppHelper.getPriceSymbol(""), ""));
+                PayWayActivity.start(getActivity(), order.getSOID(),AppHelper.replecePriceSymbol(wrap.getOrderSummary().getOrderTotal()).replace("¥", ""));
             }
 
             @Override

@@ -10,7 +10,35 @@ import java.util.List;
 public class OrderDetail implements Serializable{
     private String SOID;
     private String NetAmount;
+    private String OrderDate;
+    private String OrderStatus;
+    private String fullShipAddr;
     private List<OrderProduct> ProductOrderList;
+
+
+    public String getFullShipAddr() {
+        return fullShipAddr;
+    }
+
+    public void setFullShipAddr(String fullShipAddr) {
+        this.fullShipAddr = fullShipAddr;
+    }
+
+    public String getOrderDate() {
+        return OrderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        OrderDate = orderDate;
+    }
+
+    public String getOrderStatus() {
+        return OrderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        OrderStatus = orderStatus;
+    }
 
     public String getSOID() {
         return SOID;
